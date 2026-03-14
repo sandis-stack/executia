@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EXECUTIA — Execution Integrity Infrastructure</title>
+  <meta name="description" content="EXECUTIA verifies institutional decisions before system execution, making incorrect execution structurally impossible." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inconsolata:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- PAGE RULE OVERLAY -->
+  <div class="page-rule-v" aria-hidden="true"></div>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__wordmark">
+        <span class="nav__wordmark-main">EXECUTIA</span>
+        <span class="nav__wordmark-sub">Execution Integrity Infrastructure</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#architecture">Architecture</a>
+        <a href="#gap">The Gap</a>
+        <a href="#protocol">Protocol</a>
+        <a href="#contact" class="nav__cta">Request Briefing</a>
+      </nav>
+      <button class="nav__hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <nav>
+      <a href="#architecture">Architecture</a>
+      <a href="#gap">The Gap</a>
+      <a href="#protocol">Protocol</a>
+      <a href="#contact">Request Briefing</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- ═══ SECTION 1 — HERO ═══ -->
+    <section class="hero" id="hero">
+      <div class="hero__grid">
+        <div class="hero__label-col">
+          <span class="label">§ 1.0</span>
+        </div>
+        <div class="hero__content">
+          <p class="hero__eyebrow">Execution Integrity Infrastructure</p>
+          <h1 class="hero__headline">EXECUTIA</h1>
+          <div class="hero__pipeline" aria-label="Decision flows through EXECUTIA to Result">
+            <div class="pipeline__node">
+              <span class="pipeline__name">Decision</span>
+              <span class="pipeline__desc">Institutional intent</span>
+            </div>
+            <div class="pipeline__track" aria-hidden="true">
+              <svg width="100%" height="2" preserveAspectRatio="none">
+                <line x1="0" y1="1" x2="100%" y2="1" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+              </svg>
+              <span class="pipeline__arrow">→</span>
+            </div>
+            <div class="pipeline__node pipeline__node--core">
+              <span class="pipeline__name">EXECUTIA</span>
+              <span class="pipeline__desc">Verification engine</span>
+            </div>
+            <div class="pipeline__track" aria-hidden="true">
+              <svg width="100%" height="2" preserveAspectRatio="none">
+                <line x1="0" y1="1" x2="100%" y2="1" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+              </svg>
+              <span class="pipeline__arrow">→</span>
+            </div>
+            <div class="pipeline__node">
+              <span class="pipeline__name">Result</span>
+              <span class="pipeline__desc">Verified execution</span>
+            </div>
+          </div>
+          <p class="hero__thesis">
+            Making incorrect execution<br>structurally impossible.
+          </p>
+        </div>
+        <div class="hero__marginalia" aria-hidden="true">
+          <span class="marginalia__line">PCT/IB2026/050141</span>
+          <span class="marginalia__line">Patent Pending</span>
+          <span class="marginalia__line">v1.0</span>
+        </div>
+      </div>
+      <div class="hero__rule-foot"></div>
+    </section>
+
+    <!-- ═══ SECTION 2 — EXECUTION CHAIN ═══ -->
+    <section class="section chain-section" id="chain">
+      <div class="section__inner">
+        <header class="section__head">
+          <span class="section__index label">§ 2.0</span>
+          <h2 class="section__title">Execution Chain</h2>
+          <p class="section__lead">Every institutional decision is structurally routed through a verified execution pipeline before reaching any downstream system.</p>
+        </header>
+        <div class="chain" role="list">
+          <div class="chain__step" role="listitem">
+            <div class="chain__step-index label">01</div>
+            <div class="chain__step-rule"></div>
+            <h3 class="chain__step-title">Decision</h3>
+            <p class="chain__step-body">Intent is captured, formalised, and submitted to the verification layer as a structured institutional record.</p>
+          </div>
+          <div class="chain__connector" aria-hidden="true">
+            <div class="chain__connector-track">
+              <div class="chain__connector-line"></div>
+              <span class="chain__connector-glyph">→</span>
+            </div>
+          </div>
+          <div class="chain__step chain__step--core" role="listitem">
+            <div class="chain__step-index label">02</div>
+            <div class="chain__step-rule"></div>
+            <h3 class="chain__step-title">EXECUTIA<br>Verification</h3>
+            <p class="chain__step-body">Authority, policy, budget, and compliance are checked atomically. Every condition must pass. There is no partial verification.</p>
+            <div class="chain__step-badge label">Integrity Layer</div>
+          </div>
+          <div class="chain__connector" aria-hidden="true">
+            <div class="chain__connector-track">
+              <div class="chain__connector-line"></div>
+              <span class="chain__connector-glyph">→</span>
+            </div>
+          </div>
+          <div class="chain__step" role="listitem">
+            <div class="chain__step-index label">03</div>
+            <div class="chain__step-rule"></div>
+            <h3 class="chain__step-title">Institutional Systems</h3>
+            <p class="chain__step-body">ERP, treasury, procurement, and legal systems receive only verified execution signals. All others are structurally blocked.</p>
+          </div>
+          <div class="chain__connector" aria-hidden="true">
+            <div class="chain__connector-track">
+              <div class="chain__connector-line"></div>
+              <span class="chain__connector-glyph">→</span>
+            </div>
+          </div>
+          <div class="chain__step" role="listitem">
+            <div class="chain__step-index label">04</div>
+            <div class="chain__step-rule"></div>
+            <h3 class="chain__step-title">Result</h3>
+            <p class="chain__step-body">The outcome is immutably recorded with a complete, unbroken accountability chain — authority to execution.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 3 — ARCHITECTURE ═══ -->
+    <section class="section arch-section" id="architecture">
+      <div class="section__inner">
+        <header class="section__head">
+          <span class="section__index label">§ 3.0</span>
+          <h2 class="section__title">Architecture</h2>
+          <p class="section__lead">Four independent, sequentially dependent layers form a verification stack that cannot be partially bypassed.</p>
+        </header>
+        <div class="arch">
+          <div class="arch__layer">
+            <div class="arch__layer-index label">I</div>
+            <div class="arch__layer-body">
+              <h3>Decision Layer</h3>
+              <p>Captures and formalises every institutional decision — expenditure, contract, policy directive — before any downstream action is permitted. Nothing proceeds without a registered intent.</p>
+            </div>
+            <div class="arch__layer-status label">Input</div>
+          </div>
+          <div class="arch__layer arch__layer--primary">
+            <div class="arch__layer-index label">II</div>
+            <div class="arch__layer-body">
+              <h3>Verification Engine</h3>
+              <p>Real-time policy validation, authority confirmation, budget integrity, and regulatory compliance — applied atomically. A single failed condition blocks execution entirely. This is the integrity core.</p>
+            </div>
+            <div class="arch__layer-status label">Core ◆</div>
+          </div>
+          <div class="arch__layer">
+            <div class="arch__layer-index label">III</div>
+            <div class="arch__layer-body">
+              <h3>Execution Control</h3>
+              <p>Verified signals are routed to connected institutional systems. Unverified signals are not flagged, queued, or deferred — they are structurally blocked. The system does not permit a workaround path.</p>
+            </div>
+            <div class="arch__layer-status label">Output</div>
+          </div>
+          <div class="arch__layer">
+            <div class="arch__layer-index label">IV</div>
+            <div class="arch__layer-body">
+              <h3>Immutable Ledger</h3>
+              <p>Every decision, verification event, and execution outcome is written once and cannot be amended. Institutional memory is permanent, verifiable, and available for audit at any point.</p>
+            </div>
+            <div class="arch__layer-status label">Record</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 4 — EXECUTION GAP ═══ -->
+    <section class="section gap-section" id="gap">
+      <div class="section__inner">
+        <header class="section__head">
+          <span class="section__index label">§ 4.0</span>
+          <h2 class="section__title">The Execution Gap</h2>
+          <p class="section__lead">Unverified execution is the hidden cost that institutional oversight consistently fails to address at the structural level.</p>
+        </header>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat__figure">€120B<sup>+</sup></div>
+            <div class="stat__rule"></div>
+            <p class="stat__label">Annual EU procurement losses attributable to fraud, systemic error, and execution without integrity controls</p>
+            <span class="stat__source label">Source: European Court of Auditors</span>
+          </div>
+          <div class="stat__divider" aria-hidden="true"></div>
+          <div class="stat">
+            <div class="stat__figure">30–50%</div>
+            <div class="stat__rule"></div>
+            <p class="stat__label">Infrastructure project budget overruns caused by uncontrolled decision execution and absent verification layers</p>
+            <span class="stat__source label">Source: McKinsey Global Institute</span>
+          </div>
+          <div class="stat__divider" aria-hidden="true"></div>
+          <div class="stat">
+            <div class="stat__figure">30%</div>
+            <div class="stat__rule"></div>
+            <p class="stat__label">Enterprise transaction rework resulting from execution that proceeded without prior verification</p>
+            <span class="stat__source label">Source: Gartner Research</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 5 — CORE PRINCIPLES ═══ -->
+    <section class="section principles-section" id="principles">
+      <div class="section__inner">
+        <header class="section__head">
+          <span class="section__index label">§ 5.0</span>
+          <h2 class="section__title">Core Principles</h2>
+        </header>
+        <div class="principles">
+          <div class="principle">
+            <span class="principle__num label">P.1</span>
+            <div class="principle__body">
+              <h3>Verify before execute</h3>
+              <p>No institutional action proceeds without complete verification. Prevention is structural, not procedural. Rules cannot be overridden by urgency.</p>
+            </div>
+          </div>
+          <div class="principle">
+            <span class="principle__num label">P.2</span>
+            <div class="principle__body">
+              <h3>Atomic responsibility</h3>
+              <p>Every decision is cryptographically linked to a verifiable authority. Responsibility cannot be distributed into ambiguity or delegated into silence.</p>
+            </div>
+          </div>
+          <div class="principle">
+            <span class="principle__num label">P.3</span>
+            <div class="principle__body">
+              <h3>Real-time compliance</h3>
+              <p>Regulatory and policy rules are applied at the moment of execution. They are not discovered in post-audit. Compliance is a precondition, not a retrospective check.</p>
+            </div>
+          </div>
+          <div class="principle">
+            <span class="principle__num label">P.4</span>
+            <div class="principle__body">
+              <h3>Immutable execution record</h3>
+              <p>Once written, no execution record can be altered, deleted, or expunged. Institutional memory is permanent, verifiable, and indifferent to organisational change.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 6 — USE CASE ═══ -->
+    <section class="section usecase-section" id="usecase">
+      <div class="section__inner">
+        <header class="section__head">
+          <span class="section__index label">§ 6.0</span>
+          <h2 class="section__title">Government Procurement</h2>
+          <p class="section__lead">A reference implementation: from ministerial authorisation to final payment disbursement, every step verified before execution.</p>
+        </header>
+        <div class="usecase">
+          <div class="usecase__step">
+            <div class="usecase__step-left">
+              <span class="usecase__step-num label">Step 1</span>
+              <h3 class="usecase__step-title">Authorization</h3>
+            </div>
+            <div class="usecase__step-body">
+              <p>Mandate, budget envelope, and delegated authority are verified against institutional policy and organisational hierarchy before any procurement activity is permitted.</p>
+            </div>
+            <div class="usecase__step-right">
+              <span class="badge badge--pass label">✓ Verified</span>
+            </div>
+          </div>
+          <div class="usecase__step">
+            <div class="usecase__step-left">
+              <span class="usecase__step-num label">Step 2</span>
+              <h3 class="usecase__step-title">Tender Validation</h3>
+            </div>
+            <div class="usecase__step-body">
+              <p>Procurement process, supplier eligibility, regulatory thresholds, and conflict-of-interest conditions are validated before publication. Non-compliant tenders are blocked.</p>
+            </div>
+            <div class="usecase__step-right">
+              <span class="badge badge--pass label">✓ Verified</span>
+            </div>
+          </div>
+          <div class="usecase__step">
+            <div class="usecase__step-left">
+              <span class="usecase__step-num label">Step 3</span>
+              <h3 class="usecase__step-title">Contract Execution</h3>
+            </div>
+            <div class="usecase__step-body">
+              <p>Contract parameters are matched against the original authorisation record. Scope creep, value drift, and unauthorised amendments are structurally blocked, not flagged after the fact.</p>
+            </div>
+            <div class="usecase__step-right">
+              <span class="badge badge--pass label">✓ Verified</span>
+            </div>
+          </div>
+          <div class="usecase__step">
+            <div class="usecase__step-left">
+              <span class="usecase__step-num label">Step 4</span>
+              <h3 class="usecase__step-title">Payment Release</h3>
+            </div>
+            <div class="usecase__step-body">
+              <p>Payment is released only upon confirmed milestone delivery and unbroken authorisation chain from original decision to disbursement. The ledger records the complete transaction lineage.</p>
+            </div>
+            <div class="usecase__step-right">
+              <span class="badge badge--pass label">✓ Verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 7 — PROTOCOL ═══ -->
+    <section class="section protocol-section" id="protocol">
+      <div class="section__inner protocol-inner">
+        <div class="protocol__left">
+          <span class="section__index label">§ 7.0</span>
+          <h2 class="section__title">The EXECUTIA Protocol</h2>
+          <p>The Protocol Overview is the formal technical and operational specification for EXECUTIA — covering architecture, verification methodology, integration specifications, and deployment requirements for institutional environments.</p>
+          <p>Available to qualified government institutions, infrastructure operators, and enterprise integration teams upon request.</p>
+        </div>
+        <div class="protocol__right">
+          <div class="protocol__doc">
+            <div class="protocol__doc-header label">EXECUTIA PROTOCOL<br>OVERVIEW — v1.0</div>
+            <div class="protocol__doc-body">
+              <div class="protocol__doc-line"></div>
+              <div class="protocol__doc-line protocol__doc-line--short"></div>
+              <div class="protocol__doc-line"></div>
+              <div class="protocol__doc-line protocol__doc-line--mid"></div>
+              <div class="protocol__doc-line"></div>
+              <div class="protocol__doc-line protocol__doc-line--short"></div>
+            </div>
+            <div class="protocol__doc-footer label">Patent Pending · PCT/IB2026/050141</div>
+          </div>
+          <button class="btn btn--primary" id="downloadBtn">
+            <span>Download Protocol Overview</span>
+            <span class="btn__sub label">PDF · Institutional use</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 8 — INSTITUTIONAL ACCESS ═══ -->
+    <section class="section contact-section" id="contact">
+      <div class="section__inner contact-inner">
+        <span class="section__index label">§ 8.0</span>
+        <h2 class="contact__headline">Request Institutional<br>Briefing</h2>
+        <p class="contact__sub">EXECUTIA is currently in structured deployment with select government and enterprise partners. Institutional briefings are conducted directly by the founding team and are available to qualified organisations by request.</p>
+        <div class="contact__action">
+          <a href="mailto:sandis@executia.io" class="btn btn--outline">
+            <span>sandis@executia.io</span>
+            <span class="btn__sub label">Direct — founding team</span>
+          </a>
+        </div>
+        <div class="contact__credentials label">
+          Patent Pending &nbsp;·&nbsp; PCT/IB2026/050141 &nbsp;·&nbsp; Founder: Sandis Boiko
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__name">EXECUTIA</div>
+        <div class="footer__tagline">Execution Integrity Infrastructure</div>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <span class="footer__col-label label">Legal</span>
+          <span class="footer__col-value">Patent Pending</span>
+          <span class="footer__col-value">PCT/IB2026/050141</span>
+        </div>
+        <div class="footer__col">
+          <span class="footer__col-label label">Founder</span>
+          <span class="footer__col-value">Sandis Boiko</span>
+        </div>
+        <div class="footer__col">
+          <span class="footer__col-label label">Contact</span>
+          <a href="mailto:sandis@executia.io" class="footer__col-value footer__col-link">sandis@executia.io</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__base">
+      <span class="label">© 2026 EXECUTIA. All rights reserved.</span>
+      <span class="label footer__base-right">Making incorrect execution structurally impossible.</span>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal" aria-modal="true" role="dialog" aria-labelledby="modalTitle" hidden>
+    <div class="modal">
+      <div class="modal__header label" id="modalTitle">PROTOCOL ACCESS</div>
+      <p class="modal__body">The Protocol Overview is available to qualified institutional contacts. Please submit a request directly to the founding team, referencing your organisation and deployment context.</p>
+      <a href="mailto:sandis@executia.io?subject=Protocol Overview Request" class="btn btn--outline modal__cta">sandis@executia.io</a>
+      <button class="modal__close label" id="modalClose">Close ×</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
