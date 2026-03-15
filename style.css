@@ -131,39 +131,49 @@ section { padding: 120px 0; }
 
 /* ── Hero ──────────────────────────────────────────── */
 #hero {
-  padding-top: calc(var(--nav-h) + 96px); padding-bottom: 96px;
-  background: var(--bg-white);
-  border-bottom: 1px solid var(--border);
+  padding-top: calc(var(--nav-h) + 100px); padding-bottom: 100px;
+  background: #0F1B2D;
+  border-bottom: none;
+  position: relative; overflow: hidden;
 }
+#bgCanvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; opacity: 0.5;
+}
+.hero-container { position: relative; z-index: 1; }
 .hero-badge {
   font-size: 0.4875rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 28px; display: inline-block;
-  border: 1px solid var(--border); padding: 6px 14px;
+  color: rgba(255,255,255,0.35); margin-bottom: 28px; display: inline-block;
+  border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px;
 }
 .hero-title {
-  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
-  font-weight: 300; line-height: 1.08;
-  letter-spacing: -0.03em; color: var(--blue);
-  margin-bottom: 24px; max-width: 820px;
+  font-size: clamp(2.75rem, 7vw, 5.75rem);
+  font-weight: 700; line-height: 1.05;
+  letter-spacing: -0.02em; color: white;
+  margin-bottom: 24px; max-width: 900px;
+  display: flex; flex-direction: column;
 }
+.hero-line { display: block; }
+.hero-accent { color: #6A94FF; }
 .hero-sub {
   font-size: 1.125rem; font-weight: 300; line-height: 1.7;
-  color: var(--text-mid); max-width: 520px; margin-bottom: 44px;
+  color: rgba(255,255,255,0.6); max-width: 520px; margin-bottom: 44px;
 }
 .hero-actions { display: flex; gap: 14px; margin-bottom: 72px; flex-wrap: wrap; }
 .hero-stats {
-  display: flex; border-top: 1px solid var(--border); padding-top: 40px; flex-wrap: wrap;
+  display: flex; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; flex-wrap: wrap;
 }
 .hstat { flex: 1; min-width: 180px; padding-right: 48px; }
-.hstat-sep { width: 1px; background: var(--border); margin: 0 48px; align-self: stretch; }
+.hstat-sep { width: 1px; background: rgba(255,255,255,0.1); margin: 0 48px; align-self: stretch; }
 .hstat-num {
   display: block; font-size: clamp(1.75rem, 2.8vw, 2.25rem);
-  font-weight: 300; color: var(--red); letter-spacing: -0.02em;
+  font-weight: 300; color: #6A94FF; letter-spacing: -0.02em;
   margin-bottom: 6px; line-height: 1;
 }
 .hstat-num sup { font-size: 0.5em; }
-.hstat-label { display: block; font-size: 0.8125rem; color: var(--text-mid); margin-bottom: 4px; line-height: 1.4; }
-.hstat-source { font-family: 'DM Mono', monospace; font-size: 0.4375rem; letter-spacing: 0.08em; color: var(--text-muted); }
+.hstat-label { display: block; font-size: 0.8125rem; color: rgba(255,255,255,0.55); margin-bottom: 4px; line-height: 1.4; }
+.hstat-source { font-family: 'DM Mono', monospace; font-size: 0.4375rem; letter-spacing: 0.08em; color: rgba(255,255,255,0.22); }
 @media (max-width: 768px) { .hstat-sep { display: none; } .hstat { min-width: 100%; padding: 20px 0; border-bottom: 1px solid var(--border); } }
 
 /* ── Cards ─────────────────────────────────────────── */
