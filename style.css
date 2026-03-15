@@ -790,3 +790,31 @@ footer {
   .hero-sys-diagram { grid-template-columns: 1fr; }
   .hsd-right { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 20px; flex-direction: row; flex-wrap: wrap; gap: 10px; }
 }
+
+/* ── Footer founder credit ─────────────────────── */
+.footer-founder {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-left: 1px solid var(--border);
+  padding-left: 24px;
+  margin-left: 8px;
+}
+.footer-founder-role {
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.footer-founder-name {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.04em;
+}
+.footer-founder-li {
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  color: var(--accent-blue);
+  transition: opacity 0.2s ease;
+}
+.footer-founder-li:hover { opacity: 0.75; }
