@@ -1,0 +1,28 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <style>
+      .grid { stroke:#9aa0a6; stroke-width:12; fill:none; stroke-linecap:square; }
+      .grid2 { stroke:#1f3f6b; stroke-width:12; fill:none; stroke-linecap:square; }
+      .arrow { fill:#1f3f6b; }
+    </style>
+  </defs>
+
+  <!-- upper left grey grid -->
+  <path class="grid" d="M120 120 L260 120 L260 200 L340 200" />
+  <path class="grid" d="M120 120 L120 260" />
+  <path class="grid" d="M120 260 L260 260" />
+  <path class="grid" d="M200 200 L200 320" />
+  <path class="grid" d="M120 320 L200 320 L200 400" />
+
+  <!-- bottom blue grid -->
+  <path class="grid2" d="M180 420 L420 420" />
+  <path class="grid2" d="M260 420 L260 340" />
+  <path class="grid2" d="M340 420 L340 300" />
+  <path class="grid2" d="M420 420 L420 340" />
+  <path class="grid2" d="M420 340 L520 340" />
+
+  <!-- growth arrow -->
+  <polygon class="arrow"
+    points="140,460 600,120 640,180 720,80 700,60 780,40 760,120 740,100 660,200 620,160 200,500"/>
+</svg>
