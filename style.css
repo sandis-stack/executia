@@ -181,6 +181,7 @@ section { padding: var(--sec-v) 0; position: relative; z-index: 1; }
 }
 .hero-line { display: block; color: var(--text-primary); }
 .hero-line-accent { color: var(--accent-blue); }
+.hero-line:nth-child(3) { font-size: 0.92em; }
 
 .hero-sub {
   font-size: clamp(1rem, 1.8vw, 1.25rem);
@@ -821,11 +822,11 @@ footer {
 
 /* ── Nav logo with image ───────────────────────── */
 .nav-logo-img {
-  height: 28px;
+  height: 32px;
   width: auto;
   display: block;
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
+  filter: brightness(0) saturate(100%) invert(55%) sepia(80%) saturate(400%) hue-rotate(200deg) brightness(110%);
+  opacity: 1;
 }
 .nav-logo-tm {
   font-size: 0.45em;
