@@ -4,9 +4,9 @@
    ================================================ */
 
 :root {
-  --bg-primary:    #0F1628;
-  --bg-secondary:  #141d35;
-  --bg-alt:        #121a30;
+  --bg-primary:    #1a2540;
+  --bg-secondary:  #1f2d4a;
+  --bg-alt:        #1c2842;
   --accent-blue:   #6A94FF;
   --accent-purple: #9A7CFF;
   --accent-cyan:   #00EEFF;
@@ -173,7 +173,7 @@ section { padding: var(--sec-v) 0; position: relative; z-index: 1; }
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6.5vw, 5.75rem);
+  font-size: clamp(2rem, 4.5vw, 4rem);
   font-weight: 800;
   line-height: 1.0;
   letter-spacing: -0.03em;
@@ -503,7 +503,7 @@ footer {
   .mobile-nav { display: block; }
 
   #hero { padding-top: calc(var(--nav-h) + 40px); min-height: auto; }
-  .hero-title { font-size: clamp(2.5rem, 10vw, 4rem); }
+  .hero-title { font-size: clamp(1.75rem, 8vw, 3rem); }
   .hero-pipeline { flex-direction: column; padding: 20px; }
   .pip-track { width: 1px; height: 36px; margin: 4px 0; }
   .pip-track-line { width: 1px; height: 100%; }
@@ -524,7 +524,7 @@ footer {
 
 @media (max-width: 480px) {
   :root { --pad: 16px; }
-  .hero-title { font-size: 2.25rem; }
+  .hero-title { font-size: 1.75rem; }
   .s-title { font-size: 1.75rem; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
   .footer-meta { flex-direction: column; gap: 12px; }
