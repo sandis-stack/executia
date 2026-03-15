@@ -24,9 +24,9 @@
       </a>
       <div class="nav-links">
         <a href="#crisis">Crisis</a>
-        <a href="#solution">Solution</a>
         <a href="#protocol">Protocol</a>
-        <a href="#integration">Integration</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#simulation">Simulation</a>
         <a href="#usecases">Use Cases</a>
         <a href="#contact">Contact</a>
       </div>
@@ -37,9 +37,9 @@
     </div>
     <div class="nav-mobile" id="navMobile">
       <a href="#crisis">Crisis</a>
-      <a href="#solution">Solution</a>
       <a href="#protocol">Protocol</a>
-      <a href="#integration">Integration</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#simulation">Simulation</a>
       <a href="#usecases">Use Cases</a>
       <a href="#contact">Contact</a>
     </div>
@@ -79,7 +79,7 @@
       </div>
     </section>
 
-    <section id="crisis" class="s-dark">
+    <section id="crisis" class="s-grey s-on-light">
       <div class="container">
         <div class="s-eyebrow mono">§ 01 — The Crisis</div>
         <h2 class="s-title">Modern systems manage processes.<br>They do not verify execution.</h2>
@@ -103,7 +103,7 @@
       </div>
     </section>
 
-    <section id="hidden-failure" class="s-light">
+    <section id="hidden-failure" class="s-white">
       <div class="container">
         <div class="s-eyebrow mono">§ 02 — Hidden Failure</div>
         <div class="split-layout">
@@ -131,7 +131,7 @@
       </div>
     </section>
 
-    <section id="solution" class="s-dark">
+    <section id="solution" class="s-grey s-on-light">
       <div class="container">
         <div class="s-eyebrow mono">§ 03 — The Solution</div>
         <h2 class="s-title">A protocol for verified execution.</h2>
@@ -258,9 +258,216 @@
       </div>
     </section>
 
+    <!-- ARCHITECTURE DIAGRAM -->
+    <section id="architecture" class="s-white">
+      <div class="container">
+        <div class="s-eyebrow mono">§ 05 — Architecture</div>
+        <h2 class="s-title">EXECUTIA Architecture</h2>
+        <p class="s-lead reveal">EXECUTIA operates as a verification layer between institutional decisions and execution systems.</p>
+
+        <div class="arch-layout">
+
+          <div class="arch-diagram reveal">
+            <div class="arch-node arch-node-top">
+              <div class="arch-node-label mono">Policy Decision</div>
+              <div class="arch-node-sub">Government · Institution · Agency</div>
+            </div>
+            <div class="arch-conn">
+              <div class="arch-conn-line"></div>
+              <div class="arch-conn-arrow">↓</div>
+            </div>
+            <div class="arch-node arch-node-core">
+              <div class="arch-core-title">
+                <span class="arch-sym">◎</span>
+                <span class="mono arch-core-label">EXECUTIA Verification Layer</span>
+              </div>
+              <div class="arch-core-items">
+                <div class="arch-core-item mono">→ Responsibility assignment</div>
+                <div class="arch-core-item mono">→ Execution verification</div>
+                <div class="arch-core-item mono">→ Immutable record</div>
+              </div>
+            </div>
+            <div class="arch-conn">
+              <div class="arch-conn-line"></div>
+              <div class="arch-conn-arrow">↓</div>
+            </div>
+            <div class="arch-node arch-node-bot">
+              <div class="arch-node-label mono">Execution Systems</div>
+              <div class="arch-sys-items">
+                <span class="mono arch-sys-tag">Treasury payment systems</span>
+                <span class="mono arch-sys-tag">Procurement registries</span>
+                <span class="mono arch-sys-tag">Accounting systems</span>
+                <span class="mono arch-sys-tag">Public ledgers</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-text reveal" data-delay="1">
+            <div class="arch-positioning">
+              <p class="arch-pos-text">EXECUTIA ensures that public funds cannot be executed without verified institutional responsibility.</p>
+            </div>
+            <div class="arch-note">
+              <span class="mono arch-note-label">Key principle</span>
+              <p>EXECUTIA does not replace institutional systems. It verifies execution before actions reach them.</p>
+            </div>
+            <div class="arch-flow-mini">
+              <div class="afm-row mono">
+                <span class="afm-dot afm-blue"></span>Decision registered
+              </div>
+              <div class="afm-arrow mono">↓</div>
+              <div class="afm-row mono">
+                <span class="afm-dot afm-red"></span>Responsibility assigned
+              </div>
+              <div class="afm-arrow mono">↓</div>
+              <div class="afm-row mono">
+                <span class="afm-dot afm-red"></span>Verification confirmed
+              </div>
+              <div class="afm-arrow mono">↓</div>
+              <div class="afm-row mono">
+                <span class="afm-dot afm-blue"></span>Execution permitted
+              </div>
+              <div class="afm-arrow mono">↓</div>
+              <div class="afm-row mono">
+                <span class="afm-dot afm-blue"></span>Ledger recorded
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EU PROCUREMENT SIMULATION -->
+    <section id="simulation" class="s-grey">
+      <div class="container">
+        <div class="s-eyebrow mono">§ 06 — Simulation</div>
+        <h2 class="s-title">EU Infrastructure Procurement</h2>
+        <p class="s-lead reveal">Example scenario: €200M EU-funded infrastructure project — cross-border railway modernization.</p>
+
+        <div class="sim-flow">
+
+          <div class="sim-step reveal">
+            <div class="sim-step-num mono">Step 1</div>
+            <div class="sim-step-body">
+              <h3>Policy Decision</h3>
+              <p>European Commission approves €200M infrastructure funding.</p>
+              <div class="sim-meta">
+                <div class="sim-meta-row">
+                  <span class="mono sim-meta-label">Project</span>
+                  <span class="sim-meta-val">Cross-border railway modernization</span>
+                </div>
+                <div class="sim-meta-row">
+                  <span class="mono sim-meta-label">Funds allocated to</span>
+                  <span class="sim-meta-val">National Infrastructure Agency</span>
+                </div>
+              </div>
+            </div>
+            <div class="sim-step-status sim-status-neutral mono">Pending verification</div>
+          </div>
+
+          <div class="sim-conn mono">↓</div>
+
+          <div class="sim-step reveal" data-delay="1">
+            <div class="sim-step-num mono">Step 2</div>
+            <div class="sim-step-body">
+              <h3>Responsibility Assignment</h3>
+              <p>EXECUTIA registers the decision and assigns verified responsibility.</p>
+              <div class="sim-meta">
+                <div class="sim-meta-row">
+                  <span class="mono sim-meta-label">Responsible authority</span>
+                  <span class="sim-meta-val">National Infrastructure Agency</span>
+                </div>
+                <div class="sim-meta-row">
+                  <span class="mono sim-meta-label">Responsible officer</span>
+                  <span class="sim-meta-val">Project Execution Director</span>
+                </div>
+              </div>
+            </div>
+            <div class="sim-step-status sim-status-check mono">◎ Responsibility confirmed</div>
+          </div>
+
+          <div class="sim-conn mono">↓</div>
+
+          <div class="sim-step reveal" data-delay="2">
+            <div class="sim-step-num mono">Step 3</div>
+            <div class="sim-step-body">
+              <h3>Contract Execution Request</h3>
+              <p>Construction contract signed. Payment request submitted to Treasury.</p>
+              <div class="sim-meta">
+                <div class="sim-meta-row">
+                  <span class="mono sim-meta-label">Contract value</span>
+                  <span class="sim-meta-val">€180M</span>
+                </div>
+                <div class="sim-meta-row">
+                  <span class="mono sim-meta-label">Payment destination</span>
+                  <span class="sim-meta-val">Treasury payment system</span>
+                </div>
+              </div>
+            </div>
+            <div class="sim-step-status sim-status-neutral mono">Awaiting EXECUTIA</div>
+          </div>
+
+          <div class="sim-conn mono">↓</div>
+
+          <div class="sim-step sim-step-core reveal" data-delay="1">
+            <div class="sim-step-num mono">Step 4</div>
+            <div class="sim-step-body">
+              <h3>◎ EXECUTIA Verification</h3>
+              <div class="sim-checks">
+                <div class="sim-check mono">✓ Decision registered and valid</div>
+                <div class="sim-check mono">✓ Responsible authority confirmed</div>
+                <div class="sim-check mono">✓ Budget authorization valid</div>
+                <div class="sim-check mono">✓ Contract registered in system</div>
+              </div>
+            </div>
+            <div class="sim-step-status sim-status-pass mono">◎ Verification confirmed</div>
+          </div>
+
+          <div class="sim-conn mono">↓</div>
+
+          <div class="sim-step reveal" data-delay="1">
+            <div class="sim-step-num mono">Step 5</div>
+            <div class="sim-step-body">
+              <h3>Execution</h3>
+              <p>Treasury system releases payment. Transaction recorded in accounting systems and procurement registry.</p>
+              <div class="sim-meta">
+                <div class="sim-meta-row">
+                  <span class="mono sim-meta-label">Payment released</span>
+                  <span class="sim-meta-val">€180M</span>
+                </div>
+                <div class="sim-meta-row">
+                  <span class="mono sim-meta-label">Recorded in</span>
+                  <span class="sim-meta-val">National accounting system · Procurement registry</span>
+                </div>
+              </div>
+            </div>
+            <div class="sim-step-status sim-status-pass mono">✓ Execution permitted</div>
+          </div>
+
+          <div class="sim-conn mono">↓</div>
+
+          <div class="sim-step reveal" data-delay="2">
+            <div class="sim-step-num mono">Step 6</div>
+            <div class="sim-step-body">
+              <h3>Immutable Record</h3>
+              <p>EXECUTIA records the complete execution event permanently.</p>
+              <div class="sim-meta">
+                <div class="sim-meta-row"><span class="mono sim-meta-label">Decision reference</span><span class="sim-meta-val">EC-2026-INF-0141</span></div>
+                <div class="sim-meta-row"><span class="mono sim-meta-label">Responsible authority</span><span class="sim-meta-val">National Infrastructure Agency</span></div>
+                <div class="sim-meta-row"><span class="mono sim-meta-label">Verification</span><span class="sim-meta-val">Confirmed · Timestamped</span></div>
+                <div class="sim-meta-row"><span class="mono sim-meta-label">Record</span><span class="sim-meta-val">Permanent · Cannot be altered</span></div>
+              </div>
+            </div>
+            <div class="sim-step-status sim-status-check mono">◼ Ledger written</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <section id="integration" class="s-dark">
       <div class="container">
-        <div class="s-eyebrow mono">§ 05 — Integration</div>
+        <div class="s-eyebrow mono">§ 07 — Integration</div>
         <h2 class="s-title">EXECUTIA integrates above<br>existing systems.</h2>
         <p class="s-lead reveal">EXECUTIA does not replace ERP, CRM, or government systems. It acts as a governance verification layer ensuring that decisions and execution remain aligned.</p>
         <div class="integration-wrap">
@@ -304,9 +511,9 @@
       </div>
     </section>
 
-    <section id="usecases" class="s-light">
+    <section id="usecases" class="s-white">
       <div class="container">
-        <div class="s-eyebrow mono">§ 06 — Use Cases</div>
+        <div class="s-eyebrow mono">§ 08 — Use Cases</div>
         <h2 class="s-title">Where EXECUTIA operates.</h2>
         <div class="usecase-grid">
           <div class="uc-block reveal">
@@ -358,9 +565,9 @@
       </div>
     </section>
 
-    <section id="vision" class="s-light">
+    <section id="vision" class="s-white">
       <div class="container vision-container">
-        <div class="s-eyebrow mono">§ 07 — Vision</div>
+        <div class="s-eyebrow mono">§ 09 — Vision</div>
         <h2 class="vision-title">
           Power was standardized into law.<br>
           Communication into TCP/IP.<br>
@@ -375,9 +582,9 @@
       </div>
     </section>
 
-    <section id="contact" class="s-dark">
+    <section id="contact" class="s-grey">
       <div class="container">
-        <div class="s-eyebrow mono">§ 08 — Access</div>
+        <div class="s-eyebrow mono">§ 10 — Access</div>
         <h2 class="s-title">Request Institutional Briefing</h2>
         <p class="s-lead reveal">Available to qualified government institutions, infrastructure operators, and enterprise partners.</p>
         <div class="contact-layout">
