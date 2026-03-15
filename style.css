@@ -834,3 +834,109 @@ footer {
   letter-spacing: 0;
   opacity: 0.7;
 }
+
+/* ── Hero stat sources ─────────────────────────── */
+.hstat-source {
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-top: 3px;
+  opacity: 0.7;
+}
+
+/* ── Crisis stat number ────────────────────────── */
+.crisis-stat {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+/* ── Gap diagram dramatic colors ───────────────── */
+.gap-mid-warn .gap-mid-main {
+  color: #F5A623;
+}
+.gap-mid-warn .gap-mid-sub {
+  color: #F5A623;
+  opacity: 0.7;
+}
+.gap-bot-red {
+  background: rgba(220, 50, 50, 0.12) !important;
+  border-color: rgba(220, 50, 50, 0.4) !important;
+  color: #FF6B6B !important;
+}
+
+/* ── Social proof section ──────────────────────── */
+.proof-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.proof-quote {
+  padding: 40px;
+  background: rgba(37, 55, 87, 0.4);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  position: relative;
+}
+.proof-q-mark {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: var(--accent-blue);
+  opacity: 0.4;
+  line-height: 0.8;
+  margin-bottom: 16px;
+}
+.proof-text {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.85);
+  font-style: italic;
+  margin-bottom: 20px;
+}
+.proof-attr {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.proof-validated {
+  padding: 40px;
+  background: rgba(37, 55, 87, 0.25);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.proof-val-label {
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 16px;
+}
+.proof-val-text {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.proof-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.proof-tag {
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  .proof-wrap { grid-template-columns: 1fr; gap: 24px; }
+}
