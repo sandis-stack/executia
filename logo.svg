@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 110" fill="none">
+
+  <!-- GRAY cells top-left 2x2 -->
+  <rect x="2"  y="2"  width="22" height="22" stroke="#9AA5B4" stroke-width="2" fill="none"/>
+  <rect x="26" y="2"  width="22" height="22" stroke="#9AA5B4" stroke-width="2" fill="none"/>
+  <rect x="2"  y="26" width="22" height="22" stroke="#9AA5B4" stroke-width="2" fill="none"/>
+  <rect x="26" y="26" width="22" height="22" stroke="#9AA5B4" stroke-width="2" fill="none"/>
+
+  <!-- NAVY cells - staircase bottom-right, filled -->
+  <rect x="50" y="26" width="22" height="22" fill="#1E3A6E"/>
+  <rect x="50" y="50" width="22" height="22" fill="#1E3A6E"/>
+  <rect x="74" y="50" width="22" height="22" fill="#1E3A6E"/>
+  <rect x="26" y="74" width="22" height="22" fill="#1E3A6E"/>
+  <rect x="50" y="74" width="22" height="22" fill="#1E3A6E"/>
+  <rect x="74" y="74" width="22" height="22" fill="#1E3A6E"/>
+  <rect x="98" y="74" width="22" height="22" fill="#1E3A6E"/>
+
+  <!-- Arrow shaft diagonal -->
+  <line x1="10" y1="105" x2="100" y2="8" stroke="#1E3A6E" stroke-width="5" stroke-linecap="round"/>
+  <!-- Arrow head -->
+  <polygon points="116,2 88,12 106,30" fill="#1E3A6E"/>
+
+</svg>
