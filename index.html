@@ -1,393 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>EXECUTIA — Execution Integrity Infrastructure</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:Inter, sans-serif;
-background:#0B1E3A;
-color:white;
-line-height:1.6;
-}
-
-nav{
-position:fixed;
-top:0;
-width:100%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 40px;
-background:rgba(11,30,58,0.95);
-backdrop-filter:blur(10px);
-z-index:100;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-margin-left:25px;
-font-weight:500;
-}
-
-section{
-padding:120px 40px;
-text-align:center;
-}
-
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-}
-
-.hero h1{
-font-size:80px;
-margin-bottom:20px;
-}
-
-.hero p{
-max-width:700px;
-opacity:0.85;
-margin-bottom:30px;
-}
-
-button{
-background:#ff3b30;
-border:none;
-padding:16px 34px;
-border-radius:10px;
-font-size:16px;
-color:white;
-cursor:pointer;
-}
-
-.white{
-background:white;
-color:#111;
-}
-
-.timeline{
-max-width:900px;
-margin:auto;
-text-align:left;
-}
-
-.step{
-margin-bottom:40px;
-padding-left:20px;
-border-left:3px solid #ff3b30;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:40px;
-max-width:1000px;
-margin:auto;
-}
-
-.card{
-background:#112a4d;
-padding:30px;
-border-radius:12px;
-}
-
-.white .card{
-background:#f3f3f3;
-}
-
-.calc{
-max-width:400px;
-margin:auto;
-}
-
-input{
-width:100%;
-padding:12px;
-margin-top:10px;
-border-radius:6px;
-border:none;
-}
-
-.result{
-margin-top:20px;
-font-size:22px;
-}
-
-.contact{
-max-width:500px;
-margin:auto;
-}
-
-footer{
-padding:40px;
-background:#081427;
-text-align:center;
-}
-
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EXECUTIA — Execution Integrity Infrastructure</title>
+  <meta name="description" content="EXECUTIA is an execution verification protocol that makes incorrect institutional execution structurally impossible." />
+  <meta property="og:title" content="EXECUTIA — Execution Integrity Infrastructure" />
+  <meta property="og:description" content="Making incorrect execution structurally impossible." />
+  <meta property="og:url" content="https://www.executia.io/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#0B0F1A" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<nav>
-
-<div><b>EXECUTIA</b></div>
-
-<div>
-<a href="#problem">Problem</a>
-<a href="#evolution">Evolution</a>
-<a href="#principle">Principle</a>
-<a href="#architecture">Architecture</a>
-<a href="#calculator">Calculator</a>
-<a href="#contact">Contact</a>
-</div>
-
-</nav>
-
-
-<section class="hero">
-
-<h1>EXECUTIA</h1>
-
-<p>
-
-Execution Integrity Infrastructure —  
-a governance system ensuring alignment between responsibility, authority and execution.
-
-</p>
-
-<button onclick="scrollToSection('problem')">Explore</button>
-
-</section>
-
-
-<section id="problem" class="white">
-
-<h2>The Problem</h2>
-
-<br>
-
-<p>
-
-Modern institutions often fail not because of lack of rules,
-but because responsibility and authority are disconnected.
-
-When responsibility is diluted,
-execution collapses.
-
-</p>
-
-</section>
-
-
-<section id="evolution">
-
-<h2>Evolution of Governance</h2>
-
-<br>
-
-<div class="timeline">
-
-<div class="step">
-<h3>POWER</h3>
-<p>Strength defined order.</p>
-</div>
-
-<div class="step">
-<h3>RELIGION</h3>
-<p>Authority legitimized by belief.</p>
-</div>
-
-<div class="step">
-<h3>LAW</h3>
-<p>Legal systems structured societies.</p>
-</div>
-
-<div class="step">
-<h3>BUREAUCRACY</h3>
-<p>Institutions grew complex and responsibility blurred.</p>
-</div>
-
-<div class="step">
-<h3>EXECUTIA</h3>
-<p>A governance infrastructure restoring execution integrity.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section id="principle" class="white">
-
-<h2>The EXECUTIA Principle</h2>
-
-<br>
-
-<p>
-
-Responsibility must match authority.  
-Execution must match responsibility.
-
-</p>
-
-</section>
-
-
-<section id="architecture">
-
-<h2>EXECUTIA Architecture</h2>
-
-<br>
-
-<div class="grid">
-
-<div class="card">
-<h3>Responsibility</h3>
-<p>Clearly defined ownership of outcomes.</p>
-</div>
-
-<div class="card">
-<h3>Authority</h3>
-<p>Authority granted strictly to match responsibility.</p>
-</div>
-
-<div class="card">
-<h3>Execution</h3>
-<p>Transparent execution monitored by structural accountability.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section id="calculator" class="white">
-
-<h2>Responsibility Balance</h2>
-
-<br>
-
-<div class="calc">
-
-<label>Authority level (1-10)</label>
-<input type="number" id="authority">
-
-<label>Responsibility level (1-10)</label>
-<input type="number" id="responsibility">
-
-<button onclick="calculate()">Check balance</button>
-
-<div class="result" id="result"></div>
-
-</div>
-
-</section>
-
-
-<section>
-
-<h2>Institutional Application</h2>
-
-<br>
-
-<div class="grid">
-
-<div class="card">
-<h3>Governments</h3>
-<p>Transparent governance and accountability structures.</p>
-</div>
-
-<div class="card">
-<h3>Corporations</h3>
-<p>Executive systems aligning authority and responsibility.</p>
-</div>
-
-<div class="card">
-<h3>Institutions</h3>
-<p>Operational frameworks ensuring execution integrity.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section id="contact" class="white">
-
-<h2>Contact</h2>
-
-<br>
-
-<div class="contact">
-
-<p>
-
-For institutional briefing or collaboration:
-
-</p>
-
-<br>
-
-<a href="mailto:info@executia.io">info@executia.io</a>
-
-</div>
-
-</section>
-
-
-<footer>
-
-EXECUTIA © 2026
-
-</footer>
-
-
-<script>
-
-function scrollToSection(id){
-document.getElementById(id).scrollIntoView({behavior:"smooth"});
-}
-
-function calculate(){
-
-let a = document.getElementById("authority").value
-let r = document.getElementById("responsibility").value
-
-if(a == r){
-document.getElementById("result").innerText = "Balanced system"
-}
-
-else if(a > r){
-document.getElementById("result").innerText = "Authority exceeds responsibility"
-}
-
-else{
-document.getElementById("result").innerText = "Responsibility exceeds authority"
-}
-
-}
-
-</script>
-
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <header id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <span class="nav-logo-mark">E</span>
+        <span class="nav-logo-text">EXECUTIA</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#system-architecture">System</a>
+        <a href="#executia-protocol">Protocol</a>
+        <a href="#system-layer">Architecture</a>
+        <a href="#simulation">Simulation</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#contact" class="nav-cta">Request Briefing</a>
+      <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <nav>
+      <a href="#system-architecture">System</a>
+      <a href="#executia-protocol">Protocol</a>
+      <a href="#system-layer">Architecture</a>
+      <a href="#simulation">Simulation</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <!-- 1. HERO -->
+    <section id="hero">
+      <div class="container hero-container">
+        <div class="hero-badge mono">Execution Integrity Infrastructure</div>
+        <h1 class="hero-title">
+          <span class="hero-line">Every decision</span>
+          <span class="hero-line hero-line-accent">verified.</span>
+          <span class="hero-line">Every execution</span>
+          <span class="hero-line hero-line-accent">correct.</span>
+        </h1>
+        <p class="hero-sub">EXECUTIA is the verification protocol between institutional decisions and their execution — making incorrect execution structurally impossible.</p>
+
+        <div class="hero-sys-diagram">
+          <div class="hsd-left">
+            <div class="hsd-box hsd-box-src">
+              <span class="mono hsd-box-label">Decision Sources</span>
+              <div class="hsd-tags">
+                <span class="mono hsd-tag">Policy</span>
+                <span class="mono hsd-tag">Strategy</span>
+                <span class="mono hsd-tag">Regulation</span>
+              </div>
+            </div>
+            <div class="hsd-arrow">
+              <div class="hsd-arrow-line"></div>
+              <div class="hsd-arrow-pulse"></div>
+              <span class="mono">&#x2193;</span>
+            </div>
+            <div class="hsd-box hsd-box-core">
+              <div class="hsd-core-inner">
+                <span class="hsd-symbol">◎</span>
+                <div>
+                  <span class="mono hsd-box-label hsd-label-blue">EXECUTIA</span>
+                  <span class="mono hsd-box-sub">Verification · Control · Record</span>
+                </div>
+              </div>
+            </div>
+            <div class="hsd-arrow">
+              <div class="hsd-arrow-line"></div>
+              <div class="hsd-arrow-pulse hsd-pulse-delay"></div>
+              <span class="mono">&#x2193;</span>
+            </div>
+            <div class="hsd-box hsd-box-sys">
+              <span class="mono hsd-box-label">Institutional Systems</span>
+              <div class="hsd-tags">
+                <span class="mono hsd-tag">ERP</span>
+                <span class="mono hsd-tag">Treasury</span>
+                <span class="mono hsd-tag">Procurement</span>
+                <span class="mono hsd-tag">Legal</span>
+              </div>
+            </div>
+          </div>
+          <div class="hsd-right">
+            <div class="hsd-log-item">
+              <span class="hsd-log-dot hsd-dot-neutral"></span>
+              <span class="mono hsd-log-txt">Intent registered</span>
+            </div>
+            <div class="hsd-log-item hsd-log-anim" style="animation-delay:0s">
+              <span class="hsd-log-dot hsd-dot-check"></span>
+              <span class="mono hsd-log-txt">Verifying authority…</span>
+            </div>
+            <div class="hsd-log-item hsd-log-anim" style="animation-delay:0.5s">
+              <span class="hsd-log-dot hsd-dot-check"></span>
+              <span class="mono hsd-log-txt">Checking budget…</span>
+            </div>
+            <div class="hsd-log-item hsd-log-anim" style="animation-delay:1s">
+              <span class="hsd-log-dot hsd-dot-check"></span>
+              <span class="mono hsd-log-txt">Validating policy…</span>
+            </div>
+            <div class="hsd-log-item">
+              <span class="hsd-log-dot hsd-dot-pass"></span>
+              <span class="mono hsd-log-txt hsd-txt-pass">◎ Verified — executing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-pipeline">
+          <div class="pip-node">
+            <div class="pip-dot"></div>
+            <span class="mono pip-label">Decision</span>
+          </div>
+          <div class="pip-track">
+            <div class="pip-track-line"></div>
+            <div class="pip-track-pulse"></div>
+          </div>
+          <div class="pip-node pip-node-core">
+            <div class="pip-dot pip-dot-core"></div>
+            <span class="mono pip-label">EXECUTIA</span>
+            <span class="mono pip-sub">Verification</span>
+          </div>
+          <div class="pip-track">
+            <div class="pip-track-line"></div>
+            <div class="pip-track-pulse pip-track-pulse-delay"></div>
+          </div>
+          <div class="pip-node">
+            <div class="pip-dot pip-dot-result"></div>
+            <span class="mono pip-label">Result</span>
+            <span class="mono pip-sub">Verified</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="#executia-protocol" class="btn btn-primary">Explore Protocol</a>
+          <a href="#simulation" class="btn btn-ghost">Live Simulation</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hstat">
+            <span class="hstat-num">€120B<sup>+</sup></span>
+            <span class="mono hstat-label">EU procurement losses</span>
+          </div>
+          <div class="hstat-div"></div>
+          <div class="hstat">
+            <span class="hstat-num">30–50%</span>
+            <span class="mono hstat-label">Infrastructure overruns</span>
+          </div>
+          <div class="hstat-div"></div>
+          <div class="hstat">
+            <span class="hstat-num">30%</span>
+            <span class="mono hstat-label">Transaction rework</span>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint mono" aria-hidden="true">scroll ↓</div>
+    </section>
+
+    <!-- 2. EXECUTION CRISIS -->
+    <section id="execution-crisis" class="s-dark">
+      <div class="container">
+        <div class="s-label mono reveal">§ 02 — The Crisis</div>
+        <h2 class="s-title reveal">Institutions execute.<br>Without verification.</h2>
+        <div class="three-grid">
+          <div class="crisis-card reveal">
+            <div class="crisis-icon">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="currentColor" stroke-width="1.5"/><path d="M14 7v7l4 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Post-execution discovery</h3>
+            <p>Problems are found after execution — when reversal is costly, politically difficult, or legally complex.</p>
+          </div>
+          <div class="crisis-card reveal" data-delay="1">
+            <div class="crisis-icon">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M3 25L14 3l11 22H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 16v-5M14 20v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Authority ambiguity</h3>
+            <p>No structural link between the decision-maker and the execution. Responsibility dissolves in complexity.</p>
+          </div>
+          <div class="crisis-card reveal" data-delay="2">
+            <div class="crisis-icon">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="3" width="22" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 14h12M8 9h12M8 19h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Compliance as audit</h3>
+            <p>Regulatory compliance is checked retrospectively. By then the damage — financial, legal, political — is done.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. HIDDEN FAILURE -->
+    <section id="hidden-failure" class="s-alt">
+      <div class="container">
+        <div class="s-label mono reveal">§ 03 — Hidden Failure</div>
+        <div class="split">
+          <div class="split-l reveal">
+            <h2 class="s-title">The gap between decision and result.</h2>
+            <p class="body-p">Every institution has systems for making decisions. Every institution has systems for executing them. No institution has a verified connection between the two.</p>
+            <p class="body-p">This gap is where fraud lives. Where overruns accumulate. Where accountability disappears.</p>
+          </div>
+          <div class="split-r reveal" data-delay="1">
+            <div class="gap-diagram">
+              <div class="gap-top mono">Decision Made</div>
+              <div class="gap-mid">
+                <div class="gap-mid-line"></div>
+                <div class="gap-mid-label">
+                  <span class="mono gap-mid-main">unverified</span>
+                  <span class="mono gap-mid-sub">no integrity layer</span>
+                </div>
+                <div class="gap-mid-line"></div>
+              </div>
+              <div class="gap-bot mono">Execution Happens</div>
+              <div class="gap-result mono">❌ Wrong outcome possible</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. EXECUTIA PRINCIPLE -->
+    <section id="executia-principle">
+      <div class="container">
+        <div class="s-label mono reveal">§ 04 — The Principle</div>
+        <h2 class="s-title reveal">Verify before execute.<br>Always. Without exception.</h2>
+        <div class="four-grid">
+          <div class="principle-card reveal">
+            <span class="mono principle-num">P.1</span>
+            <h3>Structural prevention</h3>
+            <p>Incorrect execution is not flagged or reported — it is made structurally impossible. The system cannot proceed without verification.</p>
+          </div>
+          <div class="principle-card reveal" data-delay="1">
+            <span class="mono principle-num">P.2</span>
+            <h3>Atomic responsibility</h3>
+            <p>Every execution event is cryptographically linked to the decision that authorised it. Responsibility is permanent and unambiguous.</p>
+          </div>
+          <div class="principle-card reveal" data-delay="2">
+            <span class="mono principle-num">P.3</span>
+            <h3>Real-time compliance</h3>
+            <p>Policy, budget, and regulatory rules are enforced at execution time — not discovered in post-audit. Compliance is a precondition.</p>
+          </div>
+          <div class="principle-card reveal" data-delay="3">
+            <span class="mono principle-num">P.4</span>
+            <h3>Immutable record</h3>
+            <p>Every decision and execution is written once, permanently. Cannot be altered, expunged, or explained away.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PROTOCOL -->
+    <section id="executia-protocol" class="s-dark">
+      <div class="container">
+        <div class="s-label mono reveal">§ 05 — The Protocol</div>
+        <h2 class="s-title reveal">How EXECUTIA works.</h2>
+        <div class="proto-flow">
+          <div class="proto-step reveal">
+            <div class="proto-step-l">
+              <span class="mono proto-num">01</span>
+              <span class="mono proto-tag">Input</span>
+            </div>
+            <div class="proto-step-r">
+              <h3>Decision Registration</h3>
+              <p>An institutional decision is captured and formalised as a verifiable record with authority, scope, and conditions attached.</p>
+            </div>
+          </div>
+          <div class="proto-connector reveal"><div class="proto-line"></div><span class="mono">↓</span></div>
+          <div class="proto-step proto-step-core reveal">
+            <div class="proto-step-l">
+              <span class="mono proto-num">02</span>
+              <span class="mono proto-tag">Core ◆</span>
+            </div>
+            <div class="proto-step-r">
+              <h3><span class="ver-symbol">◎</span> EXECUTIA Verification</h3>
+              <p>Authority confirmed. Budget integrity checked. Policy compliance validated. Regulatory conditions tested. Every check must pass. No partial verification.</p>
+            </div>
+          </div>
+          <div class="proto-connector reveal"><div class="proto-line"></div><span class="mono">↓</span></div>
+          <div class="proto-step reveal">
+            <div class="proto-step-l">
+              <span class="mono proto-num">03</span>
+              <span class="mono proto-tag">Output</span>
+            </div>
+            <div class="proto-step-r">
+              <h3>Verified Execution Signal</h3>
+              <p>Only after full verification does EXECUTIA emit a signal to institutional systems. Unverified actions receive no signal. They do not execute.</p>
+            </div>
+          </div>
+          <div class="proto-connector reveal"><div class="proto-line"></div><span class="mono">↓</span></div>
+          <div class="proto-step reveal">
+            <div class="proto-step-l">
+              <span class="mono proto-num">04</span>
+              <span class="mono proto-tag">Record</span>
+            </div>
+            <div class="proto-step-r">
+              <h3>Immutable Record</h3>
+              <p>The complete chain — decision, verification, execution, result — written permanently. Available for audit at any point. Cannot be altered.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ARCHITECTURE -->
+    <section id="system-architecture" class="s-alt">
+      <div class="container">
+        <div class="s-label mono reveal">§ 06 — Architecture</div>
+        <h2 class="s-title reveal">Four layers. One integrity stack.</h2>
+        <div class="four-grid">
+          <div class="arch-card reveal">
+            <div class="arch-card-top">
+              <span class="mono arch-num">I</span>
+              <span class="mono arch-tag">Decision Layer</span>
+            </div>
+            <p>Captures and formalises institutional decisions before any action is permitted. Nothing proceeds without a registered intent.</p>
+            <span class="mono arch-foot">Input gate</span>
+          </div>
+          <div class="arch-card arch-card-core reveal" data-delay="1">
+            <div class="arch-card-top">
+              <span class="mono arch-num">II</span>
+              <span class="mono arch-tag">Verification Engine</span>
+            </div>
+            <p>Atomic validation of authority, policy, budget, and compliance. A single failure blocks execution entirely. No bypass. No exception path.</p>
+            <span class="mono arch-foot">Integrity core ◆</span>
+          </div>
+          <div class="arch-card reveal" data-delay="2">
+            <div class="arch-card-top">
+              <span class="mono arch-num">III</span>
+              <span class="mono arch-tag">Execution Control</span>
+            </div>
+            <p>Routes verified signals to institutional systems. Unverified signals are structurally blocked — not logged, not queued. Blocked.</p>
+            <span class="mono arch-foot">Output gate</span>
+          </div>
+          <div class="arch-card reveal" data-delay="3">
+            <div class="arch-card-top">
+              <span class="mono arch-num">IV</span>
+              <span class="mono arch-tag">Immutable Ledger</span>
+            </div>
+            <p>Every event written once. Permanent. Verifiable. Available for audit at any point. Indifferent to organisational change.</p>
+            <span class="mono arch-foot">Permanent record</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SYSTEM LAYER -->
+    <section id="system-layer">
+      <div class="container">
+        <div class="s-label mono reveal">§ 07 — Integration</div>
+        <h2 class="s-title reveal">EXECUTIA sits between<br>decisions and systems.</h2>
+        <div class="layer-diagram reveal">
+          <div class="layer-box layer-box-top">
+            <span class="mono layer-title">Decision Sources</span>
+            <span class="mono layer-sub">Policy · Strategy · Regulation</span>
+          </div>
+          <div class="layer-arrow-wrap">
+            <div class="layer-arr-line"></div>
+            <span class="mono layer-arr-txt">↓</span>
+          </div>
+          <div class="layer-box layer-box-exec">
+            <span class="hsd-symbol layer-sym">◎</span><span class="mono layer-title">EXECUTIA</span>
+            <span class="mono layer-sub">Verification &amp; Control</span>
+          </div>
+          <div class="layer-arrow-wrap">
+            <div class="layer-arr-line"></div>
+            <span class="mono layer-arr-txt">↓</span>
+          </div>
+          <div class="layer-box layer-box-bot">
+            <span class="mono layer-title">Institutional Systems</span>
+            <span class="mono layer-sub">ERP · Treasury · Procurement · Legal</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. SIMULATION -->
+    <section id="simulation" class="s-dark">
+      <div class="container">
+        <div class="s-label mono reveal">§ 08 — Simulation</div>
+        <h2 class="s-title reveal">See the difference.</h2>
+        <p class="s-lead reveal">A government procurement decision. Two scenarios.</p>
+        <div class="sim-toggle reveal">
+          <button class="sim-btn active" id="btnWithout">Without EXECUTIA</button>
+          <button class="sim-btn" id="btnWith">With EXECUTIA</button>
+        </div>
+        <div class="sim-wrap">
+          <div class="sim-scenario" id="scenWithout">
+            <div class="sim-step s-warn">
+              <span class="mono sim-n">1</span>
+              <div class="sim-body"><strong>Decision made</strong><p>Ministry approves €4.2M infrastructure contract. No formal authority check.</p></div>
+              <span class="mono sim-status warn">⚠ Unverified</span>
+            </div>
+            <div class="sim-step s-fail">
+              <span class="mono sim-n">2</span>
+              <div class="sim-body"><strong>Contract issued</strong><p>Procurement proceeds. Budget threshold exceeded by 18%. Not detected.</p></div>
+              <span class="mono sim-status fail">✗ Violation</span>
+            </div>
+            <div class="sim-step s-fail">
+              <span class="mono sim-n">3</span>
+              <div class="sim-body"><strong>Payment released</strong><p>€4.2M disbursed without milestone verification. Supplier has not delivered.</p></div>
+              <span class="mono sim-status fail">✗ Loss</span>
+            </div>
+            <div class="sim-step s-fail">
+              <span class="mono sim-n">4</span>
+              <div class="sim-body"><strong>Audit discovers issue</strong><p>6 months later. Funds unrecoverable. Political and legal consequences follow.</p></div>
+              <span class="mono sim-status fail">✗ Too late</span>
+            </div>
+          </div>
+          <div class="sim-scenario hidden" id="scenWith">
+            <div class="sim-step s-pass">
+              <span class="mono sim-n">1</span>
+              <div class="sim-body"><strong>Decision registered</strong><p>Ministry submits €4.2M contract decision. Authority and budget envelope verified.</p></div>
+              <span class="mono sim-status pass">✓ Verified</span>
+            </div>
+            <div class="sim-step s-block">
+              <span class="mono sim-n">2</span>
+              <div class="sim-body"><strong>Verification detects violation</strong><p>Budget threshold exceeded by 18%. Policy rule triggered. Execution structurally blocked.</p></div>
+              <span class="mono sim-status block">◼ Blocked</span>
+            </div>
+            <div class="sim-step s-pass">
+              <span class="mono sim-n">3</span>
+              <div class="sim-body"><strong>Decision revised and resubmitted</strong><p>Contract restructured within approved envelope. All checks pass.</p></div>
+              <span class="mono sim-status pass">✓ Approved</span>
+            </div>
+            <div class="sim-step s-pass">
+              <span class="mono sim-n">4</span>
+              <div class="sim-body"><strong>Payment on milestone confirmation</strong><p>Delivery verified. Payment authorised. Full chain written to immutable ledger.</p></div>
+              <span class="mono sim-status pass">✓ Complete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. USE CASES -->
+    <section id="use-cases" class="s-alt">
+      <div class="container">
+        <div class="s-label mono reveal">§ 09 — Use Cases</div>
+        <h2 class="s-title reveal">Where EXECUTIA operates.</h2>
+        <div class="four-grid">
+          <div class="uc-card reveal">
+            <span class="mono uc-num">01</span>
+            <h3>Government Procurement</h3>
+            <p>Authorization → Tender → Contract → Payment. Every step verified before execution. Fraud structurally impossible.</p>
+          </div>
+          <div class="uc-card reveal" data-delay="1">
+            <span class="mono uc-num">02</span>
+            <h3>Infrastructure Funding</h3>
+            <p>Milestone-gated disbursement. Budget integrity enforced at each release point. Overruns detected before they occur.</p>
+          </div>
+          <div class="uc-card reveal" data-delay="2">
+            <span class="mono uc-num">03</span>
+            <h3>Regulatory Enforcement</h3>
+            <p>Policy rules applied at execution time. Compliance is a structural condition, not a retrospective finding.</p>
+          </div>
+          <div class="uc-card reveal" data-delay="3">
+            <span class="mono uc-num">04</span>
+            <h3>Enterprise Transactions</h3>
+            <p>High-value transactions verified against authority matrices and policy rules before execution reaches ERP systems.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FUTURE -->
+    <section id="future-systems">
+      <div class="container">
+        <div class="s-label mono reveal">§ 10 — Vision</div>
+        <h2 class="s-title reveal">Civilization progressed from power to law.<br><span class="accent-text">The next step is execution.</span></h2>
+        <p class="body-p reveal" style="max-width:640px">Every major institutional failure shares one cause: a decision was made, and executed without verification. EXECUTIA closes this gap — permanently, structurally, irreversibly.</p>
+        <div class="future-stats reveal">
+          <div class="fstat"><span class="mono fstat-l">Patent</span><span class="fstat-v">PCT/IB2026/050141</span></div>
+          <div class="fstat"><span class="mono fstat-l">Status</span><span class="fstat-v">Patent Pending</span></div>
+          <div class="fstat"><span class="mono fstat-l">Founder</span><span class="fstat-v">Sandis Boiko</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. CONTACT -->
+    <section id="contact" class="s-dark">
+      <div class="container">
+        <div class="s-label mono reveal">§ 11 — Access</div>
+        <h2 class="s-title reveal">Request Institutional Briefing</h2>
+        <p class="s-lead reveal">Available to qualified government institutions, infrastructure operators, and enterprise partners.</p>
+        <div class="contact-wrap">
+          <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/xbddrnaz" method="POST" novalidate>
+            <div class="form-row">
+              <div class="ff">
+                <label class="fl mono" for="cn">Name</label>
+                <input class="fi" type="text" id="cn" name="name" placeholder="Your full name" required />
+              </div>
+              <div class="ff">
+                <label class="fl mono" for="co">Organisation</label>
+                <input class="fi" type="text" id="co" name="organisation" placeholder="Institution or company" required />
+              </div>
+            </div>
+            <div class="ff">
+              <label class="fl mono" for="ce">Email</label>
+              <input class="fi" type="email" id="ce" name="email" placeholder="your@institution.gov" required />
+            </div>
+            <div class="ff">
+              <label class="fl mono" for="cm">Message</label>
+              <textarea class="fi fi-ta" id="cm" name="message" rows="4" placeholder="Describe your context and what you'd like to discuss." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="formBtn">
+              <span id="btnTxt">Send Request</span>
+            </button>
+            <div class="form-ok" id="formOk" hidden>✓ Request received. We will be in touch shortly.</div>
+            <div class="form-err" id="formErr" hidden>Something went wrong. Please try again.</div>
+          </form>
+          <div class="contact-aside reveal" data-delay="1">
+            <div class="ca-block">
+              <span class="mono ca-label">Direct contact</span>
+              <a href="mailto:sandis@executia.io" class="ca-value">sandis@executia.io</a>
+            </div>
+            <div class="ca-block">
+              <span class="mono ca-label">Patent</span>
+              <span class="ca-value">PCT/IB2026/050141</span>
+            </div>
+            <div class="ca-block">
+              <span class="mono ca-label">Founder</span>
+              <span class="ca-value">Sandis Boiko</span>
+            </div>
+            <div class="ca-block">
+              <span class="mono ca-label">Deployment</span>
+              <span class="ca-value">Structured — select partners</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-name">EXECUTIA</div>
+        <div class="mono footer-tag">Execution Integrity Infrastructure</div>
+      </div>
+      <div class="mono footer-meta">
+        <span>© 2026 EXECUTIA</span>
+        <span>PCT/IB2026/050141</span>
+        <a href="mailto:sandis@executia.io">sandis@executia.io</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
