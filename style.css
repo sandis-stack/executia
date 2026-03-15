@@ -12,12 +12,12 @@
   --accent-cyan:   #00EEFF;
   --glow:          #6A94FF;
   --text-primary:  #FFFFFF;
-  --text-secondary:#B7C0FF;
-  --text-muted:    #6B7A9F;
+  --text-secondary:#A9B6D3;
+  --text-muted:    #7A8BAA;
   --border:        rgba(79,124,255,0.15);
   --border-bright: rgba(79,124,255,0.35);
-  --card-bg:       rgba(255,255,255,0.03);
-  --card-bg-hover: rgba(79,124,255,0.06);
+  --card-bg:       rgba(37,55,87,0.7);
+  --card-bg-hover: rgba(45,65,100,0.85);
 
   --font-display: 'Syne', sans-serif;
   --font-body:    'Inter', sans-serif;
@@ -173,10 +173,10 @@ section { padding: var(--sec-v) 0; position: relative; z-index: 1; }
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-size: clamp(2rem, 5.8vw, 5.75rem);
   font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.03em;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   margin-bottom: 32px;
 }
 .hero-line { display: block; color: var(--text-primary); }
@@ -283,10 +283,10 @@ section { padding: var(--sec-v) 0; position: relative; z-index: 1; }
 .four-grid  { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
 
 /* ── Crisis cards ──────────────────────────────── */
-.crisis-card { background: var(--card-bg); padding: 40px 32px; transition: background var(--r); }
+.crisis-card { background: rgba(37,55,87,0.65); padding: 40px 32px; transition: background var(--r); }
 .crisis-card:hover { background: var(--card-bg-hover); }
 .crisis-icon { color: var(--accent-blue); margin-bottom: 20px; }
-.crisis-card h3 { font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+.crisis-card h3 { font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; color: #FFFFFF; margin-bottom: 12px; }
 .crisis-card p { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.75; font-weight: 300; }
 
 /* ── Split ─────────────────────────────────────── */
@@ -312,10 +312,10 @@ section { padding: var(--sec-v) 0; position: relative; z-index: 1; }
 .gap-result { margin-top: 16px; font-size: 0.6875rem; letter-spacing: 0.08em; color: #ff6b6b; }
 
 /* ── Principle cards ───────────────────────────── */
-.principle-card { background: var(--card-bg); padding: 40px 32px; transition: background var(--r); }
+.principle-card { background: rgba(37,55,87,0.65); padding: 40px 32px; transition: background var(--r); }
 .principle-card:hover { background: var(--card-bg-hover); }
 .principle-num { font-size: 0.625rem; letter-spacing: 0.15em; color: var(--accent-blue); margin-bottom: 20px; display: block; }
-.principle-card h3 { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+.principle-card h3 { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600; color: #FFFFFF; margin-bottom: 12px; }
 .principle-card p { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.75; font-weight: 300; }
 
 /* ── Protocol flow ─────────────────────────────── */
@@ -354,7 +354,7 @@ section { padding: var(--sec-v) 0; position: relative; z-index: 1; }
 .proto-connector span { font-size: 0.875rem; color: var(--accent-blue); line-height: 1; }
 
 /* ── Arch cards ────────────────────────────────── */
-.arch-card { background: var(--card-bg); padding: 36px 28px; display: flex; flex-direction: column; gap: 0; transition: background var(--r); }
+.arch-card { background: rgba(37,55,87,0.65); padding: 36px 28px; display: flex; flex-direction: column; gap: 0; transition: background var(--r); }
 .arch-card:hover { background: var(--card-bg-hover); }
 .arch-card-core { background: rgba(79,124,255,0.08); border-top: 2px solid var(--accent-blue); }
 .arch-card-core:hover { background: rgba(79,124,255,0.14); }
@@ -414,10 +414,10 @@ section { padding: var(--sec-v) 0; position: relative; z-index: 1; }
 .sim-status.block { color: var(--accent-blue); }
 
 /* ── Use case cards ────────────────────────────── */
-.uc-card { background: var(--card-bg); padding: 40px 32px; transition: background var(--r); }
+.uc-card { background: rgba(37,55,87,0.65); padding: 40px 32px; transition: background var(--r); }
 .uc-card:hover { background: var(--card-bg-hover); }
 .uc-num { font-size: 0.625rem; letter-spacing: 0.15em; color: var(--accent-blue); display: block; margin-bottom: 16px; }
-.uc-card h3 { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+.uc-card h3 { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600; color: #FFFFFF; margin-bottom: 12px; }
 .uc-card p { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.75; font-weight: 300; }
 
 /* ── Future stats ──────────────────────────────── */
