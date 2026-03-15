@@ -312,3 +312,21 @@ footer{background:var(--blue);border-top:1px solid rgba(255,255,255,.1);padding:
 .reveal[data-delay="1"]{transition-delay:.1s}
 .reveal[data-delay="2"]{transition-delay:.2s}
 .reveal[data-delay="3"]{transition-delay:.3s}
+
+/* ── Hero pretitle ─────────────────────────────── */
+.hero-pretitle {
+  font-size: .4875rem; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin-bottom: 14px; display: block;
+}
+
+/* ── Evolution intro ───────────────────────────── */
+.evo-intro {
+  font-size: .4875rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 12px; display: block;
+}
+
+/* ── Infrastructure standards heading ─────────── */
+.ep-heading {
+  font-size: 1.125rem; font-weight: 500; color: var(--blue);
+  margin-bottom: 20px; letter-spacing: -.01em;
+}
