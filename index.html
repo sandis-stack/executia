@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EXECUTIA Protocol — The Global Standard for Verified Execution</title>
-  <meta name="description" content="EXECUTIA is the execution integrity protocol that makes incorrect institutional execution structurally impossible. For governments, financial systems, and critical infrastructure." />
+  <title>EXECUTIA — Execution Integrity Protocol for Institutional Systems</title>
+  <meta name="description" content="EXECUTIA is a verification layer that ensures institutional decisions are executed correctly before actions occur. The global standard for verified execution." />
   <meta property="og:title" content="EXECUTIA Protocol — The Global Standard for Verified Execution" />
   <meta property="og:description" content="EXECUTIA is the execution integrity protocol that makes incorrect institutional execution structurally impossible." />
   <meta property="og:url" content="https://www.executia.io/" />
@@ -24,6 +24,28 @@
       display: block;
       object-fit: contain;
     }
+
+    /* Fix: make reveal content always visible */
+    .reveal {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* Hero authority signals */
+    .hero-authority {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+    }
+    .ha-sep { opacity: 0.3; }
+
+    /* Architecture CTA */
+    .arch-cta { margin-top: 24px; }
 
     /* EXECUTIA Typography System v1.0 */
     .hero-title {
@@ -123,12 +145,19 @@
       <div class="container hero-wrap">
         <div class="hero-left">
           <div class="hero-badge mono">Execution Integrity Protocol · PCT/IB2026/050141</div>
-          <h1 class="hero-title">Making Incorrect Institutional Execution Structurally Impossible.</h1>
-          <p class="hero-def">The execution integrity protocol for governments, financial systems, and enterprise infrastructure.</p>
+          <h1 class="hero-title">Verified Execution<br>for Institutional Systems.</h1>
+          <p class="hero-def">Making incorrect institutional execution structurally impossible.</p>
           <div class="hero-principles">
             <div class="hp-item mono">✔ Verification before execution</div>
             <div class="hp-item mono">✔ Accountability embedded in systems</div>
             <div class="hp-item mono">✔ Atomic execution integrity</div>
+          </div>
+          <div class="hero-authority mono">
+            <span>For Governments</span>
+            <span class="ha-sep">·</span>
+            <span>For Central Banks</span>
+            <span class="ha-sep">·</span>
+            <span>For Critical Infrastructure</span>
           </div>
           <div class="hero-actions">
             <a href="#how-it-works" class="btn btn-primary">Explore the System</a>
@@ -546,6 +575,9 @@
         <div class="arch-integration reveal">
           <span class="mono arch-int-label">Integration</span>
           <p>EXECUTIA integrates with existing systems — ERP platforms, financial infrastructure, government systems, and enterprise applications — as a verification layer above them, not a replacement.</p>
+        </div>
+        <div class="arch-cta reveal">
+          <a href="#contact" class="btn btn-outline">Explore Integration →</a>
         </div>
       </div>
     </section>
