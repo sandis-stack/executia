@@ -3,17 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EXECUTIA — The Global Standard for Verified Execution</title>
-  <meta name="description" content="EXECUTIA is the protocol that makes incorrect institutional execution structurally impossible. The execution integrity layer for governments, institutions, and critical infrastructure." />
-  <meta property="og:title" content="EXECUTIA — The Global Standard for Verified Execution" />
-  <meta property="og:description" content="EXECUTIA is the protocol that makes incorrect institutional execution structurally impossible." />
+  <title>EXECUTIA Protocol — The Global Standard for Verified Execution</title>
+  <meta name="description" content="EXECUTIA is the execution integrity protocol that makes incorrect institutional execution structurally impossible. For governments, financial systems, and critical infrastructure." />
+  <meta property="og:title" content="EXECUTIA Protocol — The Global Standard for Verified Execution" />
+  <meta property="og:description" content="EXECUTIA is the execution integrity protocol that makes incorrect institutional execution structurally impossible." />
   <meta property="og:url" content="https://www.executia.io/" />
+  <meta property="og:image" content="https://www.executia.io/logo.png" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://www.executia.io/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
+    /* Logo */
+    .nav-logo-img {
+      height: 32px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
     /* EXECUTIA Typography System v1.0 */
     .hero-title {
       font-size: 64px;
@@ -80,7 +91,7 @@
   <nav id="nav">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">
-        <span class="nav-mark">E</span>
+        <img src="logo.png" alt="EXECUTIA" class="nav-logo-img" />
         <span class="nav-name">EXECUTIA<sup>™</sup></span>
       </a>
       <div class="nav-links">
@@ -177,7 +188,7 @@
           <div class="ds-sep"></div>
           <div class="ds-item">
             <span class="ds-num">0</span>
-            <span class="mono ds-label">Systems verify execution before it happens</span>
+            <span class="mono ds-label">Global standards for execution verification</span>
           </div>
         </div>
       </div>
@@ -361,37 +372,50 @@
     <section id="evolution" class="s-white">
       <div class="container">
         <div class="s-eyebrow mono">§ 04 — The Evolution of Governance</div>
-        <p class="evo-intro mono">Governance systems evolve through structural layers.</p>
-        <h2 class="s-title">EXECUTIA introduces<br>the execution era.</h2>
-        <div class="evo-diagram reveal">
-          <div class="evo-step">
-            <div class="evo-icon">⚔</div>
-            <h3 class="evo-title">Power</h3>
-            <p class="evo-desc">Authority decides. No verification of legitimacy or accountability.</p>
-            <div class="mono evo-tag">Pre-modern governance</div>
+        <h2 class="s-title">The Four Eras of Human Governance.</h2>
+        <p class="s-lead reveal">Human governance evolved through several fundamental stages. Each era introduced a new mechanism for organizing power and responsibility. EXECUTIA represents the next step.</p>
+
+        <!-- Timeline connector (desktop) -->
+        <div class="evo-timeline reveal">
+          <div class="evo-tl-track">
+            <div class="evo-tl-line"></div>
+            <div class="evo-tl-dot"></div>
+            <div class="evo-tl-dot"></div>
+            <div class="evo-tl-dot"></div>
+            <div class="evo-tl-dot evo-tl-dot-accent"></div>
           </div>
-          <div class="evo-arrow">→</div>
-          <div class="evo-step">
-            <div class="evo-icon">⚖</div>
-            <h3 class="evo-title">Law</h3>
-            <p class="evo-desc">Rules regulate. Decisions are made within legal frameworks.</p>
-            <div class="mono evo-tag">Modern governance</div>
-          </div>
-          <div class="evo-arrow">→</div>
-          <div class="evo-step evo-step-now">
-            <div class="evo-icon">📋</div>
-            <h3 class="evo-title">Execution</h3>
-            <p class="evo-desc">Systems act. But no layer verifies that actions match authorized decisions.</p>
-            <div class="mono evo-tag">Current state — gap exists</div>
-          </div>
-          <div class="evo-arrow evo-arrow-accent">→</div>
-          <div class="evo-step evo-step-executia">
-            <div class="evo-icon">◎</div>
-            <h3 class="evo-title">EXECUTIA</h3>
-            <p class="evo-desc">Verified execution. Systems execute only valid, authorized, accountable decisions.</p>
-            <div class="mono evo-tag">The missing layer</div>
+          <div class="evo-eras">
+            <div class="evo-era">
+              <div class="evo-era-icon">⚔</div>
+              <div class="mono evo-era-num">I</div>
+              <h3 class="evo-era-title">Power</h3>
+              <p class="evo-era-desc">Force defines authority. Who is stronger decides.</p>
+              <div class="mono evo-era-tag">Pre-modern governance</div>
+            </div>
+            <div class="evo-era">
+              <div class="evo-era-icon">⚖</div>
+              <div class="mono evo-era-num">II</div>
+              <h3 class="evo-era-title">Law</h3>
+              <p class="evo-era-desc">Rules limit power. Constitutions, courts, legal frameworks.</p>
+              <div class="mono evo-era-tag">Modern governance</div>
+            </div>
+            <div class="evo-era">
+              <div class="evo-era-icon">🏛</div>
+              <div class="mono evo-era-num">III</div>
+              <h3 class="evo-era-title">Systems</h3>
+              <p class="evo-era-desc">Institutions organize society. But execution breaks inside complexity.</p>
+              <div class="mono evo-era-tag">Current state — gap exists</div>
+            </div>
+            <div class="evo-era evo-era-executia">
+              <div class="evo-era-icon">◎</div>
+              <div class="mono evo-era-num">IV</div>
+              <h3 class="evo-era-title">Execution</h3>
+              <p class="evo-era-desc">Systems finally work as intended. Verified. Accountable. Structurally reliable.</p>
+              <div class="mono evo-era-tag">The missing layer — EXECUTIA</div>
+            </div>
           </div>
         </div>
+
         <div class="evo-parallels reveal">
           <div class="ep-heading">Infrastructure standards reshape entire systems.</div>
           <div class="ep-intro mono">Similar to how infrastructure standards transformed their domains:</div>
@@ -402,14 +426,14 @@
               <span class="ep-desc">Standardized communication</span>
             </div>
             <div class="ep-item">
-              <span class="mono ep-std">HTTP</span>
-              <span class="ep-arrow">→</span>
-              <span class="ep-desc">Standardized the web</span>
-            </div>
-            <div class="ep-item">
               <span class="mono ep-std">SWIFT</span>
               <span class="ep-arrow">→</span>
               <span class="ep-desc">Standardized financial messaging</span>
+            </div>
+            <div class="ep-item">
+              <span class="mono ep-std">SSL</span>
+              <span class="ep-arrow">→</span>
+              <span class="ep-desc">Standardized secure communication</span>
             </div>
             <div class="ep-item ep-item-executia">
               <span class="mono ep-std">EXECUTIA</span>
@@ -419,6 +443,71 @@
           </div>
         </div>
       </div>
+
+      <style>
+        .evo-timeline { margin: 60px 0 0; }
+        .evo-tl-track { display: none; }
+        .evo-eras {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2px;
+        }
+        .evo-era {
+          padding: 32px 28px;
+          border: 1px solid var(--border, rgba(0,0,0,0.1));
+          position: relative;
+        }
+        .evo-era + .evo-era { border-left: none; }
+        .evo-era-icon {
+          font-size: 28px;
+          margin-bottom: 16px;
+          display: block;
+          opacity: 0.7;
+        }
+        .evo-era-num {
+          font-size: 11px;
+          letter-spacing: 2px;
+          opacity: 0.4;
+          margin-bottom: 10px;
+        }
+        .evo-era-title {
+          font-size: 22px;
+          font-weight: 500;
+          margin: 0 0 12px;
+        }
+        .evo-era-desc {
+          font-size: 15px;
+          line-height: 1.6;
+          opacity: 0.7;
+          margin: 0 0 20px;
+        }
+        .evo-era-tag {
+          font-size: 11px;
+          letter-spacing: 1.5px;
+          opacity: 0.45;
+        }
+        .evo-era-executia {
+          background: var(--blue, #1a3a6b);
+          color: white;
+          border-color: var(--blue, #1a3a6b);
+        }
+        .evo-era-executia .evo-era-title,
+        .evo-era-executia .evo-era-desc,
+        .evo-era-executia .evo-era-num,
+        .evo-era-executia .evo-era-tag,
+        .evo-era-executia .evo-era-icon {
+          opacity: 1;
+          color: white;
+        }
+        .evo-era-executia .evo-era-desc { opacity: 0.85; }
+        .evo-era-executia .evo-era-num,
+        .evo-era-executia .evo-era-tag { opacity: 0.6; }
+        @media (max-width: 768px) {
+          .evo-eras { grid-template-columns: 1fr; gap: 0; }
+          .evo-era + .evo-era { border-left: 1px solid var(--border, rgba(0,0,0,0.1)); border-top: none; }
+          .evo-era { padding: 28px 20px; }
+        }
+      </style>
     </section>
 
     <!-- 7. ARCHITECTURE -->
@@ -567,7 +656,7 @@
           <div class="about-text reveal">
             <div class="s-eyebrow mono">§ 08 — About EXECUTIA</div>
             <h2 class="s-title">A new layer in institutional infrastructure.</h2>
-            <p class="body-text-dark">EXECUTIA is an execution integrity protocol — a structural layer that sits between institutional decisions and system execution. It does not replace existing systems. It verifies them before they act.</p>
+            <p class="body-text-dark">EXECUTIA is the execution integrity protocol for institutional systems — a structural layer that sits between institutional decisions and system execution. It does not replace existing systems. It verifies them before they act.</p>
             <p class="body-text-dark">Like TCP/IP standardized communication and SWIFT standardized financial messaging, EXECUTIA standardizes execution integrity across governments, financial institutions, and critical infrastructure.</p>
           </div>
           <div class="about-meta reveal" data-delay="1">
@@ -655,4 +744,11 @@
         <div class="footer-founder">
           <span class="footer-founder-role">Concept and architecture</span>
           <span class="footer-founder-name">Sandis Boiko</span>
-          <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener" class="footer-founder-li">Li
+          <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener" class="footer-founder-li">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
