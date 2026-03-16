@@ -105,8 +105,8 @@
 
   /* ── Hamburger ─────────────────────────────────── */
   function initHamburger() {
-    const btn    = document.querySelector('.nav-hamburger');
-    const drawer = document.getElementById('mobileNav');
+    const btn    = document.querySelector('.nav-burger');
+    const drawer = document.getElementById('navMobile');
     if (!btn || !drawer) return;
     let open = false;
 
