@@ -99,7 +99,7 @@
     /* HERO DIAGRAM */
     .hero-diagram{display:flex;flex-direction:column;align-items:stretch;max-width:480px;margin-left:auto}
     .hd-node{border:1px solid rgba(255,255,255,.1);padding:20px 24px;text-align:center;background:rgba(255,255,255,.03)}
-    .hd-node-core{background:var(--blue);border-color:var(--blue);padding:28px 24px}
+    .hd-node-core{background:#426A9A;border-color:#426A9A;padding:28px 24px}
     .hd-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:white;display:block;margin-bottom:6px;font-weight:500}
     .hd-sub{font-size:11px;letter-spacing:.04em;color:rgba(255,255,255,.45);display:block}
     .hd-sym{font-size:1.5rem;color:white;display:block;margin-bottom:10px}
@@ -126,7 +126,7 @@
     .stats-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--lt-border);margin-top:40px}
     .stat-item{padding:28px 24px;border-right:1px solid var(--lt-border);text-align:center}
     .stat-item:last-child{border-right:none}
-    .stat-num{display:block;font-size:clamp(2.5rem,4vw,3rem);font-weight:600;color:var(--lt-head);letter-spacing:-.02em;line-height:1;margin-bottom:8px}
+    .stat-num{display:block;font-size:48px;font-weight:600;color:var(--lt-head);letter-spacing:-.02em;line-height:1;margin-bottom:8px}
     .stat-label{font-size:.8125rem;color:var(--lt-muted);display:block;line-height:1.4}
 
     /* HOW IT WORKS */
@@ -176,13 +176,13 @@
     .standard-intro{max-width:640px;margin-bottom:56px}
     .standard-timeline{border:1px solid var(--lt-border);overflow:hidden}
     .st-row{display:grid;grid-template-columns:120px 40px 1fr;align-items:center;border-bottom:1px solid var(--lt-border)}
-    .st-row:last-child{border-bottom:none;background:var(--lt-head)}
+    .st-row:last-child{border-bottom:none;background:#0C2F4E}
     .st-label{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--lt-head);padding:24px;font-weight:500;border-right:1px solid var(--lt-border)}
     .st-row:last-child .st-label{color:var(--red);border-right-color:rgba(255,255,255,.1)}
     .st-arrow{text-align:center;color:#C0D0DF;font-size:.875rem;border-right:1px solid var(--lt-border);padding:24px 0}
     .st-row:last-child .st-arrow{color:rgba(255,255,255,.2);border-right-color:rgba(255,255,255,.1)}
     .st-desc{padding:24px;font-size:1rem;color:var(--lt-muted)}
-    .st-row:last-child .st-desc{color:rgba(255,255,255,.8);font-weight:500}
+    .st-row:last-child .st-desc{color:rgba(255,255,255,.9);font-weight:500}
 
     /* ARCHITECTURE */
     .arch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid var(--lt-border);margin-bottom:32px}
@@ -202,7 +202,7 @@
     .arch-cta{margin-top:32px}
 
     /* USE CASE */
-    .sim-table{border:1px solid var(--lt-border);overflow:hidden}
+    .sim-table{border:1px solid var(--lt-border);overflow:hidden;overflow-x:auto}
     .sim-row{display:grid;grid-template-columns:48px 1fr 1fr 1fr;border-bottom:1px solid var(--lt-border)}
     .sim-row:last-child{border-bottom:none}
     .sim-row>*{padding:16px 18px;border-right:1px solid var(--lt-border)}
