@@ -40,12 +40,12 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 #nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.98);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .nav-top{border-bottom:1px solid var(--border)}
 .nav-top-inner{max-width:1160px;margin:0 auto;padding:0 48px;height:52px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:12px}
-.nav-logo-img{height:36px;width:auto;flex-shrink:0;display:block}
+.nav-logo{display:flex;align-items:center;gap:16px}
+.nav-logo-img{height:32px;width:auto;flex-shrink:0;display:block}
 .nav-logo-text{display:flex;flex-direction:column;gap:1px}
 .nav-name{font-size:.875rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);line-height:1}
 .nav-name sup{font-size:.5em;opacity:.6}
-.nav-tagline{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);line-height:1}
+.nav-tagline{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);line-height:1;border-left:1px solid var(--border);padding-left:16px}
 .nav-top-right{display:flex;align-items:center;gap:16px}
 .nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:white;background:var(--blue);border:1px solid var(--blue);padding:9px 20px;transition:background var(--r);white-space:nowrap}
 .nav-cta:hover{background:var(--blue-l)}
