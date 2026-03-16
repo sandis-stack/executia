@@ -41,7 +41,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .nav-top{border-bottom:1px solid var(--border)}
 .nav-top-inner{max-width:1160px;margin:0 auto;padding:0 48px;height:52px;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:12px}
-.nav-mark{width:30px;height:30px;background:var(--blue);color:white;font-family:'DM Mono',monospace;font-size:.8125rem;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-img{height:36px;width:auto;flex-shrink:0;display:block}
 .nav-logo-text{display:flex;flex-direction:column;gap:1px}
 .nav-name{font-size:.875rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);line-height:1}
 .nav-name sup{font-size:.5em;opacity:.6}
