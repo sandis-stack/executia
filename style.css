@@ -450,3 +450,57 @@ footer{background:var(--blue);border-top:1px solid rgba(255,255,255,.1);padding:
 .footer-emails a:hover { color: white; }
 .footer-email-sep { color: rgba(255,255,255,.2); }
 .footer-inner { flex-direction: column; gap: 16px; }
+
+/* ── Institutional Signals strip ──────────────── */
+.s-inst {
+  background: var(--blue);
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.is-header {
+  margin-bottom: 18px;
+}
+.is-label {
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+}
+.is-items {
+  display: flex; flex-wrap: wrap; gap: 0;
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: 18px;
+}
+.is-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 28px 8px 0;
+  margin-right: 28px;
+  border-right: 1px solid rgba(255,255,255,.1);
+}
+.is-item:last-child { border-right: none; }
+.is-item .mono { font-size: 12px; letter-spacing: .06em; color: rgba(255,255,255,.7); text-transform: uppercase; }
+.is-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--red); flex-shrink: 0;
+}
+@media(max-width:768px) {
+  .is-items { flex-direction: column; gap: 0; }
+  .is-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); padding: 10px 0; margin-right: 0; }
+  .is-item:last-child { border-bottom: none; }
+}
+
+/* ── Footer contact block ──────────────────────── */
+.footer-contact-block {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-top: 16px;
+}
+.footer-contact-label {
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); display: block;
+}
+.footer-emails {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.footer-emails a {
+  font-size: 13px; letter-spacing: .04em;
+  color: rgba(255,255,255,.55); transition: color .2s;
+}
+.footer-emails a:hover { color: white; }
