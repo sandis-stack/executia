@@ -41,7 +41,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .nav-top{border-bottom:1px solid var(--border)}
 .nav-top-inner{max-width:1160px;margin:0 auto;padding:0 48px;height:52px;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:16px}
-.nav-logo-img{height:32px;width:auto;flex-shrink:0;display:block}
+.nav-logo-img{height:36px;width:auto;flex-shrink:0;display:block;object-fit:contain}
 .nav-logo-text{display:flex;flex-direction:column;gap:1px}
 .nav-name{font-size:.875rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);line-height:1}
 .nav-name sup{font-size:.5em;opacity:.6}
@@ -504,3 +504,9 @@ footer{background:var(--blue);border-top:1px solid rgba(255,255,255,.1);padding:
   color: rgba(255,255,255,.55); transition: color .2s;
 }
 .footer-emails a:hover { color: white; }
+
+/* Nav logo text */
+.nav-logo-text{display:flex;flex-direction:column;gap:1px}
+.nav-name{font-size:.875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);line-height:1}
+.nav-name sup{font-size:.5em;opacity:.7;vertical-align:super}
+.nav-tagline{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);line-height:1;border-left:none;padding-left:0}
