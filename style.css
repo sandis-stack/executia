@@ -510,3 +510,12 @@ footer{background:var(--blue);border-top:1px solid rgba(255,255,255,.1);padding:
 .nav-name{font-size:.875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);line-height:1}
 .nav-name sup{font-size:.5em;opacity:.7;vertical-align:super}
 .nav-tagline{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);line-height:1;border-left:none;padding-left:0}
+
+/* Execution Layer nav link */
+.nav-layer-link {
+  color: var(--red) !important;
+  border-left: 1px solid var(--border);
+  padding-left: 18px !important;
+  margin-left: 8px;
+}
+.nav-layer-link:hover { color: var(--red-l) !important; }
