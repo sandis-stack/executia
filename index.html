@@ -1,3 +1,20 @@
+/* =========================
+   EXECUTIA GLOBAL SYSTEM
+========================= */
+
+/* DARK MODE (default) */
+body {
+  --bg: #0a0f14;
+  --text: #ffffff;
+  --surface: #11161c;
+  --border: rgba(255,255,255,0.08);
+
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
 /* LIGHT MODE */
 body.light {
   --bg: #ffffff;
@@ -6,119 +23,122 @@ body.light {
   --border: rgba(0,0,0,0.08);
 }
 
-/* DARK MODE (default) */
-body {
-  --bg: #0a0f14;
-  --text: #ffffff;
-  --surface: #11161c;
-  --border: rgba(255,255,255,0.08);
+/* =========================
+   LAYOUT
+========================= */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-/* APPLY VARIABLES */
-body {
-  background: var(--bg);
-  color: var(--text);
-}<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+.section {
+  padding: 80px 0;
+}
 
-  <title>EXECUTIA — Execution Integrity Protocol</title>
-  <meta name="description" content="EXECUTIA is a verification layer ensuring systems execute only valid decisions." />
+/* =========================
+   TYPOGRAPHY
+========================= */
 
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+.h1 {
+  font-size: 56px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+.h2 {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
 
-  <link rel="stylesheet" href="/css/global.css" />
-</head>
+.text-body {
+  font-size: 18px;
+  opacity: 0.8;
+  max-width: 600px;
+}
 
-<body class="light">
+/* =========================
+   NAV
+========================= */
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="container nav-inner">
+.nav {
+  border-bottom: 1px solid var(--border);
+}
 
-    <a href="/" class="nav-logo">
-      <span class="nav-logo-name">EXECUTIA<span class="nav-tm">™</span></span>
-      <span class="nav-logo-sub">Execution Integrity Protocol</span>
-    </a>
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+}
 
-    <div class="nav-links">
-      <a href="/" class="active">Home</a>
-      <a href="https://execution.executia.io">Execution</a>
-      <a href="/institutional.html">Institutional</a>
-      <a href="/#contact">Contact</a>
-    </div>
+.nav-logo-name {
+  font-weight: 600;
+}
 
-    <a href="/institutional.html#contact" class="nav-cta">
-      Request Briefing
-    </a>
+.nav-tm {
+  font-size: 10px;
+  margin-left: 2px;
+}
 
-  </div>
-</nav>
+.nav-logo-sub {
+  font-size: 10px;
+  opacity: 0.6;
+  display: block;
+}
 
-<!-- HERO -->
-<section class="hero">
-  <div class="container">
+.nav-links a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.7;
+}
 
-    <h1 class="h1">
-      Verified Execution<br>
-      for Institutional Systems
-    </h1>
+.nav-links a.active {
+  opacity: 1;
+}
 
-    <p class="text-body">
-      EXECUTIA introduces a verification layer that ensures systems execute only valid decisions — before execution occurs.
-    </p>
+.nav-cta {
+  background: #00ffae;
+  color: #000;
+  padding: 10px 18px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+}
 
-    <div class="hero-actions">
+/* =========================
+   HERO
+========================= */
 
-      <a href="https://execution.executia.io" class="btn-primary">
-        Explore Execution Layer →
-      </a>
+.hero {
+  padding: 120px 0;
+}
 
-      <a href="/institutional.html" class="btn-secondary">
-        Institutional Overview
-      </a>
+.hero-actions {
+  margin-top: 30px;
+}
 
-    </div>
+/* =========================
+   BUTTONS
+========================= */
 
-  </div>
-</section>
+.btn-primary {
+  background: #00ffae;
+  color: #000;
+  padding: 14px 24px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+}
 
-<!-- PROBLEM -->
-<section class="section">
-  <div class="container">
-
-    <h2 class="h2">
-      Modern systems detect errors after execution.
-    </h2>
-
-    <p class="text-body">
-      Institutions operate on complex systems executing billions of decisions daily.
-      Yet execution remains unverified before action occurs.
-    </p>
-
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="section">
-  <div class="container" style="text-align:center;">
-
-    <h2 class="h2">Request briefing</h2>
-
-    <p class="text-body">
-      Access architecture, verification logic and institutional deployment model.
-    </p>
-
-    <a href="/institutional.html#contact" class="btn-primary">
-      Request Briefing
-    </a>
-
-  </div>
-</section>
-
-</body>
-</html>
+.btn-secondary {
+  border: 1px solid var(--border);
+  padding: 14px 24px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-left: 12px;
+  display: inline-block;
+}
