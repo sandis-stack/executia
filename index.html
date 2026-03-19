@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/global.css" />
 </head>
-<body>
+<body class="light">
 
 <nav class="nav">
   <div class="container nav-inner">
@@ -152,7 +152,6 @@
   </div>
 </section>
 
-
 <section class="section section-light">
   <div class="container container-sm text-center">
     <div class="inev-box">
@@ -174,7 +173,7 @@
     <h2 class="h2 text-center mb-40">Choose your entry point.</h2>
     <div class="grid-2 gap-24">
       <div class="entry-card">
-        <div class="mono entry-card-label">For Governments & Institutions</div>
+        <div class="mono entry-card-label">For Governments &amp; Institutions</div>
         <h3 class="h3 entry-card-title">Institutional Overview</h3>
         <p class="entry-card-desc">Structured overview for governments, regulators, and infrastructure operators. Verification logic, reference case, and deployment model.</p>
         <a href="https://www.executia.io/institutional" class="btn btn-primary">Open Institutional Overview</a>
@@ -200,11 +199,11 @@
           <div class="cs-item"><span class="mono cs-label">Response</span><span class="cs-val">Within 2 business days</span></div>
           <div class="cs-item"><span class="mono cs-label">Patent</span><span class="cs-val">PCT/IB2026/050141</span></div>
           <div class="cs-item"><span class="mono cs-label">Founder</span><a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener" class="cs-val cs-link">Sandis Boiko ↗</a></div>
-          <div class="cs-item"><span class="mono cs-label">Email</span><a href="/cdn-cgi/l/email-protection#c2abaca4ad82a7baa7a1b7b6aba3ecabad" class="cs-val cs-link"><span class="__cf_email__" data-cfemail="3c55525a537c5944595f4948555d125553">[email&#160;protected]</span></a></div>
+          <div class="cs-item"><span class="mono cs-label">Email</span><a href="/cdn-cgi/l/email-protection#5831363e37183d203d3b2d2c3139763137" class="cs-val cs-link"><span class="__cf_email__" data-cfemail="660f08000926031e030513120f07480f09">[email&#160;protected]</span></a></div>
         </div>
       </div>
       <div>
-        <form class="contact-form" action="https://formspree.io/f/xbddrnaz" method="POST">
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/xbddrnaz" method="POST">
           <div class="form-group"><label class="mono form-label">Name</label><input type="text" name="name" class="form-input" required /></div>
           <div class="form-group"><label class="mono form-label">Institution</label><input type="text" name="institution" class="form-input" /></div>
           <div class="form-group"><label class="mono form-label">Email</label><input type="email" name="email" class="form-input" required /></div>
@@ -234,8 +233,7 @@
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Contact</div>
-        <a href="/cdn-cgi/l/email-protection#274e49414867425f424452534e46094e48"><span class="__cf_email__" data-cfemail="99f0f7fff6d9fce1fcfaecedf0f8b7f0f6">[email&#160;protected]</span></a>
-        <a href="/cdn-cgi/l/email-protection#66161403151526031e030513120f07480f09"><span class="__cf_email__" data-cfemail="74040611070734110c111701001d155a1d1b">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#bbd2d5ddd4fbdec3ded8cecfd2da95d2d4"><span class="__cf_email__" data-cfemail="c9a0a7afa689acb1acaabcbda0a8e7a0a6">[email&#160;protected]</span></a>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Legal</div>
@@ -248,9 +246,30 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const _fi=document.querySelectorAll('.fade-in');
-const _ob=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')});},{threshold:.1});
-_fi.forEach(el=>_ob.observe(el));
-setTimeout(()=>{document.querySelectorAll('.hero .fade-in').forEach(el=>el.classList.add('visible'))},50);
-const form=document.querySelector('form');
-if(form){form.addEventListener('submit',async e=>{e.preventDefault();const btn=form.querySelector('button');btn.textContent='Sending…';btn.disabled=true;try{const r=await fetc
+  // Fade-in on scroll
+  const _fi = document.querySelectorAll('.fade-in');
+  const _ob = new IntersectionObserver(e => {
+    e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); });
+  }, { threshold: .1 });
+  _fi.forEach(el => _ob.observe(el));
+  setTimeout(() => {
+    document.querySelectorAll('.hero .fade-in').forEach(el => el.classList.add('visible'));
+  }, 50);
+
+  // Contact form
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = form.querySelector('button');
+      const fs = document.getElementById('fs');
+      const fe = document.getElementById('fe');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      fs.classList.remove('show');
+      fe.classList.remove('show');
+      try {
+        const r = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Ac
