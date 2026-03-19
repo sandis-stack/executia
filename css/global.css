@@ -630,3 +630,30 @@ body.light .hero-context { color: rgba(0,0,0,.35); }
   .hero-actions .btn, .inst-actions .btn { width: 100%; }
   .container { padding: 0 20px; }
 }
+/* FIX LIGHT MODE */
+body.light {
+  background: #f7f7f7;
+  color: #111;
+}
+
+body.light .hero-title,
+body.light .section-h2,
+body.light h1,
+body.light h2,
+body.light h3 {
+  color: #111;
+}
+
+body.light .hero-def,
+body.light .section-body {
+  color: #444;
+}
+
+body.light .nav {
+  background: #ffffff;
+  border-bottom: 1px solid #eee;
+}
+
+body.light .nav-logo-name {
+  color: #111;
+}
