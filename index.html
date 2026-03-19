@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+/* LIGHT MODE */
+body.light {
+  --bg: #ffffff;
+  --text: #0a0a0a;
+  --surface: #f6f6f6;
+  --border: rgba(0,0,0,0.08);
+}
+
+/* DARK MODE (default) */
+body {
+  --bg: #0a0f14;
+  --text: #ffffff;
+  --surface: #11161c;
+  --border: rgba(255,255,255,0.08);
+}
+
+/* APPLY VARIABLES */
+body {
+  background: var(--bg);
+  color: var(--text);
+}<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
