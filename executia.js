@@ -1,41 +1,51 @@
 /* ═══════════════════════════════════════════════════════════
-   EXECUTIA — executia.js  ·  EIF V6
+   EXECUTIA — executia.js  ·  EIF V7
    HTML = structure  ·  CSS = visual  ·  JS = behaviour
+
+   ── New in V7 ───────────────────────────────────────────────
+   Rule versioning      Rule({ id: 'budget@v1', ... })
+   Integrity            Ledger.hash(result) → SHA-256 digest
+                        Ledger.verify(result, hash) → bool
+   Persistence          Ledger.store(result) / Ledger.retrieve(id)
+                        Browser: sessionStorage (no server needed)
+                        Production: swap store/retrieve for fetch()
+   API interface        ApiClient.submit(result) → stub ready for
+                        POST /execute + GET /trace/{id}
 
    ── Architecture ────────────────────────────────────────────
    STATE / TRANSITIONS  — frozen legal transition graph
-   Rules                — composable validation primitives
-                          each Rule is a typed object:
-                          { id, label, validate(ctx), error(ctx) }
-   ExecutionTrace       — immutable audit record per check
-   ExecutionResult      — typed, frozen engine output
-   Engine               — PURE: no UI hooks, no DOM knowledge
+   Rule()               — typed, versioned validation primitive
+   Rules                — composable rule library
+   ExecutionTrace       — immutable per-check audit record
+   ExecutionResult      — typed, frozen, hashable engine output
+   Ledger               — integrity + persistence layer
+   ApiClient            — external interface stub
+   Engine               — PURE: no UI, no DOM
                           Engine.run(checks, ctx) → Promise<ExecutionResult>
-                          Engine.cinematic(sequence) → Timeline
-   EventBus             — publish/subscribe, decouples Engine from UI
-   Executia.sim         — UI subscriber: reads state, calls _render()
-   Executia.demo        — scroll-triggered cinematic runner
-   Executia.reveal      — IntersectionObserver scroll reveal
-
-   ── State graph (sim) ───────────────────────────────────────
-     idle → running → blocked → fixed → running → success
-                    ↘ success
-                    success → idle  ("Run Again")
+                          Engine.cinematic(sequence) → void
+   EventBus             — decouples Engine from UI
+   Executia.sim         — UI controller
+   Executia.demo        — scroll cinematic
+   Executia.reveal      — scroll reveal
 
    ── Data flow ───────────────────────────────────────────────
      [User action]
        → sim.transition(STATE.RUNNING)
-       → sim._execute()   builds ctx from SCENARIOS + DOM
-       → Engine.run()     pure validation, emits events
-       → EventBus         carries ExecutionTrace + ExecutionResult
-       → sim._onTick()    updates DOM via _render() only
+       → sim._execute()
+       → Engine.run()
+       → EventBus.emit('engine:check', trace_entry)
+       → EventBus.emit('engine:result', result)
+       → Ledger.hash(result)      ← integrity
+       → Ledger.store(result)     ← persistence
+       → ApiClient.submit(result) ← external interface
+       → sim._onResult()          ← UI update
    ═══════════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
   /* ─────────────────────────────────────────────────────────
-     STATE CONSTANTS
+     STATE
      ───────────────────────────────────────────────────────── */
   const STATE = Object.freeze({
     IDLE:    'idle',
@@ -67,112 +77,282 @@
     };
   }
 
+  /** Generate a UUID-like execution ID */
+  function uid() {
+    return 'ex-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 7);
+  }
+
   /* ─────────────────────────────────────────────────────────
-     EVENTBUS — pub/sub, zero DOM knowledge
-     Engine emits. UI subscribes. They never meet directly.
+     EVENTBUS
      ───────────────────────────────────────────────────────── */
   const EventBus = (function () {
     const listeners = {};
     return {
-      on(event, fn)   { (listeners[event] = listeners[event] || []).push(fn); },
-      off(event, fn)  { if (listeners[event]) listeners[event] = listeners[event].filter(f => f !== fn); },
+      on(event, fn)     { (listeners[event] = listeners[event] || []).push(fn); },
+      off(event, fn)    { if (listeners[event]) listeners[event] = listeners[event].filter(f => f !== fn); },
       emit(event, data) { (listeners[event] || []).forEach(fn => fn(data)); },
     };
   }());
 
   /* ─────────────────────────────────────────────────────────
-     RULES — composable, typed validation primitives
-     Each Rule: { id, label, validate(ctx) → bool, error(ctx) → string }
+     RULE — versioned, typed, composable
+     id format: 'ruleId@version'  e.g. 'budget@v1'
      ───────────────────────────────────────────────────────── */
-  const Rule = ({ id, label, validate, error }) =>
-    Object.freeze({ id, label, validate, error: error || (() => `${label} check failed`) });
+  const Rule = ({ id, version = 'v1', label, validate, error }) =>
+    Object.freeze({
+      id:      `${id}@${version}`,
+      ruleId:  id,
+      version,
+      label,
+      validate,
+      error: error || (() => `${label} check failed`),
+    });
 
   const Rules = {
     withinBudget: Rule({
-      id:       'budget',
+      id: 'budget', version: 'v1',
       label:    'Budget threshold',
       validate: ctx => ctx.amount <= ctx.limit,
-      error:    ctx => `Exceeded by ${(ctx.amount - ctx.limit).toFixed(2)}M \u2014 ${((ctx.amount / ctx.limit - 1) * 100).toFixed(0)}% over limit`,
+      error:    ctx => `Exceeded by ${(ctx.amount - ctx.limit).toFixed(2)}M \u2014 ${Math.round((ctx.amount / ctx.limit - 1) * 100)}% over limit`,
     }),
 
     isAuthorized: Rule({
-      id:       'authorization',
+      id: 'authorization', version: 'v1',
       label:    'Authorization confirmed',
       validate: ctx => ctx.authorized === true,
-      error:    ()  => 'Requesting entity lacks authorization for this action',
+      error:    () => 'Requesting entity lacks authorization for this action',
     }),
 
     hasResponsibility: Rule({
-      id:       'responsibility',
+      id: 'responsibility', version: 'v1',
       label:    'Responsibility assigned',
       validate: ctx => ctx.actorLevel >= ctx.requiredLevel,
       error:    ctx => `Actor level ${ctx.actorLevel} below required level ${ctx.requiredLevel}`,
     }),
 
     supplierRegistered: Rule({
-      id:       'supplier',
+      id: 'supplier', version: 'v1',
       label:    'Supplier registry',
       validate: ctx => ctx.supplierRegistered === true,
-      error:    ()  => 'Supplier not found in active procurement registry',
+      error:    () => 'Supplier not found in active procurement registry',
     }),
 
     alwaysPass: Rule({
-      id:       'pass',
-      label:    'Check',
+      id: 'pass', version: 'v1',
+      label:    'Structural check',
       validate: () => true,
       error:    () => '',
     }),
 
-    /* Composers — return a new Rule */
+    /* Composers — each returns a new versioned Rule */
     all(...rules) {
       return Rule({
-        id:       rules.map(r => r.id).join('+'),
-        label:    rules.map(r => r.label).join(' + '),
+        id:      rules.map(r => r.ruleId).join('+'),
+        version: rules.map(r => r.version).join('+'),
+        label:   rules.map(r => r.label).join(' + '),
         validate: ctx => rules.every(r => r.validate(ctx)),
-        error:    ctx => rules.find(r => !r.validate(ctx))?.error(ctx) || '',
+        error:    ctx => (rules.find(r => !r.validate(ctx)) || rules[0]).error(ctx),
       });
     },
     any(...rules) {
       return Rule({
-        id:       rules.map(r => r.id).join('|'),
-        label:    rules.map(r => r.label).join(' or '),
+        id:      rules.map(r => r.ruleId).join('|'),
+        version: rules.map(r => r.version).join('|'),
+        label:   rules.map(r => r.label).join(' or '),
         validate: ctx => rules.some(r => r.validate(ctx)),
         error:    ctx => rules.map(r => r.error(ctx)).join('; '),
       });
     },
     not(rule) {
       return Rule({
-        id:       `not-${rule.id}`,
-        label:    `Not: ${rule.label}`,
+        id:      `not-${rule.ruleId}`,
+        version: rule.version,
+        label:   `Not: ${rule.label}`,
         validate: ctx => !rule.validate(ctx),
-        error:    ()  => `Condition should not hold: ${rule.label}`,
+        error:    () => `Condition must not hold: ${rule.label}`,
       });
     },
   };
 
   /* ─────────────────────────────────────────────────────────
-     EXECUTION TRACE — immutable audit record
-     One per check. Collected into ExecutionResult.trace[].
+     ExecutionTrace — immutable per-check audit record
      ───────────────────────────────────────────────────────── */
-  function ExecutionTrace({ index, ruleId, ruleLabel, passed, errorMsg, ctx, timestamp }) {
-    return Object.freeze({ index, ruleId, ruleLabel, passed, errorMsg, ctx: Object.freeze({ ...ctx }), timestamp });
-  }
-
-  /* ─────────────────────────────────────────────────────────
-     EXECUTION RESULT — typed, frozen engine output
-     ───────────────────────────────────────────────────────── */
-  function ExecutionResult({ status, failedIndex, trace, meta }) {
+  function ExecutionTrace({ index, ruleId, ruleVersion, ruleLabel, passed, errorMsg, ctx, timestamp }) {
     return Object.freeze({
-      status,         /* 'blocked' | 'success' */
-      failedIndex,    /* index of first failing check, -1 on success */
-      trace,          /* ExecutionTrace[] — full audit log */
-      meta,           /* scenario result strings for display */
+      index, ruleId, ruleVersion, ruleLabel,
+      passed, errorMsg,
+      ctx:       Object.freeze({ ...ctx }),
+      timestamp,
     });
   }
 
   /* ─────────────────────────────────────────────────────────
-     ENGINE — PURE (no UI, no DOM, no side effects)
-     Emits events via EventBus for UI to consume.
+     ExecutionResult — typed, frozen, hashable output
+     ───────────────────────────────────────────────────────── */
+  function ExecutionResult({ id, status, failedIndex, trace, meta, timestamp, hash }) {
+    return Object.freeze({
+      id,           /* unique execution ID (ex-xxxxx) */
+      status,       /* 'blocked' | 'success' */
+      failedIndex,  /* index of first failing check, -1 on success */
+      trace,        /* ExecutionTrace[] — full audit log */
+      meta,         /* display strings — decoupled from engine logic */
+      timestamp,    /* execution start time (ms) */
+      hash,         /* SHA-256 of canonical JSON — set by Ledger */
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     LEDGER — integrity + persistence layer
+     hash:     SubtleCrypto SHA-256 of canonical trace JSON
+     verify:   recompute and compare
+     store:    sessionStorage (swap for fetch() in production)
+     retrieve: sessionStorage get by execution ID
+     ───────────────────────────────────────────────────────── */
+  const Ledger = {
+    _store_key: 'executia:ledger',
+
+    /** Canonical JSON for hashing — excludes the hash field itself */
+    _canonical(result) {
+      const { hash: _h, ...rest } = result; // eslint-disable-line no-unused-vars
+      return JSON.stringify({
+        id:          rest.id,
+        status:      rest.status,
+        failedIndex: rest.failedIndex,
+        timestamp:   rest.timestamp,
+        trace:       rest.trace.map(t => ({
+          index:       t.index,
+          ruleId:      t.ruleId,
+          ruleVersion: t.ruleVersion,
+          passed:      t.passed,
+          errorMsg:    t.errorMsg,
+          timestamp:   t.timestamp,
+        })),
+      });
+    },
+
+    /** SHA-256 via SubtleCrypto. Returns Promise<string hex> */
+    async hash(result) {
+      try {
+        const encoded = new TextEncoder().encode(this._canonical(result));
+        const buffer  = await crypto.subtle.digest('SHA-256', encoded);
+        return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+      } catch {
+        /* Fallback for non-HTTPS / older browsers — deterministic but not cryptographic */
+        const str = this._canonical(result);
+        let h = 0;
+        for (let i = 0; i < str.length; i++) h = (Math.imul(31, h) + str.charCodeAt(i)) | 0;
+        return 'fallback-' + Math.abs(h).toString(16);
+      }
+    },
+
+    /** Verify: recompute hash and compare to stored */
+    async verify(result) {
+      const recomputed = await this.hash(result);
+      return recomputed === result.hash;
+    },
+
+    /** Persist result to sessionStorage (swap .setItem for fetch() in production) */
+    store(result) {
+      try {
+        const ledger = this._getLedger();
+        ledger[result.id] = {
+          id:          result.id,
+          status:      result.status,
+          failedIndex: result.failedIndex,
+          timestamp:   result.timestamp,
+          hash:        result.hash,
+          trace:       result.trace,
+          meta:        result.meta,
+        };
+        sessionStorage.setItem(this._store_key, JSON.stringify(ledger));
+        EventBus.emit('ledger:stored', { id: result.id, hash: result.hash });
+      } catch (e) {
+        /* sessionStorage unavailable (private browsing, etc.) — degrade gracefully */
+        EventBus.emit('ledger:error', { error: 'storage_unavailable', id: result.id });
+      }
+    },
+
+    /** Retrieve result by execution ID */
+    retrieve(id) {
+      try {
+        const ledger = this._getLedger();
+        return ledger[id] || null;
+      } catch {
+        return null;
+      }
+    },
+
+    /** List all stored execution IDs */
+    list() {
+      try {
+        return Object.keys(this._getLedger());
+      } catch {
+        return [];
+      }
+    },
+
+    _getLedger() {
+      try {
+        return JSON.parse(sessionStorage.getItem(this._store_key) || '{}');
+      } catch {
+        return {};
+      }
+    },
+  };
+
+  /* ─────────────────────────────────────────────────────────
+     API CLIENT — external interface stub
+     Production: replace stub bodies with real fetch() calls.
+     Interface is stable — no other code changes needed.
+     ───────────────────────────────────────────────────────── */
+  const ApiClient = {
+    baseUrl: '',   /* set to 'https://api.executia.io' in production */
+    enabled: false, /* flip to true when backend is live */
+
+    /**
+     * POST /execute  — submit execution result to backend
+     * @param {ExecutionResult} result
+     * @returns {Promise<{accepted: bool, serverId: string}>}
+     */
+    async submit(result) {
+      if (!this.enabled) {
+        /* Stub: log the payload shape, return mock response */
+        EventBus.emit('api:stub', { method: 'POST', endpoint: '/execute', payload: result });
+        return Promise.resolve({ accepted: true, serverId: `srv-${result.id}` });
+      }
+      const resp = await fetch(`${this.baseUrl}/execute`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          id:          result.id,
+          status:      result.status,
+          failedIndex: result.failedIndex,
+          timestamp:   result.timestamp,
+          hash:        result.hash,
+          trace:       result.trace,
+        }),
+      });
+      return resp.json();
+    },
+
+    /**
+     * GET /trace/{id}  — retrieve execution record from backend
+     * @param {string} id
+     * @returns {Promise<ExecutionResult|null>}
+     */
+    async getTrace(id) {
+      if (!this.enabled) {
+        EventBus.emit('api:stub', { method: 'GET', endpoint: `/trace/${id}` });
+        return Promise.resolve(Ledger.retrieve(id));
+      }
+      const resp = await fetch(`${this.baseUrl}/trace/${id}`);
+      return resp.ok ? resp.json() : null;
+    },
+  };
+
+  /* ─────────────────────────────────────────────────────────
+     ENGINE — PURE
+     No UI hooks. No DOM. No side effects outside EventBus.
      ───────────────────────────────────────────────────────── */
   const Engine = {
     _tl: null,
@@ -181,36 +361,28 @@
       if (this._tl) { this._tl.cancel(); this._tl = null; }
     },
 
-    /**
-     * Cinematic mode — timed animation sequence.
-     * Purely timeline, no validation.
-     * @param {Array<{id: string, ms: number, fade?: boolean}>} sequence
-     */
     cinematic(sequence) {
       this.cancel();
       const tl = this._tl = new Timeline();
       sequence.forEach(({ id, ms, fade }) => {
-        tl.at(ms, () => {
-          EventBus.emit('engine:cinematic:tick', { id, fade: !!fade });
-        });
+        tl.at(ms, () => EventBus.emit('engine:cinematic:tick', { id, fade: !!fade }));
       });
     },
 
     /**
-     * Simulation mode — pure validation loop.
-     * Emits events. Returns Promise<ExecutionResult>.
-     * No UI callbacks. No DOM knowledge.
-     *
-     * @param {Rule[]}   checks   — array of Rule objects
-     * @param {Object}   ctx      — scenario data context
-     * @param {Object}   meta     — result strings (blockedSub, validSub, etc.)
-     * @param {number}   interval — ms between check evaluations
+     * Pure validation loop.
+     * @param {Rule[]} checks
+     * @param {Object} ctx
+     * @param {Object} meta    — display strings, not engine logic
+     * @param {number} interval
      * @returns {Promise<ExecutionResult>}
      */
     run(checks, ctx, meta, interval = 600) {
       this.cancel();
-      const tl = this._tl = new Timeline();
+      const tl    = this._tl = new Timeline();
       const trace = [];
+      const execId    = uid();
+      const startTime = Date.now();
 
       return new Promise(resolve => {
         let settled = false;
@@ -219,25 +391,37 @@
           tl.at(i * interval, () => {
             if (settled) return;
 
-            const passed    = rule.validate(ctx);
-            const errorMsg  = passed ? '' : rule.error(ctx);
-            const entry     = ExecutionTrace({
-              index: i, ruleId: rule.id, ruleLabel: rule.label,
-              passed, errorMsg, ctx, timestamp: Date.now(),
+            const passed   = rule.validate(ctx);
+            const errorMsg = passed ? '' : rule.error(ctx);
+            const entry    = ExecutionTrace({
+              index: i, ruleId: rule.ruleId, ruleVersion: rule.version,
+              ruleLabel: rule.label, passed, errorMsg,
+              ctx, timestamp: Date.now(),
             });
             trace.push(entry);
             EventBus.emit('engine:check', { index: i, entry });
 
-            if (!passed) {
+            if (!passed || i === checks.length - 1) {
               settled = true;
-              const result = ExecutionResult({ status: 'blocked', failedIndex: i, trace: Object.freeze([...trace]), meta });
-              EventBus.emit('engine:result', result);
-              resolve(result);
-            } else if (i === checks.length - 1) {
-              settled = true;
-              const result = ExecutionResult({ status: 'success', failedIndex: -1, trace: Object.freeze([...trace]), meta });
-              EventBus.emit('engine:result', result);
-              resolve(result);
+              const status = passed ? 'success' : 'blocked';
+
+              /* Build preliminary result (no hash yet) */
+              const preliminary = ExecutionResult({
+                id: execId, status,
+                failedIndex: passed ? -1 : i,
+                trace:       Object.freeze([...trace]),
+                meta, timestamp: startTime, hash: null,
+              });
+
+              /* Hash async, then finalize and persist */
+              Ledger.hash(preliminary).then(hash => {
+                const result = ExecutionResult({ ...preliminary, hash });
+
+                Ledger.store(result);
+                ApiClient.submit(result);
+                EventBus.emit('engine:result', result);
+                resolve(result);
+              });
             }
           });
         });
@@ -260,12 +444,7 @@
       },
       ctxBase:  { amount: 2.4,  limit: 2.0, authorized: true,  actorLevel: 2, requiredLevel: 2, supplierRegistered: true },
       ctxFixed: { amount: 1.96, limit: 2.0, authorized: true,  actorLevel: 2, requiredLevel: 2, supplierRegistered: true },
-      checks:   [
-        Rules.isAuthorized,
-        Rules.alwaysPass,
-        Rules.alwaysPass,
-        Rules.withinBudget,
-      ],
+      checks: [Rules.isAuthorized, Rules.alwaysPass, Rules.alwaysPass, Rules.withinBudget],
       meta: {
         fixLabel:   'Restructure payment',
         blockedSub: 'Payment exceeds approved limit by 22% \u2014 settlement cannot proceed',
@@ -286,12 +465,7 @@
       },
       ctxBase:  { amount: 0, limit: 999, authorized: false, actorLevel: 1, requiredLevel: 3, supplierRegistered: true },
       ctxFixed: { amount: 0, limit: 999, authorized: true,  actorLevel: 3, requiredLevel: 3, supplierRegistered: true },
-      checks:   [
-        Rules.alwaysPass,
-        Rules.alwaysPass,
-        Rules.alwaysPass,
-        Rules.all(Rules.isAuthorized, Rules.hasResponsibility),
-      ],
+      checks: [Rules.alwaysPass, Rules.alwaysPass, Rules.alwaysPass, Rules.all(Rules.isAuthorized, Rules.hasResponsibility)],
       meta: {
         fixLabel:   'Assign authorized officer',
         blockedSub: 'Executing officer lacks required authority level \u2014 action blocked',
@@ -312,12 +486,7 @@
       },
       ctxBase:  { amount: 4.2, limit: 5.0, authorized: true, actorLevel: 3, requiredLevel: 2, supplierRegistered: false },
       ctxFixed: { amount: 4.2, limit: 5.0, authorized: true, actorLevel: 3, requiredLevel: 2, supplierRegistered: true },
-      checks:   [
-        Rules.isAuthorized,
-        Rules.hasResponsibility,
-        Rules.alwaysPass,
-        Rules.supplierRegistered,
-      ],
+      checks: [Rules.isAuthorized, Rules.hasResponsibility, Rules.alwaysPass, Rules.supplierRegistered],
       meta: {
         fixLabel:   'Submit valid supplier',
         blockedSub: 'Supplier not found in procurement registry \u2014 possible fraudulent entity',
@@ -333,7 +502,6 @@
      ───────────────────────────────────────────────────────── */
   const Executia = {
 
-    /* 1. Scroll reveal ───────────────────────────────────── */
     reveal: {
       init() {
         const els = $$('.reveal');
@@ -346,26 +514,21 @@
       },
     },
 
-    /* 2. Cinematic demo — subscribes to engine:cinematic:tick */
     demo: {
       init() {
         const section = $('.execution-demo');
         if (!section) return;
-
-        /* Subscribe once */
         EventBus.on('engine:cinematic:tick', ({ id, fade }) => {
           const el = $(`#${id}`);
           if (!el) return;
           if (fade) el.classList.add('fade-out');
           else      el.classList.add('is-active');
         });
-
         const obs = new IntersectionObserver(entries => {
           if (entries[0].isIntersecting) { this.run(); obs.disconnect(); }
         }, { threshold: 0.3 });
         obs.observe(section);
       },
-
       run() {
         Engine.cinematic([
           { id: 'nodeDecision1', ms:    0 },
@@ -383,14 +546,12 @@
       },
     },
 
-    /* 3. Simulation controller — subscribes to engine events  */
     sim: {
       state:     STATE.IDLE,
       activeKey: 'budget',
       _ctx:      null,
       _dom:      null,
 
-      /* Guarded transition */
       transition(next) {
         const allowed = TRANSITIONS[this.state] || [];
         if (!allowed.includes(next)) { Engine.cancel(); return false; }
@@ -399,7 +560,6 @@
         return true;
       },
 
-      /* Central renderer — UI = f(state). Only place that writes UI from state. */
       _render() {
         const d = this._q();
         if (!d.resultBox) return;
@@ -416,7 +576,6 @@
         if (labels[this.state]) d.runBtn.textContent = labels[this.state];
       },
 
-      /* UI reset — does NOT change state */
       _resetUI() {
         const d = this._q();
         d.resultText.textContent    = '\u2014';
@@ -426,7 +585,6 @@
         d.checkResults.forEach(res => { res.textContent = ''; res.className = 'rs-check-res mono'; });
       },
 
-      /* Load scenario display data into DOM */
       _load(key) {
         const s = SCENARIOS[key || this.activeKey];
         const d = this._q();
@@ -441,7 +599,6 @@
         this._ctx = { ...s.ctxBase };
       },
 
-      /* DOM reference cache — resolved via data-role, never by id */
       _q() {
         if (this._dom) return this._dom;
         this._dom = {
@@ -462,15 +619,12 @@
         return this._dom;
       },
 
-      /* Wire EventBus → UI. Called once on init. */
       _subscribe() {
-        /* Per-check tick: Engine emits, UI reacts */
         EventBus.on('engine:check', ({ index, entry }) => {
           const d = this._q();
           const row = d.checkRows[index];
           const res = d.checkResults[index];
           if (!row || !res) return;
-
           row.classList.add('is-active');
           if (entry.passed) {
             row.classList.add('rs-pass');
@@ -478,16 +632,13 @@
             res.classList.add('is-success');
           } else {
             row.classList.add('rs-fail');
-            /* Use rule's error() message for richer feedback */
-            const s = SCENARIOS[this.activeKey];
-            res.textContent = s.meta.failMsg || '\u2715 FAILED';
+            res.textContent = SCENARIOS[this.activeKey].meta.failMsg || '\u2715';
             res.classList.add('is-error');
             d.hint.textContent   = 'Press Fix & Re-run to resolve';
-            d.fixBtn.textContent = (s.meta.fixLabel || 'Fix') + ' \u2192';
+            d.fixBtn.textContent = (SCENARIOS[this.activeKey].meta.fixLabel || 'Fix') + ' \u2192';
           }
         });
 
-        /* Final result: update result box, transition state */
         EventBus.on('engine:result', (result) => {
           const d = this._q();
           if (result.status === 'blocked') {
@@ -502,7 +653,30 @@
             d.hint.textContent          = 'Complete chain recorded \u00b7 decision \u00b7 verification \u00b7 execution \u00b7 ledger';
             this.transition(STATE.SUCCESS);
           }
+          /* Show execution ID + hash as proof signal */
+          this._showProof(result);
         });
+
+        EventBus.on('ledger:stored', ({ id, hash }) => {
+          const el = $('[data-role="execution-id"]');
+          if (el) el.textContent = `${id} · ${hash.slice(0, 12)}\u2026`;
+        });
+      },
+
+      /** Render execution proof (id + hash) below result box */
+      _showProof(result) {
+        const d = this._q();
+        let proofEl = $('[data-role="execution-proof"]');
+        if (!proofEl) {
+          proofEl = document.createElement('div');
+          proofEl.setAttribute('data-role', 'execution-proof');
+          proofEl.className = 'mono rs-proof-signal';
+          if (d.resultBox) d.resultBox.after(proofEl);
+        }
+        const shortHash = result.hash
+          ? result.hash.slice(0, 16) + '\u2026'
+          : 'computing\u2026';
+        proofEl.textContent = `ID: ${result.id}  ·  SHA-256: ${shortHash}`;
       },
 
       init() {
@@ -511,7 +685,6 @@
 
         this._subscribe();
 
-        /* Tab switching */
         d.tabs.forEach(tab => {
           tab.addEventListener('click', () => {
             d.tabs.forEach(t => t.classList.remove('rs-tab-active'));
@@ -522,10 +695,11 @@
             this._resetUI();
             this._load(this.activeKey);
             this._render();
+            const proof = $('[data-role="execution-proof"]');
+            if (proof) proof.textContent = '';
           });
         });
 
-        /* Run */
         d.runBtn.addEventListener('click', () => {
           if (this.state === STATE.SUCCESS) {
             this.transition(STATE.IDLE);
@@ -538,7 +712,6 @@
           }
         });
 
-        /* Fix */
         d.fixBtn.addEventListener('click', () => {
           if (!this.transition(STATE.FIXED)) return;
           const s = SCENARIOS[this.activeKey];
@@ -558,11 +731,9 @@
       _execute() {
         const s = SCENARIOS[this.activeKey];
         Engine.run(s.checks, this._ctx || { ...s.ctxBase }, s.meta);
-        /* Result arrives via EventBus — no .then() needed here */
       },
     },
 
-    /* Boot */
     init() {
       Executia.reveal.init();
       Executia.demo.init();
