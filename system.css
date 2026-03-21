@@ -1,0 +1,16 @@
+:root {
+  --bg:#0A0A0A;
+  --text:#B8B8B8;
+  --heading:#FFFFFF;
+}
+body[data-mode="light"] {
+  --bg:#FFFFFF;
+  --text:#444;
+  --heading:#000;
+}
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter, sans-serif;
+}
+h1 { color:var(--heading); }
