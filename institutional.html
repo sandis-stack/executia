@@ -79,7 +79,7 @@
 
     /* ── HERO ─────────────────────────────────────────────── */
     #hero { padding-top: calc(var(--nav-h) + 100px); padding-bottom: 80px; }
-    .hero-tag { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); border: 1px solid rgba(0,216,154,0.25); padding: 6px 14px; margin-bottom: 32px; background: var(--green-g); }
+    .hero-tag { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--control); border: 1px solid var(--control-brd); padding: 6px 14px; margin-bottom: 32px; background: var(--control-dim); }
     .hero-h1 { font-size: clamp(38px,6vw,72px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.06; color: var(--white); max-width: 760px; margin-bottom: 24px; }
     .hero-h1 em { font-style: normal; color: var(--control); }
     .hero-sub { font-size: 19px; font-weight: 300; color: var(--dim); max-width: 560px; margin-bottom: 48px; line-height: 1.6; letter-spacing: -0.01em; }
@@ -90,7 +90,7 @@
     .btn-outline:hover { border-color: rgba(255,255,255,0.4); color: var(--white); transform: scale(1.02); }
     .hero-signals { display: flex; gap: 24px; flex-wrap: wrap; }
     .hero-sig { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--dimmer); display: flex; align-items: center; gap: 8px; }
-    .hero-sig::before { content: "◎"; color: var(--green); font-size: 9px; }
+    .hero-sig::before { content: "◎"; color: var(--control); font-size: 9px; }
 
     /* ── PROBLEM ──────────────────────────────────────────── */
     #problem { background: var(--surface); }
@@ -98,7 +98,7 @@
     .prob-text { font-size: 17px; color: var(--dim); line-height: 1.7; }
     .prob-list { display: flex; flex-direction: column; gap: 16px; }
     .prob-item { font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); display: flex; gap: 14px; line-height: 1.6; padding: 16px; border: 1px solid var(--border); border-left: 2px solid rgba(255,255,255,0.12); transition: border-left-color 0.3s; }
-    .prob-item:hover { border-left-color: var(--green); }
+    .prob-item:hover { border-left-color: var(--control); }
     .prob-mark { color: var(--dimmer); flex-shrink: 0; }
     .stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 48px; }
     .stat-cell { background: var(--surface); padding: 40px 32px; }
@@ -117,9 +117,9 @@
     .sys-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--dimmer); padding: 3px 8px; border: 1px solid var(--border); }
     .sys-conn { display: flex; flex-direction: column; align-items: center; padding: 8px 0; }
     .sys-line { width: 1px; height: 24px; background: var(--border2); }
-    .sys-line-accent { background: rgba(0,216,154,0.4); }
+    .sys-line-accent { background: rgba(37,99,235,0.5); }
     .sys-arrow { font-family: var(--mono); font-size: 12px; color: var(--dimmer); }
-    .sys-rule { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-align: center; color: rgba(0,216,154,0.7); margin-top: 32px; text-transform: uppercase; }
+    .sys-rule { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-align: center; color: rgba(37,99,235,0.7); margin-top: 32px; text-transform: uppercase; }
 
     /* ── VERIFICATION LOGIC ───────────────────────────────── */
     #logic { background: var(--surface); }
@@ -127,13 +127,13 @@
     .logic-checks { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
     .logic-check { background: var(--surface); padding: 28px 32px; display: flex; gap: 24px; align-items: flex-start; transition: background 0.2s; cursor: default; }
     .logic-check:hover { background: var(--surface2); }
-    .check-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--green); flex-shrink: 0; padding-top: 2px; }
+    .check-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--control); flex-shrink: 0; padding-top: 2px; }
     .check-title { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
     .check-body { font-size: 14px; color: var(--dim); line-height: 1.6; }
     .logic-rule { display: flex; flex-direction: column; justify-content: center; }
     .logic-rule-text { font-size: 17px; color: var(--dim); line-height: 1.7; margin-bottom: 32px; }
     .logic-rule-box { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; line-height: 2; color: rgba(255,255,255,0.5); padding: 24px 28px; border: 1px solid var(--border2); border-left: 3px solid var(--control-brd); background: var(--control-dim); }
-    .logic-rule-box .pass { color: var(--green); }
+    .logic-rule-box .pass { color: rgba(37,99,235,0.9); }
     .logic-rule-box .fail { color: var(--red); }
 
     /* ── REFERENCE CASE ───────────────────────────────────── */
@@ -145,20 +145,20 @@
     .case-row-head { background: var(--surface2); }
     .case-row-head span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dimmer); padding: 14px 20px; display: block; border-right: 1px solid var(--border); }
     .case-row-head span:last-child { border-right: none; }
-    .case-row-core { background: rgba(0,216,154,0.03); border-color: rgba(0,216,154,0.15); }
+    .case-row-core { background: rgba(37,99,235,0.03); border-color: rgba(37,99,235,0.15); }
     .case-n { font-family: var(--mono); font-size: 11px; color: var(--dimmer); padding: 20px 16px; display: flex; align-items: flex-start; border-right: 1px solid var(--border); }
     .case-action { padding: 20px; font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; border-right: 1px solid var(--border); }
     .case-action small { font-family: var(--mono); font-size: 11px; color: var(--dimmer); display: block; margin-top: 4px; }
     .case-bad { font-family: var(--mono); font-size: 12px; color: rgba(255,59,48,0.7); padding: 20px; border-right: 1px solid var(--border); display: flex; align-items: flex-start; line-height: 1.5; }
-    .case-good { font-family: var(--mono); font-size: 12px; color: rgba(0,216,154,0.8); padding: 20px; display: flex; align-items: flex-start; line-height: 1.5; }
-    .case-conclusion { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: rgba(0,216,154,0.7); margin-top: 24px; text-transform: uppercase; }
+    .case-good { font-family: var(--mono); font-size: 12px; color: rgba(37,99,235,0.9); padding: 20px; display: flex; align-items: flex-start; line-height: 1.5; }
+    .case-conclusion { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: rgba(37,99,235,0.8); margin-top: 24px; text-transform: uppercase; }
 
     /* ── INEVITABILITY ────────────────────────────────────── */
     #inevitability { background: var(--surface); }
     .inev-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; }
     .inev-points { display: flex; flex-direction: column; gap: 16px; }
     .inev-point { font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); display: flex; gap: 14px; line-height: 1.6; padding: 16px 20px; border: 1px solid var(--border); transition: border-color 0.3s, color 0.3s; }
-    .inev-point:hover { border-color: rgba(0,216,154,0.2); color: rgba(255,255,255,0.75); }
+    .inev-point:hover { border-color: rgba(37,99,235,0.25); color: rgba(255,255,255,0.75); }
     .inev-dash { color: var(--dimmer); flex-shrink: 0; }
     .inev-statement { display: flex; flex-direction: column; justify-content: center; }
     .inev-text { font-size: 17px; color: var(--dim); line-height: 1.7; margin-bottom: 32px; }
@@ -176,14 +176,14 @@
     .cta-submit::after { content: "→"; font-size: 18px; }
     .cta-meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--dimmer); margin-top: 12px; }
     .cta-alt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.25); margin-top: 10px; }
-    .cta-alt a { color: rgba(0,216,154,0.7); text-decoration: none; transition: color 0.2s; }
-    .cta-alt a:hover { color: var(--green); }
+    .cta-alt a { color: rgba(37,99,235,0.8); text-decoration: none; transition: color 0.2s; }
+    .cta-alt a:hover { color: var(--control); }
     .cta-signals { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 48px; }
     .cta-sig { background: var(--surface); padding: 24px 20px; }
     .cta-sig-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dimmer); display: block; margin-bottom: 8px; }
     .cta-sig-val { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.7); }
-    .cta-sig-link { text-decoration: none; color: rgba(0,216,154,0.8); transition: color 0.2s; }
-    .cta-sig-link:hover { color: var(--green); }
+    .cta-sig-link { text-decoration: none; color: rgba(37,99,235,0.9); transition: color 0.2s; }
+    .cta-sig-link:hover { color: var(--control); }
 
     /* ── FOOTER ──────────────────────────────────────────── */
     footer { background: var(--surface); border-top: 1px solid var(--border); padding: 48px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
@@ -271,7 +271,7 @@
           <div class="stat-label">Global public spending annually without execution verification</div>
         </div>
         <div class="stat-cell fade fade-d1">
-          <div class="stat-num" style="color:rgba(0,216,154,0.9)">0</div>
+          <div class="stat-num" style="color:rgba(37,99,235,0.9)">0</div>
           <div class="stat-label">Systems that verify execution before it occurs</div>
         </div>
         <div class="stat-cell fade fade-d2">
@@ -507,7 +507,7 @@
   /* ── LOGIC CHECK HOVER ANIMATION ────────────────────── */
   document.querySelectorAll('.logic-check').forEach((el, i) => {
     el.addEventListener('mouseenter', () => {
-      el.style.borderLeft = '2px solid rgba(0,216,154,0.5)';
+      el.style.borderLeft = '2px solid rgba(37,99,235,0.4)';
     });
     el.addEventListener('mouseleave', () => {
       el.style.borderLeft = '';
@@ -528,7 +528,7 @@
     const body    = encodeURIComponent('Organisation: ' + org + '\nEmail: ' + email + '\n\nI would like to request a private briefing about EXECUTIA Protocol EP-1.');
     window.location.href = 'mailto:info@executia.io?subject=' + subject + '&body=' + body;
     status.textContent = 'Opening email... or write directly to info@executia.io';
-    status.style.color = 'rgba(0,216,154,0.8)';
+    status.style.color = 'rgba(37,99,235,0.9)';
   }
   </script>
 
