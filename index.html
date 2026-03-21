@@ -3,121 +3,187 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EXECUTIA — Institutional Standard</title>
+  <title>EXECUTIA — Standard Layer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
+  
   <style>
-    /* ── INSTITUTIONAL V4.2 — FINAL SOVEREIGN TIGHTEN ───── */
+    /* ── ENTRY V4.4 — ABSOLUTE PRODUCTION LOCK ──────────── */
     :root {
-      --bg:        #000000;
-      --text:      #FFFFFF;
-      --text-dim:  #777777;
-      --text-soft: #333333;
+      --bg:        #FFFFFF;
+      --text:      #111111;
+      --text-soft: #666666;
+      --border:    #E5E5E5;
       --control:   #2563EB;
-      --border:    #1A1A1A;
       --nav-h:     56px;
-      --font-mono: 'DM Mono', monospace;
       --font-main: 'Inter', sans-serif;
+      --font-mono: 'DM Mono', monospace;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { 
+      box-sizing: border-box; 
+      margin: 0; padding: 0; 
+      transition: none !important; 
+    }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-main);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      margin: 0;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── NAV (INSTANT LAYER SWITCH) ─────────────────── */
+    /* ── NAV (56px TECH LOCK) ─────────────────────────── */
     .sys-nav {
       height: var(--nav-h);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       padding: 0 48px;
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: var(--bg);
+      position: sticky;
+      top: 0;
+      background: #FFFFFF;
       z-index: 1000;
     }
 
-    .nav-logo { font-weight: 800; color: #FFF; text-decoration: none; font-size: 15px; }
-    .nav-links { margin-left: auto; display: flex; gap: 32px; }
-    .nav-links a { 
-      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
-      color: #444444; text-decoration: none; text-transform: uppercase;
-    }
-    .nav-links a.active { color: var(--control); opacity: 1; }
-
-    /* ── SOVEREIGN REGULATION LAYOUT ────────────────── */
-    .sovereign-container {
-      margin-top: calc(var(--nav-h) + 140px); /* INCREASED VOID */
-      margin-left: 10%;
-      padding: 0 48px 140px 48px;
-      max-width: 800px;
-    }
-
-    .article {
-      margin-bottom: 140px; /* SOVEREIGN SPACING */
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .article-header {
-      font-family: var(--font-mono);
-      font-size: 12px; /* TIGHTEN */
-      letter-spacing: 0.16em; /* STERN */
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-
-    .article-body {
-      font-size: 17px; /* DOCUMENT DENSITY */
-      font-weight: 600;
-      line-height: 1.3; /* COMPRESSED */
+    .nav-logo {
+      font-weight: 800;
+      text-decoration: none;
       color: var(--text);
-      max-width: 560px; /* TIGHTEN */
+      letter-spacing: 0.08em; /* MICRO AUTHORITY BOOST */
+      font-size: 15px;
     }
 
-    /* ── ACCESS AUTHORIZATION (CTA) ─────────────────── */
-    .gate-footer {
-      margin-top: 20px;
-      padding-top: 64px;
-      border-top: 1px solid var(--border);
+    .nav-links {
+      margin-left: auto;
+      display: flex;
+      gap: 32px;
     }
 
-    .briefing-cta {
-      display: inline-block;
-      border: 1px solid #333;
+    .nav-links a {
       font-family: var(--font-mono);
       font-size: 11px;
-      letter-spacing: 0.16em; /* TIGHTEN */
-      padding: 12px 20px; /* COMPACT */
-      text-decoration: none;
-      color: #AAAAAA; /* QUIET */
       text-transform: uppercase;
-      transition: none;
+      color: #777777;
+      opacity: 0.7;
+      text-decoration: none;
+      letter-spacing: 0.12em;
     }
 
-    .briefing-cta:hover {
-      border-color: #FFFFFF;
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a.active { color: var(--control); opacity: 1; }
+
+    /* ── SYSTEM INTERFACE ────────────────────────────── */
+    .gate-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 760px; 
+      margin-left: 10%; 
+      padding: 64px 32px;
+    }
+
+    .gate-h1 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.025em;
+      margin: 0 0 16px 0;
+      text-transform: uppercase;
+      line-height: 1.02;
+    }
+
+    .gate-sub {
+      font-size: 16px;
+      color: var(--text-soft);
+      max-width: 440px;
+      line-height: 1.4;
+      margin-bottom: 56px;
+    }
+
+    /* ── SYSTEM DIAGRAM ──────────────────────────────── */
+    .gate-diagram {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 64px;
+    }
+
+    .node {
+      width: 12px; height: 12px;
+      background: transparent;
+      border: 1px solid #DCDCDC;
+    }
+
+    .node--active {
+      width: 16px; height: 16px;
+      border: 2px solid var(--control);
+    }
+
+    .connector {
+      width: 32px; height: 1px;
+      background: #E5E5E5;
+    }
+
+    /* ── ACCESS PROTOCOL (COMMAND FEEL) ──────────────── */
+    .gate-actions {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-gate {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      text-decoration: none;
+      padding: 10px 16px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    /* CLICK FEEDBACK - MECHANICAL REACTION */
+    .btn-gate:active {
+      transform: translateY(1px);
+    }
+
+    .btn-gate--primary {
+      border: 1px solid var(--control);
+      color: var(--control);
+    }
+
+    .btn-gate--primary:hover {
+      background: var(--control);
       color: #FFFFFF;
     }
 
-    /* ── SYSTEM SIGNATURE (IMPRINT) ─────────────────── */
-    .sys-signature {
-      margin-top: 140px;
+    .btn-gate--secondary {
+      border: 1px solid var(--border);
+      color: #777777;
+    }
+
+    .btn-gate--secondary:hover {
+      border-color: #BBBBBB;
+      color: var(--text);
+    }
+
+    /* ── SYSTEM SIGNATURE ────────────────────────────── */
+    .status-line {
+      padding: 24px 48px;
       font-family: var(--font-mono);
-      font-size: 9px; /* MINIMAL */
-      color: var(--text-soft); /* DARKER */
+      font-size: 10px;
+      color: #AAAAAA;
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
-
   </style>
 </head>
 <body>
@@ -126,44 +192,31 @@
     <a href="/" class="nav-logo">EXECUTIA</a>
     <div class="nav-links">
       <a href="https://execution.executia.io">System</a>
-      <a href="/institutional" class="active">Institutional</a>
+      <a href="/institutional">Institutional</a>
     </div>
   </nav>
 
-  <main class="sovereign-container">
-    
-    <section class="article">
-      <span class="article-header">Article 01 — Execution Integrity</span>
-      <p class="article-body">
-        Non-authorized or erroneous execution is structurally impossible. Control is binary.
-      </p>
-    </section>
+  <main class="gate-container">
+    <h1 class="gate-h1">EXECUTION IS THE ONLY THING THAT MATTERS.</h1>
+    <p class="gate-sub">A structural control layer between decision and result.</p>
 
-    <section class="article">
-      <span class="article-header">Article 02 — Sovereign Control</span>
-      <p class="article-body">
-        Full decision-to-result transparency across all integrated command layers.
-      </p>
-    </section>
+    <div class="gate-diagram">
+      <div class="node"></div>
+      <div class="connector"></div>
+      <div class="node node--active"></div>
+      <div class="connector"></div>
+      <div class="node"></div>
+    </div>
 
-    <section class="article">
-      <span class="article-header">Article 03 — Immutable Audit</span>
-      <p class="article-body">
-        SHA-256 verification applied to every action. Execution becomes a legal fact.
-      </p>
-    </section>
-
-    <footer class="gate-footer">
-      <a href="mailto:access@executia.io" class="briefing-cta">
-        [ Private Briefing Request ]
-      </a>
-      
-      <div class="sys-signature">
-        GOVERNANCE_LAYER: V1.0 // SOVEREIGN_GRADE: ACTIVE
-      </div>
-    </footer>
-
+    <div class="gate-actions">
+      <a href="https://execution.executia.io" class="btn-gate btn-gate--primary">Access System Layer</a>
+      <a href="/institutional" class="btn-gate btn-gate--secondary">Institutional Standards</a>
+    </div>
   </main>
+
+  <footer class="status-line">
+    EXECUTIA STANDARD · ACTIVE
+  </footer>
 
 </body>
 </html>
