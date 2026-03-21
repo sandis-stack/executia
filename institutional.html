@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EXECUTIA — Institutional Overview</title>
+  <meta name="description" content="EXECUTIA introduces a structural verification layer between institutional decisions and execution systems. For governments, financial institutions, and infrastructure operators." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0A0A0A;
+      --white:   #FFFFFF;
+      --surface: #111111;
+      --surface2:#1A1A1A;
+      --off:     #F5F5F7;
+      --dim:     rgba(255,255,255,0.45);
+      --dimmer:  rgba(255,255,255,0.22);
+      --border:  rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --control:        #2563EB;
+      --control-strong: #1E40AF;
+      --control-dim:    rgba(37, 99, 235, 0.12);
+      --control-brd:    rgba(37, 99, 235, 0.28);
+      --pulse:          #00D89A;  /* GREEN: motion only */
+      --green:          #00D89A;  /* kept for compatibility */
+      --green-d: #00B880;
+      --green-g: rgba(0,216,154,0.07);
+      --red:     #ff3b30;
+      --font:    'Inter', -apple-system, sans-serif;
+      --mono:    'DM Mono', 'Courier New', monospace;
+      --nav-h:   56px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--black);
+      color: rgba(255,255,255,0.85);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+    }
+    .nav-brand { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--white); text-decoration: none; }
+    .nav-brand span { color: rgba(255,255,255,0.3); font-weight: 400; font-size: 11px; margin-left: 8px; letter-spacing: 0.06em; font-family: var(--mono); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-links a.active { position: relative; }
+    .nav-links a.active::after { content: ""; position: absolute; left: 0; bottom: -4px; width: 100%; height: 2px; background: var(--control); }
+    .nav-cta { background: var(--control); color: var(--black); font-size: 13px; font-weight: 600; padding: 9px 20px; border: none; cursor: pointer; text-decoration: none; letter-spacing: -0.01em; transition: all 0.2s; }
+    .nav-cta:hover { background: var(--control-strong); transform: scale(1.02); }
+
+    /* ── LAYOUT ──────────────────────────────────────────── */
+    section { padding: 120px 48px; }
+    .container { max-width: 980px; margin: 0 auto; }
+    .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--control); margin-bottom: 20px; display: block; }
+    h2 { font-size: clamp(28px,4vw,48px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; color: var(--white); margin-bottom: 20px; }
+    .section-sub { font-size: 18px; font-weight: 300; color: var(--dim); max-width: 560px; line-height: 1.65; letter-spacing: -0.01em; margin-bottom: 0; }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    #hero { padding-top: calc(var(--nav-h) + 100px); padding-bottom: 80px; }
+    .hero-tag { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--control); border: 1px solid var(--control-brd); padding: 6px 14px; margin-bottom: 32px; background: var(--control-dim); }
+    .hero-h1 { font-size: clamp(38px,6vw,72px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.06; color: var(--white); max-width: 760px; margin-bottom: 24px; }
+    .hero-h1 em { font-style: normal; color: var(--control); }
+    .hero-sub { font-size: 19px; font-weight: 300; color: var(--dim); max-width: 560px; margin-bottom: 48px; line-height: 1.6; letter-spacing: -0.01em; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    .btn-primary { background: var(--control); color: var(--black); font-size: 15px; font-weight: 600; padding: 14px 32px; border: none; cursor: pointer; text-decoration: none; letter-spacing: -0.01em; transition: all 0.2s; display: inline-block; }
+    .btn-primary:hover { background: var(--control-strong); transform: scale(1.02); }
+    .btn-outline { background: transparent; color: rgba(255,255,255,0.7); font-size: 15px; font-weight: 400; padding: 14px 32px; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; letter-spacing: -0.01em; transition: all 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.4); color: var(--white); transform: scale(1.02); }
+    .hero-signals { display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-sig { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--dimmer); display: flex; align-items: center; gap: 8px; }
+    .hero-sig::before { content: "◎"; color: var(--control); font-size: 9px; }
+
+    /* ── PROBLEM ──────────────────────────────────────────── */
+    #problem { background: var(--surface); }
+    .prob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin: 48px 0; }
+    .prob-text { font-size: 17px; color: var(--dim); line-height: 1.7; }
+    .prob-list { display: flex; flex-direction: column; gap: 16px; }
+    .prob-item { font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); display: flex; gap: 14px; line-height: 1.6; padding: 16px; border: 1px solid var(--border); border-left: 2px solid rgba(255,255,255,0.12); transition: border-left-color 0.3s; }
+    .prob-item:hover { border-left-color: var(--control); }
+    .prob-mark { color: var(--dimmer); flex-shrink: 0; }
+    .stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 48px; }
+    .stat-cell { background: var(--surface); padding: 40px 32px; }
+    .stat-num { font-size: 44px; font-weight: 700; letter-spacing: -0.04em; color: var(--white); line-height: 1; margin-bottom: 10px; }
+    .stat-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--dimmer); line-height: 1.6; }
+
+    /* ── SYSTEM MODEL ─────────────────────────────────────── */
+    #model { background: var(--black); }
+    .sys-diagram { max-width: 400px; margin: 48px auto; display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .sys-node { width: 100%; padding: 24px 32px; border: 1px solid var(--border2); background: var(--surface); text-align: center; }
+    .sys-node-core { border-color: var(--control-brd); background: var(--control-dim); box-shadow: 0 0 30px var(--control-dim); }
+    .sys-node-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dimmer); margin-bottom: 8px; display: block; }
+    .sys-node-title { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .sys-node-title.accent { color: var(--control); }
+    .sys-node-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .sys-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--dimmer); padding: 3px 8px; border: 1px solid var(--border); }
+    .sys-conn { display: flex; flex-direction: column; align-items: center; padding: 8px 0; }
+    .sys-line { width: 1px; height: 24px; background: var(--border2); }
+    .sys-line-accent { background: rgba(37,99,235,0.5); }
+    .sys-arrow { font-family: var(--mono); font-size: 12px; color: var(--dimmer); }
+    .sys-rule { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-align: center; color: rgba(37,99,235,0.7); margin-top: 32px; text-transform: uppercase; }
+
+    /* ── VERIFICATION LOGIC ───────────────────────────────── */
+    #logic { background: var(--surface); }
+    .logic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; }
+    .logic-checks { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .logic-check { background: var(--surface); padding: 28px 32px; display: flex; gap: 24px; align-items: flex-start; transition: background 0.2s; cursor: default; }
+    .logic-check:hover { background: var(--surface2); }
+    .check-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--control); flex-shrink: 0; padding-top: 2px; }
+    .check-title { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .check-body { font-size: 14px; color: var(--dim); line-height: 1.6; }
+    .logic-rule { display: flex; flex-direction: column; justify-content: center; }
+    .logic-rule-text { font-size: 17px; color: var(--dim); line-height: 1.7; margin-bottom: 32px; }
+    .logic-rule-box { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; line-height: 2; color: rgba(255,255,255,0.5); padding: 24px 28px; border: 1px solid var(--border2); border-left: 3px solid var(--control-brd); background: var(--control-dim); }
+    .logic-rule-box .pass { color: rgba(37,99,235,0.9); }
+    .logic-rule-box .fail { color: var(--red); }
+
+    /* ── REFERENCE CASE ───────────────────────────────────── */
+    #case { background: var(--black); }
+    .case-note { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--dimmer); margin-bottom: 40px; }
+    .case-table { border: 1px solid var(--border2); overflow: hidden; }
+    .case-row { display: grid; grid-template-columns: 48px 1fr 1fr 1fr; gap: 0; border-bottom: 1px solid var(--border); }
+    .case-row:last-child { border-bottom: none; }
+    .case-row-head { background: var(--surface2); }
+    .case-row-head span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dimmer); padding: 14px 20px; display: block; border-right: 1px solid var(--border); }
+    .case-row-head span:last-child { border-right: none; }
+    .case-row-core { background: rgba(37,99,235,0.03); border-color: rgba(37,99,235,0.15); }
+    .case-n { font-family: var(--mono); font-size: 11px; color: var(--dimmer); padding: 20px 16px; display: flex; align-items: flex-start; border-right: 1px solid var(--border); }
+    .case-action { padding: 20px; font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; border-right: 1px solid var(--border); }
+    .case-action small { font-family: var(--mono); font-size: 11px; color: var(--dimmer); display: block; margin-top: 4px; }
+    .case-bad { font-family: var(--mono); font-size: 12px; color: rgba(255,59,48,0.7); padding: 20px; border-right: 1px solid var(--border); display: flex; align-items: flex-start; line-height: 1.5; }
+    .case-good { font-family: var(--mono); font-size: 12px; color: rgba(37,99,235,0.9); padding: 20px; display: flex; align-items: flex-start; line-height: 1.5; }
+    .case-conclusion { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: rgba(37,99,235,0.8); margin-top: 24px; text-transform: uppercase; }
+
+    /* ── INEVITABILITY ────────────────────────────────────── */
+    #inevitability { background: var(--surface); }
+    .inev-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; }
+    .inev-points { display: flex; flex-direction: column; gap: 16px; }
+    .inev-point { font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; color: rgba(255,255,255,0.5); display: flex; gap: 14px; line-height: 1.6; padding: 16px 20px; border: 1px solid var(--border); transition: border-color 0.3s, color 0.3s; }
+    .inev-point:hover { border-color: rgba(37,99,235,0.25); color: rgba(255,255,255,0.75); }
+    .inev-dash { color: var(--dimmer); flex-shrink: 0; }
+    .inev-statement { display: flex; flex-direction: column; justify-content: center; }
+    .inev-text { font-size: 17px; color: var(--dim); line-height: 1.7; margin-bottom: 32px; }
+    .inev-rule { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: rgba(255,255,255,0.35); padding: 20px 24px; border: 1px solid var(--border); border-left: 3px solid var(--border2); text-transform: uppercase; }
+
+    /* ── CTA ──────────────────────────────────────────────── */
+    #cta { background: var(--black); }
+    .cta-inner { max-width: 640px; }
+    .cta-form { display: flex; flex-direction: column; gap: 12px; max-width: 480px; margin: 40px 0 20px; }
+    .cta-input { background: rgba(255,255,255,0.05); border: 1px solid var(--border2); color: var(--white); padding: 16px 20px; font-size: 15px; font-family: var(--font); outline: none; transition: border-color 0.2s; width: 100%; }
+    .cta-input:focus { border-color: rgba(255,255,255,0.35); }
+    .cta-input::placeholder { color: rgba(255,255,255,0.2); }
+    .cta-submit { background: var(--control); color: var(--black); font-size: 15px; font-weight: 600; padding: 16px 32px; border: none; cursor: pointer; letter-spacing: -0.01em; transition: all 0.2s; text-align: left; display: flex; align-items: center; justify-content: space-between; }
+    .cta-submit:hover { background: var(--control-strong); transform: scale(1.01); }
+    .cta-submit::after { content: "→"; font-size: 18px; }
+    .cta-meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--dimmer); margin-top: 12px; }
+    .cta-alt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.25); margin-top: 10px; }
+    .cta-alt a { color: rgba(37,99,235,0.8); text-decoration: none; transition: color 0.2s; }
+    .cta-alt a:hover { color: var(--control); }
+    .cta-signals { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 48px; }
+    .cta-sig { background: var(--surface); padding: 24px 20px; }
+    .cta-sig-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dimmer); display: block; margin-bottom: 8px; }
+    .cta-sig-val { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.7); }
+    .cta-sig-link { text-decoration: none; color: rgba(37,99,235,0.9); transition: color 0.2s; }
+    .cta-sig-link:hover { color: var(--control); }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 48px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+    .footer-brand { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .footer-sub { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--dimmer); line-height: 1.8; }
+    .footer-col-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.18); margin-bottom: 12px; display: block; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: 14px; color: var(--dimmer); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.18); margin-top: 16px; }
+
+    /* ── FADE ────────────────────────────────────────────── */
+    .fade { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade.visible { opacity: 1; transform: translateY(0); }
+    .fade-d1 { transition-delay: 0.1s; }
+    .fade-d2 { transition-delay: 0.2s; }
+    .fade-d3 { transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      section { padding: 80px 24px; }
+      nav { padding: 0 24px; }
+      footer { grid-template-columns: 1fr; padding: 40px 24px; }
+      .prob-grid, .logic-grid, .inev-grid2 { grid-template-columns: 1fr; }
+      .stat-row, .cta-signals { grid-template-columns: 1fr; }
+      .case-row { grid-template-columns: 40px 1fr; }
+      .case-bad, .case-good { display: none; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav role="navigation">
+    <a href="https://executia.io" class="nav-brand">EXECUTIA™ <span>EXECUTION INTEGRITY PROTOCOL</span></a>
+    <div class="nav-links">
+      <a href="https://executia.io">Entry</a>
+      <a href="https://execution.executia.io">Execution</a>
+      <a href="https://executia.io/institutional.html" class="active">Institutional</a>
+    </div>
+    <a href="#cta" class="nav-cta">Request Briefing</a>
+  </nav>
+
+  <main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-tag">Execution Integrity Protocol · PCT/IB2026/050141</div>
+      <h1 class="hero-h1">
+        Execution becomes a<br><em>verifiable system layer.</em>
+      </h1>
+      <p class="hero-sub fade">A structural verification layer between institutional decisions and execution systems — for governments, financial institutions, and infrastructure operators.</p>
+      <div class="hero-btns fade fade-d1">
+        <a href="#model" class="btn-primary">View System Model</a>
+        <a href="#case" class="btn-outline">Reference Case</a>
+        <a href="#cta" class="btn-outline">Request Briefing</a>
+      </div>
+      <div class="hero-signals fade fade-d2">
+        <div class="hero-sig">EU pilot in progress</div>
+        <div class="hero-sig">Patent filed</div>
+        <div class="hero-sig">Institutional integration underway</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem">
+    <div class="container">
+      <span class="eyebrow fade">§ 01 — The Structural Gap</span>
+      <h2 class="fade">Execution is the weakest layer<br>of institutional systems.</h2>
+      <div class="prob-grid">
+        <p class="prob-text fade">No system enforces execution correctness before action occurs. Decisions are verified legally — not operationally. Execution systems act without structural validation.</p>
+        <div class="prob-list">
+          <div class="prob-item fade"><span class="prob-mark">—</span>Decisions are verified legally, not operationally</div>
+          <div class="prob-item fade fade-d1"><span class="prob-mark">—</span>Execution systems act without structural validation</div>
+          <div class="prob-item fade fade-d2"><span class="prob-mark">—</span>Errors are detected after execution — not before</div>
+          <div class="prob-item fade fade-d3"><span class="prob-mark">—</span>Responsibility is assigned retroactively</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-cell fade">
+          <div class="stat-num">$30T+</div>
+          <div class="stat-label">Global public spending annually without execution verification</div>
+        </div>
+        <div class="stat-cell fade fade-d1">
+          <div class="stat-num" style="color:rgba(37,99,235,0.9)">0</div>
+          <div class="stat-label">Systems that verify execution before it occurs</div>
+        </div>
+        <div class="stat-cell fade fade-d2">
+          <div class="stat-num" style="font-size:22px;letter-spacing:-0.02em;padding-top:8px">PCT/IB2026/050141</div>
+          <div class="stat-label">Patent filed · Execution Integrity Protocol</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEM MODEL -->
+  <section id="model">
+    <div class="container">
+      <span class="eyebrow fade">§ 02 — System Model</span>
+      <h2 class="fade">The verification layer.</h2>
+      <p class="section-sub fade">EXECUTIA sits between decision systems and execution systems. It does not replace existing infrastructure — it verifies execution before actions reach it.</p>
+      <div class="sys-diagram fade">
+        <div class="sys-node">
+          <span class="sys-node-label">Input</span>
+          <div class="sys-node-title">Decision Systems</div>
+          <div class="sys-node-tags">
+            <span class="sys-tag">Government</span>
+            <span class="sys-tag">Finance</span>
+            <span class="sys-tag">Enterprise</span>
+          </div>
+        </div>
+        <div class="sys-conn"><div class="sys-line"></div><span class="sys-arrow">↓</span></div>
+        <div class="sys-node sys-node-core">
+          <span class="sys-node-label">◎ Verification</span>
+          <div class="sys-node-title accent">EXECUTIA</div>
+          <div class="sys-node-tags">
+            <span class="sys-tag">Rule Engine</span>
+            <span class="sys-tag">Execution Gate</span>
+            <span class="sys-tag">Ledger</span>
+          </div>
+        </div>
+        <div class="sys-conn"><div class="sys-line sys-line-accent"></div><span class="sys-arrow">↓</span></div>
+        <div class="sys-node">
+          <span class="sys-node-label">Output</span>
+          <div class="sys-node-title">Execution Systems</div>
+          <div class="sys-node-tags">
+            <span class="sys-tag">Payments</span>
+            <span class="sys-tag">Contracts</span>
+            <span class="sys-tag">Infrastructure</span>
+          </div>
+        </div>
+      </div>
+      <p class="sys-rule fade">No execution occurs without verification.</p>
+    </div>
+  </section>
+
+  <!-- VERIFICATION LOGIC -->
+  <section id="logic">
+    <div class="container">
+      <span class="eyebrow fade">§ 03 — Verification Logic</span>
+      <h2 class="fade">Four conditions. All must pass.</h2>
+      <div class="logic-grid">
+        <div class="logic-checks fade">
+          <div class="logic-check">
+            <span class="check-num">01</span>
+            <div>
+              <div class="check-title">Authorization</div>
+              <div class="check-body">The requesting authority holds the mandate to execute the specified action within defined scope.</div>
+            </div>
+          </div>
+          <div class="logic-check">
+            <span class="check-num">02</span>
+            <div>
+              <div class="check-title">Compliance</div>
+              <div class="check-body">Institutional policy, regulatory constraints, and budget parameters enforced at execution time — not post-audit.</div>
+            </div>
+          </div>
+          <div class="logic-check">
+            <span class="check-num">03</span>
+            <div>
+              <div class="check-title">Responsibility</div>
+              <div class="check-body">A confirmed, accountable actor is assigned before execution proceeds. Responsibility cannot be dissolved after the fact.</div>
+            </div>
+          </div>
+          <div class="logic-check">
+            <span class="check-num">04</span>
+            <div>
+              <div class="check-title">Resource availability</div>
+              <div class="check-body">Required resources, budget envelope, and operational conditions confirmed prior to execution signal emission.</div>
+            </div>
+          </div>
+        </div>
+        <div class="logic-rule fade fade-d1">
+          <p class="logic-rule-text">All conditions must be satisfied simultaneously. Otherwise, execution is structurally blocked — not flagged, not logged.</p>
+          <div class="logic-rule-box">
+            <span class="pass">All conditions verified → Execution signal emitted</span><br>
+            <span class="fail">Any condition fails → Execution does not occur</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCE CASE -->
+  <section id="case">
+    <div class="container">
+      <span class="eyebrow fade">§ 04 — Reference Execution Case</span>
+      <h2 class="fade">EU-level infrastructure payment scenario.</h2>
+      <p class="case-note fade">Based on real EU-level operational patterns · anonymized institutional data</p>
+      <div class="case-table fade">
+        <div class="case-row case-row-head">
+          <span>Step</span>
+          <span>Action</span>
+          <span>Without EXECUTIA</span>
+          <span>With EXECUTIA</span>
+        </div>
+        <div class="case-row">
+          <span class="case-n">01</span>
+          <span class="case-action">Decision approved<small>EC · €200M infrastructure</small></span>
+          <span class="case-bad">Recorded. No verification.</span>
+          <span class="case-good">Registered. Authority confirmed.</span>
+        </div>
+        <div class="case-row">
+          <span class="case-n">02</span>
+          <span class="case-action">Payment request<small>€180M — 18% over threshold</small></span>
+          <span class="case-bad">Proceeds undetected.</span>
+          <span class="case-good">Threshold violation detected.</span>
+        </div>
+        <div class="case-row case-row-core">
+          <span class="case-n">03</span>
+          <span class="case-action">◎ EXECUTIA<small>Verification check</small></span>
+          <span class="case-bad">Does not exist.</span>
+          <span class="case-good">Execution blocked.</span>
+        </div>
+        <div class="case-row">
+          <span class="case-n">04</span>
+          <span class="case-action">Payment execution<small>Treasury release</small></span>
+          <span class="case-bad">Released. €30M exposure.</span>
+          <span class="case-good">Blocked pending correction.</span>
+        </div>
+        <div class="case-row">
+          <span class="case-n">05</span>
+          <span class="case-action">Record<small>Audit trail</small></span>
+          <span class="case-bad">Discovered 6 months later.</span>
+          <span class="case-good">◼ Immutable ledger written.</span>
+        </div>
+      </div>
+      <p class="case-conclusion fade">Invalid execution is structurally prevented before funds are released.</p>
+    </div>
+  </section>
+
+  <!-- INEVITABILITY -->
+  <section id="inevitability">
+    <div class="container">
+      <span class="eyebrow fade">§ 05 — The Standard</span>
+      <h2 class="fade">Execution verification will become standard.</h2>
+      <div class="inev-grid2">
+        <div class="inev-points fade">
+          <div class="inev-point"><span class="inev-dash">—</span>Financial systems require pre-execution validation</div>
+          <div class="inev-point"><span class="inev-dash">—</span>Governments require traceable execution chains</div>
+          <div class="inev-point"><span class="inev-dash">—</span>Infrastructure requires accountable actions at execution time</div>
+          <div class="inev-point"><span class="inev-dash">—</span>AI-driven systems require human-verified execution gates</div>
+        </div>
+        <div class="inev-statement fade fade-d1">
+          <p class="inev-text">Systems without execution verification will not scale to institutional requirements. The question is not whether this layer will exist — only who defines it.</p>
+          <div class="inev-rule">Systems without execution verification will be replaced.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="container cta-inner">
+      <span class="eyebrow fade">§ 06 — Institutional Access</span>
+      <h2 class="fade">Access to the execution<br>verification layer.</h2>
+      <p class="section-sub fade">EXECUTIA is currently available for selected pilot integrations with governments, financial institutions, and infrastructure operators.</p>
+      <div class="cta-form fade">
+        <input type="text"  id="ctaOrg"   class="cta-input" placeholder="Organisation" autocomplete="off" />
+        <input type="email" id="ctaEmail" class="cta-input" placeholder="Email" autocomplete="off" />
+        <button class="cta-submit" onclick="submitBriefing()">Request Private Briefing</button>
+        <div class="cta-meta" id="ctaStatus">Private briefing · 30 min · response within 24h</div>
+        <div class="cta-alt">Or write directly: <a href="mailto:info@executia.io">info@executia.io</a> · <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank">LinkedIn ↗</a></div>
+      </div>
+      <div class="cta-signals fade fade-d1">
+        <div class="cta-sig"><span class="cta-sig-label">Patent</span><span class="cta-sig-val">PCT/IB2026/050141</span></div>
+        <div class="cta-sig"><span class="cta-sig-label">Status</span><span class="cta-sig-val">Patent Pending</span></div>
+        <div class="cta-sig"><span class="cta-sig-label">Deployment</span><span class="cta-sig-val">Select partners</span></div>
+        <div class="cta-sig"><span class="cta-sig-label">Contact</span><a href="mailto:info@executia.io" class="cta-sig-val cta-sig-link">info@executia.io</a></div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div>
+      <div class="footer-brand">EXECUTIA™</div>
+      <div class="footer-sub">
+        Execution Integrity Protocol · EP-1<br>
+        Execution Integrity Standard<br>
+        PCT/IB2026/050141 · Patent Pending
+      </div>
+      <div class="footer-copy">© 2026 EXECUTIA · EU · Norway</div>
+    </div>
+    <div>
+      <span class="footer-col-label">System layers</span>
+      <div class="footer-links">
+        <a href="https://executia.io">Entry</a>
+        <a href="https://execution.executia.io">Execution Engine</a>
+        <a href="https://executia.io/institutional.html">Institutional</a>
+      </div>
+    </div>
+    <div>
+      <span class="footer-col-label">Contact</span>
+      <div class="footer-links">
+        <a href="mailto:info@executia.io">info@executia.io</a>
+        <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener">Sandis Boiko ↗</a>
+        <a href="#cta">Request Briefing</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  /* ── SCROLL FADE ─────────────────────────────────────── */
+  const fades = document.querySelectorAll('.fade');
+  function checkFades() {
+    fades.forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 60) {
+        el.classList.add('visible');
+      }
+    });
+  }
+  window.addEventListener('scroll', checkFades, { passive: true });
+  checkFades();
+
+  /* ── LOGIC CHECK HOVER ANIMATION ────────────────────── */
+  document.querySelectorAll('.logic-check').forEach((el, i) => {
+    el.addEventListener('mouseenter', () => {
+      el.style.borderLeft = '2px solid rgba(37,99,235,0.4)';
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.borderLeft = '';
+    });
+  });
+
+  /* ── BRIEFING FORM ───────────────────────────────────── */
+  function submitBriefing() {
+    const org    = document.getElementById('ctaOrg').value.trim();
+    const email  = document.getElementById('ctaEmail').value.trim();
+    const status = document.getElementById('ctaStatus');
+    if (!org || !email) {
+      status.textContent = 'Please enter your organisation and email.';
+      status.style.color = '#ff3b30';
+      return;
+    }
+    const subject = encodeURIComponent('EXECUTIA — Private Briefing Request: ' + org);
+    const body    = encodeURIComponent('Organisation: ' + org + '\nEmail: ' + email + '\n\nI would like to request a private briefing about EXECUTIA Protocol EP-1.');
+    window.location.href = 'mailto:info@executia.io?subject=' + subject + '&body=' + body;
+    status.textContent = 'Opening email... or write directly to info@executia.io';
+    status.style.color = 'rgba(37,99,235,0.9)';
+  }
+  </script>
+
+</body>
+</html>
