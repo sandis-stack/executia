@@ -7,29 +7,36 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; color: #000000; background-color: #FFFFFF; }
+        :root {
+            --text-primary: #000000;
+            --text-secondary: #6B7280;
+            --accent-blue: #1E3A8A;
+            --accent-strong: #0B1F4D;
+        }
+        body { font-family: 'Inter', sans-serif; color: var(--text-primary); background-color: #FFFFFF; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .letter-spacing-wide { letter-spacing: 0.08em; }
-        .letter-spacing-vwide { letter-spacing: 0.2em; }
         .border-base { border: 1px solid #E5E7EB; }
-        /* Protocol Hardening: Absolute Zero Aesthetic Variance */
+        /* PROTOCOL HARDENING: ABSOLUTE PURIST LAYER */
         * { border-radius: 0 !important; box-shadow: none !important; outline: none !important; }
-        a { transition: none !important; }
+        a { transition: none !important; text-decoration: none !important; cursor: default !important; }
+        a:hover { text-decoration: none !important; opacity: 1 !important; }
     </style>
 </head>
 <body>
 
-    <nav class="flex justify-between items-center px-8 py-4 border-b border-base">
-        <div class="font-bold text-xl uppercase tracking-tighter text-black">EXECUTIA</div>
-        <div class="flex gap-10 text-[10px] uppercase letter-spacing-wide font-bold text-black">
+    <nav class="flex justify-between items-center px-8 py-4 border-b border-base text-black">
+        <div class="font-bold text-xl uppercase tracking-tighter">EXECUTIA</div>
+        <div class="flex gap-10 text-[10px] uppercase letter-spacing-wide font-bold">
             <a href="https://execution.executia.io">Execution Layer</a>
             <a href="/institutional">Institutional</a>
         </div>
     </nav>
 
     <section class="max-w-4xl mx-auto text-center py-20 px-4">
-        <h1 class="text-5xl font-bold mb-4 leading-none tracking-tight uppercase">
-            EXECUTIA — STANDARD OF EXECUTION
+        <h1 class="text-5xl font-bold mb-4 leading-none tracking-tight uppercase text-black">
+            EXECUTIA — STANDARD OF<br>
+            <span class="text-6xl tracking-tighter">EXECUTION</span>
         </h1>
         <p class="text-lg text-black mb-10 max-w-2xl mx-auto leading-none font-bold uppercase tracking-tight">
             CORRECT EXECUTION WITHOUT DEVIATION, DELAY, OR INTERPRETATION
@@ -45,34 +52,36 @@
     </section>
 
     <section class="py-16 border-b border-base">
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="text-sm font-bold leading-tight uppercase">
-          Energy defines what is possible.<br>
-          Information defines what is known.<br>
-          Execution defines what becomes real.
-        </p>
-        <p class="text-sm font-bold mt-6 uppercase text-black">
-          Without it — nothing happens.
-        </p>
-      </div>
+        <div class="max-w-3xl mx-auto text-center text-black px-4">
+            <p class="text-sm font-bold uppercase leading-relaxed tracking-normal">
+                Energy defines what is possible.<br>
+                Information defines what is known.<br>
+                <span style="color: var(--accent-strong);">
+                    Execution defines what becomes real.
+                </span>
+            </p>
+            <p class="text-sm font-bold mt-8 uppercase tracking-normal" style="color: var(--accent-strong);">
+                Without it — nothing happens.
+            </p>
+        </div>
     </section>
 
-    <section class="border-b border-base">
+    <section class="border-b border-base text-left">
         <div class="grid md:grid-cols-3">
             <div class="p-10 border-b md:border-b-0 md:border-r border-base">
-                <h3 class="text-[10px] font-bold uppercase letter-spacing-wide mb-4 text-gray-400 tracking-widest">01 DEFINITION</h3>
+                <h3 class="text-[10px] font-bold uppercase letter-spacing-wide mb-4 text-[var(--text-secondary)] tracking-widest uppercase">01 DEFINITION</h3>
                 <p class="text-sm leading-tight text-black font-medium uppercase">
                     EXECUTIA is a protocol layer that ensures execution follows decision exactly.
                 </p>
             </div>
             <div class="p-10 border-b md:border-b-0 md:border-r border-base">
-                <h3 class="text-[10px] font-bold uppercase letter-spacing-wide mb-4 text-gray-400 tracking-widest">02 FAILURE CONDITION</h3>
+                <h3 class="text-[10px] font-bold uppercase letter-spacing-wide mb-4 text-[var(--text-secondary)] tracking-widest uppercase">02 FAILURE CONDITION</h3>
                 <p class="text-sm leading-tight text-black font-medium uppercase">
                     Execution failure caused by interpretation and system fragmentation is not permitted.
                 </p>
             </div>
             <div class="p-10">
-                <h3 class="text-[10px] font-bold uppercase letter-spacing-wide mb-4 text-gray-400 tracking-widest">03 EXECUTION CONTROL</h3>
+                <h3 class="text-[10px] font-bold uppercase letter-spacing-wide mb-4 text-[var(--text-secondary)] tracking-widest uppercase">03 EXECUTION CONTROL</h3>
                 <p class="text-sm leading-tight text-black font-medium uppercase">
                     EXECUTIA validates actions in real time and blocks any deviation.
                 </p>
@@ -80,26 +89,26 @@
         </div>
     </section>
 
-    <section class="py-16 border-b border-base">
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="text-sm font-bold uppercase">
-          Modern civilization has no execution standard.
-        </p>
-        <p class="text-sm font-bold mt-6 uppercase">
-          We defined it.<br>
-          Now it’s visible.
-        </p>
-      </div>
+    <section class="py-16 border-b border-base px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <p class="text-sm font-bold uppercase tracking-normal text-black leading-relaxed">
+                Modern civilization has no execution standard.
+            </p>
+            <p class="text-sm font-bold mt-8 uppercase tracking-normal" style="color: var(--accent-strong);">
+                We defined it.<br>
+                Now it’s visible.
+            </p>
+        </div>
     </section>
 
     <section class="py-16 border-b border-base">
         <div class="mono text-center">
-            <div class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">EXECUTION FLOW</div>
+            <div class="text-[10px] text-[var(--text-secondary)] uppercase tracking-widest font-bold">EXECUTION FLOW</div>
             <div class="text-base font-bold uppercase tracking-widest mt-2">
                 DECISION → VALIDATION → EXECUTION
             </div>
             <div class="inline-block mt-8 text-left">
-                <div class="text-[10px] text-gray-400 uppercase mb-2 font-bold tracking-widest">STATE VERIFICATION</div>
+                <div class="text-[10px] text-[var(--text-secondary)] uppercase mb-2 font-bold tracking-widest">STATE VERIFICATION</div>
                 <div class="text-sm font-bold leading-tight">
                     [✔] ALLOWED<br>
                     [✖] BLOCKED
@@ -108,36 +117,34 @@
         </div>
     </section>
 
-    <section class="py-16 border-b border-base">
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="text-sm font-bold uppercase leading-tight">
-          The execution layer will exist.<br>
-          The only question is who defines it.
-        </p>
-      </div>
+    <section class="py-16 border-b border-base text-center px-4">
+        <div class="max-w-3xl mx-auto">
+            <p class="text-sm font-bold uppercase leading-relaxed tracking-normal text-black">
+                The execution layer will exist.<br>
+                <span style="color: var(--accent-strong);">
+                    The only question is who defines it.
+                </span>
+            </p>
+        </div>
     </section>
 
-    <section class="py-16 text-center">
-      <div class="mb-4">
-        <a href="https://execution.executia.io"
-           class="bg-black text-white px-16 py-6 uppercase letter-spacing-wide text-xs font-bold inline-block border border-black">
-           Open Execution Layer
-        </a>
-      </div>
-      <div class="mt-4">
-        <a href="/contact"
-           class="text-[10px] uppercase letter-spacing-wide font-bold border border-black px-6 py-3 inline-block text-black">
-           Request Briefing
-        </a>
-      </div>
-      <p class="text-[10px] uppercase letter-spacing-wide opacity-50 font-bold mt-6">
-        STATUS ACTIVE
-      </p>
+    <section class="py-16 text-center px-4">
+        <div class="mb-4">
+            <a href="https://execution.executia.io" class="bg-black text-white px-16 py-6 uppercase letter-spacing-wide text-xs font-bold inline-block border border-black">
+                Open Execution Layer
+            </a>
+        </div>
+        <div class="mt-4">
+            <a href="/institutional" class="text-[10px] uppercase letter-spacing-wide font-bold border border-black px-6 py-3 inline-block text-black">
+                Request Briefing
+            </a>
+        </div>
+        <p class="text-[10px] uppercase letter-spacing-wide opacity-50 font-bold mt-6">STATUS: ACTIVE</p>
     </section>
 
-    <footer class="p-10 border-t border-base text-[10px] uppercase letter-spacing-wide font-bold opacity-40 leading-relaxed">
+    <footer class="p-10 border-t border-base text-[10px] uppercase letter-spacing-wide font-bold opacity-40 leading-relaxed text-left text-black">
         EXECUTIA PROTOCOL<br>
-        VERSION 4.2.0<br>
+        VERSION 4.6.0<br>
         STATUS ACTIVE<br>
         CLASSIFICATION EXECUTION STANDARD
     </footer>
