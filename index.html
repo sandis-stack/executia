@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EXECUTIA™ | Protocol Standard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --text-primary: #1F2937;
@@ -14,104 +14,128 @@
             --sys-delimiter: #F3F4F6;
         }
         
-        /* ELITE SYSTEM ENFORCEMENT */
         html { scroll-behavior: auto !important; }
         body { 
             font-family: 'Inter', sans-serif; 
             color: var(--text-primary); 
             background-color: #FFFFFF; 
             cursor: default !important;
+            -webkit-font-smoothing: antialiased;
         }
         
-        ::selection {
-            background: var(--accent-blue);
-            color: #FFFFFF;
+        ::selection { background: var(--accent-blue); color: #FFFFFF; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* SYSTEM ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        .hero-execution { 
+            display: inline-block;
+            animation: fadeInUp 0.6s ease-out forwards;
+            transition: transform 0.2s ease;
+        }
+        .highlight-line { animation: subtlePulse 2s infinite; }
+        .cursor-blink { 
+            display: inline-block; width: 4px; height: 12px; 
+            background: var(--accent-blue); margin-left: 4px; 
+            animation: blink 1s infinite; vertical-align: middle;
         }
 
-        .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
-        .border-base { border: 1px solid #E5E7EB; }
-        
-        /* PROTOCOL HARDENING: SIGNAL PRECISION LOCK */
+        /* INTERACTION HARDENING */
         * { border-radius: 0 !important; box-shadow: none !important; outline: none !important; }
+        a { transition: all 0.15s ease !important; text-decoration: none !important; cursor: pointer !important; color: inherit; }
         
-        a { 
-            transition: all 0.05s ease-in-out !important; 
-            text-decoration: none !important; 
-            cursor: pointer !important; 
-            color: inherit; 
+        .nav-link { font-weight: 600; opacity: 0.8; padding: 4px 10px; }
+        .nav-link:hover { background: rgba(0,0,0,0.04); color: var(--accent-blue); opacity: 1; }
+        
+        .cta-link { position: relative; overflow: hidden; transition: all 0.2s ease !important; }
+        .cta-link span { display: inline-block; transition: transform 0.2s ease; }
+        .cta-link:hover { transform: translateY(-1px); }
+        .cta-link:hover span { transform: translateX(4px); }
+        
+        .input-field {
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+        .input-field:focus {
+            border-color: var(--accent-blue) !important;
+            background-color: #F9FAFB;
         }
         
-        .nav-link { border-bottom: 1px solid transparent; }
-        .nav-link:hover { 
-            border-bottom-color: var(--accent-blue) !important; 
-            color: var(--accent-blue) !important; 
-            background-color: #F9FAFB !important;
-        }
+        .log-row { transition: background 0.1s ease; padding: 2px 4px; }
+        .log-row:hover { background: rgba(0,0,0,0.02); }
         
-        .cta-link:hover { background-color: #F9FAFB !important; }
-        
-        .delimiter { 
-            width: 100%; 
-            height: 1px; 
-            background-color: var(--sys-delimiter); 
-        }
+        .delimiter { width: 100%; height: 1px; background-color: var(--sys-delimiter); }
     </style>
 </head>
 <body>
 
-    <nav class="flex justify-between items-center px-8 py-4 border-b border-base text-[var(--text-primary)]">
-        <div class="font-bold text-xl uppercase tracking-[-0.01em]">EXECUTIA™</div>
-        <div class="flex gap-4 text-[9px] uppercase font-bold tracking-[0.18em] mono">
-            <a href="https://execution.executia.io" class="nav-link px-3 py-1 text-[var(--accent-blue)]"> 
-                > EXECUTION.LAYER 
-            </a>
-            <a href="/institutional" class="nav-link px-3 py-1 text-[var(--accent-blue)]"> 
-                > INSTITUTIONAL 
-            </a>
+    <nav class="flex justify-between items-center px-10 py-6 border-b border-base">
+        <div class="font-bold text-xl uppercase tracking-[-0.03em]">
+            EXECUTIA<span class="align-top text-[9px] ml-0.5 opacity-40">™</span>
+        </div>
+        <div class="flex gap-6 text-[10px] uppercase tracking-[0.2em] mono">
+            <a href="#execution-layer" class="nav-link text-[var(--accent-blue)]">EXECUTION.LAYER</a>
+            <a href="/institutional" class="nav-link text-[var(--accent-blue)]">INSTITUTIONAL</a>
         </div>
     </nav>
 
-    <section class="max-w-4xl mx-auto text-center py-24 px-4 text-[var(--text-primary)]">
-        <h1 class="uppercase mb-8">
-            <span class="text-5xl font-bold tracking-[-0.02em] block">EXECUTIA™</span>
-            <span class="text-sm tracking-[0.2em] font-bold text-[var(--text-secondary)] block mb-8 mt-2">
-                EXECUTION STANDARD
-            </span>
-            <span class="text-7xl tracking-[0.01em] text-[var(--accent-blue)] font-extrabold block">
+    <section class="max-w-4xl mx-auto text-center py-24 px-4">
+        <h1 class="uppercase mb-6">
+            <div class="text-5xl font-bold tracking-[-0.03em]">
+                EXECUTIA<span class="align-top text-[10px] ml-1 opacity-40">™</span>
+            </div>
+            <div class="text-7xl font-extrabold text-[var(--accent-blue)] tracking-tighter hero-execution mt-4">
                 EXECUTION
-            </span>
+            </div>
         </h1>
-        <p class="text-lg mb-12 max-w-2xl mx-auto leading-[1.4] font-bold uppercase tracking-[-0.01em]">
-            CORRECT EXECUTION WITHOUT DEVIATION, DELAY, OR INTERPRETATION
-        </p>
+
+        <div class="mt-10 max-w-sm mx-auto mb-10">
+            <input type="text" placeholder="DEFINE DECISION..." 
+                   class="w-full border border-gray-200 p-4 text-sm mono mb-3 input-field text-center uppercase font-bold tracking-wider">
+            <div class="flex justify-between items-center px-1">
+                <div class="text-[9px] text-[var(--text-secondary)] mono tracking-[0.2em] font-bold uppercase">
+                    SYSTEM WILL VALIDATE
+                </div>
+                <div class="text-[9px] text-[var(--accent-blue)] mono font-bold animate-pulse">
+                    > AWAITING INPUT
+                </div>
+            </div>
+        </div>
         
-        <div class="flex flex-col md:flex-row justify-center gap-4">
-            <a href="https://execution.executia.io" class="cta-link mono text-[var(--accent-blue)] px-10 py-5 uppercase text-xs font-bold border border-[var(--accent-blue)] text-center min-w-[280px] tracking-[0.14em]">
-                > ENTER EXECUTION LAYER
+        <div class="flex flex-col md:flex-row justify-center gap-4 mb-14">
+            <a href="#execution-layer" class="cta-link mono text-white bg-[var(--accent-blue)] px-12 py-5 uppercase text-xs font-bold text-center min-w-[300px] tracking-[0.14em]">
+                RUN DECISION <span>→</span>
             </a>
-            <a href="/institutional" class="cta-link mono text-[var(--accent-blue)] px-10 py-5 uppercase text-xs font-bold border border-[var(--accent-blue)] text-center min-w-[280px] tracking-[0.14em]">
-                > REQUEST BRIEFING
+            <a href="/institutional" class="cta-link mono text-[var(--accent-blue)] px-12 py-5 uppercase text-xs font-bold border border-[var(--accent-blue)] text-center min-w-[300px] tracking-[0.14em]">
+                REQUEST BRIEFING
             </a>
         </div>
 
-        <div class="flex justify-center items-center gap-2 mt-12 mono text-[10px] uppercase tracking-[0.2em] text-[var(--accent-blue)] font-bold">
-            <span class="w-2 h-2 bg-[var(--accent-blue)] inline-block animate-pulse"></span>
-            SYSTEM LAYER ACTIVE
+        <div class="mono text-[10px] tracking-[0.3em] text-[var(--text-secondary)] font-bold uppercase opacity-60">
+            SYSTEM DEFINES REALITY / NO EXECUTION — NO OUTCOME
         </div>
     </section>
 
     <div class="delimiter"></div>
 
-    <section class="py-20 border-b border-base px-4 text-center text-[var(--text-primary)]">
-        <div class="max-w-3xl mx-auto font-bold uppercase text-sm">
-            <p class="leading-[1.4] tracking-[-0.01em]">
+    <section class="py-24 border-b border-base px-4">
+        <div class="max-w-xl mx-auto font-bold uppercase text-[13px] tracking-[0.25em] text-center">
+            <p class="leading-[1.8] opacity-80 mb-4">
                 ENERGY DEFINES WHAT IS POSSIBLE.<br>
-                INFORMATION DEFINES WHAT IS KNOWN.<br>
-                <span class="mono text-[var(--accent-blue)] tracking-normal">
-                    EXECUTION DEFINES WHAT BECOMES REAL.
-                </span>
+                INFORMATION DEFINES WHAT IS KNOWN.
             </p>
-            <p class="mt-10 mono text-[var(--accent-blue)] tracking-[0.1em]">
+            <p class="mono text-[var(--accent-blue)] tracking-[0.2em] text-xl mb-12">
+                EXECUTION DEFINES WHAT BECOMES REAL.
+            </p>
+            <p class="highlight-line text-[var(--accent-blue)] text-[11px] tracking-[0.35em] border-b border-blue-100 inline-block pb-1">
                 WITHOUT IT — NOTHING HAPPENS
             </p>
         </div>
@@ -119,45 +143,35 @@
 
     <div class="delimiter"></div>
 
-    <section class="border-b border-base text-left text-[var(--text-primary)]">
-        <div class="grid md:grid-cols-3">
-            <div class="p-10 border-b md:border-b-0 md:border-r border-base">
-                <h3 class="text-[10px] uppercase mono text-[var(--text-secondary)] mb-4 tracking-[0.15em] font-bold">01 DEFINITION</h3>
-                <p class="text-sm leading-[1.4] font-medium uppercase tracking-[-0.01em]">
-                    EXECUTIA™ IS A PROTOCOL LAYER THAT ENSURES EXECUTION FOLLOWS DECISION EXACTLY.
-                </p>
+    <section class="py-24 border-b border-base bg-[#FBFBFB]">
+        <div class="max-w-xl mx-auto px-6">
+            <div class="mono text-center mb-10 text-[var(--text-secondary)]">
+                <div class="text-[10px] uppercase tracking-[0.3em] font-bold mb-2">FLOW VERIFICATION</div>
+                <div class="text-sm uppercase tracking-widest text-[var(--text-primary)] font-bold">
+                    DECISION → VALIDATION → <span class="text-[var(--accent-blue)]">EXECUTION</span>
+                </div>
             </div>
-            <div class="p-10 border-b md:border-b-0 md:border-r border-base">
-                <h3 class="text-[10px] uppercase mono text-[var(--text-secondary)] mb-4 tracking-[0.15em] font-bold">02 FAILURE CONDITION</h3>
-                <p class="text-sm leading-[1.4] font-medium uppercase tracking-[-0.01em]">
-                    EXECUTION FAILURE CAUSED BY INTERPRETATION AND SYSTEM FRAGMENTATION IS NOT PERMITTED.
-                </p>
-            </div>
-            <div class="p-10">
-                <h3 class="text-[10px] uppercase mono text-[var(--text-secondary)] mb-4 tracking-[0.15em] font-bold">03 EXECUTION CONTROL</h3>
-                <p class="text-sm leading-[1.4] font-medium uppercase tracking-[-0.01em]">
-                    EXECUTIA™ VALIDATES ACTIONS IN REAL TIME AND BLOCKS ANY DEVIATION.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <div class="delimiter"></div>
-
-    <section class="py-20 border-b border-base">
-        <div class="mono text-center text-[var(--text-secondary)] font-bold">
-            <div class="text-[10px] uppercase tracking-[0.2em]">EXECUTION FLOW</div>
-            <div class="text-base uppercase tracking-widest mt-2 text-[var(--text-primary)] font-sans">
-                DECISION → VALIDATION → <span class="mono text-[var(--accent-blue)]">EXECUTION</span>
-            </div>
-            <div class="inline-block mt-8 text-left border border-base border-l-2 border-[var(--accent-blue)] p-10 bg-white font-medium mono">
-                <div class="text-[10px] uppercase mb-4 tracking-widest text-[var(--text-secondary)]">STATE VERIFICATION LOG</div>
-                <div class="text-sm leading-tight text-[var(--text-primary)]">
-                    [12:01] INPUT:      DECISION RECEIVED<br>
-                    [12:02] VALIDATION: CHECK PASSED<br>
-                    [12:02] STATUS:     <span class="text-[var(--accent-blue)]">ALLOWED</span><br>
-                    [12:03] EXECUTION:  CONFIRMED<br>
-                    [12:03] HASH:       <span class="text-[var(--accent-blue)]">0xA7F3C91</span>
+            
+            <div class="border border-base border-l-2 border-[var(--accent-blue)] p-10 bg-white mono text-sm leading-[2.2]">
+                <div class="flex justify-between log-row pt-2">
+                    <span class="text-[var(--text-secondary)]">[12:01]</span>
+                    <span class="font-bold">INPUT</span>
+                    <span class="text-right">DECISION RECEIVED</span>
+                </div>
+                <div class="flex justify-between log-row">
+                    <span class="text-[var(--text-secondary)]">[12:02]</span>
+                    <span class="font-bold">VALIDATION</span>
+                    <span class="text-right">CHECK PASSED</span>
+                </div>
+                <div class="flex justify-between log-row">
+                    <span class="text-[var(--text-secondary)]">[12:02]</span>
+                    <span class="font-bold">STATUS</span>
+                    <span class="text-right text-[var(--accent-blue)] font-bold uppercase">ALLOWED</span>
+                </div>
+                <div class="flex justify-between log-row mt-2 pt-2 border-t border-gray-100">
+                    <span class="text-[var(--text-secondary)]">[12:03]</span>
+                    <span class="font-bold">HASH</span>
+                    <span class="text-right text-[var(--accent-blue)]">0xA7F3C91</span>
                 </div>
             </div>
         </div>
@@ -165,36 +179,29 @@
 
     <div class="delimiter"></div>
 
-    <section class="py-24 text-center px-4">
-        <div class="mono text-[var(--accent-blue)] text-xs font-bold uppercase tracking-[0.15em] leading-[1.6]">
-            <p><span class="inline-block w-1.5 h-1.5 bg-[var(--accent-blue)] mr-2 animate-pulse"></span>SYSTEM READY</p>
-            <p>> VALIDATION ONLINE</p>
-            <p>> EXECUTION ACTIVE</p>
-            <p>> CONTROL LOCKED</p>
-            <p>> STATE VERIFIED</p>
-            <p>> OUTPUT FINALIZED</p>
+    <section class="py-28 text-center px-4">
+        <div class="mono text-[var(--accent-blue)] text-xs tracking-[0.2em] leading-[2.2] font-bold max-w-xs mx-auto text-left border-l-2 border-[var(--accent-blue)] pl-8">
+            <div class="flex items-center gap-1">
+                > SYSTEM READY<span class="cursor-blink"></span>
+            </div>
+            <div class="opacity-40">> VALIDATION ONLINE</div>
+            <div class="opacity-60">> EXECUTION ACTIVE</div>
+            <div class="opacity-80">> CONTROL LOCKED</div>
+            <div class="opacity-100">> OUTPUT FINALIZED</div>
         </div>
-        <div class="mt-8 text-[10px] uppercase font-bold text-[var(--text-secondary)]">
-            STATUS: <span class="text-[var(--accent-blue)] uppercase">ACTIVE</span>
-        </div>
-        <div class="mt-4 mono text-[var(--accent-blue)] text-xs font-bold uppercase tracking-[0.2em]">
-            > EXECUTION PROTOCOL ACTIVE
+        <div class="mt-12 text-[10px] uppercase font-bold text-[var(--text-secondary)] tracking-widest">
+            STATUS: <span class="text-[var(--accent-blue)]">ACTIVE</span>
         </div>
     </section>
 
-    <div class="delimiter"></div>
-
-    <footer class="p-12 border-t border-base text-left">
-        <div class="mono text-[9px] uppercase tracking-[0.2em] text-[var(--accent-blue)] mb-6 font-bold flex items-center gap-2">
-            <span class="w-1.5 h-1.5 bg-[var(--accent-blue)] inline-block animate-pulse opacity-80"></span>
+    <footer class="p-14 border-t border-base text-left">
+        <div class="mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent-blue)] mb-8 font-bold flex items-center gap-3">
+            <span class="w-1.5 h-1.5 bg-[var(--accent-blue)] inline-block animate-pulse opacity-60"></span>
             EXECUTION ENVIRONMENT: STABLE / VERIFIED
         </div>
-        <div class="text-[10px] uppercase font-bold text-[var(--text-secondary)] leading-relaxed">
-            EXECUTIA™ PROTOCOL<br>
-            VERSION 7.2.0<br>
-            STATUS ACTIVE<br>
-            CLASSIFICATION EXECUTION STANDARD<br>
-            ALL RIGHTS RESERVED
+        <div class="text-[10px] uppercase font-bold text-[var(--text-secondary)] leading-[2]">
+            EXECUTIA™ PROTOCOL / VERSION 8.0.0<br>
+            CLASSIFICATION: EXECUTION STANDARD / ALL RIGHTS RESERVED
         </div>
     </footer>
 
