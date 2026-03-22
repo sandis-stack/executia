@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EXECUTIA — Control Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #000; --border: rgba(255,255,255,0.07);
+      --text: #e5e7eb; --dim: rgba(229,231,235,0.4);
+      --red: #dc2626; --blue: rgba(59,130,246,0.85);
+      --mono: 'JetBrains Mono', monospace;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
+    .page { max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+
+    /* AUTH */
+    #auth-wall {
+      position: fixed; inset: 0; background: var(--bg);
+      display: flex; align-items: center; justify-content: center; z-index: 100;
+    }
+    .auth-box { text-align: center; width: 320px; }
+    .auth-label { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.2); margin-bottom: 24px; display: block; }
+    .auth-input {
+      font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em;
+      width: 100%; background: transparent; border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text); padding: 12px 16px; outline: none; margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .auth-input:focus { border-color: rgba(255,255,255,0.4); }
+    .auth-btn {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      width: 100%; background: transparent; border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6); padding: 12px; cursor: pointer; transition: all 0.2s;
+    }
+    .auth-btn:hover { border-color: rgba(255,255,255,0.5); color: var(--text); }
+    .auth-error { font-size: 10px; letter-spacing: 0.12em; color: var(--red); margin-top: 12px; display: none; }
+
+    /* HEADER */
+    .header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+    .header h1 { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .header-meta { font-size: 10px; letter-spacing: 0.12em; color: rgba(255,255,255,0.2); }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+    .stat { border: 1px solid var(--border); padding: 20px; }
+    .stat-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.2); margin-bottom: 10px; }
+    .stat-value { font-size: 28px; font-weight: 500; color: var(--text); }
+    .stat-value.blue { color: var(--blue); }
+    .stat-value.red  { color: var(--red); }
+    .stat-value.dim  { color: rgba(255,255,255,0.4); }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    thead tr { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    thead th { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 10px 14px; text-align: left; font-weight: 400; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody td { padding: 14px; color: var(--dim); vertical-align: middle; }
+    tbody td.org { color: rgba(255,255,255,0.75); font-size: 13px; }
+    tbody td.score { font-size: 11px; }
+
+    .badge {
+      display: inline-block; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 3px 8px; border: 1px solid;
+    }
+    .badge.ACCEPTED     { color: var(--blue); border-color: rgba(59,130,246,0.3); }
+    .badge.UNDER_REVIEW { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.15); }
+    .badge.REJECTED     { color: var(--red); border-color: rgba(220,38,38,0.3); }
+
+    .action-btn {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+      background: transparent; cursor: pointer; padding: 4px 10px; border: 1px solid;
+      transition: all 0.15s; margin-right: 6px;
+    }
+    .action-btn.accept { color: var(--blue); border-color: rgba(59,130,246,0.25); }
+    .action-btn.accept:hover { background: rgba(59,130,246,0.1); }
+    .action-btn.reject { color: var(--red); border-color: rgba(220,38,38,0.25); }
+    .action-btn.reject:hover { background: rgba(220,38,38,0.1); }
+
+    .empty { padding: 60px; text-align: center; color: rgba(255,255,255,0.15); font-size: 11px; letter-spacing: 0.1em; }
+    .loading { color: rgba(255,255,255,0.2); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; padding: 40px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- AUTH WALL -->
+  <div id="auth-wall">
+    <div class="auth-box">
+      <span class="auth-label">EXECUTIA Control Panel</span>
+      <input type="password" id="auth-input" class="auth-input" placeholder="Admin key" />
+      <button class="auth-btn" onclick="authenticate()">Enter System →</button>
+      <div class="auth-error" id="auth-error">ACCESS DENIED</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="page" id="main" style="display:none">
+
+    <div class="header">
+      <h1>EXECUTIA · Control Panel</h1>
+      <div class="header-meta" id="last-updated">—</div>
+    </div>
+
+    <div class="stats" id="stats">
+      <div class="stat"><div class="stat-label">Total</div><div class="stat-value" id="s-total">—</div></div>
+      <div class="stat"><div class="stat-label">Accepted</div><div class="stat-value blue" id="s-accepted">—</div></div>
+      <div class="stat"><div class="stat-label">Under Review</div><div class="stat-value dim" id="s-review">—</div></div>
+      <div class="stat"><div class="stat-label">Rejected</div><div class="stat-value red" id="s-rejected">—</div></div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Organization</th>
+            <th>Country</th>
+            <th>Role</th>
+            <th>Domain</th>
+            <th>Score</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr><td colspan="8" class="loading">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+  let ADMIN_KEY = "";
+
+  function authenticate() {
+    const key = document.getElementById("auth-input").value.trim();
+    if (!key) return;
+    ADMIN_KEY = key;
+    loadData();
+  }
+
+  document.getElementById("auth-input").addEventListener("keydown", e => {
+    if (e.key === "Enter") authenticate();
+  });
+
+  async function loadData() {
+    try {
+      const res = await fetch("/api/requests", {
+        headers: { "x-admin-key": ADMIN_KEY }
+      });
+
+      if (res.status === 401) {
+        document.getElementById("auth-error").style.display = "block";
+        ADMIN_KEY = "";
+        return;
+      }
+
+      const data = await res.json();
+
+      // Hide auth wall, show main
+      document.getElementById("auth-wall").style.display = "none";
+      document.getElementById("main").style.display = "block";
+
+      renderStats(data);
+      renderTable(data);
+      document.getElementById("last-updated").textContent =
+        "Updated: " + new Date().toLocaleTimeString();
+
+    } catch (e) {
+      document.getElementById("auth-error").style.display = "block";
+      document.getElementById("auth-error").textContent = "CONNECTION ERROR";
+    }
+  }
+
+  function renderStats(data) {
+    document.getElementById("s-total").textContent    = data.length;
+    document.getElementById("s-accepted").textContent = data.filter(r => r.status === "ACCEPTED").length;
+    document.getElementById("s-review").textContent   = data.filter(r => r.status === "UNDER_REVIEW").length;
+    document.getElementById("s-rejected").textContent = data.filter(r => r.status === "REJECTED").length;
+  }
+
+  function renderTable(data) {
+    const tbody = document.getElementById("table-body");
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="empty">No submissions yet</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = data.map(r => `
+      <tr id="row-${r.id}">
+        <td class="org">${esc(r.organization)}</td>
+        <td>${esc(r.country)}</td>
+        <td>${esc(r.role)}</td>
+        <td>${esc(r.domain)}</td>
+        <td class="score">${r.score ?? "—"}</td>
+        <td><span class="badge ${r.status}">${r.status}</span></td>
+        <td>${r.created_at ? new Date(r.created_at).toLocaleDateString() : "—"}</td>
+        <td>
+          <button class="action-btn accept" onclick="update('${r.id}','ACCEPTED')">Accept</button>
+          <button class="action-btn reject" onclick="update('${r.id}','REJECTED')">Reject</button>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  async function update(id, status) {
+    await fetch("/api/requests", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-admin-key": ADMIN_KEY },
+      body: JSON.stringify({ id, status })
+    });
+    loadData(); // refresh
+  }
+
+  function esc(str) {
+    if (!str) return "—";
+    return str.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  // Auto-refresh every 60s
+  setInterval(() => { if (ADMIN_KEY) loadData(); }, 60000);
+  </script>
+
+</body>
+</html>
