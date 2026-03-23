@@ -124,6 +124,17 @@ h1 {
   color:#dc2626;
 }
 
+/* EXAMPLE */
+.example {
+  font-size:20px;
+  line-height:1.8;
+  max-width:720px;
+}
+
+.example-step {
+  margin-bottom:16px;
+}
+
 /* FORM */
 input, textarea {
   width:100%;
@@ -170,7 +181,14 @@ button:hover {
 .review { color:#4b5563; }
 .rejected { color:#dc2626; }
 
-/* FADE IN */
+/* FOOTER */
+.footer {
+  margin-top:60px;
+  font-size:11px;
+  color:#9ca3af;
+}
+
+/* FADE */
 body {
   opacity:0;
   transition:opacity 0.6s ease;
@@ -277,6 +295,16 @@ body.loaded {
 
   <div class="divider"></div>
 
+  <!-- 🔥 EXAMPLE (CRITICAL ADDITION) -->
+  <div class="example">
+    <div class="example-step">Example:</div>
+    <div class="example-step">Infrastructure project approved with insufficient resources.</div>
+    <div class="example-step">Without EXECUTIA → execution failure.</div>
+    <div class="example-step">With EXECUTIA → execution blocked before failure.</div>
+  </div>
+
+  <div class="divider"></div>
+
   <!-- FINAL -->
   <div class="core">
     EXECUTIA IS NOT A PRODUCT.<br>
@@ -296,7 +324,19 @@ body.loaded {
     <button>SUBMIT TO SYSTEM</button>
   </form>
 
+  <div class="note">
+    Access request for institutional integration.
+  </div>
+
   <div id="result" class="result"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Operator Contact → 
+    <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" style="color:#4b5563; text-decoration:none;">
+      LinkedIn
+    </a>
+  </div>
 
 </div>
 
