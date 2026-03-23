@@ -8,11 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; margin:0; padding:0; }
+* { box-sizing:border-box; margin:0; padding:0; }
 
 html, body {
   background:#ffffff !important;
-  color:#111111 !important;
+  color:#0a0a0a !important;
   font-family:'JetBrains Mono', monospace;
   -webkit-font-smoothing: antialiased;
 }
@@ -20,49 +20,76 @@ html, body {
 .container {
   max-width: 960px;
   margin: 0 auto;
-  padding: 80px 40px;
+  padding: 120px 40px;
 }
 
 /* STATUS */
-.status { font-size:11px; letter-spacing:0.2em; color:#dc2626; margin-bottom:6px; }
-.substatus { font-size:11px; color:#6b7280; margin-bottom:60px; }
+.status {
+  font-size:11px;
+  letter-spacing:0.22em;
+  color:#dc2626;
+  margin-bottom:6px;
+}
+
+.substatus {
+  font-size:11px;
+  color:#4b5563;
+  margin-bottom:60px;
+}
 
 /* DIVIDER */
-.divider { border-top:1px solid #e5e7eb; margin:60px 0; }
+.divider {
+  border-top:1px solid #d1d5db;
+  margin:80px 0;
+}
 
 /* HEADLINE */
-h1 { font-size:44px; font-weight:500; margin-bottom:16px; }
-.subline { color:#6b7280; margin-bottom:80px; line-height:1.7; }
+h1 {
+  font-size:52px;
+  letter-spacing:-0.02em;
+  font-weight:500;
+  margin-top:10px;
+  margin-bottom:16px;
+}
 
-/* CORE */
+.subline {
+  color:#4b5563;
+  line-height:1.7;
+  margin-bottom:80px;
+}
+
+/* CORE TEXT */
 .core {
-  font-size:22px;
-  line-height:1.8;
+  font-size:24px;
+  line-height:1.7;
+  max-width:720px;
   margin-bottom:50px;
 }
 
 /* GRID */
 .grid {
   display:grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:40px;
 }
 
 .grid h3 {
   font-size:11px;
   letter-spacing:0.18em;
-  color:#6b7280;
+  color:#4b5563;
   margin-bottom:12px;
+  font-weight:500;
 }
 
 .grid p {
   font-size:13px;
   line-height:1.6;
+  color:#1f2937;
 }
 
 /* ENFORCE */
 .enforce {
-  font-size:20px;
+  font-size:26px;
   line-height:1.8;
   margin-bottom:40px;
 }
@@ -70,7 +97,7 @@ h1 { font-size:44px; font-weight:500; margin-bottom:16px; }
 /* LIST */
 .list {
   display:grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:30px;
   font-size:13px;
 }
@@ -83,7 +110,7 @@ h1 { font-size:44px; font-weight:500; margin-bottom:16px; }
 
 .note {
   font-size:12px;
-  color:#6b7280;
+  color:#4b5563;
 }
 
 /* CONTROL GAP */
@@ -100,31 +127,39 @@ h1 { font-size:44px; font-weight:500; margin-bottom:16px; }
 /* FORM */
 input, textarea {
   width:100%;
-  border:1px solid #e5e7eb;
+  border:1px solid #d1d5db;
   padding:14px;
   margin-bottom:12px;
   font-family:inherit;
   font-size:13px;
-  background:#fff;
+  background:#ffffff;
+}
+
+input:focus, textarea:focus {
+  outline:none;
+  border-color:#0a0a0a;
 }
 
 textarea { height:120px; }
 
+/* BUTTON */
 button {
   border:1px solid #dc2626;
   color:#dc2626;
   background:transparent;
   padding:14px;
-  letter-spacing:0.15em;
+  letter-spacing:0.2em;
+  font-size:12px;
   cursor:pointer;
   transition:0.2s;
 }
 
 button:hover {
   background:#dc2626;
-  color:white;
+  color:#fff;
 }
 
+/* RESULT */
 .result {
   margin-top:20px;
   font-size:12px;
@@ -132,12 +167,17 @@ button:hover {
 }
 
 .accepted { color:#2563eb; }
-.review { color:#6b7280; }
+.review { color:#4b5563; }
 .rejected { color:#dc2626; }
 
-/* FADE */
-body { opacity:0; transition:opacity 0.6s ease; }
-body.loaded { opacity:1; }
+/* FADE IN */
+body {
+  opacity:0;
+  transition:opacity 0.6s ease;
+}
+body.loaded {
+  opacity:1;
+}
 </style>
 </head>
 
@@ -153,6 +193,7 @@ body.loaded { opacity:1; }
 
   <!-- HEAD -->
   <h1>Institutional Execution Layer</h1>
+
   <div class="subline">
     A standard for governments, infrastructure, and large-scale systems.
   </div>
@@ -225,7 +266,7 @@ body.loaded { opacity:1; }
 
   <div class="divider"></div>
 
-  <!-- CONTROL GAP -->
+  <!-- GAP -->
   <div class="gap">
     Decision → (uncontrolled space) → Outcome
   </div>
@@ -244,13 +285,14 @@ body.loaded { opacity:1; }
 
   <div class="divider"></div>
 
-  <!-- CONTACT -->
+  <!-- FORM -->
   <form id="form">
     <input placeholder="Organization" required>
     <input placeholder="Country" required>
     <input placeholder="Role" required>
     <input type="email" placeholder="Official Email" required>
     <textarea placeholder="System context"></textarea>
+
     <button>SUBMIT TO SYSTEM</button>
   </form>
 
@@ -259,7 +301,9 @@ body.loaded { opacity:1; }
 </div>
 
 <script>
-window.addEventListener("load", ()=>document.body.classList.add("loaded"));
+window.addEventListener("load", () => {
+  document.body.classList.add("loaded");
+});
 
 document.getElementById("form").addEventListener("submit", async (e)=>{
   e.preventDefault();
