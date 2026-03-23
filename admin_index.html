@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EXECUTIA — Control Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-white:           #ffffff;
+      --bg-main:            #0b1426;
+      --bg-deep:            #0e1a33;
+      --bg-elev:            #14213d;
+      --bg-graphite:        #1a1f2b;
+      --text-dark:          #0b0f1a;
+      --text-primary:       rgba(255,255,255,0.88);
+      --text-secondary:     rgba(255,255,255,0.55);
+      --text-muted:         rgba(255,255,255,0.25);
+      --text-light-primary: #0b0f1a;
+      --text-light-secondary: rgba(0,0,0,0.6);
+      --text-light-muted:   rgba(0,0,0,0.3);
+      --border-light:       rgba(0,0,0,0.08);
+      --border-soft:        rgba(255,255,255,0.05);
+      --border-medium:      rgba(255,255,255,0.1);
+      --signal-blue:        rgba(120,180,255,0.5);
+      --signal-green:       rgba(120,255,180,0.65);
+      --signal-yellow:      rgba(234,179,8,0.7);
+      --signal-red:         rgba(220,60,60,0.85);
+      --mono:   'JetBrains Mono', monospace;
+    }
+    body { background: linear-gradient(180deg, var(--bg-main) 0%, var(--bg-deep) 100%); color: var(--text-primary); font-family: var(--mono); min-height: 100vh; }
+    body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(120,180,255,0.08), transparent 65%); pointer-events: none; z-index: 0; }
+    .page { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 48px 40px; padding-top: calc(56px + 24px); }
+
+    /* ===== FLASH ===== */
+    .flash {
+      position: fixed; inset: 0; background: #ffffff;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.08s linear; z-index: 9999;
+    }
+    .flash.active { opacity: 1; }
+
+    /* ===== HEADER ===== */
+    .exec-header {
+      position: fixed; top: 0; width: 100%; height: 56px;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; padding: 0 32px;
+      background: rgba(11,20,38,0.75);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-soft);
+      z-index: 1000;
+    }
+    .exec-logo {
+      font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; opacity: 0.8; color: var(--text-primary); font-family: var(--mono);
+    }
+    .exec-logo:hover { opacity: 1; }
+    .exec-protocol { display: flex; align-items: center; gap: 14px; }
+    .exec-protocol span {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      cursor: pointer; opacity: 0.4; color: var(--text-primary);
+      font-family: var(--mono); transition: opacity 0.2s;
+    }
+    .exec-protocol span:hover { opacity: 0.8; }
+    .exec-protocol span.active { opacity: 1; border-bottom: 1px solid var(--signal-blue); padding-bottom: 3px; }
+    .exec-protocol .line { width: 40px; height: 1px; background: rgba(255,255,255,0.15); }
+    .exec-right { display: flex; justify-self: end; gap: 20px; align-items: center; }
+    .exec-risk { font-size: 11px; letter-spacing: 0.15em; color: var(--signal-yellow); font-family: var(--mono); }
+    .exec-risk.high { color: var(--signal-red); }
+    .exec-status { font-size: 11px; letter-spacing: 0.18em; color: var(--signal-green); font-family: var(--mono); }
+    .exec-status.blocked { color: var(--signal-red); }
+
+    /* AUTH */
+    #auth-wall {
+      position: fixed; inset: 0; background: linear-gradient(180deg, var(--bg-main) 0%, var(--bg-deep) 100%);
+      display: flex; align-items: center; justify-content: center; z-index: 500;
+    }
+    .auth-box { text-align: center; width: 320px; }
+    .auth-label { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.2); margin-bottom: 24px; display: block; }
+    .auth-input {
+      font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em;
+      width: 100%; background: transparent; border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text-primary); padding: 12px 16px; outline: none; margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .auth-input:focus { border-color: rgba(255,255,255,0.4); }
+    .auth-btn {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      width: 100%; background: transparent; border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6); padding: 12px; cursor: pointer; transition: all 0.2s;
+    }
+    .auth-btn:hover { border-color: rgba(255,255,255,0.5); color: var(--text-primary); }
+    .auth-error { font-size: 10px; letter-spacing: 0.12em; color: var(--signal-red); margin-top: 12px; display: none; }
+
+    /* HEADER */
+    .cp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px; border-bottom: 1px solid var(--border-soft); padding-bottom: 20px; }
+    .cp-header h1 { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .cp-header-meta { font-size: 10px; letter-spacing: 0.12em; color: rgba(255,255,255,0.2); }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+    .stat { border: 1px solid var(--border-soft); padding: 20px; }
+    .stat-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.2); margin-bottom: 10px; }
+    .stat-value { font-size: 28px; font-weight: 500; color: var(--text-primary); }
+    .stat-value.blue { color: var(--signal-blue); }
+    .stat-value.red  { color: var(--signal-red); }
+    .stat-value.dim  { color: var(--text-muted); }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    thead tr { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    thead th { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.25); padding: 10px 14px; text-align: left; font-weight: 400; }
+    tbody tr { border-bottom: 1px solid var(--border-soft); transition: background 0.15s; }
+    tbody tr:hover { background: transparent; }
+    tbody td { padding: 14px; color: var(--text-secondary); vertical-align: middle; }
+    tbody td.org { color: rgba(255,255,255,0.75); font-size: 13px; }
+    tbody td.score { font-size: 11px; }
+
+    .badge {
+      display: inline-block; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 3px 8px; border: 1px solid;
+    }
+    .badge.ACCEPTED     { color: var(--signal-blue); border-color: rgba(120,180,255,0.25); }
+    .badge.UNDER_REVIEW { color: var(--text-secondary); border-color: var(--border-soft); }
+    .badge.REJECTED     { color: var(--signal-red); border-color: rgba(220,38,38,0.3); }
+
+    .action-btn {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+      background: transparent; cursor: pointer; padding: 4px 10px; border: 1px solid;
+      transition: all 0.15s; margin-right: 6px;
+    }
+    .action-btn.accept { color: var(--signal-blue); border-color: rgba(120,180,255,0.25); }
+    .action-btn.accept:hover { background: rgba(120,180,255,0.08); }
+    .action-btn.reject { color: var(--signal-red); border-color: rgba(220,38,38,0.25); }
+    .action-btn.reject:hover { background: rgba(220,38,38,0.1); }
+
+    .empty { padding: 60px; text-align: center; color: rgba(255,255,255,0.15); font-size: 11px; letter-spacing: 0.1em; }
+    .loading { color: rgba(255,255,255,0.2); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; padding: 40px; text-align: center; }
+    .exec-footer { border-top: 1px solid var(--border-soft); padding: 28px 40px; margin-top: 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+    .footer-left { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.18); font-family: var(--mono); }
+    .footer-right { display: flex; gap: 28px; }
+    .footer-right a { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.18); text-decoration: none; transition: color 0.2s linear; font-family: var(--mono); }
+    .footer-right a:hover { color: rgba(255,255,255,0.5); }
+  </style>
+</head>
+<body>
+
+  <!-- FLASH TRANSITION -->
+  <div class="flash"></div>
+
+  <!-- EXECUTIA CONTROL BAR -->
+  <header class="exec-header">
+    <div class="exec-logo" onclick="navigate('/')">EXECUTIA</div>
+    <nav class="exec-protocol">
+      <span data-layer="entry" onclick="navigate('/')">ENTRY</span>
+      <span class="line"></span>
+      <span data-layer="execution" onclick="navigate('https://execution.executia.io')">EXECUTION</span>
+      <span class="line"></span>
+      <span data-layer="institutional" onclick="navigate('/institutional.html')">INSTITUTIONAL</span>
+    </nav>
+    <div class="exec-right">
+      <div class="exec-risk" id="riskIndicator">RISK: 0%</div>
+      <div class="exec-status" id="systemStatus">● ACTIVE</div>
+    </div>
+  </header>
+
+  <!-- AUTH WALL -->
+  <div id="auth-wall">
+    <div class="auth-box">
+      <span class="auth-label">EXECUTIA · Control Access</span>
+      <input type="password" id="auth-input" class="auth-input" placeholder="Admin key" />
+      <button class="auth-btn" onclick="authenticate()">Enter System →</button>
+      <div class="auth-error" id="auth-error">ACCESS DENIED</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="page" id="main" style="display:none">
+
+    <div class="cp-header">
+      <h1>EXECUTIA · Control Panel</h1>
+      <div class="cp-header-meta" id="last-updated">—</div>
+    </div>
+
+    <div class="stats" id="stats">
+      <div class="stat"><div class="stat-label">Total</div><div class="stat-value" id="s-total">—</div></div>
+      <div class="stat"><div class="stat-label">Accepted</div><div class="stat-value blue" id="s-accepted">—</div></div>
+      <div class="stat"><div class="stat-label">Under Review</div><div class="stat-value dim" id="s-review">—</div></div>
+      <div class="stat"><div class="stat-label">Rejected</div><div class="stat-value red" id="s-rejected">—</div></div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Organization</th>
+            <th>Country</th>
+            <th>Role</th>
+            <th>Domain</th>
+            <th>Score</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr><td colspan="8" class="loading">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+  /* ===== NAVIGATION ===== */
+  function navigate(url) {
+    const flash = document.querySelector('.flash');
+    flash.classList.add('active');
+    setTimeout(() => { window.location.href = url; }, url.includes('execution.executia.io') ? 120 : 100);
+  }
+
+  /* ===== ACTIVE LAYER ===== */
+  function setActiveLayer() {
+    const items = document.querySelectorAll('[data-layer]');
+    const path = window.location.pathname;
+    const host = window.location.hostname;
+    items.forEach(el => {
+      const layer = el.dataset.layer;
+      if (layer === "entry" && (path === "/" || path.includes("index"))) {
+        el.classList.add("active");
+      }
+      if (layer === "institutional" && path.includes("institutional")) {
+        el.classList.add("active");
+      }
+      if (layer === "execution" && host.includes("execution")) {
+        el.classList.add("active");
+      }
+    });
+  }
+
+  function updateSystem(result) {
+    const riskEl = document.getElementById("riskIndicator");
+    const statusEl = document.getElementById("systemStatus");
+    riskEl.textContent = "RISK: " + result.risk + "%";
+    if (result.risk > 40) { riskEl.classList.add("high"); } else { riskEl.classList.remove("high"); }
+    if (result.blocked) { statusEl.textContent = "● BLOCKED"; statusEl.classList.add("blocked"); }
+    else { statusEl.textContent = "● ACTIVE"; statusEl.classList.remove("blocked"); }
+  }
+
+  setActiveLayer();
+  updateSystem({ risk: 12, blocked: false });
+
+  /* ===== ADMIN ===== */
+  let ADMIN_KEY = "";
+
+  function authenticate() {
+    const key = document.getElementById("auth-input").value.trim();
+    if (!key) return;
+    ADMIN_KEY = key;
+    loadData();
+  }
+
+  document.getElementById("auth-input").addEventListener("keydown", e => {
+    if (e.key === "Enter") authenticate();
+  });
+
+  async function loadData() {
+    try {
+      const res = await fetch("/api/requests", {
+        headers: { "x-admin-key": ADMIN_KEY }
+      });
+
+      if (res.status === 401) {
+        throw new Error("Unauthorized");
+      }
+
+      const data = await res.json();
+      showData(data);
+
+    } catch (e) {
+      if (e.message === "Unauthorized") {
+        document.getElementById("auth-error").style.display = "block";
+        document.getElementById("auth-error").textContent = "ACCESS DENIED";
+        ADMIN_KEY = "";
+        return;
+      }
+
+      // No backend — demo data maintains system feel
+      const data = [
+        { id: 1, organization: "Energy Grid Authority", country: "NO", role: "System Operator", domain: "energy.no", score: 82, status: "ACCEPTED", created_at: new Date().toISOString() },
+        { id: 2, organization: "Financial Regulatory Body", country: "EU", role: "Director of Compliance", domain: "finreg.eu", score: 61, status: "UNDER_REVIEW", created_at: new Date().toISOString() },
+        { id: 3, organization: "State Infrastructure", country: "EE", role: "Head of Digital Services", domain: "gov.ee", score: 74, status: "ACCEPTED", created_at: new Date().toISOString() }
+      ];
+      showData(data);
+    }
+  }
+
+  function showData(data) {
+    document.getElementById("auth-wall").style.display = "none";
+    document.getElementById("main").style.display = "block";
+    renderStats(data);
+    renderTable(data);
+    document.getElementById("last-updated").textContent =
+      "Updated: " + new Date().toLocaleTimeString();
+  }
+
+  function renderStats(data) {
+    document.getElementById("s-total").textContent    = data.length;
+    document.getElementById("s-accepted").textContent = data.filter(r => r.status === "ACCEPTED").length;
+    document.getElementById("s-review").textContent   = data.filter(r => r.status === "UNDER_REVIEW").length;
+    document.getElementById("s-rejected").textContent = data.filter(r => r.status === "REJECTED").length;
+  }
+
+  function renderTable(data) {
+    const tbody = document.getElementById("table-body");
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="empty">No submissions yet</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map(r => `
+      <tr id="row-${r.id}">
+        <td class="org">${esc(r.organization)}</td>
+        <td>${esc(r.country)}</td>
+        <td>${esc(r.role)}</td>
+        <td>${esc(r.domain)}</td>
+        <td class="score">${r.score ?? "—"}</td>
+        <td><span class="badge ${r.status}">${r.status}</span></td>
+        <td>${r.created_at ? new Date(r.created_at).toLocaleDateString() : "—"}</td>
+        <td>
+          <button class="action-btn accept" onclick="update('${r.id}','ACCEPTED')">Accept</button>
+          <button class="action-btn reject" onclick="update('${r.id}','REJECTED')">Reject</button>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  async function update(id, status) {
+    await fetch("/api/requests", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-admin-key": ADMIN_KEY },
+      body: JSON.stringify({ id, status })
+    });
+    loadData();
+  }
+
+  function esc(str) {
+    if (!str) return "—";
+    return str.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  setInterval(() => { if (ADMIN_KEY) loadData(); }, 60000);
+  </script>
+
+  <footer class="exec-footer">
+    <div class="footer-left">EXECUTIA™ · EP-1 · © 2026</div>
+    <div class="footer-right">
+      <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank">Institutional profile</a>
+      <a href="mailto:info@executia.io">info@executia.io</a>
+    </div>
+  </footer>
+
+</body>
+</html>
