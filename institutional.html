@@ -17,6 +17,29 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* NAV */
+.nav {
+  display:flex;
+  gap:30px;
+  font-size:11px;
+  letter-spacing:0.2em;
+  margin-bottom:60px;
+}
+
+.nav a {
+  text-decoration:none;
+  color:#6b7280;
+}
+
+.nav a.active {
+  color:#0a0a0a;
+}
+
+.nav a:hover {
+  color:#dc2626;
+}
+
+/* CONTAINER */
 .container {
   max-width: 960px;
   margin: 0 auto;
@@ -58,7 +81,7 @@ h1 {
   margin-bottom:80px;
 }
 
-/* CORE TEXT */
+/* CORE */
 .core {
   font-size:24px;
   line-height:1.7;
@@ -113,7 +136,7 @@ h1 {
   color:#4b5563;
 }
 
-/* CONTROL GAP */
+/* GAP */
 .gap {
   font-size:18px;
   margin-bottom:10px;
@@ -191,7 +214,7 @@ button:hover {
 /* FADE */
 body {
   opacity:0;
-  transition:opacity 0.6s ease;
+  transition:opacity 0.5s ease;
 }
 body.loaded {
   opacity:1;
@@ -202,6 +225,13 @@ body.loaded {
 <body>
 
 <div class="container">
+
+  <!-- NAV -->
+  <div class="nav">
+    <a href="#" onclick="EXECUTIA.go('/')">Layer: Entry</a>
+    <a href="#" onclick="EXECUTIA.go('/execution')">Layer: Execution</a>
+    <a class="active">Layer: Institutional</a>
+  </div>
 
   <!-- STATUS -->
   <div class="status">STATUS: NON-OPTIONAL</div>
@@ -295,7 +325,7 @@ body.loaded {
 
   <div class="divider"></div>
 
-  <!-- 🔥 EXAMPLE (CRITICAL ADDITION) -->
+  <!-- EXAMPLE -->
   <div class="example">
     <div class="example-step">Example:</div>
     <div class="example-step">Infrastructure project approved with insufficient resources.</div>
@@ -333,7 +363,7 @@ body.loaded {
   <!-- FOOTER -->
   <div class="footer">
     Operator Contact → 
-    <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" style="color:#4b5563; text-decoration:none;">
+    <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" style="color:#4b5563;">
       LinkedIn
     </a>
   </div>
@@ -341,9 +371,17 @@ body.loaded {
 </div>
 
 <script>
-window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
-});
+const EXECUTIA = {
+  go(url){
+    document.body.style.opacity = 0;
+    setTimeout(()=>window.location.href = url, 300);
+  },
+  init(){
+    document.body.classList.add("loaded");
+  }
+};
+
+window.addEventListener("load", EXECUTIA.init);
 
 document.getElementById("form").addEventListener("submit", async (e)=>{
   e.preventDefault();
