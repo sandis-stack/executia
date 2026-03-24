@@ -1,146 +1,173 @@
 <!DOCTYPE html>
-<html lang="en" class="antialiased" data-mode="light">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EXECUTIA™ | Standard of Execution</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA™ | Standard of Execution</title>
 
-  <!-- FONT -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- TAILWIND -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<style>
+body {
+    background: #FFFFFF;
+    color: #0A1F44;
+    font-family: 'Inter', system-ui, sans-serif;
+}
 
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #FFFFFF;
-      color: #0A1F44;
-    }
-  </style>
+.divider {
+    border-top: 1px solid #e5e7eb;
+    margin: 120px 0;
+}
+
+.cta {
+    border: 1px solid #0A1F44;
+    padding: 12px 20px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+}
+
+.label {
+    font-size: 12px;
+    color: #6b7280;
+    letter-spacing: 0.15em;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER (SYSTEM ACCESS) -->
-  <header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
-    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-[72px]">
+<!-- HEADER -->
+<header class="border-b border-gray-200">
+  <div class="max-w-6xl mx-auto px-6 flex justify-between items-center h-[70px]">
 
-      <div class="text-[13px] font-semibold tracking-[0.12em] text-[#0A1F44]">
-        EXECUTIA™
-      </div>
-
-      <nav class="flex gap-8 text-[12px] tracking-widest text-gray-400">
-        <a href="https://execution.executia.io">EXECUTION LAYER</a>
-        <a href="/institutional">INSTITUTIONAL</a>
-      </nav>
-
+    <div class="text-[13px] tracking-[0.14em]">
+      EXECUTIA™
     </div>
-  </header>
 
-  <!-- HERO -->
-  <section class="max-w-3xl mx-auto px-6 pt-[160px] pb-[140px] text-center">
-    <h1 class="text-[56px] leading-tight font-semibold tracking-[-0.02em] mb-6">
-      EXECUTIA is the Standard of Execution
-    </h1>
-    <p class="text-[18px] text-gray-500">
-      A system that ensures decisions are executed exactly as defined.
-    </p>
-  </section>
+    <nav class="flex gap-8 text-[12px] tracking-widest text-gray-400">
+      <a href="https://execution.executia.io">EXECUTION</a>
+      <a href="https://executia.io/institutional">INSTITUTIONAL</a>
+    </nav>
 
-  <div class="border-t border-gray-200 my-[120px]"></div>
+  </div>
+</header>
 
-  <!-- PROBLEM -->
-  <section class="max-w-xl mx-auto px-6 py-[120px]">
-    <h2 class="text-[16px] font-semibold mb-6">
-      Execution fails between decision and outcome
-    </h2>
-    <div class="text-gray-500 space-y-4">
-      <p>Interpretation distorts intent</p>
-      <p>Control is lost during implementation</p>
-      <p>Systems do not enforce correctness</p>
-    </div>
-  </section>
+<!-- HERO -->
+<section class="max-w-3xl mx-auto px-6 pt-[160px] pb-[120px] text-center">
 
-  <div class="border-t border-gray-200 my-[120px]"></div>
+<h1 class="text-[56px] leading-tight font-semibold tracking-[-0.02em] mb-6">
+EXECUTIA is the Standard of Execution
+</h1>
 
-  <!-- NECESSITY -->
-  <section class="max-w-xl mx-auto px-6 py-[120px]">
-    <h2 class="text-[16px] font-semibold">
-      Execution failure is the largest invisible risk in modern systems
-    </h2>
-  </section>
+<p class="text-gray-500 text-lg">
+A system that ensures decisions are executed exactly as defined.
+</p>
 
-  <div class="border-t border-gray-200 my-[120px]"></div>
+</section>
 
-  <!-- ENFORCEMENT -->
-  <section class="max-w-xl mx-auto px-6 py-[120px]">
-    <h2 class="text-[16px] font-semibold mb-6">
-      Execution is structurally enforced
-    </h2>
-    <div class="text-gray-500 space-y-4">
-      <p>Execution is validated before it happens</p>
-      <p>Non-compliant actions do not execute</p>
-      <p>Deviation is structurally impossible</p>
-    </div>
-  </section>
+<div class="divider"></div>
 
-  <div class="border-t border-gray-200 my-[120px]"></div>
+<!-- PROBLEM -->
+<section class="max-w-xl mx-auto px-6 py-[120px]">
 
-  <!-- DEFINITION -->
-  <section class="max-w-xl mx-auto px-6 py-[140px]">
-    <div class="space-y-6">
-      <p class="font-semibold">A universal execution protocol</p>
-      <p class="text-gray-500">Not software</p>
-      <p class="text-gray-500">Not methodology</p>
-      <p class="font-medium pt-2">
-        A control layer that ensures reality follows decision
-      </p>
-    </div>
-  </section>
+<p class="label mb-6">SYSTEM FAILURE</p>
 
-  <div class="border-t border-gray-200 my-[120px]"></div>
+<div class="space-y-4 text-xl">
+<p>Execution fails between decision and outcome</p>
+<p>Interpretation distorts intent</p>
+<p>Control is lost during implementation</p>
+<p>Systems do not enforce correctness</p>
+</div>
 
-  <!-- CTA -->
-  <section class="max-w-xl mx-auto px-6 py-[120px]">
-    <div class="flex gap-6">
-      <a href="https://execution.executia.io"
-         class="border border-[#0A1F44] px-6 py-3 text-xs tracking-widest">
-         VIEW EXECUTION LAYER
-      </a>
+</section>
 
-      <a href="/institutional"
-         class="border border-[#0A1F44] px-6 py-3 text-xs tracking-widest">
-         VIEW INSTITUTIONAL
-      </a>
-    </div>
-  </section>
+<div class="divider"></div>
 
-  <!-- TRUST -->
-  <section class="max-w-xl mx-auto px-6 pb-[120px]">
-    <p class="text-[13px] text-gray-400 tracking-wide">
-      Designed for institutional systems, governments, and critical infrastructure
-    </p>
-  </section>
+<!-- NECESSITY -->
+<section class="max-w-xl mx-auto px-6 py-[120px]">
 
-  <!-- FINAL STATEMENT -->
-  <section class="max-w-xl mx-auto px-6 pb-[140px]">
-    <p class="text-[13px] text-gray-500 tracking-wide">
-      EXECUTIA is positioned as a protocol standard. Not a product.
-    </p>
-  </section>
+<p class="label mb-6">SYSTEM REALITY</p>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-gray-200 py-10">
-    <div class="max-w-6xl mx-auto px-6 text-xs text-gray-400 flex justify-between">
-      <div>EXECUTIA™</div>
-      <div class="flex gap-6">
-        <span>executia.io</span>
-        <span>execution.executia.io</span>
-        <span>/institutional</span>
-      </div>
-    </div>
-  </footer>
+<p class="text-2xl">
+Execution failure is the largest invisible risk in modern systems
+</p>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- ENFORCEMENT -->
+<section class="max-w-xl mx-auto px-6 py-[120px]">
+
+<p class="label mb-6">ENFORCEMENT</p>
+
+<div class="space-y-4 text-xl">
+<p>Execution is validated before it happens</p>
+<p>Non-compliant actions do not execute</p>
+<p>Deviation is structurally impossible</p>
+</div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- DEFINITION -->
+<section class="max-w-xl mx-auto px-6 py-[140px]">
+
+<div class="space-y-4 text-lg">
+<p>A universal execution protocol</p>
+<p class="text-gray-500">Not software</p>
+<p class="text-gray-500">Not methodology</p>
+<p class="pt-4 font-medium">
+A control layer that ensures reality follows decision
+</p>
+</div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section class="max-w-xl mx-auto px-6 py-[120px]">
+
+<div class="flex gap-6">
+
+<a href="https://execution.executia.io" class="cta">
+ENTER EXECUTION LAYER
+</a>
+
+<a href="https://executia.io/institutional" class="cta">
+VIEW INSTITUTIONAL
+</a>
+
+</div>
+
+</section>
+
+<!-- FINAL -->
+<section class="max-w-xl mx-auto px-6 pb-[140px]">
+
+<p class="text-sm text-gray-500 tracking-wide">
+STATUS: NON-OPTIONAL
+</p>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-gray-200 py-10">
+<div class="max-w-6xl mx-auto px-6 text-xs text-gray-400 flex justify-between">
+
+<div>EXECUTIA™</div>
+
+<div class="flex gap-6">
+<span>executia.io</span>
+<span>execution.executia.io</span>
+<span>/institutional</span>
+</div>
+
+</div>
+</footer>
 
 </body>
 </html>
