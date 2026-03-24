@@ -53,7 +53,7 @@ body {
 
 </section>
 
-<!-- 🔥 PROOF BLOCK -->
+<!-- 🔥 PROOF CASE -->
 <section class="max-w-3xl mx-auto px-6 section">
 
   <div class="text-[11px] tracking-widest text-gray-400 mb-6">
@@ -77,6 +77,24 @@ body {
     <p class="text-red-600 font-semibold">
       RESULT: BLOCKED
     </p>
+
+  </div>
+
+</section>
+
+<!-- 🔥 ANIMATED SYSTEM LOG -->
+<section class="max-w-3xl mx-auto px-6 section">
+
+  <div class="text-[11px] tracking-widest text-gray-400 mb-6">
+    SYSTEM VALIDATION
+  </div>
+
+  <div class="border border-gray-200 p-8 font-mono text-sm text-gray-600 space-y-2">
+
+    <div id="log-line-1"></div>
+    <div id="log-line-2"></div>
+    <div id="log-line-3"></div>
+    <div id="log-line-4"></div>
 
   </div>
 
@@ -172,6 +190,44 @@ body {
     </div>
   </div>
 </footer>
+
+<!-- ANIMATION SCRIPT -->
+<script>
+
+function runLog(){
+
+  const l1 = document.getElementById("log-line-1");
+  const l2 = document.getElementById("log-line-2");
+  const l3 = document.getElementById("log-line-3");
+  const l4 = document.getElementById("log-line-4");
+
+  l1.innerHTML = "";
+  l2.innerHTML = "";
+  l3.innerHTML = "";
+  l4.innerHTML = "";
+
+  setTimeout(() => {
+    l1.innerHTML = "Input received: €200M infrastructure project";
+  }, 300);
+
+  setTimeout(() => {
+    l2.innerHTML = "Validating budget constraints...";
+  }, 900);
+
+  setTimeout(() => {
+    l3.innerHTML = "Dependency conflict detected";
+  }, 1500);
+
+  setTimeout(() => {
+    l4.innerHTML = "<span style='color:#dc2626'>STATUS: BLOCKED</span>";
+  }, 2200);
+
+}
+
+runLog();
+setInterval(runLog, 6000);
+
+</script>
 
 </body>
 </html>
