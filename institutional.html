@@ -1,382 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EXECUTIA™ — Institutional Execution Layer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg-white:           #ffffff;
-      --bg-main:            #0b1426;
-      --bg-deep:            #0e1a33;
-      --bg-elev:            #14213d;
-      --bg-graphite:        #1a1f2b;
-      --text-dark:          #0b0f1a;
-      --text-primary:       rgba(255,255,255,0.88);
-      --text-secondary:     rgba(255,255,255,0.55);
-      --text-muted:         rgba(255,255,255,0.25);
-      --text-light-primary: #0b0f1a;
-      --text-light-secondary: rgba(0,0,0,0.6);
-      --text-light-muted:   rgba(0,0,0,0.3);
-      --border-light:       rgba(0,0,0,0.08);
-      --border-soft:        rgba(255,255,255,0.05);
-      --border-medium:      rgba(255,255,255,0.1);
-      --signal-blue:        rgba(120,180,255,0.5);
-      --signal-green:       rgba(120,255,180,0.65);
-      --signal-yellow:      rgba(234,179,8,0.7);
-      --signal-red:         rgba(220,60,60,0.85);
-      --mono:   'JetBrains Mono', monospace;
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg-white); color: var(--text-light-primary); font-family: var(--mono); -webkit-font-smoothing: antialiased; line-height: 1.6; }
-    .page { max-width: 960px; margin: 0 auto; padding: 0 48px; }
-    section { padding: 80px 0; border-top: 1px solid var(--border); }
-    section.no-border { border-top: none; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA — Institutional Layer</title>
 
-    /* ===== FLASH ===== */
-    .flash {
-      position: fixed; inset: 0; background: #ffffff;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.08s linear; z-index: 9999;
-    }
-    .flash.active { opacity: 1; }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-    /* ===== HEADER ===== */
-    .exec-header {
-      position: fixed; top: 0; width: 100%; height: 56px;
-      display: grid; grid-template-columns: 1fr auto 1fr;
-      align-items: center; padding: 0 32px;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--border-light);
-      z-index: 1000;
-    }
-    .exec-logo {
-      font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
-      cursor: pointer; opacity: 0.8; color: var(--text-light-primary); font-family: var(--mono);
-    }
-    .exec-logo:hover { opacity: 1; }
-    .exec-protocol { display: flex; align-items: center; gap: 14px; }
-    .exec-protocol span {
-      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-      cursor: pointer; opacity: 0.4; color: var(--text-light-primary);
-      font-family: var(--mono); transition: opacity 0.2s;
-    }
-    .exec-protocol span:hover { opacity: 0.8; }
-    .exec-protocol span.active { opacity: 1; border-bottom: 1px solid rgba(30,80,180,0.5); padding-bottom: 3px; }
-    .exec-protocol .line { width: 40px; height: 1px; background: rgba(0,0,0,0.1); }
-    .exec-right { display: flex; justify-self: end; gap: 20px; align-items: center; }
-    .exec-risk { font-size: 11px; letter-spacing: 0.15em; color: rgba(160,120,0,0.8); font-family: var(--mono); }
-    .exec-risk.high { color: var(--signal-red); }
-    .exec-status { font-size: 11px; letter-spacing: 0.18em; color: rgba(0,140,80,0.75); font-family: var(--mono); }
-    .exec-status.blocked { color: var(--signal-red); }
+<style>
+body {
+  margin:0;
+  font-family:'Inter', sans-serif;
+  background:#ffffff;
+  color:#0b0f1a;
+}
 
-    /* ===== CONTENT ===== */
-    .label { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-light-muted); margin-bottom: 20px; display: block; }
-    .label--red { color: var(--signal-red); }
-    h1 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.15; color: var(--text-light-primary); margin-bottom: 20px; }
-    h2 { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-light-secondary); margin-bottom: 32px; }
-    h3 { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-light-muted); margin-bottom: 16px; }
-    p { font-size: 14px; color: var(--text-light-secondary); line-height: 1.8; }
-    .statement { font-size: clamp(18px, 2.2vw, 26px); font-weight: 400; line-height: 1.6; color: var(--text-light-primary); max-width: 680px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-    @media (max-width: 700px) { .grid-3 { grid-template-columns: 1fr; gap: 28px; } }
-    .grid-item ul { list-style: none; }
-    .grid-item ul li { font-size: 13px; color: var(--text-light-secondary); padding: 5px 0; border-bottom: 1px solid var(--border-light); }
-    .grid-item ul li:last-child { border-bottom: none; }
-    .enforces-statement { font-size: clamp(20px, 2.4vw, 30px); font-weight: 400; line-height: 1.8; color: var(--text-light-primary); margin-bottom: 48px; }
-    .app-list { display: grid; grid-template-columns: repeat(3, 1fr); }
-    .app-item { font-size: 13px; color: var(--text-light-secondary); padding: 14px 0; border-bottom: 1px solid var(--border-light); }
-    @media (max-width: 600px) { .app-list { grid-template-columns: 1fr; } }
-    .countries { display: flex; flex-wrap: wrap; gap: 32px; align-items: baseline; margin-bottom: 20px; }
-    .country { font-size: 14px; color: var(--text-light-primary); letter-spacing: 0.04em; }
-    .gap-diagram { font-size: clamp(14px, 1.8vw, 18px); color: var(--text-light-secondary); margin-bottom: 20px; letter-spacing: 0.04em; }
-    .gap-fix { font-size: 13px; color: var(--signal-red); letter-spacing: 0.06em; }
-    .final-statement { font-size: clamp(18px, 2.2vw, 24px); font-weight: 500; letter-spacing: 0.04em; line-height: 1.7; color: var(--text-light-primary); }
-    .cta-row { display: flex; flex-wrap: wrap; gap: 16px; }
-    .btn { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; padding: 13px 28px; border: 1px solid rgba(0,0,0,0.2); color: rgba(0,0,0,0.6); transition: color 0.2s linear, border-color 0.2s linear; display: inline-block; cursor: pointer; background: transparent; }
-    .btn:hover { color: #000; border-color: rgba(0,0,0,0.5); }
-    .btn--primary { border-color: rgba(0,0,0,0.35); color: var(--text-light-primary); }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
-    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
-    .form-field { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; background: transparent; border: 1px solid var(--border-light); color: var(--text-light-primary); padding: 13px 16px; width: 100%; outline: none; transition: border-color 0.2s linear; }
-    .form-field:focus { border-color: rgba(0,0,0,0.3); }
-    .form-field::placeholder { color: var(--text-light-muted); }
-    .form-field.span2 { grid-column: span 2; }
-    @media (max-width: 600px) { .form-field.span2 { grid-column: span 1; } }
-    textarea.form-field { resize: none; height: 120px; }
-    .form-submit { grid-column: span 2; font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; background: transparent; cursor: pointer; border: 1px solid var(--signal-red); color: var(--signal-red); padding: 14px; transition: background 0.2s linear; }
-    @media (max-width: 600px) { .form-submit { grid-column: span 1; } }
-    .form-submit:hover { background: rgba(220,60,60,0.08); }
-    .form-note { font-size: 10px; letter-spacing: 0.08em; color: var(--text-light-muted); margin-top: 16px; }
-    #form-response { display: none; margin-top: 40px; padding: 32px; border: 1px solid var(--border-light); text-align: center; }
-    #form-response .r-status { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; }
-    #form-response .r-message { font-size: 11px; color: var(--text-light-secondary); letter-spacing: 0.08em; white-space: pre-line; }
-    .exec-footer { border-top: 1px solid var(--border-light); padding: 28px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer-left { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-light-muted); }
-    .footer-right { display: flex; gap: 28px; }
-    .footer-right a { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light-muted); text-decoration: none; transition: color 0.2s linear; }
-    .footer-right a:hover { color: var(--text-light-primary); }
-    .pt { padding-top: calc(56px + 24px); }
-    @media (max-width: 600px) { .page { padding: 0 24px; } .exec-header { padding: 0 24px; } .exec-protocol .line { width: 20px; } }
-  </style>
+/* STRUCTURE */
+.container {
+  max-width:1000px;
+  margin:0 auto;
+  padding:120px 40px;
+}
+
+/* TYPE A (DEFINITION) */
+.h1 {
+  font-size:26px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-bottom:40px;
+}
+
+/* TYPE B (EXECUTION) */
+.section {
+  margin-bottom:80px;
+}
+
+.label {
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:rgba(0,0,0,0.35);
+  margin-bottom:20px;
+}
+
+.line {
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+/* STATUS BLOCK */
+.status {
+  border-top:1px solid rgba(0,0,0,0.08);
+  padding-top:40px;
+}
+
+.status strong {
+  display:block;
+  margin-bottom:6px;
+}
+
+/* FOOTER */
+.footer {
+  margin-top:120px;
+  font-size:11px;
+  color:rgba(0,0,0,0.4);
+}
+</style>
 </head>
+
 <body>
 
-  <div class="flash"></div>
+<div class="container">
 
-  <header class="exec-header">
-    <div class="exec-logo" onclick="navigate('/')">EXECUTIA</div>
-    <nav class="exec-protocol">
-      <span data-layer="entry" onclick="navigate('/')">ENTRY</span>
-      <span class="line"></span>
-      <span data-layer="execution" onclick="navigate('https://execution.executia.io')">EXECUTION</span>
-      <span class="line"></span>
-      <span data-layer="institutional" onclick="navigate('/institutional.html')">INSTITUTIONAL</span>
-    </nav>
-    <div class="exec-right">
-      <div class="exec-risk" id="riskIndicator">RISK: 0%</div>
-      <div class="exec-status" id="systemStatus">● ACTIVE</div>
-    </div>
-  </header>
+<!-- TITLE -->
+<div class="h1">
+Institutional Execution Layer
+</div>
 
-  <div class="page pt">
+<!-- AUTHORITY -->
+<div class="section">
+  <div class="label">Authority Definition</div>
 
-    <section class="no-border" style="padding-top:40px; padding-bottom:48px;">
-      <div class="label label--red">Status: Non-Optional</div>
-      <div class="label" style="margin-bottom:0">System Status: Active Specification</div>
-    </section>
+  <div class="line">EXECUTIA defines execution enforcement.</div>
+  <div class="line">Execution is controlled at system level.</div>
+  <div class="line">Deviation is not permitted.</div>
+</div>
 
-    <section>
-      <h1>Institutional Execution Layer</h1>
-      <p style="max-width:560px; font-size:15px; color:var(--text-light-secondary);">
-        A standard for governments, infrastructure, and large-scale systems.
-      </p>
-    </section>
+<!-- SYSTEM ROLE -->
+<div class="section">
+  <div class="label">System Role</div>
 
-    <section>
-      <p class="statement">
-        Execution is not controlled at the point of decision.<br><br>
-        EXECUTIA establishes control at the point of execution.
-      </p>
-    </section>
+  <div class="line">Execution occurs under protocol control.</div>
+  <div class="line">Validation precedes outcome.</div>
+  <div class="line">System response is deterministic.</div>
+</div>
 
-    <section>
-      <h2>Why this exists</h2>
-      <div class="grid-3">
-        <div class="grid-item">
-          <h3>Execution failure is systemic</h3>
-          <ul>
-            <li>Decisions degrade during implementation</li>
-            <li>Interpretation replaces intent</li>
-            <li>Control is lost after approval</li>
-          </ul>
-        </div>
-        <div class="grid-item">
-          <h3>Current systems are incomplete</h3>
-          <ul>
-            <li>No enforcement between decision and outcome</li>
-            <li>No real-time validation</li>
-            <li>No structural accountability</li>
-          </ul>
-        </div>
-        <div class="grid-item">
-          <h3>Result</h3>
-          <ul>
-            <li>Financial loss</li>
-            <li>Operational instability</li>
-            <li>System-level risk</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+<!-- NECESSITY -->
+<div class="section">
+  <div class="label">System Necessity</div>
 
-    <section>
-      <h2>What EXECUTIA enforces</h2>
-      <div class="enforces-statement">
-        No deviation<br>
-        No interpretation<br>
-        No delay
-      </div>
-      <div class="grid-3">
-        <div class="grid-item">
-          <h3>Enforced execution</h3>
-          <p>Decisions become constraints</p>
-        </div>
-        <div class="grid-item">
-          <h3>Real-time compliance</h3>
-          <p>Every action validated before outcome</p>
-        </div>
-        <div class="grid-item">
-          <h3>System-level control</h3>
-          <p>Execution cannot diverge from intent</p>
-        </div>
-      </div>
-    </section>
+  <div class="line">Execution failure creates systemic risk.</div>
+  <div class="line">Decision and outcome are not linked.</div>
+  <div class="line">No enforcement layer exists between intent and execution.</div>
+</div>
 
-    <section>
-      <h2>Application</h2>
-      <div class="app-list">
-        <div class="app-item">Governments</div>
-        <div class="app-item">Energy systems</div>
-        <div class="app-item">Financial infrastructure</div>
-        <div class="app-item">Defense systems</div>
-        <div class="app-item">Smart cities</div>
-        <div class="app-item">Enterprise operations</div>
-      </div>
-    </section>
+<!-- ENVIRONMENTS -->
+<div class="section">
+  <div class="label">Execution Environments</div>
 
-    <section>
-      <h2>Execution-ready environments</h2>
-      <div class="countries">
-        <span class="country">🇳🇴 Norway</span>
-        <span class="country">🇦🇪 UAE</span>
-        <span class="country">🇸🇬 Singapore</span>
-        <span class="country">🇨🇭 Switzerland</span>
-        <span class="country">🇪🇪 Estonia</span>
-      </div>
-      <p>High trust systems. Digital governance. Execution discipline.</p>
-    </section>
+  <div class="line">Government systems</div>
+  <div class="line">Financial infrastructure</div>
+  <div class="line">Energy networks</div>
+  <div class="line">Defense systems</div>
+  <div class="line">Urban infrastructure</div>
+</div>
 
-    <section>
-      <h2>The control gap</h2>
-      <div class="gap-diagram">
-        Decision &nbsp;→&nbsp;
-        <span style="color:var(--text-light-muted)">(uncontrolled space)</span>
-        &nbsp;→&nbsp; Outcome
-      </div>
-      <div class="gap-fix">EXECUTIA removes the uncontrolled space</div>
-    </section>
+<!-- CONTROL -->
+<div class="section">
+  <div class="label">Control Model</div>
 
-    <section>
-      <p style="font-size:13px; color:var(--text-light-secondary); letter-spacing:0.06em;">
-        EXECUTIA is positioned as a protocol — not a product.
-      </p>
-    </section>
+  <div class="line">Execution is enforced.</div>
+  <div class="line">Deviation is prevented.</div>
+  <div class="line">Outcome follows validated state.</div>
+</div>
 
-    <section>
-      <div class="final-statement">
-        EXECUTIA IS NOT A PRODUCT.<br>
-        IT IS A PROTOCOL STANDARD.
-      </div>
-    </section>
+<!-- AUTHORITY HIERARCHY -->
+<div class="section">
+  <div class="label">Authority Hierarchy</div>
 
-    <section>
-      <h2>System layers</h2>
-      <div class="cta-row">
-        <button class="btn btn--primary" onclick="navigate('https://execution.executia.io')">View Execution Layer →</button>
-        <button class="btn" onclick="navigate('/')">Return to Entry →</button>
-      </div>
-    </section>
+  <div class="line">USER AUTHORITY: NONE</div>
+  <div class="line">SYSTEM AUTHORITY: ABSOLUTE</div>
+</div>
 
-    <section>
-      <span class="label">System Access</span>
-      <h1 style="font-size:clamp(22px,2.5vw,32px); margin-bottom:16px;">
-        Submit request for institutional access
-      </h1>
-      <p style="max-width:520px;">
-        EXECUTIA is not publicly accessible.
-        Access is granted only to institutions, infrastructure operators,
-        and system-level entities.
-      </p>
+<!-- GEO -->
+<div class="section">
+  <div class="label">Adoption Readiness</div>
 
-      <form id="accessForm" class="form-grid">
-        <input type="text"  class="form-field" placeholder="Entity / Organization" required />
-        <input type="text"  class="form-field" placeholder="Jurisdiction / Country" required />
-        <input type="text"  class="form-field" placeholder="Role / Authority" required />
-        <input type="email" class="form-field" placeholder="Official Email" required />
-        <textarea           class="form-field span2" placeholder="System context / intent"></textarea>
-        <button type="submit" class="form-submit">Submit to System</button>
-      </form>
+  <div class="line">Norway</div>
+  <div class="line">United Arab Emirates</div>
+  <div class="line">Singapore</div>
+  <div class="line">Switzerland</div>
+  <div class="line">Estonia</div>
+</div>
 
-      <p class="form-note">
-        Unauthorized or incomplete submissions are automatically disregarded.
-      </p>
+<!-- STATUS -->
+<div class="section status">
+  <div class="label">Status</div>
 
-      <div id="form-response">
-        <div class="r-status" id="r-status-text"></div>
-        <div class="r-message" id="r-message-text"></div>
-      </div>
-    </section>
+  <strong>EXECUTIA is not a product.</strong>
+  <strong>EXECUTIA is a protocol standard.</strong>
+  <strong>STATUS: NON-OPTIONAL</strong>
+</div>
 
-    <footer class="exec-footer">
-      <div class="footer-left">EXECUTIA™ · EP-1 · PCT/IB2026/050141 · © 2026</div>
-      <div class="footer-right">
-        <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank">Institutional profile</a>
-        <a href="mailto:info@executia.io">info@executia.io</a>
-      </div>
-    </footer>
+<!-- FOOTER -->
+<div class="footer">
+EXECUTIA™ · Institutional Layer · 2026
+</div>
 
-  </div>
-
-  <script>
-  function navigate(url) {
-    const flash = document.querySelector('.flash');
-    flash.classList.add('active');
-    setTimeout(() => { window.location.href = url; }, url.includes('execution.executia.io') ? 120 : 100);
-  }
-
-  function setActiveLayer() {
-    const items = document.querySelectorAll('[data-layer]');
-    const path = window.location.pathname;
-    const host = window.location.hostname;
-    items.forEach(el => {
-      const layer = el.dataset.layer;
-      if (layer === "entry" && (path === "/" || path.includes("index"))) {
-        el.classList.add("active");
-      }
-      if (layer === "institutional" && path.includes("institutional")) {
-        el.classList.add("active");
-      }
-      if (layer === "execution" && host.includes("execution")) {
-        el.classList.add("active");
-      }
-    });
-  }
-
-  function updateSystem(result) {
-    const riskEl = document.getElementById("riskIndicator");
-    const statusEl = document.getElementById("systemStatus");
-    riskEl.textContent = "RISK: " + result.risk + "%";
-    if (result.risk > 40) { riskEl.classList.add("high"); } else { riskEl.classList.remove("high"); }
-    if (result.blocked) { statusEl.textContent = "● BLOCKED"; statusEl.classList.add("blocked"); }
-    else { statusEl.textContent = "● ACTIVE"; statusEl.classList.remove("blocked"); }
-  }
-
-  setActiveLayer();
-  updateSystem({ risk: 12, blocked: false });
-
-  const R = {
-    ACCEPTED:     { color:"rgba(59,130,246,0.85)",  status:"ACCESS GRANTED",          message:"System integration evaluation initiated.\nNo further action required." },
-    UNDER_REVIEW: { color:"rgba(0,0,0,0.5)",  status:"EVALUATION IN PROGRESS",  message:"Submission received.\nNo further action required." },
-    REJECTED:     { color:"rgba(220,38,38,0.85)",   status:"ACCESS DENIED",            message:"Insufficient system authority.\nSubmission disregarded." }
-  };
-
-  document.getElementById("accessForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-    const f = this.querySelectorAll("input,textarea");
-    const data = { organization: f[0].value, country: f[1].value, role: f[2].value, email: f[3].value, message: f[4].value };
-    const btn = this.querySelector("button");
-    btn.textContent = "EVALUATING..."; btn.disabled = true;
-    let result;
-    try {
-      const res = await fetch("/api/access", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      result = await res.json();
-    } catch (err) { result = { status: "UNDER_REVIEW" }; }
-    const status = result.status in R ? result.status : "UNDER_REVIEW";
-    const resp = R[status];
-    document.getElementById("r-status-text").textContent = resp.status;
-    document.getElementById("r-status-text").style.color = resp.color;
-    document.getElementById("r-message-text").textContent = resp.message;
-    const el = document.getElementById("form-response");
-    el.style.display = "block";
-    el.style.borderColor = resp.color.replace(/[\d.]+\)$/, "0.2)");
-    this.style.opacity = "0.25"; this.style.pointerEvents = "none";
-  });
-  </script>
+</div>
 
 </body>
 </html>
