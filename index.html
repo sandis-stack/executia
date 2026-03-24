@@ -1,125 +1,153 @@
 <!DOCTYPE html>
-<html lang="en" class="antialiased">
+<html lang="en" data-mode="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EXECUTIA™ | Standard of Execution</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA™ | Standard of Execution</title>
 
-  <!-- FONT -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- TAILWIND -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<style>
+body {
+    background: #ffffff;
+    color: #0a0a0a;
+    font-family: system-ui, sans-serif;
+}
 
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #FFFFFF;
-      color: #0A1F44;
-    }
-  </style>
+.section {
+    margin-bottom: 120px;
+}
+
+.headline {
+    letter-spacing: -0.02em;
+}
+
+.subtle {
+    color: #6b7280;
+}
+
+.divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 60px 0;
+}
+
+.cta-btn {
+    border: 1px solid #0a0a0a;
+    padding: 12px 20px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+}
+
+.cta-btn:hover {
+    background: #0a0a0a;
+    color: #fff;
+}
+
+.trust-strip {
+    color: #9ca3af;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+}
+</style>
 </head>
 
-<body class="bg-white">
+<body>
 
-  <!-- HEADER (STICKY SYSTEM ACCESS) -->
-  <header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
-    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-[72px]">
+<div class="max-w-4xl mx-auto px-6 py-24">
 
-      <div class="text-[14px] font-semibold tracking-[0.08em] text-[#0A1F44]">
-        EXECUTIA™
-      </div>
-
-      <nav class="flex gap-8 text-[14px] text-gray-500">
-        <a href="https://execution.executia.io" class="hover:text-[#0A1F44]">Execution</a>
-        <a href="/institutional" class="hover:text-[#0A1F44]">Institutional</a>
-      </nav>
-
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="max-w-3xl mx-auto px-6 pt-[140px] pb-[140px] text-center">
-    <h1 class="text-[52px] leading-tight font-semibold mb-6">
-      EXECUTIA is the Standard of Execution
+<!-- HERO -->
+<div class="section">
+    <h1 class="text-4xl md:text-5xl font-semibold headline mb-6">
+        EXECUTIA is the Standard of Execution
     </h1>
-    <p class="text-[18px] text-gray-500">
-      A system that ensures decisions are executed exactly as defined.
+    <p class="text-lg subtle max-w-2xl">
+        A system that ensures decisions are executed exactly as defined.
     </p>
-  </section>
+</div>
 
-  <!-- PROBLEM -->
-  <section class="max-w-xl mx-auto px-6 py-[140px]">
-    <h2 class="text-[16px] font-semibold mb-6">Execution fails between decision and outcome</h2>
-    <div class="text-gray-500 space-y-4">
-      <p>Interpretation distorts intent</p>
-      <p>Control is lost during implementation</p>
-      <p>Systems do not enforce correctness</p>
+<div class="divider"></div>
+
+<!-- PROBLEM -->
+<div class="section">
+    <p class="text-sm subtle mb-6 tracking-widest">PROBLEM</p>
+
+    <div class="space-y-3 text-xl">
+        <p>Execution fails between decision and outcome</p>
+        <p>Interpretation distorts intent</p>
+        <p>Control is lost during implementation</p>
+        <p>Systems do not enforce correctness</p>
     </div>
-  </section>
+</div>
 
-  <!-- NECESSITY -->
-  <section class="max-w-xl mx-auto px-6 py-[140px]">
-    <h2 class="text-[16px] font-semibold">
-      Execution failure is the largest invisible risk in modern systems
-    </h2>
-  </section>
+<div class="divider"></div>
 
-  <!-- ENFORCEMENT -->
-  <section class="max-w-xl mx-auto px-6 py-[140px]">
-    <h2 class="text-[16px] font-semibold mb-6">Execution is structurally enforced</h2>
-    <div class="text-gray-500 space-y-4">
-      <p>Execution is validated before it happens</p>
-      <p>Non-compliant actions do not execute</p>
-      <p>Deviation is structurally impossible</p>
-    </div>
-  </section>
+<!-- NECESSITY -->
+<div class="section">
+    <p class="text-sm subtle mb-6 tracking-widest">SYSTEM REALITY</p>
 
-  <!-- DEFINITION -->
-  <section class="max-w-xl mx-auto px-6 py-[160px]">
-    <div class="space-y-6">
-      <p class="font-semibold">A universal execution protocol</p>
-      <p class="text-gray-500">Not software</p>
-      <p class="text-gray-500">Not methodology</p>
-      <p class="font-medium">
-        A control layer that ensures reality follows decision
-      </p>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="max-w-xl mx-auto px-6 py-[140px]">
-    <div class="flex gap-6">
-      <a href="https://execution.executia.io"
-         class="border border-[#0A1F44] px-6 py-3 text-sm hover:bg-[#0A1F44] hover:text-white transition">
-         View Execution Layer
-      </a>
-
-      <a href="/institutional"
-         class="border border-[#0A1F44] px-6 py-3 text-sm hover:bg-[#0A1F44] hover:text-white transition">
-         View Institutional Layer
-      </a>
-    </div>
-  </section>
-
-  <!-- TRUST -->
-  <section class="max-w-xl mx-auto px-6 pb-[120px]">
-    <p class="text-[14px] text-gray-400">
-      Designed for institutional systems, governments, and critical infrastructure
+    <p class="text-2xl max-w-2xl">
+        Execution failure is the largest invisible risk in modern systems
     </p>
-  </section>
+</div>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-gray-200 py-10">
-    <div class="max-w-6xl mx-auto px-6 text-sm text-gray-400 flex justify-between">
-      <div>EXECUTIA™</div>
-      <div class="flex gap-6">
-        <span>executia.io</span>
-        <span>execution.executia.io</span>
-        <span>/institutional</span>
-      </div>
+<div class="divider"></div>
+
+<!-- ENFORCEMENT -->
+<div class="section">
+    <p class="text-sm subtle mb-6 tracking-widest">ENFORCEMENT</p>
+
+    <div class="space-y-3 text-xl">
+        <p>Execution is validated before it happens</p>
+        <p>Non-compliant actions do not execute</p>
+        <p>Deviation is structurally impossible</p>
     </div>
-  </footer>
+</div>
+
+<div class="divider"></div>
+
+<!-- DEFINITION -->
+<div class="section">
+    <p class="text-sm subtle mb-6 tracking-widest">DEFINITION</p>
+
+    <div class="space-y-3 text-lg max-w-2xl">
+        <p>A universal execution protocol</p>
+        <p>Not software</p>
+        <p>Not methodology</p>
+        <p class="pt-4">
+            A control layer that ensures reality follows decision
+        </p>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<div class="section flex flex-col md:flex-row gap-6">
+
+    <a href="https://execution.executia.io" class="cta-btn text-center">
+        VIEW EXECUTION LAYER
+    </a>
+
+    <a href="/institutional" class="cta-btn text-center">
+        VIEW INSTITUTIONAL LAYER
+    </a>
+
+</div>
+
+<!-- TRUST -->
+<div class="section trust-strip">
+    Designed for institutional systems, governments, and critical infrastructure
+</div>
+
+<!-- FOOTER -->
+<div class="text-xs text-gray-400 mt-20 space-y-2">
+    <p>EXECUTIA™</p>
+    <p>execution.executia.io</p>
+    <p>/institutional</p>
+</div>
+
+</div>
 
 </body>
 </html>
