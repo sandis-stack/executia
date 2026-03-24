@@ -32,7 +32,7 @@ body {
 <body>
 
 <!-- HEADER -->
-<header class="border-b border-gray-700">
+<header class="border-b border-gray-700 backdrop-blur-sm">
   <div class="max-w-6xl mx-auto px-6 flex justify-between items-center h-[70px]">
 
     <div class="text-[12px] tracking-[0.32em] text-white">
@@ -60,15 +60,22 @@ body {
   <!-- LEFT -->
   <div>
 
-    <div class="text-[11px] text-gray-400 mb-8">
-      Define execution parameters. The system validates structure before allowing execution.
+    <!-- 🔥 SYSTEM GUIDANCE -->
+    <div class="mb-10 max-w-md">
+      <div class="text-[11px] text-gray-500 tracking-widest mb-3">
+        SYSTEM INPUT
+      </div>
+      <div class="text-sm text-gray-300 leading-relaxed">
+        Define execution parameters.
+        Incomplete or inconsistent input prevents validation.
+      </div>
     </div>
 
     <div class="space-y-8">
 
       <div>
         <label class="text-gray-400 text-sm">Input</label>
-        <input id="input" class="input" placeholder="Define input">
+        <input id="input" class="input" placeholder="Define execution scope">
       </div>
 
       <div>
@@ -83,12 +90,12 @@ body {
 
       <div>
         <label class="text-gray-400 text-sm">Complexity</label>
-        <input id="complexity" class="input" placeholder="Define system complexity">
+        <input id="complexity" class="input" placeholder="Define system complexity (1–10)">
       </div>
 
       <div>
         <label class="text-gray-400 text-sm">Dependency</label>
-        <input id="dependency" class="input" placeholder="Define dependency structure">
+        <input id="dependency" class="input" placeholder="Define dependency level (1–10)">
       </div>
 
     </div>
@@ -102,10 +109,6 @@ body {
       <div>SESSION: —</div>
       <div>TIME: —</div>
       <div id="state">STATE: IDLE</div>
-    </div>
-
-    <div class="border-t border-gray-700 pt-6 mb-6">
-      <div class="text-gray-400 text-sm mb-4">SYSTEM LOG</div>
     </div>
 
     <div class="border-t border-gray-700 pt-6 mb-6">
@@ -143,6 +146,7 @@ function calculateSystem() {
   const scenarioBox = document.getElementById("scenario");
   const state = document.getElementById("state");
 
+  // WAIT STATE
   if (!input || !time || !resources || !complexity || !dependency) {
     result.innerHTML = "SYSTEM: WAITING FOR INPUT";
     scenarioBox.innerHTML = "";
@@ -151,6 +155,7 @@ function calculateSystem() {
     return;
   }
 
+  // CORE LOGIC
   const load = complexity * dependency;
   const capacity = resources * time;
   const executionRatio = input / capacity;
@@ -184,6 +189,7 @@ function calculateSystem() {
 
   scenarioBox.innerHTML = scenario;
 
+  // BADGE
   if (status === "VALID") {
     badge.innerHTML = `
       <div class="inline-flex items-center gap-2 border border-gray-600 px-3 py-1 text-[10px] tracking-widest text-gray-300">
@@ -203,7 +209,7 @@ function calculateSystem() {
   badge.classList.remove("hidden");
 }
 
-// REALTIME
+// REALTIME LISTENERS
 document.querySelectorAll("input").forEach(el => {
   el.addEventListener("input", calculateSystem);
 });
