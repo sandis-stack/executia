@@ -10,27 +10,13 @@
 
 <style>
 body {
-    background: #FFFFFF;
-    color: #0A1F44;
-    font-family: 'Inter', system-ui, sans-serif;
+  background: #ffffff;
+  color: #0A1F44;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-.divider {
-    border-top: 1px solid #e5e7eb;
-    margin: 120px 0;
-}
-
-.cta {
-    border: 1px solid #0A1F44;
-    padding: 12px 20px;
-    font-size: 12px;
-    letter-spacing: 0.12em;
-}
-
-.label {
-    font-size: 12px;
-    color: #6b7280;
-    letter-spacing: 0.15em;
+.section {
+  margin: 140px 0;
 }
 </style>
 </head>
@@ -38,135 +24,153 @@ body {
 <body>
 
 <!-- HEADER -->
-<header class="border-b border-gray-200">
+<header class="sticky top-0 bg-white border-b border-gray-200 z-50">
   <div class="max-w-6xl mx-auto px-6 flex justify-between items-center h-[70px]">
 
-    <div class="text-[13px] tracking-[0.14em]">
+    <div class="text-[12px] tracking-[0.32em] text-[#0A1F44]">
       EXECUTIA™
     </div>
 
-    <nav class="flex gap-8 text-[12px] tracking-widest text-gray-400">
+    <nav class="flex gap-8 text-[12px] tracking-widest text-gray-500">
       <a href="https://execution.executia.io">EXECUTION</a>
-      <a href="https://executia.io/institutional">INSTITUTIONAL</a>
+      <a href="/institutional">INSTITUTIONAL</a>
     </nav>
 
   </div>
 </header>
 
 <!-- HERO -->
-<section class="max-w-3xl mx-auto px-6 pt-[160px] pb-[120px] text-center">
+<section class="max-w-3xl mx-auto px-6 text-center section">
 
-<h1 class="text-[56px] leading-tight font-semibold tracking-[-0.02em] mb-6">
-EXECUTIA is the Standard of Execution
-</h1>
+  <h1 class="text-[48px] leading-tight font-semibold mb-6">
+    Execution is enforced.
+  </h1>
 
-<p class="text-gray-500 text-lg">
-A system that ensures decisions are executed exactly as defined.
-</p>
-
-</section>
-
-<div class="divider"></div>
-
-<!-- PROBLEM -->
-<section class="max-w-xl mx-auto px-6 py-[120px]">
-
-<p class="label mb-6">SYSTEM FAILURE</p>
-
-<div class="space-y-4 text-xl">
-<p>Execution fails between decision and outcome</p>
-<p>Interpretation distorts intent</p>
-<p>Control is lost during implementation</p>
-<p>Systems do not enforce correctness</p>
-</div>
+  <p class="text-gray-500 text-lg">
+    Decisions do not fail in planning.<br>
+    They fail in execution.
+  </p>
 
 </section>
 
-<div class="divider"></div>
+<!-- 🔥 PROOF BLOCK -->
+<section class="max-w-3xl mx-auto px-6 section">
 
-<!-- NECESSITY -->
-<section class="max-w-xl mx-auto px-6 py-[120px]">
+  <div class="text-[11px] tracking-widest text-gray-400 mb-6">
+    EXECUTION CASE
+  </div>
 
-<p class="label mb-6">SYSTEM REALITY</p>
+  <div class="space-y-6 text-lg">
 
-<p class="text-2xl">
-Execution failure is the largest invisible risk in modern systems
-</p>
+    <p class="text-[#0A1F44]">
+      Decision:
+      Infrastructure project €200M, 24 months
+    </p>
 
-</section>
+    <p class="text-gray-500">
+      System check:<br>
+      Budget deviation risk: 37%<br>
+      Dependency conflict detected<br>
+      Resource mismatch
+    </p>
 
-<div class="divider"></div>
+    <p class="text-red-600 font-semibold">
+      RESULT: BLOCKED
+    </p>
 
-<!-- ENFORCEMENT -->
-<section class="max-w-xl mx-auto px-6 py-[120px]">
-
-<p class="label mb-6">ENFORCEMENT</p>
-
-<div class="space-y-4 text-xl">
-<p>Execution is validated before it happens</p>
-<p>Non-compliant actions do not execute</p>
-<p>Deviation is structurally impossible</p>
-</div>
-
-</section>
-
-<div class="divider"></div>
-
-<!-- DEFINITION -->
-<section class="max-w-xl mx-auto px-6 py-[140px]">
-
-<div class="space-y-4 text-lg">
-<p>A universal execution protocol</p>
-<p class="text-gray-500">Not software</p>
-<p class="text-gray-500">Not methodology</p>
-<p class="pt-4 font-medium">
-A control layer that ensures reality follows decision
-</p>
-</div>
+  </div>
 
 </section>
 
-<div class="divider"></div>
+<!-- CONTROL LAYER -->
+<section class="max-w-xl mx-auto px-6 section">
+
+  <p class="text-gray-600 text-lg">
+    EXECUTIA sits above all systems.
+  </p>
+
+  <p class="text-gray-600 text-lg mt-4">
+    Execution is validated before any system can proceed.
+  </p>
+
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="max-w-3xl mx-auto px-6 section">
+
+  <div class="grid grid-cols-2 gap-12">
+
+    <div>
+      <div class="text-[11px] text-gray-400 mb-4">WITHOUT EXECUTIA</div>
+      <p class="text-gray-500">
+        Decision → Execution → Audit<br>
+        Errors detected after damage
+      </p>
+    </div>
+
+    <div>
+      <div class="text-[11px] text-gray-400 mb-4">WITH EXECUTIA</div>
+      <p class="text-[#0A1F44]">
+        Decision → Validation → Execution<br>
+        Invalid execution does not occur
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SYSTEM DEFINITION -->
+<section class="max-w-xl mx-auto px-6 section text-center">
+
+  <p class="font-semibold">
+    A universal execution protocol
+  </p>
+
+  <p class="text-gray-500 mt-4">
+    Not software.<br>
+    Not methodology.
+  </p>
+
+  <p class="mt-6 text-[#0A1F44]">
+    A control layer that enforces execution before it happens.
+  </p>
+
+</section>
+
+<!-- FINAL STATEMENT -->
+<section class="max-w-xl mx-auto px-6 section text-center">
+
+  <p class="text-[#0A1F44] text-lg">
+    Deviation is not corrected.
+  </p>
+
+  <p class="text-gray-500 mt-4">
+    It is prevented.
+  </p>
+
+</section>
 
 <!-- CTA -->
-<section class="max-w-xl mx-auto px-6 py-[120px]">
+<section class="max-w-xl mx-auto px-6 section text-center">
 
-<div class="flex gap-6">
-
-<a href="https://execution.executia.io" class="cta">
-ENTER EXECUTION LAYER
-</a>
-
-<a href="https://executia.io/institutional" class="cta">
-VIEW INSTITUTIONAL
-</a>
-
-</div>
-
-</section>
-
-<!-- FINAL -->
-<section class="max-w-xl mx-auto px-6 pb-[140px]">
-
-<p class="text-sm text-gray-500 tracking-wide">
-STATUS: NON-OPTIONAL
-</p>
+  <a href="https://execution.executia.io"
+     class="border border-[#0A1F44] px-6 py-3 text-sm hover:bg-[#0A1F44] hover:text-white transition">
+     ENTER EXECUTION LAYER
+  </a>
 
 </section>
 
 <!-- FOOTER -->
 <footer class="border-t border-gray-200 py-10">
-<div class="max-w-6xl mx-auto px-6 text-xs text-gray-400 flex justify-between">
-
-<div>EXECUTIA™</div>
-
-<div class="flex gap-6">
-<span>executia.io</span>
-<span>execution.executia.io</span>
-<span>/institutional</span>
-</div>
-
-</div>
+  <div class="max-w-6xl mx-auto px-6 text-sm text-gray-400 flex justify-between">
+    <div>EXECUTIA™</div>
+    <div class="flex gap-6">
+      <span>executia.io</span>
+      <span>execution.executia.io</span>
+      <span>/institutional</span>
+    </div>
+  </div>
 </footer>
 
 </body>
