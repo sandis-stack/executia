@@ -8,6 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
 <style>
 body {
     background: #0A1F44;
@@ -39,27 +41,25 @@ body {
 <body>
 
 <!-- HEADER -->
-<header class="border-b border-gray-700">
+<header class="border-b border-gray-700 backdrop-blur-sm">
   <div class="max-w-6xl mx-auto px-6 flex justify-between items-center h-[70px]">
 
-    <!-- 🔥 LOGO (SVG) -->
-    <div class="flex items-center gap-3">
-      <img src="/logosvg-01.svg" alt="EXECUTIA" class="h-5 opacity-90">
-      <span class="text-[13px] tracking-[0.14em] text-gray-300">EXECUTIA™</span>
+    <!-- LOGO -->
+    <div class="flex items-center gap-3 group cursor-default">
+      <img src="/logosvg-01.svg"
+           alt="EXECUTIA"
+           class="h-6 opacity-90 group-hover:opacity-100 transition duration-300">
+
+      <span class="text-[11px] tracking-[0.32em] text-gray-400 group-hover:text-white transition">
+        EXECUTIA™
+      </span>
     </div>
 
+    <!-- NAV -->
     <nav class="flex gap-8 text-[12px] tracking-widest text-gray-400">
-
       <a href="https://executia.io">ENTRY</a>
-
-      <a href="https://execution.executia.io">
-        EXECUTION
-      </a>
-
-      <a href="https://executia.io/institutional" class="text-white">
-        INSTITUTIONAL
-      </a>
-
+      <a href="https://execution.executia.io">EXECUTION</a>
+      <a href="https://executia.io/institutional" class="text-white">INSTITUTIONAL</a>
     </nav>
 
   </div>
@@ -185,7 +185,7 @@ body {
 
 <div class="divider"></div>
 
-<!-- 🔥 CONTACT (MINIMAL / INSTITUTIONAL) -->
+<!-- CONTACT -->
 <section>
 
   <p class="label mb-6">CONTACT</p>
@@ -193,23 +193,20 @@ body {
   <div class="space-y-3 text-sm text-gray-400">
 
     <p>
-      Email:
       <a href="mailto:info@executia.io" class="link">
         info@executia.io
       </a>
     </p>
 
     <p>
-      Request briefing:
-      <a href="mailto:info@executia.io?subject=Request%20Briefing%20EXECUTIA" class="link">
-        Submit request
+      <a href="mailto:info@executia.io?subject=EXECUTIA%20Briefing" class="link">
+        request briefing
       </a>
     </p>
 
     <p>
-      LinkedIn:
       <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" class="link">
-        View profile
+        linkedin
       </a>
     </p>
 
