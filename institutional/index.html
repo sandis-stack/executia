@@ -3,35 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EXECUTIA™ | Institutional Layer</title>
+<title>EXECUTIA™ | Execution Layer</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 body {
-    background: #0A1F44;
-    color: #e5e7eb;
-    font-family: 'Inter', system-ui, sans-serif;
+  background: #0A1F44;
+  color: #e5e7eb;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-.divider {
-    border-top: 1px solid #374151;
-    margin: 120px 0;
+.input {
+  background: transparent;
+  border-bottom: 1px solid #374151;
+  padding: 10px 0;
+  width: 100%;
+  outline: none;
 }
 
-.label {
-    font-size: 11px;
-    color: #9ca3af;
-    letter-spacing: 0.18em;
-}
-
-.link {
-    color: #9ca3af;
-}
-
-.link:hover {
-    color: #ffffff;
+.input:focus {
+  border-color: #9ca3af;
 }
 </style>
 </head>
@@ -39,174 +32,183 @@ body {
 <body>
 
 <!-- HEADER -->
-<header class="border-b border-gray-700 backdrop-blur-sm">
+<header class="border-b border-gray-700">
   <div class="max-w-6xl mx-auto px-6 flex justify-between items-center h-[70px]">
 
-    <!-- TEXT LOGO -->
     <div class="text-[12px] tracking-[0.32em] text-white">
       EXECUTIA™
     </div>
 
-    <!-- NAV -->
     <nav class="flex gap-8 text-[12px] tracking-widest text-gray-400">
       <a href="https://executia.io">ENTRY</a>
-      <a href="https://execution.executia.io">EXECUTION</a>
-      <a href="https://executia.io/institutional" class="text-white">INSTITUTIONAL</a>
+      <a href="https://execution.executia.io" class="text-white">EXECUTION</a>
+      <a href="https://executia.io/institutional">INSTITUTIONAL</a>
     </nav>
 
   </div>
 </header>
 
 <!-- CONTENT -->
-<div class="max-w-4xl mx-auto px-6 py-24">
+<div class="max-w-6xl mx-auto px-6 py-20">
 
-<!-- HEAD -->
-<section>
-  <h1 class="text-4xl font-semibold mb-6">
-    Institutional Execution Layer
-  </h1>
+<h1 class="text-3xl mb-2">Execution System</h1>
+<p class="text-gray-400 mb-12">System-level validation and enforcement</p>
 
-  <p class="text-gray-400 max-w-2xl">
-    A standard for governments, infrastructure, and large-scale systems
-  </p>
-</section>
+<!-- SYSTEM -->
+<div class="border border-gray-700 p-10 grid grid-cols-2 gap-16">
 
-<div class="divider"></div>
+  <!-- LEFT -->
+  <div>
 
-<!-- APPLICATION -->
-<section>
-  <p class="label mb-8">APPLICATION</p>
+    <div class="text-[11px] text-gray-400 mb-8">
+      Define execution parameters. The system validates structure before allowing execution.
+    </div>
 
-  <div class="space-y-3 text-lg">
-    <p>Governments</p>
-    <p>Energy systems</p>
-    <p>Financial infrastructure</p>
-    <p>Defense systems</p>
-    <p>Urban systems</p>
-  </div>
-</section>
+    <div class="space-y-8">
 
-<div class="divider"></div>
+      <div>
+        <label class="text-gray-400 text-sm">Input</label>
+        <input id="input" class="input" placeholder="Define input">
+      </div>
 
-<!-- SYSTEM CONDITION -->
-<section>
-  <p class="label mb-8">SYSTEM CONDITION</p>
+      <div>
+        <label class="text-gray-400 text-sm">Time</label>
+        <input id="time" class="input" placeholder="Define time constraint">
+      </div>
 
-  <div class="space-y-4 text-lg text-gray-300">
-    <p>Execution errors result in systemic loss</p>
-    <p>No control exists between decision and outcome</p>
-    <p>Compliance is verified after execution</p>
-  </div>
-</section>
+      <div>
+        <label class="text-gray-400 text-sm">Resources</label>
+        <input id="resources" class="input" placeholder="Define available resources">
+      </div>
 
-<div class="divider"></div>
+      <div>
+        <label class="text-gray-400 text-sm">Complexity</label>
+        <input id="complexity" class="input" placeholder="Define system complexity">
+      </div>
 
-<!-- ENFORCEMENT -->
-<section>
-  <p class="label mb-8">ENFORCEMENT</p>
+      <div>
+        <label class="text-gray-400 text-sm">Dependency</label>
+        <input id="dependency" class="input" placeholder="Define dependency structure">
+      </div>
 
-  <div class="space-y-4 text-lg">
-    <p>Execution is enforced before outcome</p>
-    <p>Non-compliant actions do not execute</p>
-    <p>Deviation is structurally impossible</p>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- STATUS -->
-<section>
-  <p class="label mb-8">STATUS</p>
-
-  <div class="space-y-4 text-lg">
-    <p>Protocol standard</p>
-    <p>System-level enforcement</p>
-    <p>Non-optional</p>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SYSTEM READINESS -->
-<section>
-  <p class="label mb-8">SYSTEM READINESS</p>
-
-  <div class="space-y-3 text-lg text-gray-300">
-    <p>Norway</p>
-    <p>United Arab Emirates</p>
-    <p>Singapore</p>
-    <p>Switzerland</p>
-    <p>Estonia</p>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- REFERENCE -->
-<section>
-  <p class="label mb-6">REFERENCE</p>
-
-  <p class="text-gray-400 max-w-xl">
-    Execution is enforced through a validation layer.
-  </p>
-
-  <a href="https://execution.executia.io"
-     class="inline-block mt-6 border border-gray-500 px-5 py-3 text-xs tracking-widest text-gray-300 hover:border-white hover:text-white transition">
-     VIEW EXECUTION LAYER
-  </a>
-</section>
-
-<div class="divider"></div>
-
-<!-- FINAL -->
-<section>
-
-  <p class="text-gray-500 text-sm tracking-wide">
-    STATUS: NON-OPTIONAL
-  </p>
-
-  <p class="mt-4 text-gray-400 text-sm">
-    EXECUTIA is not a product. It is a protocol standard.
-  </p>
-
-  <p class="mt-6 text-gray-400 text-sm max-w-xl">
-    EXECUTIA defines execution as a controlled system state, not a human outcome.
-  </p>
-
-</section>
-
-<div class="divider"></div>
-
-<!-- CONTACT -->
-<section>
-
-  <p class="label mb-6">CONTACT</p>
-
-  <div class="space-y-3 text-sm text-gray-400">
-
-    <p>
-      <a href="mailto:info@executia.io" class="link">
-        info@executia.io
-      </a>
-    </p>
-
-    <p>
-      <a href="mailto:info@executia.io?subject=EXECUTIA%20Briefing" class="link">
-        request briefing
-      </a>
-    </p>
-
-    <p>
-      <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" class="link">
-        linkedin
-      </a>
-    </p>
+    </div>
 
   </div>
 
-</section>
+  <!-- RIGHT -->
+  <div>
+
+    <div class="flex justify-between text-sm text-gray-400 mb-6">
+      <div>SESSION: —</div>
+      <div>TIME: —</div>
+      <div id="state">STATE: IDLE</div>
+    </div>
+
+    <div class="border-t border-gray-700 pt-6 mb-6">
+      <div class="text-gray-400 text-sm mb-4">SYSTEM LOG</div>
+    </div>
+
+    <div class="border-t border-gray-700 pt-6 mb-6">
+      <div class="text-gray-400 text-sm mb-4">RESULT</div>
+      <div id="result" class="text-gray-300"></div>
+      <div id="badge" class="mt-4 hidden"></div>
+    </div>
+
+    <div class="border-t border-gray-700 pt-6">
+      <div class="text-gray-400 text-sm mb-4">SCENARIO</div>
+      <div id="scenario" class="text-gray-300"></div>
+    </div>
+
+  </div>
 
 </div>
+
+<p class="mt-16 text-gray-500 text-sm">STATUS: NON-OPTIONAL</p>
+
+</div>
+
+<!-- REALTIME ENGINE -->
+<script>
+
+function calculateSystem() {
+
+  const input = parseFloat(document.getElementById("input").value);
+  const time = parseFloat(document.getElementById("time").value);
+  const resources = parseFloat(document.getElementById("resources").value);
+  const complexity = parseFloat(document.getElementById("complexity").value);
+  const dependency = parseFloat(document.getElementById("dependency").value);
+
+  const result = document.getElementById("result");
+  const badge = document.getElementById("badge");
+  const scenarioBox = document.getElementById("scenario");
+  const state = document.getElementById("state");
+
+  if (!input || !time || !resources || !complexity || !dependency) {
+    result.innerHTML = "SYSTEM: WAITING FOR INPUT";
+    scenarioBox.innerHTML = "";
+    badge.classList.add("hidden");
+    state.innerHTML = "STATE: INPUT REQUIRED";
+    return;
+  }
+
+  const load = complexity * dependency;
+  const capacity = resources * time;
+  const executionRatio = input / capacity;
+  const risk = load / resources;
+
+  let status = "";
+  let scenario = "";
+
+  if (executionRatio > 1.2 || risk > 2) {
+    status = "BLOCKED";
+    scenario = "System overload. Execution cannot be validated.";
+    state.innerHTML = "STATE: BLOCKED";
+  } else if (executionRatio > 0.9) {
+    status = "CONSTRAINED";
+    scenario = "Execution possible under tight conditions.";
+    state.innerHTML = "STATE: CONSTRAINED";
+  } else {
+    status = "VALID";
+    scenario = "Execution validated within system capacity.";
+    state.innerHTML = "STATE: VALID";
+  }
+
+  const estimatedTime = (input / resources) * (1 + complexity / 10);
+
+  result.innerHTML = `
+    STATUS: ${status}<br><br>
+    TIME ESTIMATE: ${estimatedTime.toFixed(2)}<br>
+    LOAD: ${load.toFixed(2)}<br>
+    RISK: ${risk.toFixed(2)}
+  `;
+
+  scenarioBox.innerHTML = scenario;
+
+  if (status === "VALID") {
+    badge.innerHTML = `
+      <div class="inline-flex items-center gap-2 border border-gray-600 px-3 py-1 text-[10px] tracking-widest text-gray-300">
+        <span class="w-2 h-2 bg-green-500"></span>
+        VALIDATED BY EXECUTIA
+      </div>
+    `;
+  } else {
+    badge.innerHTML = `
+      <div class="inline-flex items-center gap-2 border border-gray-600 px-3 py-1 text-[10px] tracking-widest text-gray-400">
+        <span class="w-2 h-2 bg-red-500"></span>
+        EXECUTION BLOCKED
+      </div>
+    `;
+  }
+
+  badge.classList.remove("hidden");
+}
+
+// REALTIME
+document.querySelectorAll("input").forEach(el => {
+  el.addEventListener("input", calculateSystem);
+});
+
+</script>
 
 </body>
 </html>
