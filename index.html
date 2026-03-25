@@ -25,207 +25,226 @@ body {
 
 <!-- HEADER -->
 <header class="sticky top-0 bg-white border-b border-gray-200 z-50">
-  <div class="max-w-6xl mx-auto px-6 flex justify-between items-center h-[70px]">
+<div class="max-w-6xl mx-auto px-6 flex justify-between items-center h-[70px]">
 
-    <div class="text-[12px] tracking-[0.32em] text-[#0A1F44]">
-      EXECUTIA™
-    </div>
+<div class="text-[12px] tracking-[0.32em] text-[#0A1F44]">
+EXECUTIA™
+</div>
 
-    <nav class="flex gap-8 text-[12px] tracking-widest text-gray-500">
-      <a href="https://execution.executia.io">EXECUTION</a>
-      <a href="/institutional">INSTITUTIONAL</a>
-    </nav>
+<nav class="flex gap-8 text-[12px] tracking-widest text-gray-500">
+<a href="https://execution.executia.io">EXECUTION</a>
+<a href="/institutional">INSTITUTIONAL</a>
+</nav>
 
-  </div>
+</div>
 </header>
 
 <!-- HERO -->
 <section class="max-w-3xl mx-auto px-6 text-center section">
 
-  <h1 class="text-[48px] leading-tight font-semibold mb-6">
-    Execution is enforced.
-  </h1>
+<h1 class="text-[48px] leading-tight font-semibold mb-6">
+Execution is enforced.
+</h1>
 
-  <p class="text-gray-500 text-lg">
-    Decisions do not fail in planning.<br>
-    They fail in execution.
-  </p>
+<p class="text-gray-500 text-lg">
+Decisions do not fail in planning.<br>
+They fail in execution.
+</p>
 
 </section>
 
-<!-- 🔥 PROOF CASE -->
+<!-- PROOF -->
 <section class="max-w-3xl mx-auto px-6 section">
 
-  <div class="text-[11px] tracking-widest text-gray-400 mb-6">
-    EXECUTION CASE
-  </div>
+<div class="text-[11px] tracking-widest text-gray-400 mb-6">
+EXECUTION CASE
+</div>
 
-  <div class="space-y-6 text-lg">
-
-    <p class="text-[#0A1F44]">
-      Decision:
-      Infrastructure project €200M, 24 months
-    </p>
-
-    <p class="text-gray-500">
-      System check:<br>
-      Budget deviation risk: 37%<br>
-      Dependency conflict detected<br>
-      Resource mismatch
-    </p>
-
-    <p class="text-red-600 font-semibold">
-      RESULT: BLOCKED
-    </p>
-
-  </div>
+<p class="text-[#0A1F44] text-lg">
+Decision: Infrastructure project €200M, 24 months
+</p>
 
 </section>
 
-<!-- 🔥 ANIMATED SYSTEM LOG -->
+<!-- 🔥 SCENARIO SELECTOR -->
 <section class="max-w-3xl mx-auto px-6 section">
 
-  <div class="text-[11px] tracking-widest text-gray-400 mb-6">
-    SYSTEM VALIDATION
-  </div>
+<div class="text-[11px] tracking-widest text-gray-400 mb-4">
+SCENARIO
+</div>
 
-  <div class="border border-gray-200 p-8 font-mono text-sm text-gray-600 space-y-2">
+<div class="flex gap-4 mb-10 text-xs tracking-widest">
 
-    <div id="log-line-1"></div>
-    <div id="log-line-2"></div>
-    <div id="log-line-3"></div>
-    <div id="log-line-4"></div>
+<button onclick="runScenario('blocked')" class="border px-4 py-2">
+INFRASTRUCTURE
+</button>
 
-  </div>
+<button onclick="runScenario('constrained')" class="border px-4 py-2">
+LIMIT CASE
+</button>
+
+<button onclick="runScenario('valid')" class="border px-4 py-2">
+OPTIMAL
+</button>
+
+</div>
 
 </section>
 
-<!-- CONTROL LAYER -->
+<!-- 🔥 LIVE SYSTEM -->
+<section class="max-w-3xl mx-auto px-6 section">
+
+<div class="text-[11px] tracking-widest text-gray-400 mb-6">
+SYSTEM LOG
+</div>
+
+<div id="logBox" class="border border-gray-200 p-8 font-mono text-sm text-gray-600 space-y-2 min-h-[160px]">
+</div>
+
+<!-- 💣 DECISION -->
+<div id="decisionBox" class="hidden mt-10 border-t border-gray-300 pt-8">
+
+<div class="text-[11px] tracking-widest text-gray-400 mb-3">
+SYSTEM DECISION
+</div>
+
+<div id="decisionResult" class="text-lg tracking-wide">
+</div>
+
+<p class="text-gray-400 text-sm mt-4">
+Execution cannot proceed under current conditions.
+</p>
+
+<p class="text-xs text-gray-400 mt-6">
+Validated by EXECUTIA protocol
+</p>
+
+</div>
+
+</section>
+
+<!-- CONTROL -->
 <section class="max-w-xl mx-auto px-6 section">
 
-  <p class="text-gray-600 text-lg">
-    EXECUTIA sits above all systems.
-  </p>
+<p class="text-gray-600 text-lg">
+EXECUTIA sits above all systems.
+</p>
 
-  <p class="text-gray-600 text-lg mt-4">
-    Execution is validated before any system can proceed.
-  </p>
-
-</section>
-
-<!-- BEFORE / AFTER -->
-<section class="max-w-3xl mx-auto px-6 section">
-
-  <div class="grid grid-cols-2 gap-12">
-
-    <div>
-      <div class="text-[11px] text-gray-400 mb-4">WITHOUT EXECUTIA</div>
-      <p class="text-gray-500">
-        Decision → Execution → Audit<br>
-        Errors detected after damage
-      </p>
-    </div>
-
-    <div>
-      <div class="text-[11px] text-gray-400 mb-4">WITH EXECUTIA</div>
-      <p class="text-[#0A1F44]">
-        Decision → Validation → Execution<br>
-        Invalid execution does not occur
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- SYSTEM DEFINITION -->
-<section class="max-w-xl mx-auto px-6 section text-center">
-
-  <p class="font-semibold">
-    A universal execution protocol
-  </p>
-
-  <p class="text-gray-500 mt-4">
-    Not software.<br>
-    Not methodology.
-  </p>
-
-  <p class="mt-6 text-[#0A1F44]">
-    A control layer that enforces execution before it happens.
-  </p>
-
-</section>
-
-<!-- FINAL STATEMENT -->
-<section class="max-w-xl mx-auto px-6 section text-center">
-
-  <p class="text-[#0A1F44] text-lg">
-    Deviation is not corrected.
-  </p>
-
-  <p class="text-gray-500 mt-4">
-    It is prevented.
-  </p>
+<p class="text-gray-600 text-lg mt-4">
+Execution is validated before any system can proceed.
+</p>
 
 </section>
 
 <!-- CTA -->
 <section class="max-w-xl mx-auto px-6 section text-center">
 
-  <a href="https://execution.executia.io"
-     class="border border-[#0A1F44] px-6 py-3 text-sm hover:bg-[#0A1F44] hover:text-white transition">
-     ENTER EXECUTION LAYER
-  </a>
+<a href="https://execution.executia.io"
+class="border border-[#0A1F44] px-6 py-3 text-sm hover:bg-[#0A1F44] hover:text-white transition">
+ENTER EXECUTION LAYER
+</a>
 
 </section>
 
-<!-- FOOTER -->
-<footer class="border-t border-gray-200 py-10">
-  <div class="max-w-6xl mx-auto px-6 text-sm text-gray-400 flex justify-between">
-    <div>EXECUTIA™</div>
-    <div class="flex gap-6">
-      <span>executia.io</span>
-      <span>execution.executia.io</span>
-      <span>/institutional</span>
-    </div>
-  </div>
-</footer>
-
-<!-- ANIMATION SCRIPT -->
+<!-- SCRIPT -->
 <script>
 
-function runLog(){
+const scenarios = {
 
-  const l1 = document.getElementById("log-line-1");
-  const l2 = document.getElementById("log-line-2");
-  const l3 = document.getElementById("log-line-3");
-  const l4 = document.getElementById("log-line-4");
+blocked: {
+steps: [
+"Initializing validation...",
+"Checking budget constraints...",
+"Budget deviation risk detected: 37%",
+"Analyzing dependencies...",
+"Dependency conflict detected",
+"Validating resources...",
+"Resource mismatch identified"
+],
+result: "EXECUTION: BLOCKED",
+color: "red"
+},
 
-  l1.innerHTML = "";
-  l2.innerHTML = "";
-  l3.innerHTML = "";
-  l4.innerHTML = "";
+constrained: {
+steps: [
+"Initializing validation...",
+"Checking budget constraints...",
+"Budget utilization: 91%",
+"Analyzing dependencies...",
+"Dependency load high",
+"Validating resources...",
+"Execution within limits"
+],
+result: "EXECUTION: CONSTRAINED",
+color: "orange"
+},
 
-  setTimeout(() => {
-    l1.innerHTML = "Input received: €200M infrastructure project";
-  }, 300);
+valid: {
+steps: [
+"Initializing validation...",
+"Checking budget constraints...",
+"Budget within safe range",
+"Analyzing dependencies...",
+"No conflicts detected",
+"Validating resources...",
+"Execution fully supported"
+],
+result: "EXECUTION: VALID",
+color: "green"
+}
 
-  setTimeout(() => {
-    l2.innerHTML = "Validating budget constraints...";
-  }, 900);
+};
 
-  setTimeout(() => {
-    l3.innerHTML = "Dependency conflict detected";
-  }, 1500);
+function runScenario(type){
 
-  setTimeout(() => {
-    l4.innerHTML = "<span style='color:#dc2626'>STATUS: BLOCKED</span>";
-  }, 2200);
+const logBox = document.getElementById("logBox");
+const decisionBox = document.getElementById("decisionBox");
+const decisionResult = document.getElementById("decisionResult");
+
+logBox.innerHTML = "";
+decisionBox.classList.add("hidden");
+
+const data = scenarios[type];
+let i = 0;
+
+function nextStep(){
+
+if(i < data.steps.length){
+
+const line = document.createElement("div");
+line.textContent = "→ " + data.steps[i];
+logBox.appendChild(line);
+i++;
+
+setTimeout(nextStep, 500);
+
+} else {
+
+setTimeout(() => {
+
+decisionBox.classList.remove("hidden");
+decisionResult.textContent = data.result;
+
+if(data.color === "red"){
+decisionResult.className = "text-red-600 text-lg tracking-wide";
+}
+if(data.color === "orange"){
+decisionResult.className = "text-orange-500 text-lg tracking-wide";
+}
+if(data.color === "green"){
+decisionResult.className = "text-green-500 text-lg tracking-wide";
+}
+
+}, 400);
 
 }
 
-runLog();
-setInterval(runLog, 6000);
+}
+
+nextStep();
+}
+
+window.addEventListener("load", () => runScenario("blocked"));
 
 </script>
 
