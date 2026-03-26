@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA | Standard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+  body { font-family: 'IBM Plex Mono', monospace; }
+  input { font-family: 'IBM Plex Mono', monospace; font-size: 15px; background: white; border: 1px solid black; padding: 8px 12px; width: 100%; }
+  input:focus { outline: none; border: 2px solid black; }
+  a { text-decoration: none; color: black; }
+  .fade-in { animation: fadeIn 0.3s ease-in; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  #transition-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 100;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+
+<body class="bg-white text-black">
+
+<!-- TRANSITION OVERLAY -->
+<div id="transition-overlay">
+  <p id="t1" class="mb-2">TRANSITIONING TO EXECUTION LAYER</p>
+  <p id="t2" class="mb-2 opacity-0">SYSTEM CONTROL TRANSFERRED</p>
+  <p id="t3" class="opacity-0">ACCESS GRANTED</p>
+</div>
+
+<!-- STICKY NAV -->
+<header class="sticky top-0 bg-white border-b border-black z-50">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+    <div class="text-lg font-bold tracking-widest">EXECUTIA</div>
+    <nav class="flex flex-col md:flex-row gap-1 md:gap-8 text-sm">
+      <span class="text-gray-400">ENTRY ACTIVE</span>
+      <a href="https://execution.executia.io" onclick="transition(event, 'https://execution.executia.io')" class="font-bold">&gt; EXECUTION_LAYER</a>
+      <a href="https://www.executia.io/institutional" class="font-bold">&gt; INSTITUTIONAL_LAYER</a>
+    </nav>
+  </div>
+</header>
+
+<div class="max-w-5xl mx-auto px-6 py-10 space-y-10">
+
+<!-- HERO -->
+<section class="space-y-3">
+  <h1 class="text-3xl md:text-4xl font-bold tracking-tight leading-tight">
+    EXECUTIA IS THE STANDARD OF EXECUTION
+  </h1>
+  <p class="text-base">
+    EXECUTION WITHOUT EXECUTIA IS UNCONTROLLED.<br>
+    UNCONTROLLED EXECUTION = SYSTEM FAILURE.<br>
+    DEVIATION IS NOT POSSIBLE.
+  </p>
+  <p class="text-base border-t border-black pt-4">
+    EXECUTION = DECISION → RESULT.<br>
+    EXECUTIA CONTROLS THE GAP.
+  </p>
+  <p class="text-sm text-gray-500 tracking-widest">STATUS: NON-OPTIONAL</p>
+</section>
+
+<!-- DEFINITION -->
+<section class="border-t border-black pt-5 space-y-1 text-base">
+  <p>EXECUTIA VALIDATES EXECUTION BEFORE IT OCCURS.</p>
+  <p>INCORRECT EXECUTION IS BLOCKED.</p>
+  <p class="text-sm text-gray-500 pt-1">DECISIONS ARE VALIDATED AGAINST DEFINED CONSTRAINTS AND STORED IN AN IMMUTABLE EXECUTION LOG.</p>
+</section>
+
+<!-- EXECUTION FLOW -->
+<section class="border-t border-black pt-5">
+  <p class="font-bold text-base mb-4">SECTION: EXECUTION FLOW</p>
+  <div class="flex flex-col md:flex-row md:items-center gap-2">
+    <div class="border border-black px-3 py-2 text-center text-sm">DECISION<br>SUBMITTED</div>
+    <div class="text-center font-bold">→</div>
+    <div class="border border-black px-3 py-2 text-center text-sm">SYSTEM<br>VALIDATION</div>
+    <div class="text-center font-bold">→</div>
+    <div class="border border-black px-3 py-2 text-center text-sm">CONSTRAINT<br>CHECK</div>
+    <div class="text-center font-bold">→</div>
+    <div class="border border-black px-3 py-2 text-center text-sm font-bold">EXECUTION<br>PERMITTED / BLOCKED</div>
+  </div>
+</section>
+
+<!-- OUTCOME SHIFT -->
+<section class="border-t border-black pt-5 text-base">
+  <p class="font-bold mb-3">SECTION: OUTCOME SHIFT</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="space-y-1">
+      <p class="text-xs text-gray-400 tracking-widest">WITHOUT EXECUTIA</p>
+      <p>UNCERTAIN EXECUTION</p>
+      <p>DELAYED DELIVERY</p>
+      <p>COST VARIATION</p>
+    </div>
+    <div class="space-y-1">
+      <p class="text-xs text-gray-400 tracking-widest">WITH EXECUTIA</p>
+      <p>CONTROLLED EXECUTION</p>
+      <p>PREDICTABLE DELIVERY</p>
+      <p>NO DEVIATION</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPEC GRID -->
+<section class="border-t border-black pt-5 grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+  <div class="space-y-1">
+    <p class="font-bold">WHAT</p>
+    <p>EXECUTION PROTOCOL</p>
+    <p>SYSTEM LAYER</p>
+    <p>UNIVERSAL STANDARD</p>
+    <p>NON-OPTIONAL</p>
+  </div>
+  <div class="space-y-1">
+    <p class="font-bold">PREVENTS</p>
+    <p>MISEXECUTION</p>
+    <p>HUMAN INTERPRETATION</p>
+    <p>DECISION DRIFT</p>
+    <p>SYSTEM FRAGMENTATION</p>
+  </div>
+  <div class="space-y-1">
+    <p class="font-bold">MECHANISM</p>
+    <p>REAL-TIME VALIDATION</p>
+    <p>CONSTRAINT ENFORCEMENT</p>
+    <p>EXECUTION CONTROL</p>
+    <p>SYSTEM VERIFICATION</p>
+  </div>
+</section>
+
+<!-- EXECUTION LEDGER -->
+<section class="border-t border-black pt-5 space-y-3 text-base">
+  <div>
+    <p class="font-bold tracking-widest">SECTION: EXECUTION LEDGER</p>
+    <p class="text-sm text-gray-500 mt-1">SIMULATION MODE ACTIVE</p>
+  </div>
+  <div class="space-y-3">
+    <div><p>BUDGET (EUR)</p><input id="lb" placeholder="e.g. 500000" class="mt-1"></div>
+    <div><p>TIMELINE (MONTHS)</p><input id="lt" placeholder="e.g. 12" class="mt-1"></div>
+    <div><p>TEAM SIZE</p><input id="lr" placeholder="e.g. 8" class="mt-1"></div>
+    <div><p>COMPLEXITY (1–5)</p><input id="lc" placeholder="e.g. 3" class="mt-1"></div>
+  </div>
+  <button id="ledgerBtn" onclick="ledgerRun()"
+    class="border border-black w-full py-3 font-bold tracking-widest text-base bg-white text-black">
+    &gt; EXECUTE
+  </button>
+  <div id="ledgerOut" class="border border-black p-4 text-base font-bold">STATUS: AWAITING INPUT</div>
+  <div id="explain" class="border border-black p-4 text-sm hidden text-gray-600"></div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="border-t border-black pt-5 text-base">
+  <p class="font-bold mb-3">SECTION: COMPATIBLE WITH</p>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-2 text-sm">
+    <div class="border border-black px-3 py-2">NATO SYSTEMS</div>
+    <div class="border border-black px-3 py-2">EU FRAMEWORKS</div>
+    <div class="border border-black px-3 py-2">ISO STANDARDS</div>
+    <div class="border border-black px-3 py-2">SWIFT INFRASTRUCTURE</div>
+  </div>
+</section>
+
+<!-- DEPLOYMENT -->
+<section class="border-t border-black pt-5 text-base space-y-1">
+  <p class="font-bold">SECTION: DEPLOYMENT STATUS</p>
+  <p>PILOT PROGRAM: ACCEPTING APPLICATIONS</p>
+  <p>FIRST EXECUTION AUDIT: NO COST</p>
+</section>
+
+<!-- IP -->
+<section class="border-t border-black pt-5 text-base space-y-1">
+  <p class="font-bold">SECTION: INTELLECTUAL PROPERTY</p>
+  <p>PCT PATENT APPLICATION: PCT/IB2026/050141</p>
+  <p>STATUS: PENDING</p>
+  <p>EXECUTION INTEGRITY LAYER — FILED 2026</p>
+</section>
+
+<!-- OPERATOR -->
+<section class="border-t border-black pt-5 text-base space-y-1">
+  <p class="font-bold">SECTION: SYSTEM OPERATOR</p>
+  <p>Sandis Boiko</p>
+  <p>25+ YEARS IN REAL ESTATE, ENERGY, AND PROJECT EXECUTION.</p>
+  <p>600+ TRANSACTIONS. MULTI-COUNTRY OPERATIONS.</p>
+</section>
+
+<!-- CTA -->
+<section class="border-t border-black pt-5 flex flex-col md:flex-row gap-3 text-base">
+  <a href="https://execution.executia.io" onclick="transition(event, 'https://execution.executia.io')" class="border border-black px-5 py-3 text-center font-bold">&gt; EXECUTION_LAYER</a>
+  <a href="https://www.executia.io/institutional" class="border border-black px-5 py-3 text-center font-bold">&gt; INSTITUTIONAL_LAYER</a>
+</section>
+
+<!-- CONTACT -->
+<section class="border-t border-black pt-5 text-base space-y-2">
+  <p class="font-bold">SECTION: REQUEST EXECUTION BRIEFING</p>
+  <p>30-MINUTE EXECUTION AUDIT OF YOUR CURRENT PROJECT.</p>
+  <a href="mailto:info@executia.io" class="underline font-bold block">info@executia.io</a>
+  <a href="https://www.linkedin.com/in/sandis-boiko-189405281" class="underline font-bold block">LINKEDIN: SANDIS BOIKO →</a>
+</section>
+
+<!-- FINAL -->
+<section class="border-t border-black pt-5 text-sm space-y-1 text-gray-400 tracking-widest">
+  <p>EXECUTION WITHOUT EXECUTIA IS UNCONTROLLED</p>
+  <p>STATUS: NON-OPTIONAL</p>
+  <p>EXECUTIA IS A PROTOCOL STANDARD</p>
+</section>
+
+</div>
+
+<script>
+function transition(e, url){
+  e.preventDefault()
+  let ov = document.getElementById("transition-overlay")
+  let t2 = document.getElementById("t2")
+  let t3 = document.getElementById("t3")
+  ov.style.display = "flex"
+  setTimeout(()=>{ t2.style.opacity="1" }, 400)
+  setTimeout(()=>{ t3.style.opacity="1" }, 800)
+  setTimeout(()=>{ window.location.href = url }, 1400)
+}
+
+function ledgerRun(){
+  let out     = document.getElementById("ledgerOut")
+  let explain = document.getElementById("explain")
+  let btn     = document.getElementById("ledgerBtn")
+
+  btn.disabled = true
+  btn.innerHTML = "PROCESS LOCKED"
+  out.style.color = "black"
+  explain.classList.add("hidden")
+  out.innerHTML = "INPUT RECEIVED"
+
+  setTimeout(() => {
+    out.innerHTML = "VALIDATION IN PROGRESS"
+    setTimeout(() => {
+      let b = Number(document.getElementById("lb").value)
+      let t = Number(document.getElementById("lt").value)
+      let r = Number(document.getElementById("lr").value)
+      let c = Number(document.getElementById("lc").value)
+
+      if(!b || !t || !r || !c || c < 1 || c > 5){
+        out.innerHTML = "INVALID INPUT — ALL FIELDS REQUIRED"
+        out.style.color = "red"
+        btn.disabled = false
+        btn.innerHTML = "&gt; EXECUTE"
+        return
+      }
+
+      let load     = (b / 100000) / r
+      let pressure = c * t
+      let risk     = Math.round((load + pressure) * 2)
+
+      out.classList.add("fade-in")
+
+      if(risk < 50){
+        out.innerHTML =
+          "EXECUTION PERMITTED<br>" +
+          "RISK LEVEL: LOW<br>" +
+          "DEVIATION PROBABILITY: &lt; 5%<br>" +
+          "SYSTEM AUTHORITY: ACTIVE<br>" +
+          "MANUAL OVERRIDE: DISABLED"
+        out.style.color = "green"
+      } else if(risk < 100){
+        out.innerHTML =
+          "EXECUTION CONDITIONAL<br>" +
+          "RISK LEVEL: MEDIUM<br>" +
+          "DEVIATION PROBABILITY: 15–30%<br>" +
+          "CONSTRAINT REVIEW REQUIRED<br>" +
+          "SYSTEM AUTHORITY: ACTIVE<br>" +
+          "MANUAL OVERRIDE: DISABLED"
+        out.style.color = "darkorange"
+      } else {
+        out.innerHTML =
+          "████████████████████<br>" +
+          "EXECUTION BLOCKED<br>" +
+          "SYSTEM HALTED<br>" +
+          "████████████████████<br>" +
+          "RISK LEVEL: CRITICAL<br>" +
+          "DEVIATION PROBABILITY: &gt; 60%<br>" +
+          "SYSTEM AUTHORITY: ACTIVE<br>" +
+          "MANUAL OVERRIDE: DISABLED"
+        out.style.color = "red"
+      }
+
+      explain.classList.remove("hidden")
+      explain.classList.add("fade-in")
+      explain.innerHTML =
+        "MODEL BREAKDOWN:<br>" +
+        "─────────────────────────<br>" +
+        "LOAD FACTOR:     " + load.toFixed(2) + "<br>" +
+        "PRESSURE INDEX:  " + pressure + "<br>" +
+        "COMBINED RISK:   " + risk + "<br>" +
+        "─────────────────────────<br>" +
+        "THRESHOLD PERMITTED:   &lt; 50<br>" +
+        "THRESHOLD CONDITIONAL: 50–99<br>" +
+        "THRESHOLD BLOCKED:     ≥ 100"
+
+      btn.disabled = false
+      btn.innerHTML = "&gt; RE-EXECUTE"
+    }, 800)
+  }, 500)
+}
+</script>
+</body>
+</html>
