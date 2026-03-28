@@ -289,8 +289,8 @@ Timeline: 2–4 weeks</div>
     <p class="sm" style="margin-top:16px;">
       First execution audit — no integration required.
     </p>
-    <a href="mailto:info@executia.io" class="btn">&gt; INITIATE PILOT</a>
-    <p class="sm mono" style="margin-top:14px;">info@executia.io</p>
+    <button class="btn" onclick="initiatePilot()" id="pilotBtn">&gt; INITIATE PILOT</button>
+    <p class="sm mono" id="pilotMsg" style="display:none; margin-top:12px;">REQUEST INITIATED &nbsp;·&nbsp; info@executia.io</p>
   </div>
 
   <!-- IP -->
@@ -310,3 +310,20 @@ Timeline: 2–4 weeks</div>
   <p>EXECUTIA™ — EXECUTION CONTROL PROTOCOL</p>
   <p>PCT/IB2026/050141 — STATUS: PENDING</p>
   <p style="margin-top:8px;">Institutional references available un
+<script>
+function initiatePilot() {
+  window.location.href = "mailto:info@executia.io"
+  try { navigator.clipboard.writeText("info@executia.io") } catch(e) {}
+  const btn = document.getElementById("pilotBtn")
+  const msg = document.getElementById("pilotMsg")
+  btn.textContent = "REQUEST INITIATED"
+  btn.disabled = true
+  msg.style.display = "block"
+  setTimeout(() => {
+    btn.textContent = "> INITIATE PILOT"
+    btn.disabled = false
+  }, 3000)
+}
+</script>
+</body>
+</html>
