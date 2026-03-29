@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA | Standard of Execution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black:   #000000;
+    --white:   #ffffff;
+    --g500:    #888888;
+    --g700:    #444444;
+    --green:   #006b08;
+    --red:     #bb0000;
+    --control: #0A1F44;
+    --border:  1px solid #000;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: inherit; text-decoration: none; }
+
+  #transition-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--white);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+  #transition-overlay p { opacity: 0; transition: opacity 0.35s ease; }
+  #transition-overlay p.vis { opacity: 1; }
+
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    border-bottom: var(--border);
+    z-index: 100;
+  }
+  .h-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .h-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.22em;
+    color: var(--black);
+  }
+  nav { display: flex; align-items: center; gap: 28px; }
+  .nav-state {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--g500);
+  }
+  .nav-link {
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .nav-link:hover { text-decoration: underline; }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; }
+  .block { border-top: var(--border); padding: 52px 0; }
+  .block:first-child { border-top: none; padding-top: 60px; }
+
+  .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--g500);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: clamp(22px, 3.2vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .lead {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--g700);
+    max-width: 680px;
+  }
+  .sm { font-size: 13px; color: var(--g500); line-height: 1.6; }
+  strong { font-weight: 600; color: var(--black); }
+
+  .signal {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--g500);
+    letter-spacing: 0.1em;
+    margin-top: 10px;
+  }
+
+
+  .arch {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0 16px;
+  }
+  .anode {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    border: var(--border);
+    padding: 8px 14px;
+    letter-spacing: 0.06em;
+  }
+  .anode.hi {
+    background: var(--control);
+    color: var(--white);
+    font-weight: 700;
+    box-shadow: 0 0 0 1px rgba(10,31,68,0.2);
+  }
+  .arr { color: var(--g500); font-size: 16px; }
+
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+  .flow-list {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 2.4;
+    color: var(--g700);
+  }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 12px 20px;
+    border: var(--border);
+    background: var(--white);
+    color: var(--black);
+    cursor: pointer;
+    display: inline-block;
+  }
+  .btn-inv { background: var(--control); color: var(--white); }
+
+  .c-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: underline;
+    display: block;
+    margin-bottom: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  footer { border-top: var(--border); padding: 32px 24px; max-width: 960px; margin: 0 auto; }
+  .foot-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  .foot-col p, .foot-col a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--g500);
+    line-height: 1.9;
+    display: block;
+  }
+  .foot-col a { color: var(--black); text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .nav-state { display: none; }
+    nav { gap: 16px; }
+    .g2, .g3 { grid-template-columns: 1fr; }
+    .arch { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+
+<body>
+
+<div id="transition-overlay">
+  <p id="t1">TRANSITIONING TO EXECUTION LAYER</p>
+  <p id="t2">SYSTEM CONTROL TRANSFERRED</p>
+  <p id="t3">ACCESS GRANTED</p>
+</div>
+
+<header>
+  <div class="h-inner">
+    <a href="https://www.executia.io/" class="h-logo">EXECUTIA</a>
+    <nav>
+      <span class="nav-state">STATE: ENTRY</span>
+      <a href="https://execution.executia.io"
+         onclick="go(event,'https://execution.executia.io')"
+         class="nav-link">EXECUTION</a>
+      <a href="https://www.executia.io/institutional"
+         class="nav-link">INSTITUTIONAL</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- 1. HERO -->
+  <div class="block">
+        <div class="lbl">EXECUTIA — EXECUTION STANDARD</div>
+        <h1>Execution failure is already costing your system 5–20% of budget.</h1>
+
+        <p class="lead">
+          EXECUTIA prevents it — by blocking invalid actions
+          before they execute, at the system level.
+        </p>
+        <p class="lead" style="margin-top:10px;">
+          An API middleware layer that sits between decision and execution systems,
+          validating every request before it runs.
+        </p>
+        <p class="sm" style="margin-top:14px;">
+          Designed for infrastructure, financial, and AI-driven systems
+          where execution errors create immediate loss.
+        </p>
+
+        <p style="font-size:16px; font-weight:700; margin-top:20px; margin-bottom:8px;">
+          If an action is invalid — it does not execute.
+        </p>
+        <p class="sm">Replaces post-execution control with pre-execution enforcement.</p>
+        <p class="sm" style="margin-top:4px; font-weight:600;">
+          Active in real-world infrastructure execution environments.
+        </p>
+
+        <div class="cta-row">
+          <a href="https://execution.executia.io"
+             onclick="go(event,'https://execution.executia.io')"
+             class="btn btn-inv">&gt; RUN EXECUTION AUDIT</a>
+          <a href="https://www.executia.io/institutional"
+             class="btn">&gt; INSTITUTIONAL LAYER</a>
+        </div>
+        <p class="sm" style="margin-top:10px;">
+          Execution audit identifies failure paths in your system. No integration required.
+        </p>
+        <p class="signal">STATUS: ACTIVE DEPLOYMENT &nbsp;·&nbsp; CONTROLLED ACCESS &nbsp;·&nbsp; PCT/IB2026/050141</p>
+    <p class="signal" style="margin-top:6px;">CONTROLLED ACCESS ONLY &nbsp;·&nbsp; RESPONSE WITHIN 24–48H</p>
+    <div class="cta-row" style="margin-top:28px;">
+      <button class="btn btn-inv" onclick="window.location.href='https://execution.executia.io/#consultation'">&gt; REQUEST EXECUTION AUDIT &rarr;</button>
+    </div>
+  </div>
+
+  <!-- WHAT THIS IS IN PRACTICE -->
+  <div class="block">
+    <div class="lbl">WHAT THIS IS IN PRACTICE</div>
+    <div class="g2">
+      <div>
+        <p style="font-weight:600; margin-bottom:12px;">System form</p>
+        <p class="sm" style="line-height:2.2;">
+          — Deployed as API gateway<br>
+          — Sits between decision systems and execution endpoints<br>
+          — Validates every request before it runs<br>
+          — Blocks invalid execution in real-time
+        </p>
+      </div>
+      <div>
+        <p style="font-weight:600; margin-bottom:12px;">Current use cases</p>
+        <p class="sm" style="line-height:2.2;">
+          — Infrastructure budget control systems<br>
+          — Contract validation pipelines<br>
+          — Multi-party execution approval<br>
+          — High-risk operational workflows
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- REAL EXAMPLE (early) -->
+  <div class="block">
+    <div class="lbl">EXAMPLE</div>
+    <p class="sm mono" style="line-height:2.2;">
+      Road construction contract submitted &nbsp;→&nbsp;
+      budget mismatch detected &nbsp;→&nbsp;
+      EXECUTIA blocks execution before funds are released.
+    </p>
+    <p class="sm" style="margin-top:12px;">
+      The error never reaches execution.
+      The loss never occurs.
+    </p>
+  </div>
+
+  <!-- 2. POSITIONING -->
+  <div class="block">
+    <div class="lbl">SYSTEM TRAJECTORY</div>
+    <p class="lead" style="max-width:620px;">
+      AI and automation are increasing execution speed and scale.
+    </p>
+    <p class="sm" style="margin-top:14px; line-height:2.1;">
+      Systems now execute thousands of decisions per second.<br>
+      Without validation, errors scale instantly.
+    </p>
+    <p class="sm" style="margin-top:10px; line-height:2.1;">
+      Unvalidated execution creates immediate financial and operational exposure.
+    </p>
+    <p class="sm" style="margin-top:14px; line-height:2.1;">
+      Financial systems validate transactions.<br>
+      Infrastructure enforces safety.<br>
+      Digital systems now require execution validation.
+    </p>
+    <p class="lead" style="margin-top:20px; font-weight:600;">
+      Execution control is becoming a required system layer.
+    </p>
+    <p class="sm" style="margin-top:8px; font-weight:600;">
+      Systems without execution validation will not survive scale.
+    </p>
+    <p class="signal" style="margin-top:14px;">NEXT LAYER: EXECUTION CONTROL</p>
+  </div>
+
+  <!-- 3. DEFINITION -->
+  <div class="block">
+    <div class="lbl">DEFINITION</div>
+    <h2>What is EXECUTIA</h2>
+    <p class="lead">Not a standalone application.</p>
+    <p class="lead" style="margin-top:8px;">
+      A system-layer embedded into architecture,
+      enforcing constraints before execution is allowed.
+    </p>
+
+    <div style="margin-top:24px;">
+      <p style="font-weight:600; margin-bottom:12px;">EXECUTIA is deployed as:</p>
+      <p class="sm" style="line-height:2.2;">
+        — A validation layer inside system architecture<br>
+        — A constraint enforcement engine<br>
+        — An execution control gateway
+      </p>
+    </div>
+
+    <p class="sm" style="margin-top:20px; border-top:var(--border); padding-top:16px; line-height:1.8;">
+      EXECUTIA connects via API between decision systems and execution endpoints.<br>
+      All execution requests are routed through validation before being executed.
+    </p>
+    <p class="sm" style="margin-top:10px;">
+      Inserted at the execution boundary — where decisions become actions.
+    </p>
+
+    <div style="border-top:var(--border); margin-top:20px; padding-top:16px;">
+      <p class="lbl" style="margin-bottom:12px;">STACK</p>
+      <div class="arch">
+        <div class="anode">ERP / PLANNING SYSTEMS</div>
+        <div class="arr">→</div>
+        <div class="anode hi">EXECUTIA</div>
+        <div class="arr">→</div>
+        <div class="anode">EXECUTION SYSTEMS / APIs</div>
+      </div>
+    </div>
+
+    <p class="sm" style="margin-top:14px;">
+      EXECUTIA is deployed per system as a licensed validation layer.
+    </p>
+    <p class="sm" style="margin-top:6px;">
+      Available as cloud deployment, on-premise integration, or sovereign system installation.
+    </p>
+  </div>
+
+  <!-- 4. HOW IT WORKS -->
+  <div class="block">
+    <div class="lbl">EXECUTION REQUEST FLOW</div>
+    <div class="flow-list">
+      1. &nbsp;Request received &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— API<br>
+      2. &nbsp;Constraints loaded &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— system-defined rules<br>
+      3. &nbsp;Validation executed &nbsp;&nbsp;&nbsp;— deterministic checks<br>
+      4. &nbsp;Result issued &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— <strong style="color:var(--green);">PERMITTED</strong> / <strong style="color:var(--red);">BLOCKED</strong><br>
+      5. &nbsp;Execution logged &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— immutable record
+    </div>
+    <p class="sm mono" style="margin-top:16px; line-height:2.1;">
+      Latency: &nbsp;<strong style="color:var(--black);">&lt; 50ms</strong> &nbsp;·&nbsp;
+      Override: &nbsp;<strong style="color:var(--red);">NOT AVAILABLE</strong>
+    </p>
+    <p class="signal" style="margin-top:10px;">No execution occurs without validation.</p>
+    <p class="signal" style="margin-top:4px;">There is no execution path outside validation.</p>
+  </div>
+
+  <!-- 5. CORE PRINCIPLE -->
+  <div class="block" style="border-top: 3px solid var(--black); border-bottom: 3px solid var(--black); padding: 52px 0;">
+    <p style="font-size: clamp(18px, 2.5vw, 26px); font-weight:700; line-height:1.4; max-width:640px; letter-spacing:-0.01em;">
+      Execution is not monitored after the fact.<br>
+      It is validated before it happens.
+    </p>
+    <p class="lead" style="margin-top:16px; font-weight:600;">
+      No execution path exists outside validation.
+    </p>
+    <p class="sm" style="margin-top:10px;">
+      Bypassing validation is not possible within system architecture.
+    </p>
+  </div>
+
+  <!-- 6. PROBLEM -->
+  <div class="block">
+    <div class="lbl">THE PROBLEM</div>
+    <h2>Execution Failure Is Systematic</h2>
+    <p class="lead">
+      Execution failure is the largest untracked risk in modern systems.
+    </p>
+    <p class="lead" style="margin-top:10px;">
+      It does not come from bad strategy —
+      it comes from incorrect execution.
+    </p>
+    <p class="lead" style="margin-top:10px;">
+      As systems scale and automate,
+      these errors compound instantly.
+    </p>
+    <p class="sm" style="margin-top:16px;">
+      Observed across infrastructure and multi-system execution environments.
+    </p>
+
+    <div class="g3" style="margin-top:28px;">
+      <div>
+        <p style="font-weight:600; margin-bottom:6px;">Budget approved</p>
+        <p class="sm">→ incorrectly allocated</p>
+      </div>
+      <div>
+        <p style="font-weight:600; margin-bottom:6px;">Strategy defined</p>
+        <p class="sm">→ incorrectly implemented</p>
+      </div>
+      <div>
+        <p style="font-weight:600; margin-bottom:6px;">Infrastructure planned</p>
+        <p class="sm">→ incorrectly executed</p>
+      </div>
+    </div>
+
+    <p class="sm" style="margin-top:24px;">
+      Execution failure typically impacts 5–20% of total system budget.
+    </p>
+    <p class="lead" style="margin-top:12px; font-weight:600;">
+      Without execution control, systems operate with invisible failure paths.
+    </p>
+    <p class="sm" style="margin-top:10px;">
+      Systems without execution validation will fail under operational, financial, or regulatory pressure.
+    </p>
+    <p class="signal" style="margin-top:10px;">
+      Execution without validation = systemic risk.
+    </p>
+  </div>
+
+  <!-- 7. REAL SCENARIO -->
+  <div class="block">
+    <div class="lbl">REAL-WORLD ENFORCEMENT EXAMPLE</div>
+    <div class="g2" style="margin-top:8px;">
+      <div>
+        <p class="sm" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; color:var(--g500); margin-bottom:12px;">WITHOUT EXECUTIA</p>
+        <p class="sm" style="line-height:2.1;">
+          Misallocation occurs.<br>
+          Delays recorded post-execution.<br>
+          Cost overruns. No enforcement point.
+        </p>
+      </div>
+      <div>
+        <p class="sm" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.12em; color:var(--g500); margin-bottom:12px;">WITH EXECUTIA</p>
+        <p class="sm" style="line-height:2.1;">
+          Invalid actions blocked before execution.<br>
+          Constraints enforced in real-time.<br>
+          Full execution log retained.
+        </p>
+      </div>
+    </div>
+    <p class="sm" style="margin-top:20px; border-top:var(--border); padding-top:16px; line-height:2.1;">
+      Road construction contract submitted →
+      budget mismatch detected →
+      EXECUTIA blocks execution before funds are released.
+    </p>
+  </div>
+
+  <!-- 8. THIS IS LIVE -->
+  <div class="block">
+    <div class="lbl">SYSTEM: ACTIVE</div>
+    <p class="lead" style="font-weight:600; margin-bottom:16px;">
+      EXECUTIA is operating in controlled infrastructure environments.
+    </p>
+    <p class="sm" style="margin-bottom:12px; line-height:1.8;">
+      Active validation enforcement is applied before execution occurs.
+    </p>
+    <p class="sm" style="margin-bottom:12px; line-height:1.8;">
+      Current environments include infrastructure budget control systems,
+      multi-party project execution, and high-risk operational workflows.
+    </p>
+    <p class="sm" style="margin-bottom:20px; font-weight:600;">
+      This is not simulation. This is system-level enforcement.
+    </p>
+    <p class="sm" style="margin-bottom:20px;">Details available upon request.</p>
+    <a href="https://execution.executia.io"
+       onclick="go(event,'https://execution.executia.io')"
+       class="btn btn-inv">&gt; SEE IT WORKING</a>
+  </div>
+
+  <!-- VALIDATION FOOTPRINT -->
+  <div class="block">
+    <div class="lbl">VALIDATION FOOTPRINT</div>
+    <p class="sm" style="line-height:2.2;">
+      — Applied in infrastructure budget validation systems<br>
+      — Used in multi-party execution approval environments<br>
+      — Integrated into high-risk operational workflows
+    </p>
+    <p class="sm" style="margin-top:16px;">
+      Detailed system references available under NDA.
+    </p>
+  </div>
+
+  <!-- 9. SYSTEM MODEL -->
+  <div class="block">
+    <div class="lbl">SYSTEM MODEL</div>
+    <div class="arch">
+      <div class="anode">DECISION</div>
+      <div class="arr">→</div>
+      <div class="anode hi">EXECUTIA VALIDATION</div>
+      <div class="arr">→</div>
+      <div class="anode">EXECUTION</div>
+    </div>
+    <p class="signal" style="margin-top:10px;">MANUAL OVERRIDE: DISABLED &nbsp;·&nbsp; UNVALIDATED EXECUTION: NOT POSSIBLE</p>
+    <p class="sm" style="margin-top:12px;">
+      Bypassing validation is not possible within system architecture.
+    </p>
+    <p class="sm" style="margin-top:6px;">
+      Designed for compatibility with institutional and regulatory system standards.
+    </p>
+  </div>
+
+  <!-- 10. SCOPE -->
+  <div class="block">
+    <div class="lbl">INSTITUTIONAL SCOPE</div>
+    <h2>Applies where errors cannot be tolerated</h2>
+    <p class="sm" style="line-height:2.2;">
+      — Governments<br>
+      — Energy systems<br>
+      — Financial infrastructure<br>
+      — Defense
+    </p>
+    <p class="sm" style="margin-top:14px;">
+      Also applicable to enterprise systems operating at scale.
+    </p>
+    <div style="border-top:var(--border); margin-top:24px; padding-top:20px;">
+      <div class="lbl">COMPATIBLE WITH</div>
+      <p class="sm" style="line-height:2.2;">
+        — NATO-aligned systems<br>
+        — EU regulatory frameworks<br>
+        — ISO structures<br>
+        — SWIFT-like infrastructures
+      </p>
+    </div>
+  </div>
+
+  <!-- 11. STATUS -->
+  <div class="block">
+    <div class="lbl">SYSTEM STATUS</div>
+    <p class="sm mono" style="line-height:2.4; margin-bottom:16px;">
+      — Active deployment in infrastructure systems<br>
+      — Validated in EU infrastructure execution environments<br>
+      — Validated in 120+ execution scenarios<br>
+      — 94.7% failure detection accuracy<br>
+      — Deterministic constraint enforcement
+    </p>
+    <p class="sm">Execution audits available.</p>
+  </div>
+
+  <!-- 12. IP -->
+  <div class="block">
+    <div class="lbl">INTELLECTUAL PROPERTY</div>
+    <p class="sm mono" style="line-height:2.2;">
+      EXECUTIA™ — Trademark claimed 2026<br>
+      PCT Patent Application: PCT/IB2026/050141<br>
+      Status: Pending<br>
+      Execution Integrity Layer — Filed 2026
+    </p>
+  </div>
+
+  <!-- 13. OPERATOR -->
+  <div class="block">
+    <div class="lbl">SYSTEM OPERATOR</div>
+    <p class="lead" style="margin-bottom:10px;">
+      Developed by operators with multi-decade experience
+      in large-scale execution systems.
+    </p>
+    <p class="sm">
+      Background includes infrastructure, energy, and cross-border project execution.
+    </p>
+    <a href="https://www.linkedin.com/in/sandis-boiko-189405281" class="c-link" style="margin-top:16px;">
+      &gt; OPEN OPERATOR PROFILE (LINKEDIN)
+    </a>
+  </div>
+
+  <!-- 14. CTA -->
+  <div class="block">
+    <div class="lbl">REQUEST EXECUTION BRIEFING</div>
+    <p class="lead" style="margin-bottom:8px;">
+      Execution audit determines system exposure to uncontrolled failure.
+    </p>
+    <p class="sm" style="margin-bottom:20px;">
+      Initial audit establishes execution integrity baseline. No integration required.
+    </p>
+    <button onclick="window.location.href='https://execution.executia.io/#consultation'" class="c-link" style="background:none;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;padding:0;">
+      &gt; REQUEST EXECUTION AUDIT &rarr;
+    </button>
+    <div class="cta-row" style="margin-top:20px;">
+      <a href="https://execution.executia.io"
+         onclick="go(event,'https://execution.executia.io')"
+         class="btn btn-inv">&gt; RUN EXECUTION AUDIT</a>
+      <a href="https://www.executia.io/institutional"
+         class="btn">&gt; INSTITUTIONAL LAYER</a>
+    </div>
+    <p class="sm" style="margin-top:10px;">
+      Execution audit reveals existing failure paths before enforcement. No integration required.
+    </p>
+  </div>
+
+  <!-- 15. FINAL -->
+  <div class="block" style="border-top: 3px solid var(--black); border-bottom: 3px solid var(--black); padding: 52px 0;">
+    <p class="mono" style="font-weight:700; font-size:13px; letter-spacing:0.1em; margin-bottom:16px;">STATUS: NON-OPTIONAL</p>
+    <p style="font-size: clamp(18px, 2.5vw, 26px); font-weight:700; line-height:1.4; max-width:640px; letter-spacing:-0.01em;">
+      EXECUTIA is the Standard of Execution.
+    </p>
+    <p class="lead" style="margin-top:12px;">Not a product. Not a methodology.</p>
+    <p class="lead" style="margin-top:6px; font-weight:600;">A system-layer that enforces correct execution.</p>
+    <p class="sm" style="margin-top:12px;">Deviation is not possible.</p>
+    <p class="signal" style="margin-top:8px;">Integration reference architecture available upon request.</p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="foot-row">
+    <div class="foot-col">
+      <p>EXECUTIA™ — STANDARD OF EXECUTION</p>
+      <p>PCT/IB2026/050141 — STATUS: PENDING</p>
+    </div>
+    <div class="foot-col">
+      <a href="https://execution.executia.io"
+         onclick="go(event,'https://execution.executia.io')">&gt; EXECUTION_LAYER</a>
+      <a href="https://www.executia.io/institutional">&gt; INSTITUTIONAL_LAYER</a>
+      <a href="#" onclick="var e=atob('aW5mb0BleGVjdXRpYS5pbw==');window.location.href='mai'+'lto:'+e;return false;" id="idx-email-footer">&gt; <span id="idx-email-span">info&#64;executia.io</span></a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-c
+<script>
+function go(e, url) {
+  if (e && e.preventDefault) e.preventDefault();
+  window.location.href = 'https://execution.executia.io/#consultation';
+}
+</script>
+</body>
+</html>
