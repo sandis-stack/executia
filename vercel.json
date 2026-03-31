@@ -1,8 +1,0 @@
-{
-  "routes": [
-    { "src": "/execution", "dest": "/execution.html" },
-    { "src": "/institutional", "dest": "/institutional.html" },
-    { "src": "/request", "dest": "/request.html" },
-    { "src": "/api/send-email", "dest": "/api/send-email.js" }
-  ]
-}
