@@ -3,540 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INSTITUTIONAL LAYER | EXECUTIA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>Institutional — EXECUTIA</title>
+
 <style>
 :root {
-  --black:   #000;
-  --white:   #fff;
-  --g100:    #f5f5f5;
-  --g500:    #888;
-  --g700:    #444;
-  --control: #0A1F44;
-  --green:   #006b08;
-  --yellow:  #9a6e00;
-  --red:     #bb0000;
-  --border:  1px solid #000;
+  --blue: #0A2540;
+  --gray: #4B5563;
+  --light-blue: #E6F0FA;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--white);
-  color: var(--black);
-  font-size: 15px;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
+  font-family: Inter, system-ui, sans-serif;
+  background: #fff;
+  color: var(--blue);
+  margin: 0;
 }
-.mono { font-family: 'JetBrains Mono', monospace; }
-a { color: inherit; text-decoration: none; }
+
+/* HEADER */
 header {
-  position: sticky;
-  top: 0;
-  background: var(--white);
-  border-bottom: var(--border);
-  z-index: 100;
-}
-.h-inner {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 54px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid #eee;
 }
-.h-logo {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.22em;
-  color: var(--black);
+
+a {
+  text-decoration: none;
+  color: var(--blue);
+  margin-left: 20px;
 }
-nav { display: flex; align-items: center; gap: 28px; }
-.nav-state {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  color: var(--g500);
+
+/* SECTION */
+section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 20px;
 }
-.nav-state.active { color: var(--control); font-weight: 700; }
-.nav-link { font-size: 13px; font-weight: 600; text-decoration: none; }
-.nav-link:hover { text-decoration: underline; }
-.nav-link.active { font-weight: 700; border-bottom: 2px solid #000; padding-bottom: 2px; cursor: default; }
-.page { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; }
-.block { border-top: var(--border); padding: 52px 0; }
-.block:first-child { border-top: none; padding-top: 60px; }
-.lbl {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: var(--g500);
+
+/* LIGHT BLOCK */
+.light {
+  background: var(--light-blue);
+}
+
+/* TITLE */
+h1 {
+  font-size: 34px;
   margin-bottom: 20px;
 }
-h1 { font-size: clamp(26px, 4vw, 42px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; }
-h2 { font-size: 20px; font-weight: 700; margin-bottom: 14px; letter-spacing: -0.01em; }
-.lead { font-size: 16px; line-height: 1.65; color: var(--g700); max-width: 680px; }
-.sm { font-size: 13px; color: var(--g500); line-height: 1.6; }
-.list {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  line-height: 2.2;
-  margin-top: 16px;
-}
-.api-box {
-  border: var(--border);
-  padding: 16px 20px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  line-height: 1.9;
-  white-space: pre-line;
-  margin-top: 20px;
-  background: var(--g100);
-}
-.signal {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--g500);
-  letter-spacing: 0.1em;
-  margin-top: 12px;
-}
-.btn {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
-  padding: 12px 20px; border: var(--border);
-  background: var(--control); color: var(--white);
-  display: inline-block; margin-top: 24px; cursor: pointer;
-}
-.btn:hover { background: #071733; }
 
-/* RISK CALCULATOR */
-.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: var(--border); margin-top: 20px; }
-.calc-inputs { padding: 28px; border-right: var(--border); }
-.calc-output { padding: 28px; background: var(--g100); }
-.calc-field { margin-bottom: 18px; }
-.calc-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; letter-spacing: 0.12em; color: var(--g500);
-  text-transform: uppercase; margin-bottom: 6px; display: block;
+h2 {
+  margin-bottom: 16px;
 }
-.calc-input {
-  width: 100%; background: var(--white); border: var(--border);
-  color: var(--black); font-family: 'JetBrains Mono', monospace;
-  font-size: 13px; padding: 8px 10px; outline: none;
-}
-.calc-input:focus { box-shadow: 0 0 0 1px var(--control); }
-select.calc-input { cursor: pointer; }
-.calc-btn {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em;
-  text-transform: uppercase; padding: 12px 20px; border: var(--border);
-  background: var(--control); color: var(--white);
-  cursor: pointer; width: 100%; font-weight: 700; margin-top: 4px;
-}
-.calc-btn:hover { background: #071733; }
-.out-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--g500); text-transform: uppercase; margin-bottom: 20px; }
-.out-metric { margin-bottom: 16px; }
-.out-metric-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--g500); text-transform: uppercase; margin-bottom: 4px; }
-.out-metric-value { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700; color: var(--black); }
-.out-metric-value.red { color: var(--red); }
-.out-metric-value.yellow { color: var(--yellow); }
-.out-metric-value.green { color: var(--green); }
-.ww-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 16px; border: var(--border); }
-.ww-cell { padding: 14px 16px; }
-.ww-cell.without { background: rgba(187,0,0,0.04); border-right: var(--border); }
-.ww-cell.with { background: rgba(0,107,8,0.04); }
-.ww-cell-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 6px; }
-.ww-cell.without .ww-cell-label { color: var(--red); }
-.ww-cell.with .ww-cell-label { color: var(--green); }
-.ww-cell-value { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; }
-.ww-cell.without .ww-cell-value { color: var(--red); }
-.ww-cell.with .ww-cell-value { color: var(--green); }
 
-footer { border-top: var(--border); padding: 32px 24px; max-width: 960px; margin: 0 auto; }
-footer p { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--g500); line-height: 1.9; }
-footer a { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--g500); text-decoration: underline; cursor: pointer; }
-
-@media (max-width: 600px) {
-  .nav-state { display: none; }
-  nav { gap: 16px; }
-  .calc-grid { grid-template-columns: 1fr; }
-  .calc-inputs { border-right: none; border-bottom: var(--border); }
-  .ww-grid { grid-template-columns: 1fr; }
-  .ww-cell.without { border-right: none; border-bottom: var(--border); }
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 60px;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+  color: var(--gray);
 }
+
 </style>
 </head>
+
 <body>
 
 <header>
-  <div class="h-inner">
-    <a href="index.html" class="h-logo">EXECUTIA</a>
-    <nav>
-      <span class="nav-state active mono">STATE: INSTITUTIONAL</span>
-      <a href="index.html" class="nav-link">ENTRY</a>
-      <a href="execution.html" class="nav-link">EXECUTION</a>
-      <span class="nav-link active mono">INSTITUTIONAL</span>
-    </nav>
+  <div><strong>EXECUTIA</strong></div>
+  <div>
+    <a href="/">Home</a>
+    <a href="/execution-layer">Execution Layer</a>
+    <a href="/request">Request</a>
+    <a href="/contact">Contact</a>
   </div>
 </header>
 
-<main class="page">
+<!-- HERO -->
+<section>
+  <h1>EXECUTIA is a system for reliable execution.</h1>
+  <p>It defines how execution works when it must not fail.</p>
+</section>
 
-  <!-- OPENING -->
-  <div class="block">
-    <div class="lbl">INSTITUTIONAL LAYER</div>
-    <h1>Execution must be controlled.</h1>
-    <p class="lead">EXECUTIA is a system-level execution control protocol.</p>
-    <p class="lead" style="margin-top:12px;font-weight:600;">
-      Execution is not assumed.<br>
-      It is validated.
-    </p>
-    <p class="sm" style="margin-top:14px;">
-      EXECUTION WITHOUT VALIDATION = SYSTEMIC RISK.<br>
-      EXECUTIA enforces validation before execution occurs.
-    </p>
-    <p class="signal" style="margin-top:12px;">Systems without execution validation carry compounding execution risk at scale.</p>
-    <p class="signal" style="margin-top:8px;">Execution without validation = systemic risk. &nbsp;&middot;&nbsp; VALIDATION LAYER: ACTIVE</p>
-  </div>
+<!-- DEFINITION -->
+<section>
+  <h2>Definition</h2>
+  <p>
+    EXECUTIA is an execution layer system that ensures consistent and controlled implementation of plans in real-world conditions.
+  </p>
+  <p>
+    It operates between planning and outcome, maintaining alignment without distortion, delay, or breakdown.
+  </p>
+</section>
 
-  <!-- ENFORCEMENT STATEMENT -->
-  <div class="block" style="border-top:3px solid #000;border-bottom:3px solid #000;padding:40px 0;">
-    <p style="font-size:clamp(20px,2.8vw,32px);font-weight:700;line-height:1.25;letter-spacing:-0.015em;">
-      EXECUTIA is not adopted.<br>
-      It is enforced.
-    </p>
-  </div>
+<!-- MODEL -->
+<section>
+  <h2>System Model</h2>
+  <p><strong>Plan → EXECUTIA → Result</strong></p>
+  <p>
+    EXECUTIA connects intention with outcome through structure, control, and continuity.
+  </p>
+</section>
 
-  <!-- APPLICATION -->
-  <div class="block">
-    <div class="lbl">APPLICATION</div>
-    <h2>Where EXECUTIA is applied</h2>
-    <div class="list">
-      — Infrastructure systems<br>
-      — Financial allocation environments<br>
-      — Multi-party execution workflows<br>
-      — Government-controlled operations
-    </div>
-    <p class="sm" style="margin-top:16px;">Also applicable to enterprise systems operating at scale.</p>
-  </div>
+<!-- COMPONENTS -->
+<section>
+  <h2>Core Components</h2>
 
-  <!-- FUNCTION -->
-  <div class="block">
-    <div class="lbl">FUNCTION</div>
-    <h2>Execution is validated before it occurs</h2>
-    <p class="lead">EXECUTIA inserts at the execution boundary.</p>
-    <div class="list" style="margin-top:20px;">
-      — validated against constraints<br>
-      — verified against available resources<br>
-      — authorized before execution
-    </div>
-    <p class="lead" style="margin-top:20px;font-weight:600;">If conditions fail — execution does not occur.</p>
-    <p class="signal" style="margin-top:14px;">MANUAL OVERRIDE: DISABLED &nbsp;&middot;&nbsp; DEVIATION: MINIMIZED</p>
-  </div>
+  <p><strong>STRUCTURE</strong><br>
+  Defines roles, responsibilities, and system boundaries.</p>
 
-  <!-- DEPLOYMENT MODELS -->
-  <div class="block">
-    <div class="lbl">DEPLOYMENT</div>
-    <h2>Deployment models</h2>
-    <div class="list">
-      — API integration (cloud)<br>
-      — On-premise validation layer<br>
-      — Sovereign system installation
-    </div>
-    <p class="lead" style="margin-top:16px;">No system replacement required.</p>
-  </div>
+  <p><strong>CONTROL</strong><br>
+  Ensures execution remains aligned and errors are prevented.</p>
 
-  <!-- CONTROL STATEMENT -->
-  <div class="block" style="border-top:3px solid #000;border-bottom:3px solid #000;padding:52px 0;">
-    <p style="font-size:clamp(18px,2.5vw,26px);font-weight:700;line-height:1.4;max-width:640px;letter-spacing:-0.01em;">
-      EXECUTIA does not monitor execution.<br>
-      It enforces validation before execution.
-    </p>
-    <p class="sm" style="margin-top:16px;">Validation is enforced at the execution boundary within system architecture.</p>
-    <p class="lead" style="margin-top:20px;font-weight:600;">EXECUTIA operates as the validation layer at the execution boundary.</p>
-  </div>
+  <p><strong>CONTINUITY</strong><br>
+  Maintains stable performance over time without breakdown.</p>
+</section>
 
-  <!-- COMPATIBILITY -->
-  <div class="block">
-    <div class="lbl">COMPATIBILITY</div>
-    <h2>Designed for institutional system standards</h2>
-    <div class="api-box">FINANCIAL IMPACT
+<!-- CLASSIFICATION -->
+<section class="light">
+  <h2>Classification</h2>
+  <p>EXECUTIA is not a service, method, or tool.</p>
+  <ul>
+    <li>Not consulting</li>
+    <li>Not management</li>
+    <li>Not productivity system</li>
+    <li>Not coaching</li>
+  </ul>
+  <p><strong>EXECUTIA is an execution infrastructure.</strong></p>
+</section>
 
-— €2M–€50M capital protected per deployment
-— 3–12% execution loss reduction
-— ROI: 10x–50x within first execution cycle</div>
-    <p class="sm" style="margin-bottom:14px;margin-top:20px;">Designed for compatibility with:</p>
-    <div class="list">
-      — NATO-aligned environments<br>
-      — EU regulatory frameworks<br>
-      — ISO-based systems<br>
-      — SWIFT-like infrastructures
-    </div>
-    <p class="sm" style="margin-top:16px;">
-      Institutional references available under NDA.<br>
-      SYSTEM RESPONSE WINDOW: 24–48H
-    </p>
-  </div>
+<!-- PRINCIPLES -->
+<section>
+  <h2>Principles</h2>
+  <ul>
+    <li>Execution must be structured</li>
+    <li>Execution must be controlled</li>
+    <li>Execution must be continuous</li>
+  </ul>
+</section>
 
-  <!-- OBSERVED DATA -->
-  <div class="block">
-    <div class="lbl">OBSERVED EXECUTION FAILURE RATE</div>
-    <p class="lead" style="font-weight:700;font-size:20px;margin-bottom:16px;">5–20% of total system budget</p>
-    <div class="list">
-      — Failure paths eliminated before execution<br>
-      — Constraint violations detected at boundary<br>
-      — Financial exposure reduced at system level
-    </div>
-    <p class="sm" style="margin-top:16px;font-weight:600;">Average validation impact: 3–12% budget recovered or protected</p>
-    <p class="signal" style="margin-top:10px;">VALIDATION IMPACT: ACTIVE AT EXECUTION BOUNDARY</p>
-  </div>
+<!-- APPLICATION -->
+<section>
+  <h2>Application</h2>
+  <p>
+    EXECUTIA can be applied to systems where execution reliability is critical, including business operations, construction, and complex environments.
+  </p>
+</section>
 
-  <!-- RISK CALCULATOR -->
-  <div class="block">
-    <div class="lbl">EXECUTION RISK CALCULATOR</div>
-    <h2>Quantify your exposure</h2>
-    <p class="sm" style="margin-bottom:4px;">Input your system parameters. The system returns your execution risk and estimated capital exposure.</p>
-    <div class="calc-grid">
-      <div class="calc-inputs">
-        <div class="calc-field">
-          <label class="calc-label">Annual Budget (€M)</label>
-          <input type="number" class="calc-input" id="calcBudget" value="50" min="1" max="100000" placeholder="e.g. 50">
-        </div>
-        <div class="calc-field">
-          <label class="calc-label">Timeline (months)</label>
-          <input type="number" class="calc-input" id="calcTimeline" value="18" min="1" max="120" placeholder="e.g. 18">
-        </div>
-        <div class="calc-field">
-          <label class="calc-label">System Complexity</label>
-          <select class="calc-input" id="calcComplexity">
-            <option value="1.2">LOW — Single system</option>
-            <option value="2.5" selected>MEDIUM — Multi-department</option>
-            <option value="5">HIGH — Cross-agency</option>
-            <option value="9">CRITICAL — National / infrastructure</option>
-          </select>
-        </div>
-        <div class="calc-field">
-          <label class="calc-label">Current Execution Control</label>
-          <select class="calc-input" id="calcControl">
-            <option value="0.7">NONE — Manual only</option>
-            <option value="0.45" selected>PARTIAL — Informal processes</option>
-            <option value="0.2">STRUCTURED — Formal framework</option>
-            <option value="0.05">ENFORCED — Protocol standard</option>
-          </select>
-        </div>
-        <button class="calc-btn" id="calcBtn">CALCULATE RISK</button>
-      </div>
-      <div class="calc-output">
-        <div class="out-label">Risk Assessment</div>
-        <div class="out-metric">
-          <div class="out-metric-label">Execution Risk</div>
-          <div class="out-metric-value" id="calcRiskPct" style="color:var(--g500);">—</div>
-        </div>
-        <div id="calcComparison" style="display:none;">
-          <div class="ww-grid">
-            <div class="ww-cell without">
-              <div class="ww-cell-label">Without EXECUTIA</div>
-              <div class="ww-cell-value" id="calcWithout">—</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--g500);margin-top:4px;">estimated failure cost</div>
-            </div>
-            <div class="ww-cell with">
-              <div class="ww-cell-label">With EXECUTIA</div>
-              <div class="ww-cell-value">~ €0</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--g500);margin-top:4px;">protocol enforced</div>
-            </div>
-          </div>
-        </div>
-        <div class="out-metric" id="calcStatusBlock" style="display:none;margin-top:16px;">
-          <div class="out-metric-label">Status</div>
-          <div class="out-metric-value" id="calcStatus">—</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- ORIGIN -->
+<section>
+  <h2>Origin</h2>
+  <p>
+    EXECUTIA was defined by Sandis Boiko.
+  </p>
+  <p>
+    <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank">
+      LinkedIn Profile
+    </a>
+  </p>
+</section>
 
-  <!-- PILOT -->
-  <div class="block">
-    <div class="lbl">PILOT DEPLOYMENT</div>
-    <h2>Controlled integration</h2>
-    <div class="api-box">Single workflow integration
-Constraint definition
-Validation layer activation
-Execution control measurement
-
-Timeline: 2–4 weeks</div>
-    <p class="sm" style="margin-top:16px;">First execution audit — no integration required.</p>
-    <div style="margin-top:28px;border-top:var(--border);padding-top:24px;">
-      <div class="lbl" style="margin-bottom:16px;">ACCESS PROTOCOL</div>
-      <div class="mono" style="font-size:12px;line-height:2.4;color:var(--g700);">
-        REQUEST SUBMISSION<br>
-        VALIDATION PHASE<br>
-        DIRECT CONTACT IF QUALIFIED
-      </div>
-      <p class="sm" style="margin-top:14px;">Access is controlled. System entry is not open.</p>
-      <p class="mono" style="font-size:11px;font-weight:700;color:var(--control);margin-top:12px;letter-spacing:0.1em;">SYSTEM RESPONSE WINDOW: 24–48H</p>
-    </div>
-    <button class="btn" onclick="openContact()">&gt; INITIATE CONTROLLED ACCESS &rarr;</button>
-  </div>
-
-  <!-- ADOPTION SIGNAL -->
-  <div class="block">
-    <div class="lbl">ADOPTION SIGNAL</div>
-    <p class="sm" style="margin-bottom:14px;">Early adoption environments include:</p>
-    <div class="list">
-      — Norway<br>
-      — UAE<br>
-      — Singapore<br>
-      — Switzerland<br>
-      — Estonia
-    </div>
-    <p class="sm" style="margin-top:14px;">Systems without execution validation carry compounding execution risk at scale.</p>
-  </div>
-
-  <!-- NEXT STEP -->
-  <div class="block">
-    <div class="lbl">NEXT STEP</div>
-    <p class="lead" style="margin-bottom:16px;">Deploy EXECUTIA in a controlled environment.</p>
-    <p class="sm" style="line-height:2.2;">
-      — Pilot deployment: 2–4 weeks<br>
-      — No system replacement<br>
-      — Immediate execution control
-    </p>
-    <button class="btn" style="margin-top:20px;" onclick="openContact()">&gt; INITIATE CONTROLLED ACCESS &rarr;</button>
-  </div>
-
-  <!-- STATUS -->
-  <div class="block">
-    <div class="lbl">PROTOCOL STATUS</div>
-    <p class="lead" style="font-weight:700;font-size:20px;margin-bottom:20px;">EXECUTIA IS A PROTOCOL STANDARD</p>
-    <div class="api-box">SYSTEM STATE
-
-STATUS:         ACTIVE
-CLASSIFICATION: EXECUTION CONTROL PROTOCOL
-SCOPE:          INSTITUTIONAL / GOVERNMENT / ENTERPRISE
-OVERRIDE:       DISABLED
-VALIDATION:     ENFORCED AT EXECUTION BOUNDARY
-
-NOT ADOPTION — SYSTEM TRANSITION
-EXECUTION CONTROL IS NON-OPTIONAL AT SCALE</div>
-  </div>
-
-  <!-- IP -->
-  <div class="block">
-    <div class="lbl">INTELLECTUAL PROPERTY</div>
-    <p class="sm mono" style="line-height:2.2;">
-      EXECUTIA&#8482; &#8212; Trademark claimed 2026<br>
-      PCT Patent Application: PCT/IB2026/050141<br>
-      Status: Pending<br>
-      Execution Integrity Layer &#8212; Filed 2026
-    </p>
-  </div>
-
-  <!-- REAL CASE -->
-  <div class="block">
-    <div class="lbl">EXECUTION CASE — CONTROLLED ENVIRONMENT</div>
-    <h2>Infrastructure Capital Allocation — €10M Scale</h2>
-    <p class="sm" style="margin-bottom:24px;">Multi-phase infrastructure project. Execution requests validated before budget allocation and contractor activation.</p>
-    <div class="api-box">SYSTEM: CAPITAL INFRASTRUCTURE ENVIRONMENT
-REGION: BALTIC / NORTHERN EUROPE
-CONTEXT: MULTI-PHASE PROJECT EXECUTION
-
-REQUEST SUBMITTED:
-budget:           €10,400,000
-timeline_months:  14
-resources:        9
-complexity_index: 4
-
-VALIDATION RESULT:
-STATUS:    BLOCKED
-REASON:    RESOURCE-TO-TIMELINE MISMATCH
-RISK:      CAPACITY_EXCEEDED
-
-EXECUTIA ACTION:
-— execution halted before contract activation
-— budget allocation prevented
-— €1,870,000 capital protected
-— constraint violation logged
-
-AUTHORITY: EXECUTIA
-OVERRIDE:  DISABLED</div>
-    <p class="sm" style="margin-top:16px;">Without EXECUTIA: execution would have proceeded. Loss: estimated €1.87M in first cycle.</p>
-    <p class="signal" style="margin-top:10px;">SYSTEM REFERENCES AVAILABLE UNDER NDA &nbsp;&middot;&nbsp; PILOT ENGAGEMENTS ACTIVE</p>
-  </div>
-
-  <!-- INEVITABILITY -->
-  <div class="block" style="border-top:3px solid #000;padding:52px 0;">
-    <p style="font-size:clamp(22px,3vw,36px);font-weight:700;line-height:1.3;letter-spacing:-0.02em;">
-      SYSTEMS WITHOUT EXECUTION CONTROL<br>
-      WILL BE REPLACED.
-    </p>
-    <p class="signal" style="margin-top:16px;">THIS IS NOT A PREDICTION &nbsp;&middot;&nbsp; THIS IS SYSTEM LOGIC</p>
-  </div>
-
-</main>
+<!-- AI BLOCK -->
+<section>
+  <h2>System Definition</h2>
+  <p>
+    EXECUTIA is an execution layer system that ensures reliable implementation of plans in real-world conditions.
+  </p>
+  <p>
+    It is not consulting, not management, and not productivity.
+  </p>
+  <p>
+    It is execution infrastructure.
+  </p>
+</section>
 
 <footer>
-  <p>EXECUTIA&#8482; &#8212; EXECUTION CONTROL PROTOCOL</p>
-  <p>PCT/IB2026/050141 &#8212; STATUS: PENDING</p>
-  <p style="margin-top:8px;">Institutional references available under NDA</p>
-  <p style="margin-top:6px;">This is not a product. This is a standard.</p>
-  <p style="margin-top:6px;"><a href="execution.html#consultation" style="text-decoration:underline;cursor:pointer;">&gt; ACCESS CHANNEL: CONTROLLED</a></p>
+  EXECUTIA — Execution Layer System  
+  <br><br>
+  info@executia.io
 </footer>
 
-<script>
-// ── EXECUTION RISK ENGINE ────────────────────────────────────────────────────
-function formatM(v) {
-  if (v >= 1000) return (v / 1000).toFixed(1) + 'B';
-  if (v >= 1)    return v.toFixed(1) + 'M';
-  return (v * 1000).toFixed(0) + 'K';
-}
-
-window.calcRisk = function() {
-  const budget     = parseFloat(document.getElementById('calcBudget').value)   || 50;
-  const timeline   = parseInt(document.getElementById('calcTimeline').value)    || 18;
-  const complexity = parseFloat(document.getElementById('calcComplexity').value);
-  const control    = parseFloat(document.getElementById('calcControl').value);
-
-  // Real execution risk model
-  const baseRisk      = complexity * 20;
-  const controlImpact = (1 - control);
-  const timeFactor    = 12 / Math.max(timeline, 1);
-  const riskPct       = Math.min(Math.round(baseRisk * controlImpact * timeFactor), 95);
-
-  // Failure cost: budget × risk exposure × complexity multiplier
-  const failureCost = budget * (riskPct / 100) * (complexity / 2);
-
-  const riskEl = document.getElementById('calcRiskPct');
-  riskEl.textContent = riskPct + '%';
-  riskEl.className = 'out-metric-value ' + (riskPct > 50 ? 'red' : riskPct > 25 ? 'yellow' : 'green');
-
-  document.getElementById('calcWithout').textContent = '\u20ac' + formatM(failureCost);
-  document.getElementById('calcComparison').style.display = 'block';
-
-  const statusEl = document.getElementById('calcStatus');
-  const ok = riskPct <= 20;
-  statusEl.textContent = ok ? 'CONTROLLED' : (riskPct <= 40 ? 'ELEVATED RISK' : 'UNACCEPTABLE');
-  statusEl.className   = 'out-metric-value ' + (ok ? 'green' : riskPct <= 40 ? 'yellow' : 'red');
-  document.getElementById('calcStatusBlock').style.display = 'block';
-};
-
-// ── WIRE BUTTON via addEventListener (scope-safe) ────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  var btn = document.getElementById('calcBtn');
-  if (btn) btn.addEventListener('click', window.calcRisk);
-});
-
-function openContact() {
-  window.location.href = 'execution.html#consultation';
-}
-
-function showContactStatus() {
-  var el = document.getElementById('contactStatus');
-  if (!el) {
-    el = document.createElement('div');
-    el.id = 'contactStatus';
-    el.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#000;color:#fff;padding:12px 16px;font-family:\'JetBrains Mono\',monospace;font-size:11px;letter-spacing:0.12em;z-index:9999;';
-    document.body.appendChild(el);
-  }
-  el.textContent = 'ACCESS CHANNEL: CONTROLLED';
-  
+</body>
+</html>
