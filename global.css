@@ -489,38 +489,83 @@ footer a:hover, footer button:hover { color: var(--primary); }
   .arch { flex-direction: column; align-items: flex-start; }
 }
 
-/* ── DARK MODE (SYSTEM MODE) ── */
-/* EXECUTIA dark = institutional, not black. Never #000. */
+/* ── DARK MODE V3 — COMMAND CENTER ── */
+/* EXECUTIA dark = operating environment, not UI theme. Never #000. */
 body.dark {
   background: #050A18;
   color: #D1D5DB;
+  cursor: default; /* enterprise default — crosshair only on /demo via inline */
 }
 
-body.dark header          { background: #070F25; border-color: #1E293B; }
-body.dark .hud            { background: #030A1A; border-color: #1E293B; }
+/* Focus zone — eye goes to content automatically */
+body.dark::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.04), transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Edge darkness — control room depth */
+body.dark::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.4) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Floating command bar */
+body.dark header {
+  background: rgba(6,15,42,0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transform: translateZ(0); /* GPU acceleration */
+}
+
+body.dark .hud            { background: #030A1A; border-color: #1E293B; animation: breathe 6s infinite ease-in-out; }
 body.dark .hud-item       { color: #64748B; }
 body.dark .hud-item span  { color: #94A3B8; }
 body.dark .block          { border-color: #1E293B; }
 body.dark .api-box        { background: #020617; border-color: #1E293B; color: #94A3B8; box-shadow: 0 1px 0 rgba(255,255,255,0.02); }
 body.dark .arch-node      { border-color: #1E293B; color: #94A3B8; }
-body.dark .arch-node.active { border-color: #D1D5DB; background: rgba(209,213,219,0.04); color: #D1D5DB; }
+body.dark .arch-node.active { border-color: #D1D5DB; background: rgba(209,213,219,0.04); color: #D1D5DB; box-shadow: 0 0 12px rgba(209,213,219,0.15); }
 body.dark .list           { color: #64748B; }
 body.dark .signal         { color: #64748B; }
-body.dark .lead           { color: #94A3B8; }
+
+/* Text focus system — hierarchy through opacity */
+body.dark .lead           { color: #94A3B8; opacity: 0.85; }
+body.dark p               { opacity: 0.85; }
+body.dark h1, body.dark h2 { color: #F1F5F9; opacity: 1; }
 body.dark .sm             { color: #64748B; }
-body.dark h1, body.dark h2 { color: #F1F5F9; }
+
 body.dark footer          { border-color: #1E293B; }
 body.dark footer p,
 body.dark footer a,
 body.dark footer button   { color: #64748B; }
-body.dark .btn            { background: #D1D5DB; color: #050A18; border-color: #334155; }
-body.dark .btn:hover      { background: #F1F5F9; }
+
+/* Button as energy source */
+body.dark .btn {
+  background: #D1D5DB;
+  color: #050A18;
+  border-color: #334155;
+  animation: pulse 4s infinite ease-in-out;
+}
+body.dark .btn:hover {
+  background: #F1F5F9;
+  box-shadow: 0 0 18px rgba(255,255,255,0.12);
+  animation: none;
+}
 body.dark .btn-ghost      { background: transparent; color: #94A3B8; border-color: #1E293B; }
 body.dark .btn-ghost:hover { background: rgba(255,255,255,0.04); }
 body.dark .h-logo         { color: #D1D5DB; }
 body.dark .nav-link       { color: #64748B; }
-body.dark .nav-link.active,
-body.dark .nav-link:hover { color: #D1D5DB; border-color: #D1D5DB; }
+body.dark .nav-link.active { color: #D1D5DB; border-color: #D1D5DB; box-shadow: 0 0 12px rgba(209,213,219,0.15); }
+body.dark .nav-link:hover { color: #D1D5DB; }
 body.dark .nav-state.on   { color: #94A3B8; }
 body.dark .payload        { background: #020617; border-color: #1E293B; color: #94A3B8; }
 body.dark .payload input  { color: #D1D5DB; border-bottom-color: #334155; }
@@ -534,9 +579,30 @@ body.dark .metric-box     { border-color: #1E293B; }
 body.dark .status-record  { border-color: #1E293B; background: #020617; }
 body.dark .status-badge   { border-color: #1E293B; }
 
-/* Dark mode focus + selection */
+/* Dark focus + selection */
 body.dark :focus-visible  { box-shadow: 0 0 0 2px rgba(209,213,219,0.3); }
 body.dark ::selection     { background: rgba(209,213,219,0.15); }
+
+/* System breathing — HUD feels alive */
+@keyframes breathe {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0.96; }
+}
+
+/* Button energy pulse */
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 12px rgba(255,255,255,0.08); }
+  50%     { box-shadow: 0 0 16px rgba(255,255,255,0.12); }
+}
+
+/* System identity signal on logo */
+body.dark .h-logo::after {
+  content: " / CONTROL ENVIRONMENT";
+  font-size: 9px;
+  color: #64748B;
+  margin-left: 6px;
+  letter-spacing: .1em;
+}
 
 /* Dark toggle button */
 .dark-toggle {

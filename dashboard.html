@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA — Command Center</title>
+<meta name="description" content="EXECUTIA Command Center. Live payment authorization control. Monitor, validate, enforce.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<style>
+
+/* ── COMMAND CENTER OVERRIDES ── */
+body {
+  background: #050A18;
+  color: #D1D5DB;
+  cursor: crosshair;
+  overflow-x: hidden;
+}
+
+/* Radial focus zone */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 15%, rgba(255,255,255,0.04), transparent 55%);
+  pointer-events: none;
+  z-index: -1;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 55%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Floating header */
+header {
+  background: rgba(6,15,42,0.75) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transform: translateZ(0);
+}
+
+header .h-logo { color: #D1D5DB; }
+header .h-logo::after {
+  content: " / CONTROL ENVIRONMENT";
+  font-size: 9px;
+  color: #64748B;
+  margin-left: 6px;
+  letter-spacing: .1em;
+}
+header .nav-link { color: #64748B; }
+header .nav-link:hover { color: #D1D5DB; }
+header .nav-link.active { color: #D1D5DB; }
+header .nav-state { color: #334155; }
+header .nav-state.on { color: #64748B; }
+
+/* HUD breathing */
+.hud {
+  background: #030A1A !important;
+  border-color: #1E293B !important;
+  animation: breathe 6s infinite ease-in-out;
+}
+.hud-item { color: #475569 !important; }
+.hud-item span { color: #94A3B8 !important; }
+
+@keyframes breathe {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.92; }
+}
+
+/* ── MAIN LAYOUT ── */
+.cmd-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+/* Metrics row */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 32px 0 24px;
+}
+
+.metric-box {
+  border: 1px solid #1E293B;
+  padding: 16px 20px;
+  background: rgba(2,6,23,0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-box::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+}
+
+.metric-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .16em;
+  color: #475569;
+  margin-bottom: 10px;
+}
+
+.metric-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: #D1D5DB;
+  line-height: 1;
+  transition: color .3s;
+}
+
+.metric-val.flash { color: #F1F5F9; }
+
+/* ── MAIN GRID ── */
+.cmd-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 16px;
+  align-items: start;
+}
+
+/* ── EXECUTION STREAM ── */
+.stream-wrap {
+  border: 1px solid #1E293B;
+  background: #020617;
+}
+
+.stream-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #1E293B;
+}
+
+.stream-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: #475569;
+}
+
+.stream-live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: #64748B;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #94A3B8;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+#streamLog {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.9;
+  color: #475569;
+  padding: 16px;
+  min-height: 320px;
+  max-height: 420px;
+  overflow-y: auto;
+  white-space: pre-line;
+}
+
+#streamLog .ev-blocked    { color: rgba(209,213,219,0.4); }
+#streamLog .ev-authorized { color: #64748B; }
+#streamLog .ev-review     { color: #64748B; opacity: .7; }
+#streamLog .ev-new        { color: #94A3B8; animation: fadeIn .4s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── RIGHT PANEL ── */
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Control panel */
+.control-wrap {
+  border: 1px solid #1E293B;
+  background: #020617;
+}
+
+.control-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #1E293B;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: #475569;
+}
+
+.control-body {
+  padding: 16px;
+}
+
+.ctrl-field {
+  margin-bottom: 14px;
+}
+
+.ctrl-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: #334155;
+  margin-bottom: 5px;
+}
+
+.ctrl-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #1E293B;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #D1D5DB;
+  padding: 6px 0;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.ctrl-input:focus { border-bottom-color: #94A3B8; }
+
+.ctrl-input::placeholder { color: #1E293B; }
+
+.engine-btn {
+  width: 100%;
+  padding: 13px;
+  background: #D1D5DB;
+  color: #050A18;
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  cursor: crosshair;
+  margin-top: 4px;
+  transition: background .2s, box-shadow .2s;
+  animation: ctrl-pulse 4s infinite ease-in-out;
+}
+
+@keyframes ctrl-pulse {
+  0%,100% { box-shadow: 0 0 10px rgba(255,255,255,0.06); }
+  50%      { box-shadow: 0 0 16px rgba(255,255,255,0.11); }
+}
+
+.engine-btn:hover { background: #F1F5F9; animation: none; box-shadow: 0 0 20px rgba(255,255,255,0.14); }
+.engine-btn:active { transform: scale(0.97); }
+.engine-btn:disabled { opacity: 0.35; cursor: default; animation: none; }
+
+/* Result panel */
+.result-wrap {
+  border: 1px solid #1E293B;
+  background: #020617;
+  min-height: 100px;
+  display: none;
+}
+
+.result-wrap.visible { display: block; }
+
+.result-header {
+  padding: 10px 16px;
+  border-bottom: 1px solid #1E293B;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: #475569;
+}
+
+#resultOut {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.9;
+  color: #64748B;
+  padding: 14px 16px;
+  white-space: pre-line;
+}
+
+#resultOut.blocked    { color: rgba(209,213,219,0.45); }
+#resultOut.authorized { color: #94A3B8; }
+
+/* System status bar */
+.sys-status {
+  border: 1px solid #1E293B;
+  background: #020617;
+  padding: 14px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  line-height: 2;
+  color: #334155;
+  white-space: pre-line;
+}
+
+/* Alert mode */
+@keyframes flash {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.85; }
+}
+
+body.alert-mode::before {
+  background: radial-gradient(circle at 50% 15%, rgba(255,255,255,0.07), transparent 50%);
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .cmd-grid { grid-template-columns: 1fr; }
+  .metrics-row { grid-template-columns: repeat(2, 1fr); }
+  .metric-val { font-size: 22px; }
+  #streamLog { min-height: 200px; max-height: 280px; }
+}
+
+@media (max-width: 480px) {
+  .metrics-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-inner">
+    <div>
+      <a href="/" class="h-logo">EXECUTIA</a>
+      <div class="mono" style="font-size:9px;letter-spacing:.14em;color:#4B5563;">PAYMENT CONTROL SYSTEM</div>
+    </div>
+    <nav>
+      <span id="navState" class="nav-state mono">STATE: CONTROL</span>
+      <a href="/demo"      class="nav-link">&gt; DEMO</a>
+      <a href="/execution" class="nav-link">EXECUTION</a>
+      <a href="/request"   class="nav-link">REQUEST</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hud">
+  <div class="hud-inner">
+    <div class="hud-item">SYSTEM: <span id="sysStatus">ACTIVE</span></div>
+    <div class="hud-item">MODE: <span>CONTROL</span></div>
+    <div class="hud-item">LATENCY: <span id="sysLatency">—</span></div>
+    <div class="hud-item">LAST UPDATE: <span id="sysTime">—</span></div>
+  </div>
+</div>
+
+<div class="cmd-page">
+
+  <!-- METRICS ROW -->
+  <div class="metrics-row">
+    <div class="metric-box">
+      <div class="metric-lbl">EXECUTIONS</div>
+      <div class="metric-val" id="mActive">—</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-lbl">BLOCKED</div>
+      <div class="metric-val" id="mBlocked">—</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-lbl">AUTHORIZED</div>
+      <div class="metric-val" id="mAuth">—</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-lbl">CAPITAL PROTECTED</div>
+      <div class="metric-val" id="mProtected">—</div>
+    </div>
+  </div>
+
+  <!-- COMMAND GRID -->
+  <div class="cmd-grid">
+
+    <!-- EXECUTION STREAM -->
+    <div class="stream-wrap">
+      <div class="stream-header">
+        <div class="stream-title">EXECUTION STREAM</div>
+        <div class="stream-live">
+          <div class="live-dot"></div>
+          LIVE
+        </div>
+      </div>
+      <div id="streamLog">CONNECTING TO EXECUTION REGISTRY...</div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- CONTROL PANEL -->
+      <div class="control-wrap">
+        <div class="control-header">EXECUTION CONTROL</div>
+        <div class="control-body">
+          <div class="ctrl-field">
+            <div class="ctrl-label">PAYMENT AMOUNT (EUR)</div>
+            <input id="ctrlAmt" class="ctrl-input" type="number" placeholder="5000000">
+          </div>
+          <div class="ctrl-field">
+            <div class="ctrl-label">TIMELINE (MONTHS)</div>
+            <input id="ctrlTime" class="ctrl-input" type="number" placeholder="6">
+          </div>
+          <div class="ctrl-field">
+            <div class="ctrl-label">COMPLEXITY (1–5)</div>
+            <input id="ctrlRisk" class="ctrl-input" type="number" min="1" max="5" placeholder="3">
+          </div>
+          <button class="engine-btn" id="ctrlBtn" onclick="runControl()">&gt; AUTHORIZE EXECUTION</button>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#334155;margin-top:10px;letter-spacing:.1em;">DECISION ENFORCED AT PAYMENT BOUNDARY</p>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="result-wrap" id="resultWrap">
+        <div class="result-header">AUTHORIZATION RESULT</div>
+        <div id="resultOut"></div>
+      </div>
+
+      <!-- SYSTEM STATUS -->
+      <div class="sys-status" id="sysBox">SYSTEM: ACTIVE
+REGISTRY: ONLINE
+GATE: ENFORCED
+OVERRIDE: DISABLED</div>
+
+    </div>
+  </div>
+
+  <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:#1E293B;margin-top:24px;text-align:center;">EXECUTIA CONTROLS EXECUTION AT THE PAYMENT BOUNDARY &nbsp;&middot;&nbsp; NO FUNDS MOVE WITHOUT AUTHORIZATION</p>
+  <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:#334155;margin-top:8px;text-align:center;">SYSTEM ENFORCES EXECUTION &nbsp;&middot;&nbsp; OPERATOR CANNOT OVERRIDE</p>
+
+</div>
+
+<script>
+// State rotation
+(function() {
+  var states = ['CONTROL', 'AUTHORIZATION', 'VALIDATION', 'ACTIVE'];
+  var i = 1;
+  setInterval(function() {
+    var el = document.getElementById('navState');
+    if (el) el.textContent = 'STATE: ' + states[i % states.length];
+    i++;
+  }, 2000);
+  setTimeout(function(){
+    var ns = document.getElementById('navState');
+    if (ns) ns.classList.add('on');
+  }, 250);
+})();
+
+// Incoming execution ID from demo flow
+var incomingExecId = new URLSearchParams(window.location.search).get('id') || null;
+if (incomingExecId) {
+  var sysBox = document.getElementById('sysBox');
+  if (sysBox) sysBox.textContent += '\nLAST EXECUTION: ' + incomingExecId;
+}
+
+// Service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(function(){});
+}
+
+// Formatters
+function formatEUR(v) {
+  if (!v && v !== 0) return '\u2014';
+  if (v >= 1000000) return '\u20ac' + (v/1000000).toFixed(1) + 'M';
+  if (v >= 1000)    return '\u20ac' + Math.round(v/1000) + 'K';
+  return '\u20ac' + v;
+}
+
+function now() {
+  return new Date().toTimeString().substring(0,8);
+}
+
+function delay(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
+
+// Event history in memory
+var eventHistory = [];
+
+// Poll live status + update metrics + stream
+async function pollLiveStatus() {
+  var t0 = Date.now();
+  try {
+    var res  = await fetch('/api/live-status');
+    var data = await res.json();
+    var ms   = Date.now() - t0;
+
+    // Update metrics
+    updateMetric('mActive',    data.active,    false);
+    updateMetric('mBlocked',   data.blocked,   false);
+    updateMetric('mAuth',      data.approved,  false);
+    updateMetric('mProtected', formatEUR(data.protected), false);
+
+    // HUD
+    document.getElementById('sysLatency').textContent = ms + 'ms';
+    document.getElementById('sysTime').textContent    = now();
+
+    // Alert mode if high blocked count
+    if (data.blocked > 0 && data.blocked / Math.max(data.active, 1) > 0.4) {
+      document.body.classList.add('alert-mode');
+      setTimeout(function(){ document.body.classList.remove('alert-mode'); }, 3000);
+    }
+
+    // Merge incoming events
+    if (data.events && data.events.length > 0) {
+      var newEvents = data.events.filter(function(e) {
+        return !eventHistory.find(function(h){ return h.id === e.id; });
+      });
+      if (newEvents.length > 0) {
+        eventHistory = data.events.concat(
+          eventHistory.filter(function(h){
+            return !data.events.find(function(e){ return e.id === h.id; });
+          })
+        ).slice(0, 30);
+        renderStream(newEvents.length > 0);
+      }
+    }
+
+  } catch(e) {
+    document.getElementById('sysStatus').textContent = 'CHECK';
+  }
+}
+
+function updateMetric(id, val, flash) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var display = (typeof val === 'number') ? val.toLocaleString() : val;
+  if (el.textContent !== String(display)) {
+    el.textContent = display;
+    el.classList.add('flash');
+    el.style.transform = 'scale(1.05)';
+    setTimeout(function(){
+      el.classList.remove('flash');
+      el.style.transform = 'scale(1)';
+    }, 220);
+  }
+}
+
+function renderStream(hasNew) {
+  var log = document.getElementById('streamLog');
+  if (!log) return;
+
+  if (eventHistory.length === 0) {
+    log.textContent = 'SYSTEM READY \u2014 AWAITING EXECUTION REQUESTS';
+    return;
+  }
+
+  log.innerHTML = eventHistory.map(function(e, i) {
+    var cls  = e.status === 'BLOCKED' ? 'ev-blocked' : e.status === 'REQUIRES_REVIEW' ? 'ev-review' : 'ev-authorized';
+    // Highlight the incoming execution ID from demo
+    if (incomingExecId && e.id === incomingExecId) cls += ' ev-new';
+    else if (hasNew && i === 0) cls += ' ev-new';
+    var time = e.time || '\u2014';
+    var amt  = e.amount ? formatEUR(e.amount) : '\u2014';
+    var line = '[' + time + '] ' + amt.padEnd(10) + ' \u2192  ' + (e.status || '\u2014');
+    if (incomingExecId && e.id === incomingExecId) line += '  \u2190 THIS';
+    return '<span class="' + cls + '">' + line + '</span>';
+  }).join('\n');
+
+  log.scrollTop = 0;
+}
+
+// Execution control
+async function runControl() {
+  var amt  = document.getElementById('ctrlAmt').value;
+  var time = document.getElementById('ctrlTime').value;
+  var risk = document.getElementById('ctrlRisk').value;
+  var btn  = document.getElementById('ctrlBtn');
+  var out  = document.getElementById('resultOut');
+  var wrap = document.getElementById('resultWrap');
+
+  if (!amt || !time || !risk) {
+    out.className = '';
+    out.textContent = 'REJECTED \u2014 PARAMETERS REQUIRED';
+    wrap.classList.add('visible');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '> AUTHORIZING...';
+  out.className = '';
+  out.textContent = '[INITIATING]\n[CONTACTING GATE...]';
+  wrap.classList.add('visible');
+
+  await delay(600);
+  out.textContent += '\n[EVALUATING RISK...]';
+  await delay(600);
+
+  try {
+    var res  = await fetch('/api/authorize-payment', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ amount: amt, timeline: time, complexity: risk })
+    });
+    var data = await res.json();
+
+    if (!data.authorized && !data.holdPending) {
+      out.className = 'blocked';
+      out.textContent =
+        '[PAYMENT BLOCKED]\n\n' +
+        'CAPITAL PROTECTED: ' + formatEUR(data.lossExposure) + '\n' +
+        'RISK SCORE:        ' + data.riskScore + '%\n' +
+        'REASON:            ' + data.reason + '\n\n' +
+        'FUNDS RELEASE:     DENIED\n' +
+        'OVERRIDE:          DISABLED\n\n' +
+        'ID: ' + data.executionId;
+      if (navigator.vibrate) navigator.vibrate([300,100,300]);
+    } else if (data.holdPending) {
+      out.className = '';
+      out.textContent =
+        '[EXECUTION HELD]\n\n' +
+        'STATUS:   REQUIRES_REVIEW\n' +
+        'RISK:     ' + data.riskScore + '%\n\n' +
+        'ID: ' + data.executionId;
+    } else {
+      out.className = 'authorized';
+      out.textContent =
+        '[PAYMENT AUTHORIZED]\n\n' +
+        'RISK SCORE:   ' + data.riskScore + '%\n' +
+        'FUNDS RELEASE: APPROVED\n\n' +
+        'ID: ' + data.executionId;
+    }
+
+    // Add to local stream
+    eventHistory.unshift({
+      id: data.executionId,
+      status: data.status,
+      amount: Number(amt),
+      time: now()
+    });
+    eventHistory = eventHistory.slice(0, 30);
+    renderStream(true);
+
+    pollLiveStatus();
+
+  } catch(err) {
+    out.className = '';
+    out.textContent = 'SYSTEM UNAVAILABLE\nVALIDATION NOT PERFORMED';
+  }
+
+  btn.disabled = false;
+  btn.textContent = '> AUTHORIZE EXECUTION';
+}
+
+// Initial load + polling
+pollLiveStatus();
+setInterval(pollLiveStatus, 5000);
+
+// Seed stream with initial state
+setTimeout(function() {
+  var log = document.getElementById('streamLog');
+  if (log && log.textContent === 'CONNECTING TO EXECUTION REGISTRY...') {
+    log.textContent = 'SYSTEM READY \u2014 AWAITING EXECUTION REQUESTS';
+  }
+}, 3000);
+</script>
+
+<button class="dark-toggle" onclick="toggleDark()" id="darkBtn" style="display:none;">EXIT</button>
+</body>
+</html>
