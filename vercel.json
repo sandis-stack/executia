@@ -1,0 +1,28 @@
+{
+  "routes": [
+    { "src": "/execution",                  "dest": "/execution.html" },
+    { "src": "/institutional",              "dest": "/institutional.html" },
+    { "src": "/request",                    "dest": "/request.html" },
+    { "src": "/status",                     "dest": "/status.html" },
+    { "src": "/protocol",                   "dest": "/protocol.html" },
+    { "src": "/demo",                       "dest": "/demo.html" },
+    { "src": "/dashboard",                  "dest": "/dashboard.html" },
+
+    { "src": "/api/send-email",             "dest": "/api/send-email.js" },
+    { "src": "/api/validate-execution",     "dest": "/api/validate-execution.js" },
+    { "src": "/api/execute",                "dest": "/api/execute.js" },
+    { "src": "/api/status",                 "dest": "/api/status.js" },
+    { "src": "/api/authorize-payment",      "dest": "/api/authorize-payment.js" },
+    { "src": "/api/process-payment",        "dest": "/api/process-payment.js" },
+    { "src": "/api/stripe-webhook",         "dest": "/api/stripe-webhook.js" },
+    { "src": "/api/live-status",            "dest": "/api/live-status.js" },
+
+    { "src": "/api/v1/execute-event",       "dest": "/api/execute-event.js" },
+    { "src": "/api/v1/execute",             "dest": "/api/execute.js" },
+    { "src": "/api/v1/validate-execution",  "dest": "/api/validate-execution.js" },
+    { "src": "/api/v1/status",              "dest": "/api/status.js" },
+    { "src": "/api/v1/live-status",         "dest": "/api/live-status.js" },
+    { "src": "/api/v1/law-rules",           "dest": "/api/law-rules.js" },
+    { "src": "/api/v1/send-email",          "dest": "/api/send-email.js" }
+  ]
+}

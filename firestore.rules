@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // execution_registry — written by /api/execute.js (server-side REST)
+    // No client reads or writes permitted
+    match /execution_registry/{docId} {
+      allow read:  if false;
+      allow write: if false;
+    }
+
+    // execution_flows — written by /api/send-email.js (server-side REST)
+    // Was previously writable from client — now locked
+    match /execution_flows/{docId} {
+      allow read:  if false;
+      allow write: if false;
+    }
+
+    // payment_gates — written by /api/authorize-payment.js (server-side REST)
+    match /payment_gates/{docId} {
+      allow read:  if false;
+      allow write: if false;
+    }
+
+    // pilot_requests — written by /api/send-email.js (legacy collection)
+    match /pilot_requests/{docId} {
+      allow read:  if false;
+      allow write: if false;
+    }
+
+    // Deny everything else
+    match /{document=**} {
+      allow read:  if false;
+      allow write: if false;
+    }
+  }
+}
+
+// NOTE: All writes use Firebase REST API with FIREBASE_API_KEY (server-side env var).
+// The API key is never exposed to the browser.
+// Deploy: Firebase Console → Firestore → Rules → paste → Publish
+// Or: firebase deploy --only firestore:rules

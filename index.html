@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA — Stop Losing Money During Execution</title>
+<meta name="description" content="EXECUTIA validates decisions before execution. Detects risks, blocks violations, shows financial impact. Free check in 60 seconds.">
+<link rel="canonical" href="https://www.executia.io/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<style>
+/* ── HERO ── */
+.hero-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .18em;
+  color: var(--g400);
+  margin-bottom: 20px;
+}
+.hero-h1 {
+  font-size: clamp(30px, 5.5vw, 56px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: var(--g500);
+  line-height: 1.6;
+  max-width: 520px;
+  margin-bottom: 32px;
+}
+
+/* ── INSTANT RESULT BOX ── */
+.result-preview {
+  border: 2px solid var(--primary);
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.result-preview::before {
+  content: 'RECENT SYSTEM OUTPUT';
+  position: absolute;
+  top: 0; left: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .16em;
+  color: var(--white);
+  background: var(--primary);
+  padding: 3px 10px;
+}
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 16px;
+}
+.result-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+.result-num.green { color: #16a34a; }
+.result-num.navy  { color: var(--primary); }
+.result-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .12em;
+  color: var(--g400);
+}
+
+/* ── SINGLE CTA ── */
+.main-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--primary);
+  color: var(--white);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 16px 32px;
+  text-decoration: none;
+  transition: background .15s;
+}
+.main-cta:hover { background: #071630; }
+.main-cta-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--g400);
+  margin-top: 10px;
+}
+
+/* ── INLINE CHECK (hero bottom) ── */
+.inline-check {
+  border: var(--border);
+  padding: 20px 24px;
+  margin-top: 32px;
+}
+.inline-check-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: var(--g500);
+  margin-bottom: 14px;
+}
+.check-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+.check-field { display: flex; flex-direction: column; gap: 5px; }
+.check-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--g400);
+}
+.check-input {
+  border: none;
+  border-bottom: var(--border);
+  padding: 8px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  background: transparent;
+  outline: none;
+  color: var(--primary);
+  width: 100%;
+}
+.check-input:focus { border-bottom: 2px solid var(--primary); }
+.check-btn {
+  padding: 9px 18px;
+  background: var(--primary);
+  color: var(--white);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .12s;
+}
+.check-btn:hover { background: #071630; }
+.check-result {
+  margin-top: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.8;
+  display: none;
+}
+.check-result.show { display: block; }
+.check-locked {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border: var(--border);
+  background: var(--g100);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--g400);
+  line-height: 1.8;
+  display: none;
+  position: relative;
+}
+.check-locked.show { display: block; }
+.lock-icon {
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+/* ── LIVE STREAM ── */
+.stream-wrap {
+  border: var(--border);
+  overflow: hidden;
+}
+.stream-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 16px;
+  border-bottom: var(--border);
+  background: var(--g100);
+}
+.stream-hdr-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  color: var(--g500);
+}
+.stream-live {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: #16a34a;
+}
+.stream-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #16a34a;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.stream-event {
+  padding: 14px 16px;
+  border-bottom: var(--border);
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.stream-event.in { opacity: 1; transform: none; }
+.stream-event:last-child { border-bottom: none; }
+.se-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.se-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+.se-name.red   { color: #dc2626; }
+.se-name.green { color: #16a34a; }
+.se-name.amber { color: #d97706; }
+.se-money {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+.se-money.pos { color: #16a34a; }
+.se-money.neg { color: #dc2626; opacity: .75; }
+.se-rows { display: flex; flex-direction: column; gap: 3px; }
+.se-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--g400);
+}
+.se-row span:last-child { color: var(--primary); }
+.se-badge {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 3px 8px;
+  border-left: 2px solid;
+}
+.se-badge.blocked { border-color: #dc2626; color: #dc2626; background: rgba(220,38,38,.06); }
+.se-badge.safe    { border-color: #16a34a; color: #16a34a; background: rgba(22,163,74,.06); }
+.se-badge.ctrl    { border-color: #16a34a; color: #16a34a; background: rgba(22,163,74,.06); }
+
+/* ── 3 BLOCKS ── */
+.three-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 0;
+  border: var(--border);
+}
+.three-cell {
+  padding: 28px 24px;
+  border-right: var(--border);
+}
+.three-cell:last-child { border-right: none; }
+.three-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .16em;
+  color: var(--g300);
+  margin-bottom: 12px;
+}
+.three-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.three-body {
+  font-size: 13px;
+  color: var(--g500);
+  line-height: 1.6;
+}
+
+/* ── FREEMIUM TIER ── */
+.tier-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 0;
+  border: var(--border);
+  margin-top: 24px;
+}
+.tier-cell {
+  padding: 24px;
+  border-right: var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tier-cell:last-child { border-right: none; }
+.tier-cell.featured { background: var(--g100); }
+.tier-step {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .18em;
+  color: var(--g300);
+}
+.tier-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.tier-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  padding-bottom: 10px;
+  border-bottom: var(--border);
+}
+.tier-items { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+.tier-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--g500);
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.5;
+}
+.tier-item::before { content: '→'; position: absolute; left: 0; color: var(--primary); }
+.tier-item.locked { color: var(--g300); }
+.tier-item.locked::before { content: '🔒'; font-size: 9px; }
+.tier-cta {
+  display: block;
+  text-align: center;
+  padding: 11px;
+  border: var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--primary);
+  text-decoration: none;
+  transition: background .12s;
+  margin-top: auto;
+}
+.tier-cta:hover { background: var(--g100); }
+.tier-cell.featured .tier-cta {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+.tier-cell.featured .tier-cta:hover { background: #071630; }
+
+@media(max-width:680px) {
+  .check-fields { grid-template-columns: 1fr 1fr; }
+  .result-grid  { grid-template-columns: 1fr 1fr; }
+  .three-grid   { grid-template-columns: 1fr; }
+  .tier-row     { grid-template-columns: 1fr; }
+  .three-cell   { border-right: none; border-bottom: var(--border); }
+  .tier-cell    { border-right: none; border-bottom: var(--border); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-inner">
+    <div>
+      <a href="/" class="h-logo">EXECUTIA</a>
+      <div class="mono" style="font-size:9px;letter-spacing:.14em;color:#6B7280;">EXECUTION CONTROL SYSTEM</div>
+    </div>
+    <nav>
+      <span id="navState" class="nav-state mono">STATE: CONTROL</span>
+      <a href="/demo"          class="nav-link">&gt; SIMULATION</a>
+      <a href="/request"       class="nav-link">&gt; START AUDIT</a>
+      <a href="/institutional" class="nav-link">INSTITUTIONAL</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hud">
+  <div class="hud-inner">
+    <div class="hud-item">SYSTEM: <span>ACTIVE</span></div>
+    <div class="hud-item">COMPLIANCE: <span>ENFORCED</span></div>
+    <div class="hud-item">FINANCIAL CONTROL: <span>ON</span></div>
+  </div>
+</div>
+
+<main class="page">
+
+  <!-- ① HERO — problem + instant proof + ONE CTA ────── -->
+  <div class="block">
+    <p class="hero-tag">EXECUTION CONTROL SYSTEM &nbsp;&middot;&nbsp; PCT/IB2026/050141</p>
+    <h1 class="hero-h1">You are losing 5–20%<br>of your project budget.</h1>
+    <p class="hero-sub">EXECUTIA stops it before it happens. One check. Instant result. No system replacement.</p>
+    <p class="signal" style="font-size:13px;margin-bottom:20px;letter-spacing:.06em;">You are already losing money during execution.</p>
+
+    <!-- Shock statement -->
+    <p class="signal" style="font-size:13px;font-weight:700;margin-bottom:12px;letter-spacing:.06em;">A €2,000,000 PROJECT AT 12 MONTHS / COMPLEXITY 3 WOULD LOSE €240,000 WITHOUT CONTROL.</p>
+
+    <!-- Instant proof -->
+    <div class="result-preview">
+      <div class="result-grid">
+        <div>
+          <span class="result-num green">€18,420</span>
+          <span class="result-lbl">SAVED</span>
+        </div>
+        <div>
+          <span class="result-num navy">€7,000</span>
+          <span class="result-lbl">FINES PREVENTED</span>
+        </div>
+        <div>
+          <span class="result-num navy">0</span>
+          <span class="result-lbl">CRITICAL VIOLATIONS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SINGLE CTA -->
+    <a href="/demo" class="main-cta">&gt; RUN EXECUTION CHECK</a>
+    <p class="main-cta-note">Free &nbsp;&middot;&nbsp; Results in 60 seconds &nbsp;&middot;&nbsp; No registration</p>
+
+    <!-- Inline quick check -->
+    <div class="inline-check">
+      <div class="inline-check-title">// QUICK CHECK — ENTER YOUR PROJECT</div>
+      <div class="check-fields">
+        <div class="check-field">
+          <span class="check-label">BUDGET (&euro;)</span>
+          <input class="check-input" id="qb" type="number" placeholder="2000000">
+        </div>
+        <div class="check-field">
+          <span class="check-label">TIMELINE (MONTHS)</span>
+          <input class="check-input" id="qt" type="number" placeholder="12">
+        </div>
+        <div class="check-field">
+          <span class="check-label">COMPLEXITY (1&ndash;5)</span>
+          <input class="check-input" id="qc" type="number" placeholder="3" min="1" max="5">
+        </div>
+        <button class="check-btn" onclick="runQuickCheck()">&gt; CHECK</button>
+      </div>
+      <div class="check-result" id="qResult"></div>
+      <div class="check-locked" id="qLocked">
+        <span class="lock-icon">🔒</span> FULL RESULT LOCKED<br>
+        &rarr; Compliance violations by law<br>
+        &rarr; Blocked scenarios identified<br>
+        &rarr; Recommended control layer<br>
+        <a href="/request" style="color:var(--primary);font-weight:700;">&gt; UNLOCK FULL AUDIT &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② LIVE STREAM — main sales moment ──────────── -->
+  <div class="block">
+    <div class="lbl">LIVE EXECUTION STREAM</div>
+    <div class="stream-wrap">
+      <div class="stream-hdr">
+        <span class="stream-hdr-title">// THIS IS HOW YOUR PROJECT WOULD BE EVALUATED</span>
+        <div class="stream-live"><span class="stream-dot"></span>LIVE</div>
+      </div>
+      <div id="streamFeed"></div>
+    </div>
+    <p class="mono sm" style="margin-top:10px;letter-spacing:.1em;color:var(--g400);">Every day without control = financial loss.</p>
+  </div>
+
+  <!-- ③ PIVOT ─────────────────────────────────────── -->
+  <div class="block" style="padding-top:0;">
+    <p style="font-size:clamp(17px,2.2vw,24px);font-weight:700;line-height:1.4;max-width:600px;letter-spacing:-.01em;border-left:3px solid var(--primary);padding-left:20px;color:var(--g400);">
+      Most systems track execution.<br>
+      <span style="color:var(--primary);">EXECUTIA controls it.</span>
+    </p>
+  </div>
+
+  <!-- ④ 3 CORE BLOCKS ─────────────────────────────── -->
+  <div class="block" style="padding-top:0;">
+    <div class="three-grid">
+      <div class="three-cell">
+        <div class="three-num">01 / CONTROL</div>
+        <div class="three-title">Every decision validated.</div>
+        <div class="three-body">Wrong actions don&rsquo;t execute. System decides before you lose money.</div>
+      </div>
+      <div class="three-cell">
+        <div class="three-num">02 / COMPLIANCE</div>
+        <div class="three-title">Violations blocked automatically.</div>
+        <div class="three-body">Laws embedded in system logic. No fines. No manual checks. No risk.</div>
+      </div>
+      <div class="three-cell">
+        <div class="three-num">03 / MONEY</div>
+        <div class="three-title">Financial impact visible.</div>
+        <div class="three-body">Every decision shows &euro; impact in real time. Before it&rsquo;s too late.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ FREEMIUM FLOW ──────────────────────────────── -->
+  <div class="block">
+    <div class="lbl">HOW TO START</div>
+    <h2>Free check. Then decide.</h2>
+    <p class="lead" style="margin-bottom:0;">No commitment. No registration. Start with a free risk signal.</p>
+    <div class="tier-row">
+      <div class="tier-cell">
+        <div class="tier-step">STEP 1 — FREE</div>
+        <div class="tier-name">Quick Check</div>
+        <div class="tier-price">&euro;0</div>
+        <div class="tier-items">
+          <div class="tier-item">Risk score (0–100%)</div>
+          <div class="tier-item">Loss exposure (&euro;)</div>
+          <div class="tier-item">BLOCKED / REVIEW / APPROVED</div>
+          <div class="tier-item locked">Compliance detail</div>
+          <div class="tier-item locked">Blocked scenarios</div>
+          <div class="tier-item locked">Control layer recommendation</div>
+        </div>
+        <a href="/demo" class="tier-cta">&gt; RUN FREE CHECK</a>
+      </div>
+      <div class="tier-cell featured">
+        <div class="tier-step">STEP 2 — AUDIT</div>
+        <div class="tier-name">Full Audit</div>
+        <div class="tier-price">&euro;49 &ndash; &euro;199 / project</div>
+        <div class="tier-items">
+          <div class="tier-item">Everything in free check</div>
+          <div class="tier-item">Compliance by country law</div>
+          <div class="tier-item">All blocked scenarios</div>
+          <div class="tier-item">Financial impact detail</div>
+          <div class="tier-item">Control layer recommendation</div>
+          <div class="tier-item">Delivered &lt; 5 minutes</div>
+        </div>
+        <a href="/request" class="tier-cta">&gt; UNLOCK FULL AUDIT</a>
+      </div>
+      <div class="tier-cell">
+        <div class="tier-step">STEP 3 — SYSTEM</div>
+        <div class="tier-name">Control Layer</div>
+        <div class="tier-price">&euro;199 &ndash; &euro;999 / month</div>
+        <div class="tier-items">
+          <div class="tier-item">Real-time execution control</div>
+          <div class="tier-item">Compliance enforcement — auto</div>
+          <div class="tier-item">Live &euro; impact stream</div>
+          <div class="tier-item">Tamper-proof audit ledger</div>
+          <div class="tier-item">Multi-country law database</div>
+        </div>
+        <a href="/request" class="tier-cta">&gt; REQUEST PILOT</a>
+      </div>
+    </div>
+    <p class="mono sm" style="margin-top:14px;letter-spacing:.1em;color:var(--g400);">
+      Typical loss without EXECUTIA: &euro;50,000+ &nbsp;&middot;&nbsp; System cost: from &euro;199/month
+    </p>
+  </div>
+
+  <!-- ⑥ PROOF ──────────────────────────────────────── -->
+  <div class="block">
+    <div class="lbl">BASIS</div>
+    <div class="list">
+      &mdash; Real projects. Real budgets. Real losses prevented.<br>
+      &mdash; Across EU and Norway construction operations<br>
+      &mdash; Based on TEK17, Arbeidstilsynet, NS-EN 13670, MK Nr.526<br>
+      &mdash; Built by execution professionals. Not consultants. Not software vendors.<br>
+      &mdash; References available under NDA &nbsp;&middot;&nbsp; PCT/IB2026/050141
+    </div>
+  </div>
+
+  <!-- ⑦ FINAL CTA ───────────────────────────────────── -->
+  <div class="block" style="border-top:2px solid var(--primary);padding:48px 0;">
+    <p style="font-size:clamp(16px,2vw,22px);font-weight:700;line-height:1.5;max-width:540px;letter-spacing:-.01em;">
+      EXECUTIA prevents financial loss<br>before execution happens.
+    </p>
+    <p class="signal" style="margin-top:10px;">EXECUTION WITHOUT VALIDATION = GUARANTEED LOSS</p>
+    <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+      <div>
+        <a href="/demo" class="main-cta">&gt; RUN FREE CHECK</a>
+        <p class="main-cta-note">60 seconds &nbsp;&middot;&nbsp; No registration</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div style="max-width:1040px;margin:0 auto;padding:0 24px 40px;">
+  <div style="border:1px solid rgba(10,31,68,.2);padding:18px 24px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2.2;background:var(--g100);">EXECUTIA CONTROL NODE
+
+OPERATOR:      Sandis Boiko &mdash; Execution Operator
+EMAIL:         control@executia.io
+LOCATION:      Stavanger, Norway
+RESPONSE TIME: 24&ndash;48H
+PATENT:        PCT/IB2026/050141 &mdash; PENDING</div>
+</div>
+
+<footer>
+  <div>
+    <p>EXECUTIA&trade; &mdash; EXECUTION CONTROL SYSTEM</p>
+    <p>PCT/IB2026/050141 &mdash; STATUS: PENDING</p>
+  </div>
+  <div>
+    <p><a href="/demo">&gt; SIMULATION</a></p>
+    <p><a href="/execution">&gt; EXECUTION_LAYER</a></p>
+    <p><a href="/institutional">&gt; INSTITUTIONAL</a></p>
+    <p><a href="/request">&gt; START AUDIT</a></p>
+    <p><a href="/protocol">&gt; PROTOCOL</a></p>
+  </div>
+  <p style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--g500);letter-spacing:.1em;line-height:2;">
+    SYSTEM OPERATOR: <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener" style="color:var(--primary);">SANDIS BOIKO</a><br>
+    Execution Operator &mdash; EXECUTIA
+  </p>
+</footer>
+
+<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)" aria-hidden="true">
+  <p>EXECUTIA is an execution control system. Free risk check in 60 seconds. Detects risks, blocks compliance violations, shows financial impact. Typical result: €10,000–€50,000 saved per project.</p>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  var s=['CONTROL','AUTHORIZATION','VALIDATION','ACTIVE'],i=0;
+  setInterval(function(){
+    var el=document.getElementById('navState');
+    if(el) el.textContent='STATE: '+s[i++%s.length];
+  },2000);
+})();
+
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function(){});
+
+/* ── LOCAL RISK ENGINE (mirrors riskEngine.js) ── */
+function localEval(b,t,c){
+  b=Number(b);t=Number(t);c=Number(c);
+  if(!b||!t||!c||b<=0||t<=0||c<1||c>5) return null;
+  var risk=Math.min(Math.log10(b+1)*(c/t)*20,100);
+  var exposure=Math.round(b*(risk/100)*0.5);
+  var status=risk>70?'BLOCKED':risk>50?'REQUIRES_REVIEW':'APPROVED';
+  return {risk:Number(risk.toFixed(1)),exposure:exposure,status:status};
+}
+
+function fmtEUR(v){
+  if(v>=1000000) return '€'+Math.round(v/1000000)+'M';
+  if(v>=1000)    return '€'+Math.round(v/1000)+'K';
+  return '€'+v;
+}
+
+/* ── QUICK CHECK ── */
+async function runQuickCheck(){
+  var b=document.getElementById('qb').value;
+  var t=document.getElementById('qt').value;
+  var c=document.getElementById('qc').value;
+  var res=document.getElementById('qResult');
+  var locked=document.getElementById('qLocked');
+
+  if(!b||!t||!c){
+    res.textContent='Enter all three values.';
+    res.className='check-result show';
+    return;
+  }
+
+  res.textContent='ANALYZING...';
+  res.className='check-result show';
+  locked.className='check-locked';
+
+  // Try API first, fallback to local
+  var data=null;
+  try{
+    var r=await fetch('/api/validate-execution',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({budget:b,timeline:t,complexity:c}),
+      signal:AbortSignal.timeout(4000)
+    });
+    data=await r.json();
+    if(data.error) data=null;
+  }catch(e){ data=null; }
+
+  if(!data){
+    var local=localEval(b,t,c);
+    if(!local){ res.textContent='Invalid parameters.'; return; }
+    data={riskScore:local.risk,lossExposure:local.exposure,status:local.status};
+  }
+
+  var blocked=data.status==='BLOCKED';
+  var review=data.status==='REQUIRES_REVIEW';
+
+  res.style.color=blocked?'rgba(220,38,38,.8)':review?'rgba(217,119,6,.9)':'rgba(22,163,74,.9)';
+  res.textContent=
+    'RISK SCORE:     '+data.riskScore+'%\n'+
+    'LOSS EXPOSURE:  '+fmtEUR(data.lossExposure)+'\n'+
+    'DECISION:       '+data.status+'\n\n'+
+    (blocked
+      ? 'This execution would be BLOCKED.\nCapital at risk: '+fmtEUR(data.lossExposure)+'.'
+      : review
+      ? 'Execution requires review before proceeding.'
+      : 'Risk within bounds. Execution may proceed.');
+
+  res.className='check-result show';
+  locked.className='check-locked show';
+}
+
+/* ── LIVE STREAM ── */
+var EVENTS=[
+  {name:'PAYMENT €5,000,000',cls:'red',money:'−€2,052,500',moneyCls:'neg',
+   rows:[['Risk score','82.1% — exceeded'],['Time pressure','CRITICAL'],['Capital protected','€2,052,500']],
+   badge:'BLOCKED — NO FUNDS RELEASED',badgeCls:'blocked'},
+  {name:'MATERIAL DELAY',cls:'amber',money:'+€360',moneyCls:'pos',
+   rows:[['Crew reassigned','facade immediately'],['Idle cost avoided','€360'],['Delay','+0 days']],
+   badge:'CONTROLLED',badgeCls:'ctrl'},
+  {name:'WORK AT HEIGHT',cls:'red',money:'−€5,000 fine risk',moneyCls:'neg',
+   rows:[['Height','3.2m above ground'],['Safety barrier','MISSING'],['Law','TEK17 §12-14']],
+   badge:'BLOCKED AUTOMATICALLY',badgeCls:'blocked'},
+  {name:'COMPLIANCE CLEARED',cls:'green',money:'+€5,000 protected',moneyCls:'pos',
+   rows:[['Safety barrier','installed'],['TEK17 §12-14','satisfied'],['Fine prevented','€5,000']],
+   badge:'SAFE',badgeCls:'safe'},
+  {name:'TASK COMPLETED',cls:'green',money:'+€500 value',moneyCls:'pos',
+   rows:[['Install Roof','signed off'],['Next phase','unlocked'],['Progress value','€500']],
+   badge:'CONTROLLED',badgeCls:'ctrl'}
+];
+
+var feedEl=document.getElementById('streamFeed');
+var idx=0;
+
+function addStreamEvent(ev){
+  var items=feedEl.querySelectorAll('.stream-event');
+  if(items.length>=3) items[0].remove();
+  var el=document.createElement('div');
+  el.className='stream-event';
+  el.innerHTML=
+    '<div class="se-top">'+
+      '<span class="se-name '+ev.cls+'">'+ev.name+'</span>'+
+      '<span class="se-money '+ev.moneyCls+'">'+ev.money+'</span>'+
+    '</div>'+
+    '<div class="se-rows">'+
+      ev.rows.map(function(r){return '<div class="se-row"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>';}).join('')+
+    '</div>'+
+    '<span class="se-badge '+ev.badgeCls+'">STATUS: '+ev.badge+'</span>';
+  feedEl.appendChild(el);
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('in'); }); });
+}
+
+// Show biggest result first
+addStreamEvent(EVENTS[0]);
+setTimeout(function(){
+  addStreamEvent(EVENTS[1]);
+  setInterval(function(){ idx=(idx+2)%EVENTS.length; addStreamEvent(EVENTS[idx]); },2800);
+},900);
+</script>
+
+<button class="dark-toggle" onclick="toggleDark()" id="darkBtn">DARK MODE</button>
+<script>
+(function(){
+  var d=localStorage.getItem('executia-dark')==='true';
+  if(d){document.body.classList.add('dark');document.getElementById('darkBtn').textContent='LIGHT MODE';
