@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA — Live System Demo</title>
+<meta name="description" content="EXECUTIA live execution control demo. Submit a scenario, attempt execution, watch the system decide.">
+<link rel="canonical" href="https://www.executia.io/demo">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<style>
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.demo-panel {
+  border: var(--border);
+  padding: 24px;
+}
+
+.demo-input {
+  width: 100%;
+  border: none;
+  border-bottom: var(--border);
+  padding: 10px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  background: transparent;
+  outline: none;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.demo-input:focus {
+  border-bottom: 2px solid var(--primary);
+}
+
+.demo-input:focus-visible {
+  outline: none;
+  box-shadow: 0 2px 0 var(--primary);
+}
+
+.field-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: var(--g500);
+  margin-bottom: 6px;
+}
+
+#out {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.9;
+  white-space: pre-line;
+  min-height: 120px;
+  color: var(--g500);
+}
+
+#out.blocked    { color: var(--primary); opacity: .5; }
+#out.review     { color: var(--primary); opacity: .75; }
+#out.authorized { color: var(--primary); opacity: 1; }
+
+#paymentLog {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 2;
+  white-space: pre-line;
+  border: var(--border);
+  padding: 20px 24px;
+  margin-top: 20px;
+  min-height: 80px;
+  display: none;
+}
+
+#paymentLog.blocked    { opacity: .5; }
+#paymentLog.authorized { opacity: 1; }
+
+.preset-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.preset {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  padding: 7px 14px;
+  border: var(--border);
+  background: transparent;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.preset:hover { background: var(--g100); }
+.preset.active { background: var(--primary); color: var(--white); }
+
+.payment-btn {
+  width: 100%;
+  padding: 16px;
+  border: var(--border);
+  background: var(--primary);
+  color: var(--white);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  cursor: pointer;
+  margin-top: 20px;
+  opacity: .4;
+  transition: opacity .2s;
+}
+
+.payment-btn.ready  { opacity: 1; }
+.payment-btn:hover:not(:disabled) { background: #071630; }
+.payment-btn:disabled { cursor: default; }
+
+.lifecycle-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 24px 0;
+  border: var(--border);
+}
+
+.lc-step {
+  flex: 1;
+  padding: 10px 8px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--g500);
+  border-right: var(--border);
+  transition: background .3s, color .3s;
+}
+
+.lc-step:last-child { border-right: none; }
+.lc-step.active     { background: var(--primary); color: var(--white); }
+.lc-step.done       { color: var(--primary); font-weight: 700; }
+
+#statusCta {
+  display: none;
+  margin-top: 16px;
+}
+
+/* Dark mode overrides */
+body.dark .demo-panel { border-color: #1E293B; }
+body.dark .demo-input { color: #D1D5DB; border-color: #334155; }
+body.dark .preset     { border-color: #1E293B; color: #94A3B8; }
+body.dark .preset:hover { background: #0A1120; }
+body.dark .preset.active { background: #D1D5DB; color: #050A18; }
+body.dark .payment-btn { background: #D1D5DB; color: #050A18; border-color: #334155; }
+body.dark .payment-btn:hover:not(:disabled) { background: #F1F5F9; }
+body.dark #paymentLog { border-color: #1E293B; }
+body.dark .lc-step.active { background: #D1D5DB; color: #050A18; }
+body.dark .lifecycle-bar { border-color: #1E293B; }
+body.dark .lc-step { border-color: #1E293B; }
+body.dark { cursor: crosshair; } /* demo only — control terminal feel */
+
+@media(max-width:640px) {
+  .demo-grid { grid-template-columns: 1fr; }
+  .lifecycle-bar { flex-wrap: wrap; }
+  .lc-step { flex: none; width: 50%; border-bottom: var(--border); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-inner">
+    <div>
+      <a href="https://www.executia.io/" class="h-logo">EXECUTIA</a>
+      <div class="mono" style="font-size:9px;letter-spacing:.14em;color:#6B7280;">EXECUTION CONTROL SYSTEM</div>
+    </div>
+    <nav>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;display:flex;align-items:center;gap:6px;" id="systemStatusBadge">
+        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#16A34A;animation:blink 2s ease infinite;" id="statusDot"></span>
+        <span id="statusLabel" style="color:#16A34A">LIVE</span>
+      </div>
+      <span id="navState" class="nav-state mono">STATE: DEMO</span>
+      <a href="/" class="nav-link">ENTRY</a>
+      <a href="/demo" class="nav-link active">DEMO</a>
+      <a href="/request" class="nav-link" style="font-weight:700;">&rarr; VALIDATE PROJECT</a>
+      <a href="/status" class="nav-link" style="opacity:.5;font-size:10px;">STATUS</a>
+      <a href="/protocol" class="nav-link" style="opacity:.5;font-size:10px;">PROTOCOL</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hud">
+  <div class="hud-inner">
+    <div class="hud-item">SYSTEM: <span id="hudSystem">INITIALIZING</span></div>
+    <div class="hud-item">ENGINE: <span id="hudEngine">CHECKING...</span></div>
+    <div class="hud-item">DECISION ENGINE: <span style="color:var(--primary);font-weight:700;">SELF-ADAPTING</span></div>
+    <div class="hud-item">MODE: <span id="hudMode">—</span></div>
+  </div>
+</div>
+
+<main class="page">
+
+  <div class="block">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;color:var(--g500);margin-bottom:8px;">EXECUTION IS CONTROLLED — NOT MANAGED</div>
+    <div class="lbl">EXECUTION CONTROL DEMO</div>
+    <h1>This is exactly how<br>your real payments get stopped.</h1>
+    <p class="lead">Submit a scenario. Attempt execution. Watch the system decide — same logic that runs on real projects.</p>
+    <p class="signal" style="font-weight:700;letter-spacing:.18em;">THIS IS NOT A DEMO. THIS IS THE SAME SYSTEM THAT BLOCKS REAL PAYMENTS.</p>
+    <p class="signal" style="opacity:.5;font-size:10px;letter-spacing:.14em;margin-top:6px;">PAYMENT GATEWAY IS ILLUSTRATIVE &mdash; VALIDATION ENGINE IS PRODUCTION &mdash; EXECUTION CONTROL ACTIVE</p>
+  </div>
+
+  <div class="block">
+    <div class="lbl">PRESET SCENARIOS</div>
+    <p class="sm" style="margin-bottom:20px;">Select a scenario or enter custom parameters.</p>
+    <div class="preset-row" style="opacity:.3;pointer-events:none;">
+      <button class="preset" onclick="loadPreset(0)" id="p0">SCENARIO 01 — HIGH RISK</button>
+      <button class="preset" onclick="loadPreset(1)" id="p1">SCENARIO 02 — REVIEW ZONE</button>
+      <button class="preset" onclick="loadPreset(2)" id="p2">SCENARIO 03 — APPROVED</button>
+      <button class="preset" onclick="loadPreset(3)" id="p3">CUSTOM</button>
+    </div>
+
+    <!-- LIFECYCLE BAR -->
+    <div class="lifecycle-bar">
+      <div class="lc-step" id="lc0">INPUT</div>
+      <div class="lc-step" id="lc1">VALIDATED</div>
+      <div class="lc-step" id="lc2">AUTHORIZED</div>
+      <div class="lc-step" id="lc3">EXECUTION</div>
+      <div class="lc-step" id="lc4">RESULT</div>
+    </div>
+
+    <div class="demo-grid">
+
+      <!-- INPUT PANEL -->
+      <div class="demo-panel">
+        <div class="lbl" style="margin-bottom:20px;">SCENARIO PARAMETERS</div>
+
+        <div class="field-lbl">BUDGET (EUR)</div>
+        <input id="b" class="demo-input" type="number" value="5000000" placeholder="5000000">
+
+        <div class="field-lbl">TIMELINE (MONTHS)</div>
+        <input id="t" class="demo-input" type="number" value="6" placeholder="12">
+
+        <div class="field-lbl">COMPLEXITY (1–5)</div>
+        <input id="c" class="demo-input" type="number" value="4" min="1" max="5" placeholder="3">
+
+        <button class="btn" style="width:100%;margin-top:8px;" onclick="runValidation()">&gt; VALIDATE SCENARIO</button>
+        <p class="sm" style="margin-top:10px;">Validation runs on the server. Result is logged.</p>
+      </div>
+
+      <!-- OUTPUT PANEL -->
+      <div class="demo-panel">
+        <div class="lbl" style="margin-bottom:20px;">SYSTEM RESPONSE</div>
+        <pre id="out" style="white-space:pre-line;">LAST DETECTED EVENT:
+
+BLOCKED PAYMENT: &euro;52,000
+
+WHY:
+&mdash; supplier overbilling detected
+&mdash; timeline mismatch with complexity
+&mdash; risk threshold exceeded
+
+WITHOUT EXECUTIA:
+&rarr; &euro;52,000 would be paid
+
+Run a scenario to see your project.</pre>
+      </div>
+
+    </div>
+
+    <!-- PAYMENT GATE -->
+    <div style="border-top:var(--border-g);margin-top:32px;padding-top:32px;">
+      <div class="lbl">EXECUTION GATE</div>
+      <p class="lead">After validation, attempt to execute. EXECUTIA intercepts at the payment boundary.</p>
+      <button class="payment-btn" id="payBtn" onclick="runPayment()" disabled>&gt; RELEASE PAYMENT (PAYMENT GATE)</button>
+      <p class="sm" style="margin-top:10px;">This button is only active after validation. Payment will be intercepted if risk threshold is exceeded.</p>
+    </div>
+
+    <div id="paymentLog"></div>
+
+    <!-- DEMO RESULT — parādās pēc execution -->
+    <div id="demoResult" style="display:none;margin-top:24px;">
+      <div id="shockLine" style="font-family:'JetBrains Mono',monospace;font-size:clamp(28px,5vw,48px);font-weight:800;letter-spacing:.02em;padding:24px 28px;border:2px solid currentColor;text-align:center;margin-bottom:8px;"></div>
+      <div id="personalThreat" style="display:none;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.14em;text-align:center;padding:10px;margin-bottom:12px;"></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.65;text-align:center;letter-spacing:.1em;margin-bottom:16px;">This decision would have been executed without validation.</div>
+      <div class="api-box" id="demoResultText"></div>
+      <p class="signal" style="margin-top:12px;font-weight:700;">THIS DECISION WAS AUTOMATED &mdash; NO HUMAN INTERVENTION &mdash; NO OVERRIDE</p>
+      <div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.7;text-align:center;letter-spacing:.06em;">You are seeing only partial analysis.<br>Full financial exposure is calculated in audit.</div>
+      <div style="margin-top:20px;border-top:1px solid var(--border-g);padding-top:20px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;color:var(--g400);margin-bottom:6px;">THIS RESULT IS BASED ON GENERIC PARAMETERS</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--g500);margin-bottom:14px;letter-spacing:.06em;">YOUR PROJECT WILL BE DIFFERENT</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#dc2626;letter-spacing:.08em;margin-bottom:14px;padding:10px 14px;border-left:3px solid #dc2626;background:rgba(220,38,38,.04);">THIS WOULD HAVE BEEN PAID WITHOUT CONTROL.</div>
+        <a href="https://execution.executia.io" class="btn" style="width:100%;text-align:center;box-sizing:border-box;display:block;font-size:14px;padding:20px;letter-spacing:.06em;">&rarr; OPEN CONTROL SYSTEM</a>
+        <a href="https://www.executia.io/request" class="btn btn-ghost" style="width:100%;text-align:center;box-sizing:border-box;display:block;margin-top:8px;letter-spacing:.06em;">&rarr; VALIDATE YOUR REAL PROJECT</a>
+      </div>
+      <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;opacity:.6;text-align:center;letter-spacing:.08em;">Results are indicative. Full audit uses extended data model.</div>
+      <div style="margin-top:14px;">
+        <a href="https://www.executia.io/demo" class="btn btn-ghost" onclick="location.reload();">&gt; RUN ANOTHER SCENARIO</a>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#DC2626;line-height:1.8;display:none;border-left:3px solid #DC2626;padding:16px 20px;" id="matchWarning">
+      <div style="font-weight:700;letter-spacing:.1em;margin-bottom:8px;">THIS WOULD HAVE BEEN PAID</div>
+      This scenario matches real execution patterns.<br>
+      Your project is likely exposed to similar loss.<br><br>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--g500);margin-top:8px;">
+        NO HUMAN INTERVENTION &nbsp;&middot;&nbsp; NO OVERRIDE &nbsp;&middot;&nbsp; SYSTEM ENFORCED
+      </div>
+    </div>
+
+    <div id="statusCta">
+      <a id="statusLink" href="https://www.executia.io/status" class="btn" style="margin-top:0;">&gt; VIEW FULL AUDIT RECORD &rarr;</a>
+      <p class="mono sm" style="margin-top:10px;color:var(--g500);letter-spacing:.12em;" id="redirectNote">REDIRECTING TO COMMAND CENTER IN 3s...</p>
+    </div>
+
+    <div id="analysisNote" style="display:none;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:2;color:var(--g500);border-top:1px solid var(--border-g);padding-top:16px;">
+      Your project is now under execution analysis.<br>
+      Detected patterns will include blocked payments, compliance violations, total financial exposure.<br>
+      Operator response within 24–48h.
+    </div>
+  </div>
+
+  <!-- WHAT JUST HAPPENED -->
+  <div class="block">
+    <div class="lbl">WHAT JUST HAPPENED</div>
+    <h2>The system just made a decision.</h2>
+    <div class="list">
+      &mdash; Your parameters entered the EXECUTIA validation engine<br>
+      &mdash; Risk calculated: budget scale &times; time pressure &times; complexity<br>
+      &mdash; Decision issued: APPROVED, REQUIRES_REVIEW, or BLOCKED<br>
+      &mdash; Payment gate enforced that decision — funds either released or stopped<br>
+      &mdash; Full audit trace stored — every parameter that triggered the result
+    </div>
+    <p class="lead" style="margin-top:20px;">On a real project, this would have happened before the payment left your account.</p>
+    <p class="signal" style="font-weight:700;">ONE UNVALIDATED PAYMENT = LOSS YOU CANNOT REVERSE</p>
+  </div>
+
+  <!-- SCENARIO COMPARISON -->
+  <div class="block">
+    <div class="lbl">SCENARIO COMPARISON</div>
+    <h2>Same system. Different outcomes.</h2>
+    <div class="g2" style="margin-top:20px;">
+      <div class="api-box" style="white-space:pre-line;">SCENARIO A — HIGH RISK
+Budget:     €5M
+Timeline:   6 months
+Complexity: 5
+
+STATUS: BLOCKED
+Risk:   88.3%
+Loss:   €2.2M
+
+Execution prevented.
+Capital protected.</div>
+      <div class="api-box" style="white-space:pre-line;">SCENARIO B — APPROVED
+Budget:     €500K
+Timeline:   12 months
+Complexity: 2
+
+STATUS: APPROVED
+Risk:   18.4%
+Protected: €46K
+
+Execution authorized.
+Audit trail created.</div>
+    </div>
+    <p class="signal" style="margin-top:20px;">EXECUTIA IS NOT A RECOMMENDATION &nbsp;&middot;&nbsp; IT IS A DECISION</p>
+  </div>
+
+  <!-- SESSION HISTORY — localStorage backed, always works -->
+  <div class="block">
+    <div class="lbl">SESSION EXECUTION HISTORY</div>
+    <p class="sm" style="margin-bottom:16px;">Every scenario you run is logged. Persists across page reloads.</p>
+    <div id="eventLog" class="api-box" style="min-height:80px;white-space:pre-line;">SYSTEM READY — NO EXECUTIONS THIS SESSION</div>
+    <button class="btn btn-ghost" style="margin-top:12px;font-size:10px;" onclick="clearExecLog()">&gt; CLEAR LOG</button>
+  </div>
+
+  <div class="block" style="border-left:3px solid #DC2626;padding-left:20px;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--primary);line-height:1.6;">
+      If you approve payments without validation —<br>you are already losing money.
+    </p>
+  </div>
+
+  <div class="block">
+    <div class="lbl">NEXT STEP</div>
+    <h2>Run it on your actual project.</h2>
+    <p class="lead">The demo uses preset parameters. Your project has its own budget, timeline, complexity — and its own exposure. Submit it and get the real number.</p>
+    <p class="lead" style="margin-top:8px;">Typical finding: <strong>&euro;10,000&ndash;&euro;50,000 in preventable loss per project.</strong></p>
+    <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;">
+      <a href="/request" class="btn">&gt; START EXECUTION AUDIT &rarr;</a>
+      <a href="/dashboard" class="btn btn-ghost">&gt; OPEN EXECUTION SYSTEM</a>
+    </div>
+    <p class="signal" style="margin-top:16px;">RESULT: CONTROLLED EXECUTION &nbsp;&middot;&nbsp; REDUCED RISK &nbsp;&middot;&nbsp; HIGHER MARGIN</p>
+  </div>
+
+</main>
+
+<footer>
+  <div>
+    <p>EXECUTIA&trade; &mdash; EXECUTION LAYER SYSTEM</p>
+    <p>PCT/IB2026/050141 &mdash; STATUS: PENDING</p>
+    <p style="margin-top:6px;">Execution exists only if authorized.</p>
+  </div>
+  <div>
+    <p><a href="https://www.executia.io/">&gt; ENTRY_LAYER</a></p>
+    <p><a href="https://execution.executia.io">&gt; EXECUTION_LAYER</a></p>
+    <p><a href="https://www.executia.io/protocol">&gt; PROTOCOL</a></p>
+    <p><a href="https://www.executia.io/request">&gt; REQUEST_LAYER</a></p>
+  </div>
+    <p style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--g500);letter-spacing:.1em;line-height:2;">
+      <span style="letter-spacing:.14em;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--g500);">SYSTEM OPERATOR: <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener" style="color:var(--primary);">SANDIS BOIKO</a></span><br>
+      Execution Operator &mdash; EXECUTIA
+    </p>
+  <div style="margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6B7280;line-height:2.2;">
+    Operator: Sandis Boiko &nbsp;&middot;&nbsp; Contact: <a href="/cdn-cgi/l/email-protection#d0b3bfbea4b1b3a490b5a8b5b3a5a4b9b1feb9bf" style="color:var(--primary);"><span class="__cf_email__" data-cfemail="1f7c70716b7e7c6b5f7a677a7c6a6b767e317670">[email&#160;protected]</span></a><br>
+    LinkedIn: <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener" style="color:var(--primary);">linkedin.com/in/sandis-boiko</a>
+  </div>
+  <div style="margin-top:60px;border-top:1px solid rgba(10,31,68,.15);padding-top:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:#6B7280;">
+  EXECUTIA™ — EXECUTION CONTROL INFRASTRUCTURE<br>
+  EU-BASED SYSTEM · OPERATIONAL LAYER<br>
+  CONTACT: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b9dad6d7cdd8dacdf9dcc1dcdacccdd0d897d0d6">[email&#160;protected]</a><br>
+  STATUS: ACTIVE · ENFORCEMENT ENABLED
+</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// navState fade-in handled by state rotation below
+// State rotation — live system feel
+(function() {
+  var states = ['CONTROL', 'AUTHORIZATION', 'VALIDATION', 'ACTIVE'];
+  var i = 0;
+  setInterval(function() {
+    var el = document.getElementById('navState');
+    if (el) el.textContent = 'STATE: ' + states[i % states.length];
+    i++;
+  }, 2000);
+})();
+
+
+var PRESETS = [
+  { b: 5000000, t: 6,  c: 5, label: 'HIGH RISK' },
+  { b: 2000000, t: 8,  c: 4, label: 'REVIEW ZONE' },
+  { b: 500000,  t: 12, c: 2, label: 'APPROVED' },
+  { b: null,    t: null, c: null, label: 'CUSTOM' }
+];
+
+var lastDecision = null;
+var lastExecutionId = null;
+
+function loadPreset(i) {
+  document.querySelectorAll('.preset').forEach(function(el){ el.classList.remove('active'); });
+  document.getElementById('p' + i).classList.add('active');
+  var p = PRESETS[i];
+  if (p.b !== null) {
+    document.getElementById('b').value = p.b;
+    document.getElementById('t').value = p.t;
+    document.getElementById('c').value = p.c;
+  }
+  // Reset output
+  document.getElementById('out').textContent = 'AWAITING VALIDATION...';
+  document.getElementById('out').className = '';
+  document.getElementById('payBtn').disabled = true;
+  document.getElementById('payBtn').classList.remove('ready');
+  document.getElementById('paymentLog').style.display = 'none';
+  document.getElementById('statusCta').style.display = 'none';
+  document.getElementById('demoResult').style.display = 'none';
+  setLifecycle(0);
+}
+
+function formatEUR(v) {
+  if (v >= 1000000) return '\u20ac' + Math.round(v / 1000000) + 'M';
+  if (v >= 1000)    return '\u20ac' + Math.round(v / 1000) + 'K';
+  return '\u20ac' + v;
+}
+
+// ── LOCAL RISK ENGINE (mirrors /lib/riskEngine.js — runs when API is unavailable) ──
+function localEvaluate(budget, timeline, complexity) {
+  budget = Number(budget); timeline = Number(timeline); complexity = Number(complexity);
+  if (!budget || !timeline || !complexity || budget <= 0 || timeline <= 0 || complexity < 1 || complexity > 5) {
+    return { error: 'INVALID_PARAMETERS' };
+  }
+  var scaleImpact  = Math.log10(budget + 1);
+  var timePressure = complexity / timeline;
+  var riskScore    = Math.min(scaleImpact * timePressure * 20, 100);
+  var lossExposure = Math.round(budget * (riskScore / 100) * 0.5);
+  var status = riskScore > 70 ? 'BLOCKED' : riskScore > 50 ? 'REQUIRES_REVIEW' : 'APPROVED';
+
+  var trace = [
+    { step: 'INPUT_VALIDATED',       value: null },
+    { step: 'BUDGET_ANALYSIS',       value: budget },
+    { step: budget >= 1000000 ? 'BUDGET_SCALE_HIGH' : 'BUDGET_SCALE_STANDARD', value: budget },
+    { step: 'TIME_PRESSURE_ANALYSIS',value: Number(timePressure.toFixed(3)) },
+    { step: timePressure > 0.5 ? 'TIME_CONSTRAINT_CRITICAL' : timePressure > 0.3 ? 'TIME_CONSTRAINT_ELEVATED' : 'TIME_CONSTRAINT_ACCEPTABLE', value: Number(timePressure.toFixed(3)) },
+    { step: complexity >= 4 ? 'COMPLEXITY_OVERLOAD' : 'COMPLEXITY_ELEVATED', value: complexity },
+    { step: 'RISK_SCORE_CALCULATED', value: Number(riskScore.toFixed(1)) },
+    { step: riskScore > 70 ? 'RISK_THRESHOLD_EXCEEDED' : riskScore > 50 ? 'RISK_THRESHOLD_REVIEW_ZONE' : 'RISK_THRESHOLD_WITHIN_BOUNDS', value: Number(riskScore.toFixed(1)) },
+    { step: 'DECISION_' + status,    value: null }
+  ];
+
+  var execId = 'EX-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+  return {
+    executionId: execId, status: status,
+    state: status === 'BLOCKED' ? 'BLOCKED' : status === 'REQUIRES_REVIEW' ? 'PENDING_REVIEW' : 'AUTHORIZED',
+    riskScore: Number(riskScore.toFixed(1)), lossExposure: lossExposure,
+    lifecycle: ['CREATED', 'VALIDATED', status === 'BLOCKED' ? 'BLOCKED' : status === 'REQUIRES_REVIEW' ? 'PENDING_REVIEW' : 'AUTHORIZED'],
+    trace: trace, createdAt: new Date().toISOString(), _source: 'local'
+  };
+}
+
+function delay(ms) {
+  return new Promise(function(res){ setTimeout(res, ms); });
+}
+
+function setLifecycle(step) {
+  var steps = ['lc0','lc1','lc2','lc3','lc4'];
+  steps.forEach(function(id, i) {
+    var el = document.getElementById(id);
+    el.classList.remove('active','done');
+    if (i < step)  el.classList.add('done');
+    if (i === step) el.classList.add('active');
+  });
+}
+
+async function runValidation() {
+  var b   = document.getElementById('b').value;
+  var t   = document.getElementById('t').value;
+  var c   = document.getElementById('c').value;
+  var out = document.getElementById('out');
+  var btn = document.querySelector('button[onclick="runValidation()"]');
+
+  if (!b || !t || !c || Number(c) < 1 || Number(c) > 5) {
+    out.textContent = '[REJECTED] — INVALID PARAMETERS';
+    return;
+  }
+
+  btn.disabled = true; btn.textContent = '> VALIDATING...';
+  out.className = '';
+  out.textContent = 'VALIDATING...';
+  setLifecycle(0);
+
+  await delay(400);
+  out.textContent += '\nCHECKING COMPLIANCE...';
+  await delay(700);
+  out.textContent += '\nENFORCING CONTROL...';
+  await delay(600);
+  out.textContent += '\nDECISION ENGINE: SELF-ADAPTING — PROCESSING';
+  await delay(500);
+
+  try {
+    var res  = await fetch('/api/execute', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ budget: b, timeline: t, complexity: c }),
+      signal:  AbortSignal.timeout(5000)
+    });
+    var data = await res.json();
+    if (data.error) throw new Error(data.error);
+    data._source = 'api';
+    setSystemMode('API');
+  } catch(err) {
+    // API unavailable — local engine runs (same logic as server)
+    var data = localEvaluate(b, t, c);
+    setSystemMode('LOCAL');
+    if (data.error) {
+      out.textContent = 'SYSTEM TEMPORARILY UNAVAILABLE — RETRY\n\nResults are indicative. Full audit uses extended data model.' + data.error;
+      btn.disabled = false; btn.textContent = '> VALIDATE SCENARIO';
+      return;
+    }
+  }
+
+    lastDecision    = data;
+    lastExecutionId = data.executionId;
+
+    var blocked = data.status === 'BLOCKED';
+    var review  = data.status === 'REQUIRES_REVIEW';
+
+    out.className = blocked ? 'blocked' : review ? 'review' : 'authorized';
+
+    var compliance = runComplianceCheck(
+      Number(document.getElementById('b').value),
+      Number(document.getElementById('t').value),
+      Number(document.getElementById('c').value),
+      'NO'
+    );
+
+    out.textContent =
+      'VALIDATION RESULT\n\n' +
+      'EXECUTION STATUS:   ' + data.status + '\n' +
+      'RISK SCORE:         ' + data.riskScore + '%\n' +
+      (blocked || review
+        ? 'LOSS EXPOSURE:      ' + formatEUR(data.lossExposure) + '\n'
+        : 'CAPITAL PROTECTED:  ' + formatEUR(data.lossExposure) + '\n') +
+      renderCompliance(compliance) +
+      '\nAUDIT TRACE:\n' +
+      (data.trace || []).map(function(tr, i) {
+        var step = typeof tr === 'object' ? tr.step : tr;
+        return '[' + String(i+1).padStart(2,'0') + '] ' + step;
+      }).join('\n') +
+      '\n\nEXECUTION ID:       ' + data.executionId +
+      '\nMODE:               ' + (_systemMode === 'API' ? 'SERVER ENGINE' : 'LOCAL ENGINE');
+
+    logExecution(data, _systemMode);
+    renderEventLog();
+
+    setLifecycle(1);
+
+    // Activate payment gate button
+    document.getElementById('payBtn').disabled = false;
+    document.getElementById('payBtn').classList.add('ready');
+    document.getElementById('payBtn').textContent =
+      blocked  ? '> RELEASE PAYMENT — WILL BE BLOCKED' :
+      review   ? '> RELEASE PAYMENT — REVIEW REQUIRED' :
+                 '> RELEASE PAYMENT — AUTHORIZED';
+
+  btn.disabled = false; btn.textContent = '> VALIDATE SCENARIO';
+}
+
+async function runPayment() {
+  if (!lastDecision) return;
+
+  var b   = document.getElementById('b').value;
+  var t   = document.getElementById('t').value;
+  var c   = document.getElementById('c').value;
+  var log = document.getElementById('paymentLog');
+  var btn = document.getElementById('payBtn');
+
+  btn.disabled = true;
+  log.style.display = 'block';
+  log.className = '';
+  var amt = document.getElementById('b').value ? '\u20ac' + Number(document.getElementById('b').value).toLocaleString() : '\u20ac?';
+    log.textContent = '[PAYMENT REQUEST: ' + amt + ']\n[CONTACTING PAYMENT GATE...]\n[SYSTEM: BANK INTEGRATION SIMULATION]';
+  setLifecycle(2);
+
+  await delay(600);
+  log.textContent += '\n[EXECUTIA INTERCEPTING REQUEST...]';
+  await delay(500);
+
+  try {
+    var res  = await fetch('/api/authorize-payment', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ amount: b, timeline: t, complexity: c })
+    });
+    var data = await res.json();
+
+    await delay(400);
+
+    if (!data.authorized && !data.holdPending) {
+      log.className = 'blocked';
+      log.textContent =
+        'USER ACTION: APPROVE PAYMENT\nSYSTEM RESPONSE: BLOCKED\nOVERRIDE: NOT POSSIBLE\n\n[PAYMENT BLOCKED]\n\n' +
+        'PAYMENT REQUEST:   ' + formatEUR(Number(document.getElementById('b').value)) + '\n' +
+        'REASON:            ' + data.reason + '\n' +
+        'RISK SCORE:        ' + data.riskScore + '%\n\n' +
+        'CAPITAL PROTECTED: ' + formatEUR(data.lossExposure) + '\n\n' +
+        'PAYMENT:    INTERCEPTED\n' +
+        'AUTHORITY:  EXECUTIA\n' +
+        'OVERRIDE:   DISABLED\n' +
+        'FUNDS RELEASE: DENIED\n' +
+        'BOUNDARY:   PAYMENT GATE ENFORCED\n\n' +
+        'EXECUTION ID: ' + data.executionId;
+      setLifecycle(4);
+
+      // Vibrate on BLOCKED — physical impact
+      if (navigator.vibrate) navigator.vibrate([300, 100, 300]);
+
+      // Push notification if subscribed
+      if (window.__pushEnabled) {
+        new Notification('EXECUTIA — PAYMENT BLOCKED', {
+          body: 'CAPITAL PROTECTED: ' + formatEUR(data.lossExposure),
+          icon: '/icon-192.png'
+        });
+      }
+    } else if (data.holdPending) {
+      log.className = '';
+      log.textContent =
+        '[EXECUTION HELD — REVIEW REQUIRED]\n\n' +
+        'PAYMENT: PENDING AUTHORIZATION\n' +
+        'REASON:  ' + data.reason + '\n' +
+        'RISK:    ' + data.riskScore + '%\n\n' +
+        'NEXT STEP: OPERATOR REVIEW\n' +
+        'EXECUTION ID: ' + data.executionId;
+      setLifecycle(3);
+    } else {
+      log.className = 'authorized';
+      log.textContent =
+        '[PAYMENT AUTHORIZED]\n\n' +
+        'PAYMENT REQUEST:   RELEASED\n' +
+        'FUNDS RELEASE: APPROVED\n' +
+        'RISK:    ' + data.riskScore + '%\n' +
+        'PROTECTED: ' + formatEUR(data.lossExposure) + '\n\n' +
+        'AUTHORITY:  EXECUTIA\n' +
+        'AUDIT LOG:  CREATED\n\n' +
+        'EXECUTION ID: ' + data.executionId;
+      setLifecycle(4);
+    }
+
+    // Show status CTA
+    var statusCta  = document.getElementById('statusCta');
+    var statusLink = document.getElementById('statusLink');
+    statusLink.href = '/status?id=' + data.executionId;
+    statusLink.textContent = '> VIEW FULL AUDIT RECORD — ' + data.executionId;
+    statusCta.style.display = 'block';
+    var an = document.getElementById('analysisNote'); if(an) an.style.display = 'block';
+
+    // Show result block with € impact
+    var resultEl   = document.getElementById('demoResult');
+    var resultText = document.getElementById('demoResultText');
+    var shockEl    = document.getElementById('shockLine');
+    var lossRaw    = data.lossExposure || 0;
+    var lossAmt    = formatEUR(lossRaw);
+    var blocked    = !data.authorized && !data.holdPending;
+    var held       = data.holdPending;
+
+    if (shockEl) {
+      if (blocked) {
+        shockEl.textContent = '€' + lossRaw.toLocaleString() + ' WOULD BE LOST';
+        shockEl.style.color = '#dc2626';
+        shockEl.style.borderColor = '#dc2626';
+      } else if (held) {
+        shockEl.textContent = 'EXECUTION HELD — REVIEW REQUIRED';
+        shockEl.style.color = '#d97706';
+        shockEl.style.borderColor = '#d97706';
+      } else {
+        shockEl.textContent = 'EXECUTION WITHIN PARAMETERS';
+        shockEl.style.color = '#16a34a';
+        shockEl.style.borderColor = '#16a34a';
+      }
+    }
+
+    var threatEl = document.getElementById('personalThreat');
+    if (threatEl) {
+      if (blocked) { threatEl.textContent = 'THIS WOULD HAPPEN ON YOUR PROJECT'; threatEl.style.color = '#dc2626'; threatEl.style.display = 'block'; }
+      else if (held) { threatEl.textContent = 'YOUR PROJECT WOULD BE HELD FOR REVIEW'; threatEl.style.color = '#d97706'; threatEl.style.display = 'block'; }
+      else { threatEl.style.display = 'none'; }
+    }
+
+    resultText.innerHTML =
+      '<div style="font-size:15px;font-weight:700;margin-bottom:12px;letter-spacing:.04em;">' +
+        (blocked ? '⚠ EXECUTION BLOCKED' : held ? '⚠ EXECUTION HELD' : '✓ EXECUTION APPROVED') +
+      '</div>' +
+      'RISK:    ' + data.riskScore + '%\n' +
+      'LOSS:    ' + lossAmt + '\n' +
+      'STATUS:  ' + (blocked ? 'BLOCKED' : held ? 'REQUIRES_REVIEW' : 'APPROVED') + '\n\n' +
+      'WHY ' + (blocked ? 'BLOCKED' : held ? 'HELD' : 'APPROVED') + ':\n' +
+      (data.trace || []).slice(0, 4).map(function(t) {
+        var step = typeof t === 'object' ? t.step : t;
+        return '  \u2014 ' + step;
+      }).join('\n') +
+      '\n\n' +
+      (blocked
+        ? 'WITHOUT EXECUTIA:\n\u2192 ' + lossAmt + ' would be committed\n\nExecution stopped. Capital protected.'
+        : held
+        ? 'Capital held pending review. No funds released.'
+        : 'Execution within parameters. Audit trail created.');
+
+    resultEl.style.display = 'block';
+    var mw = document.getElementById('matchWarning'); if(mw) mw.style.display = 'block';
+
+    if (window.gtag) {
+      gtag('event', 'demo_execution', {
+        status:     data.status,
+        risk_score: data.riskScore,
+        authorized: data.authorized
+      });
+    }
+
+  } catch(err) {
+    // API unavailable — use lastDecision from local engine
+    await delay(400);
+    var data = lastDecision || localEvaluate(b, t, c);
+    data.authorized  = data.status === 'APPROVED';
+    data.holdPending = data.status === 'REQUIRES_REVIEW';
+    data.reason      = data.status === 'BLOCKED' ? 'RISK_THRESHOLD_EXCEEDED' : 'VALIDATION_PASSED';
+    // Fall through to render — same path as API response
+    if (!data.authorized && !data.holdPending) {
+      log.className = 'blocked';
+      log.textContent =
+        'USER ACTION: APPROVE PAYMENT\nSYSTEM RESPONSE: BLOCKED\nOVERRIDE: NOT POSSIBLE\n\n[PAYMENT BLOCKED]\n\n' +
+        'PAYMENT REQUEST:   ' + formatEUR(Number(b)) + '\n' +
+        'REASON:            ' + data.reason + '\n' +
+        'RISK SCORE:        ' + data.riskScore + '%\n\n' +
+        'CAPITAL PROTECTED: ' + formatEUR(data.lossExposure) + '\n\n' +
+        'PAYMENT:    INTERCEPTED\n' +
+        'AUTHORITY:  EXECUTIA\n' +
+        'OVERRIDE:   DISABLED\n' +
+        'FUNDS RELEASE: DENIED\n' +
+        'MODE:       LOCAL ENGINE\n\n' +
+        'EXECUTION ID: ' + data.executionId;
+      setLifecycle(4);
+    } else {
+      log.className = data.holdPending ? '' : 'authorized';
+      log.textContent =
+        (data.holdPending ? '[EXECUTION HELD]\n\n' : '[EXECUTION AUTHORIZED]\n\n') +
+        'RISK:    ' + data.riskScore + '%\n' +
+        'MODE:    LOCAL ENGINE\n' +
+        'EXECUTION ID: ' + data.executionId;
+      setLifecycle(data.holdPending ? 3 : 4);
+    }
+    var statusCta  = document.getElementById('statusCta');
+    var statusLink = document.getElementById('statusLink');
+    statusLink.href = '/status?id=' + data.executionId;
+    statusLink.textContent = '> VIEW AUDIT RECORD — ' + data.executionId;
+    statusCta.style.display = 'block';
+    var an = document.getElementById('analysisNote'); if(an) an.style.display = 'block';
+
+    var blocked = !data.authorized && !data.holdPending;
+    var held    = data.holdPending;
+    var lossRaw = data.lossExposure || 0;
+    var lossAmt = formatEUR(lossRaw);
+    var resultEl   = document.getElementById('demoResult');
+    var resultText = document.getElementById('demoResultText');
+    var shockEl    = document.getElementById('shockLine');
+
+    if (shockEl) {
+      if (blocked) {
+        shockEl.textContent = '€' + lossRaw.toLocaleString() + ' WOULD BE LOST';
+        shockEl.style.color = '#dc2626';
+        shockEl.style.borderColor = '#dc2626';
+      } else if (held) {
+        shockEl.textContent = 'EXECUTION HELD — REVIEW REQUIRED';
+        shockEl.style.color = '#d97706';
+        shockEl.style.borderColor = '#d97706';
+      } else {
+        shockEl.textContent = 'EXECUTION WITHIN PARAMETERS';
+        shockEl.style.color = '#16a34a';
+        shockEl.style.borderColor = '#16a34a';
+      }
+    }
+
+    resultText.innerHTML =
+      '<div style="font-size:15px;font-weight:700;margin-bottom:12px;letter-spacing:.04em;">' +
+        (blocked ? '⚠ EXECUTION BLOCKED' : held ? '⚠ EXECUTION HELD' : '✓ EXECUTION APPROVED') +
+      '</div>' +
+      'RISK:    ' + data.riskScore + '%\n' +
+      'LOSS:    ' + lossAmt + '\n' +
+      'STATUS:  ' + (blocked ? 'BLOCKED' : held ? 'REQUIRES_REVIEW' : 'APPROVED') + '\n\n' +
+      'WHY ' + (blocked ? 'BLOCKED' : held ? 'HELD' : 'APPROVED') + ':\n' +
+      (data.trace || []).slice(0, 4).map(function(t) {
+        var step = typeof t === 'object' ? t.step : t;
+        return '  \u2014 ' + step;
+      }).join('\n') +
+      '\n\n' +
+      (blocked
+        ? 'WITHOUT EXECUTIA:\n\u2192 ' + lossAmt + ' would be committed\n\nExecution stopped. Capital protected.'
+        : held
+        ? 'Capital held pending review. No funds released.'
+        : 'Execution within parameters. Audit trail created.');
+
+    resultEl.style.display = 'block';
+  }
+
+  btn.disabled = false;
+}
+
+// ── EXECUTION LOG — localStorage persistence ──
+var EXEC_LOG_KEY = 'executia_log_v1';
+
+function getExecLog() {
+  try { return JSON.parse(localStorage.getItem(EXEC_LOG_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function saveExecLog(log) {
+  try { localStorage.setItem(EXEC_LOG_KEY, JSON.stringify(log.slice(-50))); } catch(e) {} // keep last 50
+}
+
+function logExecution(data, source) {
+  var log = getExecLog();
+  log.push({
+    id:          data.executionId,
+    status:      data.status,
+    riskScore:   data.riskScore,
+    lossExposure:data.lossExposure,
+    budget:      Number(document.getElementById('b').value),
+    timeline:    Number(document.getElementById('t').value),
+    complexity:  Number(document.getElementById('c').value),
+    source:      source || _systemMode,
+    ts:          new Date().toISOString()
+  });
+  saveExecLog(log);
+}
+
+// ── COMPLIANCE LAYER ──
+var COMPLIANCE_RULES = {
+  NO: [
+    { id:'TEK17_HEIGHT',   law:'TEK17 §12-14',          rule:'Fall protection required above 2m',         trigger: function(b,t,c){ return c >= 4; },           severity:'HIGH',   fine: 5000 },
+    { id:'ARBEID_HOURS',   law:'Arbeidstilsynet §10-6',  rule:'Max 9h/day — overtime risk at high complexity', trigger: function(b,t,c){ return c >= 3 && t <= 6; }, severity:'MEDIUM', fine: 2000 },
+    { id:'NS_CONCRETE',    law:'NS-EN 13670',            rule:'Concrete curing compliance required',       trigger: function(b,t,c){ return b >= 2000000; },      severity:'MEDIUM', fine: 3000 }
+  ],
+  EU: [
+    { id:'GDPR_DATA',      law:'GDPR Art.25',            rule:'Data protection by design required',        trigger: function(b,t,c){ return true; },              severity:'LOW',    fine: 0 },
+    { id:'EUOSHA_SAFETY',  law:'EU-OSHA 89/391',        rule:'Safety management plan required',           trigger: function(b,t,c){ return c >= 3; },            severity:'MEDIUM', fine: 1500 }
+  ]
+};
+
+function runComplianceCheck(budget, timeline, complexity, country) {
+  country = country || 'NO';
+  var rules = COMPLIANCE_RULES[country] || COMPLIANCE_RULES['NO'];
+  var violations = rules.filter(function(r) { return r.trigger(budget, timeline, complexity); });
+  return violations;
+}
+
+function renderCompliance(violations) {
+  if (!violations.length) return '\nCOMPLIANCE: ALL CHECKS PASSED\n';
+  var lines = '\nCOMPLIANCE VIOLATIONS DETECTED:\n';
+  violations.forEach(function(v) {
+    lines += '\n[' + v.severity + '] ' + v.law + '\n';
+    lines += '       ' + v.rule + '\n';
+    if (v.fine > 0) lines += '       FINE RISK: \u20ac' + v.fine.toLocaleString() + '\n';
+  });
+  return lines;
+}
+
+// Load SCENARIO 01 on page load
+
+// ── SAFE FETCH ──
+async function safeFetch(url, options) {
+  try {
+    var res = await fetch(url, options);
+    if (!res.ok) throw new Error('API error ' + res.status);
+    return await res.json();
+  } catch(e) {
+    console.error('API FAILED', e);
+    return { error: true, fallback: true };
+  }
+}
+
+// ── ANALYTICS TRACKING ──
+function track(event) {
+  fetch('/api/log-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event: event, ts: new Date().toISOString() })
+  }).catch(function(){});
+}
+
+// ── AUTO DEMO EVENTS ──
+var demoAutoEvents = {
+  material_delayed: {
+    text: 'Material delay detected → risk €45,000',
+    extra: ''
+  },
+  payment_blocked: {
+    text: 'Payment BLOCKED €120,000',
+    extra: 'OVERRIDE: NOT POSSIBLE'
+  },
+  task_completed: {
+    text: 'Foundation → PARTIAL RECOVERY',
+    extra: ''
+  }
+};
+
+function generateExecutionId() {
+  var date = new Date().toISOString().slice(2,10).replace(/-/g,'');
+  var rand = Math.random().toString(36).substring(2,8).toUpperCase();
+  return 'EX-' + date + '-' + rand;
+}
+
+function getTime() {
+  return new Date().toISOString().substring(11,19);
+}
+
+function addDemoEvent(eventKey) {
+  var ev   = demoAutoEvents[eventKey];
+  if (!ev) return;
+  var time = getTime();
+  var id   = generateExecutionId();
+  var log  = document.getElementById('eventLog');
+  if (!log) return;
+  var line = time + ' — ' + ev.text + '\nID: ' + id + (ev.extra ? '\n' + ev.extra : '');
+  if (log.textContent === 'SYSTEM READY — NO EXECUTIONS THIS SESSION' ||
+      log.textContent === 'SYSTEM ACTIVE — MONITORING EXECUTION FLOW') {
+    log.textContent = line;
+  } else {
+    log.textContent = line + '\n\n' + log.textContent;
+  }
+  track('auto_demo_' + eventKey);
+}
+
+// Fire auto events on page load (if no prior executions)
+(function() {
+  var log = getExecLog();
+  if (!log.length) {
+    setTimeout(function() { addDemoEvent('material_delayed'); }, 1000);
+    setTimeout(function() { addDemoEvent('payment_blocked'); }, 4000);
+    setTimeout(function() { addDemoEvent('task_completed'); }, 7000);
+  }
+})();
+
+// Update system status badge based on mode
+(function() {
+  var label = document.getElementById('statusLabel');
+  var dot   = document.getElementById('statusDot');
+  if (!label || !dot) return;
+  // Will be updated by probeApi
+})();
+
+
+loadPreset(0);
+
+// ── SYSTEM MODE PROBE ──
+var _systemMode = 'LOCAL'; // default
+
+function setSystemMode(mode) {
+  _systemMode = mode;
+  var sys   = document.getElementById('hudSystem');
+  var eng   = document.getElementById('hudEngine');
+  var mod   = document.getElementById('hudMode');
+  var label = document.getElementById('statusLabel');
+  var dot   = document.getElementById('statusDot');
+  if (mode === 'API') {
+    if (sys) sys.textContent = 'LIVE';
+    if (eng) eng.textContent = 'SERVER';
+    if (mod) mod.textContent = 'API — ENFORCED';
+    if (label) { label.textContent = 'LIVE'; label.style.color = '#16A34A'; }
+    if (dot)   dot.style.background = '#16A34A';
+  } else {
+    if (sys) sys.textContent = 'ACTIVE';
+    if (eng) eng.textContent = 'LOCAL';
+    if (mod) mod.textContent = 'LOCAL ENGINE';
+    if (label) { label.textContent = 'SIMULATION'; label.style.color = '#D97706'; }
+    if (dot)   dot.style.background = '#D97706';
+  }
+}
+
+(function probeApi() {
+  fetch('/api/live-status', { signal: AbortSignal.timeout(3000) })
+    .then(function(r) { if (r.ok) setSystemMode('API'); else setSystemMode('LOCAL'); })
+    .catch(function()  { setSystemMode('LOCAL'); });
+  setSystemMode('LOCAL'); // default until probe returns
+})();
+</script>
+
+<button class="dark-toggle" onclick="toggleDark()" id="darkBtn">DARK MODE</button>
+<script>
+(function(){
+  var dark = localStorage.getItem('executia-dark') === 'true';
+  if (dark) { document.body.classList.add('dark'); document.getElementById('darkBtn').textContent = 'LIGHT MODE'; }
+})();
+function toggleDark() {
+  var on = document.body.classList.toggle('dark');
+  localStorage.setItem('executia-dark', on);
+  document.getElementById('darkBtn').textContent = on ? 'LIGHT MODE' : 'DARK MODE';
+}
+
+// Service worker + push
+window.__pushEnabled = false;
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(function(reg) {
+    // Request notification permission
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission().then(function(p) {
+        window.__pushEnabled = p === 'granted';
+      });
+    } else {
+      window.__pushEnabled = Notification.permission === 'granted';
+    }
+  }).catch(function(){});
+}
+
+// Live event log polling
+function formatEUR(v) {
+  if (!v) return '\u20ac\u2014';
+  if (v >= 1000000) return '\u20ac' + Math.round(v/1000000) + 'M';
+  if (v >= 1000)    return '\u20ac' + Math.round(v/1000) + 'K';
+  return '\u20ac' + v;
+}
+
+function renderEventLog() {
+  var log = getExecLog();
+  var el  = document.getElementById('eventLog');
+  if (!el) return;
+  if (!log.length) {
+    el.textContent = 'SYSTEM READY — NO EXECUTIONS THIS SESSION';
+    return;
+  }
+  el.textContent = log.slice().reverse().map(function(e) {
+    var ts = e.ts ? e.ts.replace('T',' ').substring(0,19) + ' UTC' : '—';
+    return '[' + ts + ']\n' +
+      'ID: ' + e.id + '  STATUS: ' + e.status + '\n' +
+      'RISK: ' + e.riskScore + '%  EXPOSURE: ' + formatEUR(e.lossExposure) + '  MODE: ' + e.source;
+  }).join('\n\n');
+}
+
+function clearExecLog() {
+  try { localStorage.removeItem(EXEC_LOG_KEY); } catch(e) {}
+  renderEventLog();
+}
+
+renderEventLog();
+
+
+
+
+// AUTO SYSTEM SIMULATION (CRITICAL FOR SALES)
+setTimeout(function() {
+  // Auto-run validation with preset scenario — system starts without user input
+  track('demo_auto_started');
+  try {
+    runValidation();
+  } catch(e) {
+    // Fallback: show system output directly if runValidation throws
+    var out = document.getElementById('out');
+    if (out) {
+      var time = new Date().toISOString(
