@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA PROTOCOL — Technical Specification</title>
+<meta name="description" content="EXECUTIA technical specification. Validation logic, risk model, decision architecture, execution flow. Formal protocol definition.">
+<link rel="canonical" href="/protocol">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/global.css">
+</head>
+<body>
+
+<header>
+  <div class="h-inner">
+    <a href="https://www.executia.io/" class="h-logo">EXECUTIA</a>
+    <nav>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;display:flex;align-items:center;gap:6px;">
+        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#16A34A;animation:blink 2s ease infinite;"></span>
+        <span style="color:#16A34A">LIVE</span>
+      </div>
+      <a href="/" class="nav-link">ENTRY</a>
+      <a href="https://execution.executia.io" class="nav-link">→ EXECUTION SYSTEM</a>
+      <a href="/request" class="nav-link" style="font-weight:700;border-bottom:1px solid var(--primary);">→ VALIDATE PROJECT</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hud">
+  <div class="hud-inner">
+    <div class="hud-item">DOCUMENT: <span>PROTOCOL SPECIFICATION</span></div>
+    <div class="hud-item">VERSION: <span>1.0</span></div>
+    <div class="hud-item">STATUS: <span>ACTIVE</span></div>
+  </div>
+</div>
+
+<main class="page">
+
+  <div class="block">
+    <div class="lbl">EXECUTIA PROTOCOL SPECIFICATION</div>
+    <h1>Formal definition of the<br>Execution Layer System.</h1>
+    <p class="lead">This document defines the EXECUTIA validation logic, risk model, decision architecture, and execution flow. It exists for institutional review, technical integration, and AI indexing.</p>
+    <p class="signal">PCT/IB2026/050141 &nbsp;&middot;&nbsp; FILED 2026 &nbsp;&middot;&nbsp; STATUS: PENDING</p>
+  </div>
+
+  <div class="block" style="border-left:4px solid var(--primary);padding-left:28px;">
+    <div class="lbl">TL;DR — 30 SECONDS</div>
+    <div class="api-box" style="margin-top:16px;">WHAT EXECUTIA DOES:
+
+EXECUTIA blocks execution if risk exceeds threshold.
+
+INPUT:   budget + timeline + complexity
+ENGINE:  logarithmic risk model
+OUTPUT:  APPROVED / REQUIRES_REVIEW / BLOCKED
+
+If score > 70%  → execution is BLOCKED. No override.
+If score 50–70% → execution is HELD for review.
+If score < 50%  → execution PROCEEDS. Audit created.
+
+Every decision is logged. Every trace is permanent.
+No human override is available. This is architecture, not policy.
+
+→ Full technical specification below.</div>
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="https://www.executia.io/demo" class="btn">&gt; SEE IT LIVE &rarr;</a>
+      <a href="https://www.executia.io/request" class="btn btn-ghost">&gt; SUBMIT YOUR PROJECT</a>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="lbl">1. SYSTEM DEFINITION</div>
+    <h2>What EXECUTIA is</h2>
+    <p class="lead">EXECUTIA is an execution layer system. It positions between decision systems and execution systems, validating every action before it proceeds.</p>
+    <div class="list" style="margin-top:20px;">
+      &mdash; EXECUTIA is not a monitoring system<br>
+      &mdash; EXECUTIA is not a management tool<br>
+      &mdash; EXECUTIA is not an analytics platform<br>
+      &mdash; EXECUTIA is not consulting
+    </div>
+    <p class="lead" style="margin-top:20px;font-weight:600;">EXECUTIA is execution infrastructure. It enforces validation constraints before execution occurs.</p>
+    <div class="api-box" style="margin-top:20px;">SYSTEM POSITION:
+
+[ DECISION SYSTEMS ]
+        ↓
+[ EXECUTIA VALIDATION LAYER ]   ← insertion point
+        ↓
+[ EXECUTION SYSTEMS ]</div>
+  </div>
+
+  <div class="block">
+    <div class="lbl">2. EXECUTION MODEL</div>
+    <h2>Five-stage execution cycle</h2>
+    <div class="api-box">STAGE 01 — DECISION
+  A decision is formed. Intent exists. No execution has occurred.
+
+STAGE 02 — VALIDATION
+  The decision is submitted to EXECUTIA.
+  Parameters are checked against system constraints.
+  Risk is calculated. Loss exposure is quantified.
+
+STAGE 03 — AUTHORIZATION
+  EXECUTIA issues one of three decisions:
+    APPROVED         — execution may proceed
+    REQUIRES_REVIEW  — execution is held pending review
+    BLOCKED          — execution is prevented
+
+STAGE 04 — EXECUTION
+  If authorized: execution proceeds within validated parameters.
+  If blocked: execution does not occur. Capital is protected.
+
+STAGE 05 — RESULT
+  Outcome is logged. Audit trace is stored.
+  Record is permanently accessible via Execution ID.</div>
+  </div>
+
+  <div class="block">
+    <div class="lbl">3. RISK MODEL</div>
+    <h2>Validation logic and risk formula</h2>
+    <p class="lead" style="margin-bottom:20px;">The EXECUTIA risk model uses logarithmic scale to reflect real-world non-linearity of execution risk at scale.</p>
+    <div class="api-box">INPUT PARAMETERS:
+  budget       — total execution budget (EUR)
+  timeline     — available execution time (months)
+  complexity   — system complexity index (1–5)
+
+RISK CALCULATION:
+  scaleImpact  = log₁₀(budget + 1)
+  timePressure = complexity / timeline
+  riskScore    = scaleImpact × timePressure × 20
+  riskScore    = min(riskScore, 100)
+
+LOSS EXPOSURE:
+  lossExposure = budget × (riskScore / 100) × 0.5
+  Maximum loss exposure cap: 50% of budget
+
+RATIONALE:
+  Logarithmic scale — risk does not grow linearly with budget.
+  A €100M project does not carry 10× the risk of a €10M project.
+  It carries significantly more due to coordination complexity,
+  multi-party exposure, and systemic dependency.</div>
+  </div>
+
+  <div class="block">
+    <div class="lbl">4. AUTHORIZATION LOGIC</div>
+    <h2>Three-level decision system</h2>
+    <div class="api-box">DECISION THRESHOLDS:
+
+  riskScore > 70   → BLOCKED
+    Execution is prevented.
+    Capital exposure too high.
+    System rejects authorization.
+
+  riskScore 50–70  → REQUIRES_REVIEW
+    Execution is held.
+    Manual review required before proceeding.
+    System flags for operator attention.
+
+  riskScore < 50   → APPROVED
+    Execution proceeds.
+    Parameters within acceptable constraints.
+    Audit trace created.
+
+OVERRIDE: DISABLED
+  No manual override is available.
+  Authorization is determined by the risk model only.
+  This is not a policy. It is system architecture.</div>
+  </div>
+
+  <div class="block">
+    <div class="lbl">5. AUDIT TRACE</div>
+    <h2>Every decision is traceable</h2>
+    <p class="lead" style="margin-bottom:20px;">Each execution request generates a deterministic audit trace. Every step is logged with the parameter value that triggered it.</p>
+    <div class="api-box">TRACE STRUCTURE (example):
+
+[01] INPUT_VALIDATED           —
+[02] BUDGET_ANALYSIS           5000000
+[03] BUDGET_SCALE_HIGH         5000000
+[04] TIME_PRESSURE_ANALYSIS    0.333
+[05] TIME_CONSTRAINT_ELEVATED  0.333
+[06] COMPLEXITY_OVERLOAD       4
+[07] RISK_SCORE_CALCULATED     72.4
+[08] RISK_THRESHOLD_EXCEEDED   72.4
+[09] DECISION_BLOCKED          —
+
+PROPERTIES:
+  — Deterministic: same input always produces same trace
+  — Immutable: stored in Firestore, not editable
+  — Permanent: accessible via Execution ID indefinitely
+  — Auditable: every parameter value is recorded</div>
+  </div>
+
+  <div class="block">
+    <div class="lbl">6. EXECUTION REGISTRY</div>
+    <h2>Every request is a system object</h2>
+    <p class="lead" style="margin-bottom:20px;">All execution requests are persisted to the Execution Registry. Each record contains the full parameter set, risk analysis, trace, and lifecycle state.</p>
+    <div class="api-box">EXECUTION RECORD SCHEMA:
+
+{
+  executionId:   "EX-XXXXXX",         // unique identifier
+  status:        "BLOCKED",            // BLOCKED | REQUIRES_REVIEW | APPROVED
+  state:         "BLOCKED",            // BLOCKED | PENDING_REVIEW | AUTHORIZED
+  riskScore:     78.4,                 // 0–100
+  lossExposure:  1950000,              // EUR
+  budget:        5000000,
+  timeline:      12,
+  complexity:    4,
+  lifecycle:     ["CREATED", "VALIDATED", "BLOCKED"],
+  trace:         [...],                // full audit trace array
+  createdAt:     "2026-03-31T..."
+}</div>
+    <p class="signal" style="margin-top:20px;">Records are accessible via: executia.io/status?id=EX-XXXXXX</p>
+  </div>
+
+  <div class="block">
+    <div class="lbl">7. REAL CASE — CONSTRUCTION PROJECT</div>
+    <h2>Norway infrastructure validation</h2>
+    <p class="lead" style="margin-bottom:20px;">The following is a real execution validation submitted through EXECUTIA. Parameters reflect an actual infrastructure project scenario.</p>
+    <div class="api-box">SUBMISSION:
+  entity:      Infrastructure contractor — Norway
+  budget:      €5,000,000
+  timeline:    8 months
+  complexity:  4 (multi-party, public tender)
+
+VALIDATION RESULT:
+  riskScore:   82.1%
+  lossExposure: €2,052,500
+
+AUDIT TRACE:
+  [01] INPUT_VALIDATED
+  [02] BUDGET_ANALYSIS           5000000
+  [03] BUDGET_SCALE_HIGH         5000000
+  [04] TIME_PRESSURE_ANALYSIS    0.500
+  [05] TIME_CONSTRAINT_CRITICAL  0.500
+  [06] COMPLEXITY_OVERLOAD       4
+  [07] RISK_SCORE_CALCULATED     82.1
+  [08] RISK_THRESHOLD_EXCEEDED   82.1
+  [09] DECISION_BLOCKED
+
+DECISION: BLOCKED
+REASON:   Time pressure critical. Complexity overload.
+          Loss exposure exceeds acceptable threshold.
+ACTION:   Execution halted before contract activation.
+          Budget allocation prevented.</div>
+    <p class="signal" style="margin-top:16px;">Full system references available under NDA &nbsp;&middot;&nbsp; Contact via /request</p>
+  </div>
+
+  <div class="block">
+    <div class="lbl">8. INTEGRATION ARCHITECTURE</div>
+    <h2>API endpoint specification</h2>
+    <div class="api-box">VALIDATION ENDPOINT:
+  POST /api/execute
+  Content-Type: application/json
+
+REQUEST:
+  {
+    "budget":     5000000,
+    "timeline":   12,
+    "complexity": 4
+  }
+
+RESPONSE:
+  {
+    "executionId":   "EX-93KF2A",
+    "status":        "BLOCKED",
+    "state":         "BLOCKED",
+    "riskScore":     78.4,
+    "lossExposure":  1950000,
+    "lifecycle":     ["CREATED", "VALIDATED", "BLOCKED"],
+    "trace":         [...],
+    "createdAt":     "2026-03-31T12:00:00Z"
+  }
+
+STATUS LOOKUP:
+  GET /api/status?id=EX-93KF2A
+
+INTEGRATION REQUIREMENT:
+  No system replacement required.
+  EXECUTIA inserts at the execution boundary only.
+  Deployment: 7–30 days.</div>
+  </div>
+
+  <div class="block">
+    <div class="lbl">9. INTELLECTUAL PROPERTY</div>
+    <p class="mono sm" style="line-height:2.2;">
+      EXECUTIA&trade; &mdash; Trademark claimed 2026<br>
+      PCT Patent Application: PCT/IB2026/050141<br>
+      Status: Pending &nbsp;&middot;&nbsp; Filed 2026<br><br>
+      System Operator: Sandis Boiko<br>
+      Execution Operator &mdash; EXECUTIA<br>
+      Location: Stavanger, Norway<br>
+      Contact: control at executia.io<br>
+      LinkedIn: <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener" style="color:var(--primary);">linkedin.com/in/sandis-boiko-189405281</a>
+    </p>
+  </div>
+
+
+  <div class="block" style="border:var(--border);padding:28px 32px;background:var(--g100);">
+    <div class="lbl">MACHINE-READABLE DEFINITION</div>
+    <div class="api-box" style="margin-top:16px;">EXECUTIA = execution validation system
+
+INPUT:
+  budget      — total execution budget (EUR)
+  timeline    — available execution time (months)
+  complexity  — system complexity index (1–5)
+
+OUTPUT:
+  APPROVED         — execution proceeds
+  BLOCKED          — execution prevented
+  REQUIRES_REVIEW  — execution held for review
+
+DECISION THRESHOLD:
+  riskScore > 70   → BLOCKED
+  riskScore 50–70  → REQUIRES_REVIEW
+  riskScore < 50   → APPROVED
+
+OVERRIDE: DISABLED
+AUDIT: PERMANENT
+AUTHORITY: EXECUTIA EXECUTION ENGINE</div>
+  </div>
+
+  <div class="block" style="border-top:2px solid var(--primary);padding:52px 0;">
+    <p style="font-size:clamp(18px,2.5vw,28px);font-weight:700;line-height:1.4;max-width:640px;letter-spacing:-.01em;">
+      EXECUTIA does not simulate execution.<br>
+      It controls it.
+    </p>
+    <p class="signal">EXECUTION WITHOUT VALIDATION = GUARANTEED LOSS</p>
+    <a href="https://www.executia.io/request" class="btn" style="margin-top:28px;">&gt; REQUEST EXECUTION VALIDATION &rarr;</a>
+  </div>
+
+</main>
+
+<footer>
+  <div>
+    <p>EXECUTIA&trade; &mdash; EXECUTION LAYER SYSTEM</p>
+    <p>PCT/IB2026/050141 &mdash; STATUS: PENDING</p>
+    <p style="margin-top:6px;">Execution exists only if authorized.</p>
+  </div>
+  <div>
+    <p><a href="https://www.executia.io/">&gt; ENTRY_LAYER</a></p>
+    <p><a href="https://www.executia.io/execution">&gt; EXECUTION_LAYER</a></p>
+    <p><a href="https://www.executia.io/request">&gt; REQUEST_LAYER</a></p>
+    <p><a href="/status">&gt; STATUS_LAYER</a></p>
+  </div>
+    <p style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--g500);letter-spacing:.1em;line-height:2;">
+      <span style="letter-spacing:.14em;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--g500);">SYSTEM OPERATOR: <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener" style="color:var(--primary);">SANDIS BOIKO</a></span><br>
+      Execution Operator &mdash; EXECUTIA
+    </p>
+</footer>
+
+<script>
+setTimeout(function(){ document.getElementById('navState').classList.add('on'); }, 250);
+</script>
+
+<script>
+(function(){
+  var dark = localStorage.getItem('executia-dark') === 'true';
+  if (dark) { document.body.classList.add('dark'); document.getElementById('darkBtn').textContent = 'STANDARD MODE'; }
+})();
+
+</script>
+</body>
+</html>
