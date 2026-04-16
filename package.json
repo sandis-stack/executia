@@ -1,7 +1,0 @@
-{
-  "name": "executia-system",
-  "version": "1.0.0",
-  "private": true,
-  "description": "EXECUTIA — Execution Control Infrastructure",
-  "type": "module"
-}
