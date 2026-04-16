@@ -1,0 +1,51 @@
+{
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "^/$",
+      "dest": "/index.html"
+    },
+    {
+      "src": "^/execution$",
+      "dest": "/execution.html"
+    },
+    {
+      "src": "^/request$",
+      "dest": "/request.html"
+    },
+    {
+      "src": "^/financial$",
+      "dest": "/financial.html"
+    },
+    {
+      "src": "^/institutional$",
+      "dest": "/institutional.html"
+    },
+    {
+      "src": "^/protocol$",
+      "dest": "/protocol.html"
+    },
+    {
+      "src": "^/status$",
+      "dest": "/status.html"
+    },
+    {
+      "src": "^/dashboard$",
+      "dest": "/dashboard.html"
+    },
+    {
+      "src": "^/api/(.*)$",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/404",
+      "dest": "/404.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
