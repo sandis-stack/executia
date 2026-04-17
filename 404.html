@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXECUTIA — Invalid Execution Request</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/global.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A1F44'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='14' fill='white'>EX</text></svg>">
+</head>
+<body>
+
+<header>
+  <div class="h-inner">
+    <a href="/" class="h-logo">EXECUTIA</a>
+    <nav>
+      <a href="/" class="nav-link">ENTRY</a>
+      <a href="/execution" class="nav-link">EXECUTION</a>
+      <a href="/protocol" class="nav-link">PROTOCOL</a>
+      <a href="/validate" class="nav-link" style="font-weight:700;">&rarr; REQUEST</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hud">
+  <div class="hud-inner">
+    <div class="hud-item">SYSTEM: <span>ACTIVE</span></div>
+    <div class="hud-item">REQUEST: <span style="color:#DC2626;font-weight:700;">INVALID</span></div>
+    <div class="hud-item">STATUS: <span>404</span></div>
+  </div>
+</div>
+
+<main class="page">
+
+  <div class="block" style="border-left:4px solid #DC2626;padding-left:28px;">
+    <div class="lbl" style="color:#DC2626;">EXECUTION ERROR — 404</div>
+    <h1>INVALID EXECUTION<br>REQUEST</h1>
+    <p class="lead">This execution does not exist.<br>The requested resource was not found in the system.</p>
+  </div>
+
+  <div class="block">
+    <div class="api-box">SYSTEM RESPONSE:
+
+REQUEST:  <span id="req-path"></span>
+STATUS:   404 — NOT FOUND
+REASON:   Execution record does not exist
+          or has been permanently removed.
+
+OVERRIDE: DISABLED
+ACTION:   Return to system entry point.</div>
+  </div>
+
+  <div class="block">
+    <a href="/" class="btn" style="margin-right:12px;">&rarr; RETURN TO SYSTEM</a>
+    <a href="/execution" class="btn btn-ghost">&gt; RUN VALIDATION</a>
+  </div>
+
+</main>
+
+<footer>
+  <div>
+    <p>EXECUTIA&trade; &mdash; EXECUTION CONTROL SYSTEM</p>
+    <p>PCT/IB2026/050141 &mdash; STATUS: PENDING</p>
+  </div>
+  <div>
+    <p><a href="/execution">&rarr; EXECUTION</a></p>
+    <p><a href="/validate">&gt; VALIDATE</a></p>
+    <p><a href="/protocol">&gt; PROTOCOL</a></p>
+  </div>
+  <div>
+    <p>SYSTEM OPERATOR: Sandis Boiko</p>
+    <p><a href="mailto:control@executia.io">control@executia.io</a></p>
+    <p>Stavanger, Norway</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('req-path').textContent = window.location.pathname + window.location.search || '—';
+</script>
+</body>
+</html>
