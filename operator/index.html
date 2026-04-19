@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0A1F44">
+  <title>EXECUTIA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box; margin: 0; padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg:      #F2F4F8;
+      --white:   #FFFFFF;
+      --line:    rgba(10,31,68,.08);
+      --text:    #0A1F44;
+      --muted:   #7A8599;
+      --green:   #16A34A;
+      --red:     #DC2626;
+      --amber:   #D97706;
+      --blue:    #2563EB;
+      --accent:  #0A1F44;
+      --mono:    'DM Mono', monospace;
+      --sans:    'DM Sans', sans-serif;
+      --r:       16px;
+      --rsm:     10px;
+      --safe-t:  env(safe-area-inset-top, 44px);
+      --safe-b:  env(safe-area-inset-bottom, 20px);
+    }
+
+    html, body { height: 100%; overflow: hidden; background: var(--accent); }
+    body { font-family: var(--sans); -webkit-font-smoothing: antialiased; color: var(--text); }
+
+    /* ── ROOT ── */
+    #root {
+      display: flex; flex-direction: column;
+      height: 100%; max-width: 430px; margin: 0 auto;
+      background: var(--bg); position: relative; overflow: hidden;
+    }
+
+    /* ── SAFE AREA TOP ── */
+    .safe-top { height: var(--safe-t); background: var(--accent); flex-shrink: 0; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: var(--accent); padding: 12px 20px 20px;
+      flex-shrink: 0;
+    }
+    .page-header-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .page-title-sm {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .2em;
+      color: rgba(255,255,255,.45); margin-bottom: 4px;
+    }
+    .page-title {
+      font-size: 26px; font-weight: 700; letter-spacing: -.02em; color: #fff;
+    }
+    .live-pill {
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,.12); border-radius: 999px;
+      padding: 5px 10px; margin-top: 2px;
+      font-family: var(--mono); font-size: 9px; letter-spacing: .12em; color: #fff;
+    }
+    .live-dot {
+      width: 5px; height: 5px; border-radius: 50%; background: #4ADE80;
+      animation: blink 2s ease infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.28} }
+
+    /* ── SCROLL BODY ── */
+    .scroll-body {
+      flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding-bottom: calc(64px + var(--safe-b));
+    }
+
+    /* ── SCREENS ── */
+    .screen { display: none; }
+    .screen.active {
+      display: block;
+      animation: slideIn .22s ease;
+    }
+    @keyframes slideIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── KPI STRIP ── */
+    .kpi-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding: 14px 14px 0; }
+    .kpi {
+      background: var(--white); border-radius: var(--r);
+      padding: 14px 12px 12px;
+      box-shadow: 0 1px 4px rgba(10,31,68,.07);
+    }
+    .kpi-n { font-size: 32px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+    .kpi-n.red   { color: var(--red); }
+    .kpi-n.amber { color: var(--amber); }
+    .kpi-n.green { color: var(--green); }
+    .kpi-l { font-family: var(--mono); font-size: 8px; letter-spacing: .14em; color: var(--muted); margin-top: 5px; }
+
+    /* ── PRIMARY ACTION ── */
+    .primary-btn {
+      margin: 12px 14px 4px;
+      background: var(--accent); color: #fff;
+      border-radius: var(--r); padding: 17px 20px;
+      font-family: var(--mono); font-size: 12px; letter-spacing: .1em;
+      cursor: pointer; border: none; width: calc(100% - 28px);
+      text-align: center; box-shadow: 0 6px 18px rgba(10,31,68,.2);
+      transition: transform .14s ease;
+    }
+    .primary-btn:active { transform: scale(.98); }
+    .primary-btn.alert-red { background: #991B1B; animation: btnPulse 1.6s ease infinite; }
+    @keyframes btnPulse { 0%,100%{box-shadow:0 6px 18px rgba(153,27,27,.3)} 50%{box-shadow:0 6px 28px rgba(153,27,27,.6)} }
+
+    /* ── SECTION HEADER ── */
+    .sec-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 14px 8px;
+    }
+    .sec-title { font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+    .sec-action {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+      color: var(--muted); cursor: pointer; border: none; background: none; padding: 0;
+    }
+
+    /* ── REQUEST CARDS ── */
+    .req-card {
+      margin: 0 14px 9px; background: var(--white); border-radius: var(--r);
+      padding: 15px 16px; cursor: pointer;
+      box-shadow: 0 1px 4px rgba(10,31,68,.06);
+      transition: transform .13s ease;
+    }
+    .req-card:active { transform: scale(.987); }
+    .req-card.high { border-left: 3px solid var(--red); }
+    .req-card.sla  { border-left: 3px solid #7F1D1D; background: #FFF5F5; }
+
+    .rc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .rc-id  { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    .rc-entity { font-size: 16px; font-weight: 600; letter-spacing: -.01em; margin-top: 3px; }
+    .rc-email  { font-size: 13px; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+    .rc-bottom { display: flex; gap: 7px; align-items: center; margin-top: 10px; }
+    .rc-age { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 3px 8px; border-radius: 999px;
+      font-family: var(--mono); font-size: 9px; font-weight: 500; letter-spacing: .1em;
+    }
+    .b-amber { background: #FEF3C7; color: #92400E; }
+    .b-red   { background: #FEE2E2; color: #991B1B; }
+    .b-green { background: #DCFCE7; color: #166534; }
+    .b-grey  { background: #F1F5F9; color: var(--muted); }
+    .b-sla   { background: #7F1D1D; color: #fff; }
+    .b-high  { background: #FEE2E2; color: #991B1B; font-size: 8px; }
+
+    /* ── ALERTS SCREEN ── */
+    .alert-item {
+      margin: 0 14px 9px; background: var(--white); border-radius: var(--r);
+      padding: 15px 16px; cursor: pointer; box-shadow: 0 1px 4px rgba(10,31,68,.06);
+      display: flex; gap: 13px; align-items: flex-start;
+      transition: transform .13s ease;
+    }
+    .alert-item:active { transform: scale(.987); }
+    .alert-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .ai-red   { background: #FEE2E2; }
+    .ai-amber { background: #FEF3C7; }
+    .ai-green { background: #DCFCE7; }
+    .ai-grey  { background: #F1F5F9; }
+    .alert-title { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+    .alert-sub   { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .alert-time  { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 5px; }
+
+    /* ── DETAIL SCREEN ── */
+    .detail-header {
+      background: var(--accent); padding: 0 20px 24px;
+    }
+    .back-row {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+      color: rgba(255,255,255,.55); cursor: pointer; padding: 4px 0 14px;
+    }
+    .back-row:active { opacity: .7; }
+    .d-id     { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: rgba(255,255,255,.45); }
+    .d-entity { font-size: 24px; font-weight: 700; color: #fff; letter-spacing: -.02em; margin: 5px 0 9px; }
+
+    .d-body { padding: 14px; }
+    .d-card {
+      background: var(--white); border-radius: var(--r);
+      margin-bottom: 10px; box-shadow: 0 1px 4px rgba(10,31,68,.06); overflow: hidden;
+    }
+    .d-row {
+      padding: 13px 16px; border-bottom: 1px solid var(--line);
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .d-row:last-child { border-bottom: none; }
+    .d-lbl { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; color: var(--muted); }
+    .d-val { font-size: 14px; line-height: 1.45; }
+    .d-val.mono { font-family: var(--mono); font-size: 13px; }
+
+    .note-area {
+      width: 100%; min-height: 72px; resize: none;
+      padding: 12px 14px; font-family: var(--mono); font-size: 13px;
+      color: var(--text); background: transparent; border: none;
+      border-top: 1px solid var(--line); display: block;
+    }
+    .note-area:focus { outline: none; }
+
+    .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; padding: 12px 14px; }
+    .action-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+    .act-btn {
+      padding: 15px 8px; border-radius: var(--rsm); border: none;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .07em;
+      cursor: pointer; font-weight: 500; text-align: center;
+      transition: transform .13s ease, opacity .13s ease;
+    }
+    .act-btn:active { transform: scale(.95); opacity: .85; }
+    .act-approve { background: var(--green); color: #fff; }
+    .act-block   { background: var(--red);   color: #fff; }
+    .act-review  { background: var(--bg); color: var(--text); border: 1.5px solid var(--line); }
+    .act-archive { background: var(--bg); color: var(--muted); border: 1.5px solid var(--line); font-size: 10px; }
+    .act-msg {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+      color: var(--muted); text-align: center; padding: 0 14px 14px; min-height: 20px;
+    }
+
+    /* ── AUDIT ── */
+    .audit-row {
+      display: flex; gap: 11px; padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .audit-row:last-child { border-bottom: none; }
+    .audit-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0; margin-top: 4px; }
+    .audit-dot.APPROVED { background: var(--green); }
+    .audit-dot.BLOCKED  { background: var(--red); }
+    .audit-dot.UNDER_REVIEW,
+    .audit-dot.REQUIRES_REVIEW { background: var(--amber); }
+    .audit-s { font-family: var(--mono); font-size: 11px; font-weight: 500; }
+    .audit-m { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── PROFILE ── */
+    .profile-body { padding: 14px; }
+    .profile-card {
+      background: var(--white); border-radius: var(--r);
+      overflow: hidden; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(10,31,68,.06);
+    }
+    .p-row {
+      padding: 14px 16px; border-bottom: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .p-row:last-child { border-bottom: none; }
+    .p-lbl { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); }
+    .p-val { font-size: 14px; font-weight: 500; }
+    .p-input {
+      font-family: var(--mono); font-size: 12px; border: none;
+      text-align: right; color: var(--text); background: transparent;
+      width: 150px; -webkit-appearance: none;
+    }
+    .p-input:focus { outline: none; }
+    .sign-out {
+      width: 100%; padding: 15px; border-radius: var(--r);
+      background: #FEE2E2; color: var(--red); border: none;
+      font-family: var(--mono); font-size: 12px; letter-spacing: .1em;
+      cursor: pointer; margin-top: 4px;
+    }
+
+    /* ── AUTH ── */
+    .auth-body {
+      min-height: calc(100vh - 80px); display: flex; flex-direction: column;
+      justify-content: center; padding: 32px 20px;
+    }
+    .auth-h { font-size: 28px; font-weight: 700; letter-spacing: -.03em; margin-bottom: 8px; }
+    .auth-sub { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 28px; }
+    .auth-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--muted); display: block; margin-bottom: 7px; }
+    .auth-input {
+      width: 100%; padding: 14px 16px; border-radius: var(--rsm);
+      border: 1.5px solid var(--line); background: var(--white);
+      font-family: var(--mono); font-size: 14px; color: var(--text);
+      margin-bottom: 12px; -webkit-appearance: none;
+    }
+    .auth-input:focus { outline: none; border-color: var(--accent); }
+    .auth-submit {
+      width: 100%; padding: 16px; border-radius: var(--rsm);
+      background: var(--accent); color: #fff; border: none;
+      font-family: var(--mono); font-size: 12px; letter-spacing: .12em;
+      cursor: pointer; transition: opacity .15s;
+    }
+    .auth-submit:active { opacity: .85; }
+    .auth-err {
+      font-family: var(--mono); font-size: 11px; color: var(--red);
+      letter-spacing: .08em; margin-top: 10px; display: none;
+    }
+
+    /* ── EMPTY / LOADING ── */
+    .empty   { padding: 50px 20px; text-align: center; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
+    .loading { padding: 30px 20px; text-align: center; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--muted); }
+
+    /* ── TAB BAR ── */
+    .tab-bar {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 430px; z-index: 100;
+      background: rgba(248,250,252,.9);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid var(--line);
+      display: none; /* shown after auth */
+      padding-bottom: var(--safe-b);
+    }
+    .tab-row { display: flex; }
+    .tab-item {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      padding: 10px 4px 7px; cursor: pointer; position: relative;
+      transition: opacity .13s;
+    }
+    .tab-item:active { opacity: .6; }
+    .tab-ic { font-size: 21px; line-height: 1; }
+    .tab-lbl { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; color: var(--muted); margin-top: 3px; }
+    .tab-item.active .tab-lbl { color: var(--accent); font-weight: 500; }
+    .tab-badge {
+      position: absolute; top: 5px; right: calc(50% - 20px);
+      background: var(--red); color: #fff; border-radius: 999px;
+      min-width: 16px; height: 16px; padding: 0 4px;
+      font-family: var(--mono); font-size: 8px; font-weight: 700;
+      display: none; align-items: center; justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<div id="root">
+  <div class="safe-top"></div>
+
+  <!-- Scroll body -->
+  <div class="scroll-body" id="scrollBody">
+
+    <!-- ── AUTH ── -->
+    <div class="screen active" id="s-auth">
+      <div class="page-header">
+        <div class="page-header-row">
+          <div>
+            <div class="page-title-sm">EXECUTION CONTROL</div>
+            <div class="page-title">Operator</div>
+          </div>
+          <div class="live-pill"><span class="live-dot"></span>SYSTEM</div>
+        </div>
+      </div>
+      <div class="auth-body">
+        <div class="auth-h">Authenticate</div>
+        <div class="auth-sub">Enter your operator credentials to access the execution control panel.</div>
+        <label class="auth-lbl">OPERATOR TOKEN</label>
+        <input type="password" id="authToken" class="auth-input" placeholder="••••••••••••" autocomplete="current-password">
+        <label class="auth-lbl">YOUR NAME</label>
+        <input type="text" id="authName" class="auth-input" placeholder="Reviewer name" autocomplete="name">
+        <button class="auth-submit" onclick="doAuth()">→ ENTER SYSTEM</button>
+        <div class="auth-err" id="authErr">AUTHENTICATION FAILED — CHECK TOKEN</div>
+      </div>
+    </div>
+
+    <!-- ── QUEUE (HOME) ── -->
+    <div class="screen" id="s-queue">
+      <div class="page-header">
+        <div class="page-header-row">
+          <div>
+            <div class="page-title-sm">EXECUTION CONTROL</div>
+            <div class="page-title" id="qTitle">Queue</div>
+          </div>
+          <div class="live-pill"><span class="live-dot"></span>LIVE</div>
+        </div>
+      </div>
+
+      <div class="kpi-strip">
+        <div class="kpi"><div class="kpi-n red"   id="kpHigh">—</div><div class="kpi-l">HIGH RISK</div></div>
+        <div class="kpi"><div class="kpi-n amber"  id="kpReview">—</div><div class="kpi-l">REVIEW</div></div>
+        <div class="kpi"><div class="kpi-n green"  id="kpApproved">—</div><div class="kpi-l">APPROVED</div></div>
+      </div>
+
+      <button class="primary-btn" id="primaryBtn" onclick="primaryAction()">→ ENTER DECISION</button>
+
+      <div class="sec-head">
+        <div class="sec-title">Requests</div>
+        <button class="sec-action" onclick="loadData()">↻ Refresh</button>
+      </div>
+
+      <div id="queueList"><div class="loading">CONNECTING…</div></div>
+    </div>
+
+    <!-- ── ALERTS ── -->
+    <div class="screen" id="s-alerts">
+      <div class="page-header">
+        <div class="page-header-row">
+          <div>
+            <div class="page-title-sm">SYSTEM ALERTS</div>
+            <div class="page-title">Alerts</div>
+          </div>
+          <div class="live-pill"><span class="live-dot"></span>LIVE</div>
+        </div>
+      </div>
+      <div style="padding-top:8px;" id="alertList"><div class="loading">LOADING…</div></div>
+    </div>
+
+    <!-- ── DETAIL ── -->
+    <div class="screen" id="s-detail">
+      <div class="detail-header">
+        <div class="back-row" onclick="goBack()">← Back</div>
+        <div class="d-id"     id="dId">—</div>
+        <div class="d-entity" id="dEntity">—</div>
+        <div id="dBadge"></div>
+      </div>
+      <div class="d-body" id="dBody"></div>
+    </div>
+
+    <!-- ── PROFILE ── -->
+    <div class="screen" id="s-profile">
+      <div class="page-header">
+        <div class="page-header-row">
+          <div>
+            <div class="page-title-sm">EXECUTION CONTROL ACTIVE</div>
+            <div class="page-title" id="profileTitle">Profile</div>
+          </div>
+          <div class="live-pill"><span class="live-dot"></span>ACTIVE</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-card">
+          <div class="p-row"><div class="p-lbl">NAME</div><input class="p-input" id="pName" type="text" placeholder="Your name" onchange="saveName()"></div>
+          <div class="p-row"><div class="p-lbl">ROLE</div><div class="p-val">Operator</div></div>
+          <div class="p-row"><div class="p-lbl">TOKEN</div><div class="p-val" style="font-family:var(--mono);font-size:12px;color:var(--muted);">••••••••</div></div>
+        </div>
+        <div class="profile-card">
+          <div class="p-row"><div class="p-lbl">SYSTEM</div><div class="p-val" style="font-size:13px;color:var(--green);">EXECUTIA ACTIVE</div></div>
+          <div class="p-row"><div class="p-lbl">AUTO-REFRESH</div><div class="p-val" style="font-family:var(--mono);font-size:12px;">15s</div></div>
+          <div class="p-row"><div class="p-lbl">DESKTOP PANEL</div><a href="/operator" style="font-family:var(--mono);font-size:12px;color:var(--accent);text-decoration:none;">Open →</a></div>
+        </div>
+        <button class="sign-out" onclick="signOut()">SIGN OUT</button>
+      </div>
+    </div>
+
+  </div><!-- /scroll-body -->
+
+  <!-- ── TAB BAR ── -->
+  <div class="tab-bar" id="tabBar">
+    <div class="tab-row">
+      <div class="tab-item active" id="t-queue" onclick="tab('queue')">
+        <div class="tab-ic">≡</div>
+        <div class="tab-lbl">QUEUE</div>
+        <div class="tab-badge" id="tBadge">0</div>
+      </div>
+      <div class="tab-item" id="t-alerts" onclick="tab('alerts')">
+        <div class="tab-ic">◉</div>
+        <div class="tab-lbl">ALERTS</div>
+        <div class="tab-badge" id="aBadge">0</div>
+      </div>
+      <div class="tab-item" id="t-profile" onclick="tab('profile')">
+        <div class="tab-ic">⊙</div>
+        <div class="tab-lbl">PROFILE</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── State ── */
+let data      = [];
+let selId     = null;
+let prevTab   = 'queue';
+let curTab    = 'queue';
+let timer     = null;
+
+/* ── Storage ── */
+const T = () => localStorage.getItem('ex_tok') || '';
+const N = () => localStorage.getItem('ex_name') || 'Operator';
+const setT = v => localStorage.setItem('ex_tok', v);
+const setN = v => localStorage.setItem('ex_name', v);
+
+/* ── Utils ── */
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g,
+    s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+}
+function ago(iso) {
+  if (!iso) return '—';
+  try {
+    const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+    if (m < 60)   return m + 'm ago';
+    if (m < 1440) return Math.floor(m/60) + 'h ago';
+    return new Date(iso).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  } catch { return iso; }
+}
+function bc(s) {
+  if (s === 'APPROVED') return 'badge b-green';
+  if (s === 'BLOCKED')  return 'badge b-red';
+  if (s === 'REQUIRES_REVIEW' || s === 'UNDER_REVIEW') return 'badge b-amber';
+  return 'badge b-grey';
+}
+function cardClass(r) {
+  if (r._ageHours >= 48 && r._priority === 'HIGH') return 'req-card sla';
+  if (r._priority === 'HIGH') return 'req-card high';
+  return 'req-card';
+}
+
+/* ── Auth ── */
+function boot() {
+  if (!T()) { show('auth'); } else {
+    afterAuth();
+    loadData();
+    timer = setInterval(loadData, 15000);
+  }
+}
+
+function afterAuth() {
+  document.getElementById('tabBar').style.display = 'flex';
+  document.getElementById('pName').value = N();
+  document.getElementById('profileTitle').textContent = N();
+  show('queue');
+  tab('queue', true);
+}
+
+async function doAuth() {
+  const tok  = document.getElementById('authToken').value.trim();
+  const name = document.getElementById('authName').value.trim() || 'Operator';
+  if (!tok) return;
+  setT(tok); setN(name);
+  document.getElementById('authErr').style.display = 'none';
+  try {
+    const r = await fetch('/api/operator-requests', { headers: { 'x-operator-token': tok } });
+    const j = await r.json();
+    if (!r.ok || !j.ok) {
+      setT('');
+      document.getElementById('authErr').style.display = 'block';
+    } else {
+      data = j.requests || [];
+      afterAuth();
+      renderQueue();
+      renderAlerts();
+      timer = setInterval(loadData, 15000);
+    }
+  } catch { document.getElementById('authErr').style.display = 'block'; }
+}
+
+function signOut() {
+  localStorage.removeItem('ex_tok'); localStorage.removeItem('ex_name');
+  clearInterval(timer); data = [];
+  document.getElementById('tabBar').style.display = 'none';
+  show('auth');
+}
+
+function saveName() {
+  const v = document.getElementById('pName').value.trim();
+  if (v) { setN(v); document.getElementById('profileTitle').textContent = v; }
+}
+
+/* ── Data ── */
+async function loadData() {
+  const tok = T(); if (!tok) return;
+  try {
+    const r = await fetch('/api/operator-requests', { headers: { 'x-operator-token': tok } });
+    const j = await r.json();
+    if (!r.ok || !j.ok) return;
+    data = (j.requests || []).sort((a, b) => {
+      const pa = a._priority === 'HIGH' ? 0 : 1;
+      const pb = b._priority === 'HIGH' ? 0 : 1;
+      if (pa !== pb) return pa - pb;
+      return new Date(b.created_at || 0) - new Date(a.created_at || 0);
+    });
+    renderQueue();
+    renderAlerts();
+    updateBadges();
+  } catch {}
+}
+
+function updateBadges() {
+  const review = data.filter(r => r.status === 'REQUIRES_REVIEW' || r.status === 'UNDER_REVIEW').length;
+  const high   = data.filter(r => r._priority === 'HIGH').length;
+  const tb = document.getElementById('tBadge');
+  const ab = document.getElementById('aBadge');
+  tb.textContent = review; tb.style.display = review > 0 ? 'flex' : 'none';
+  ab.textContent = high;   ab.style.display = high > 0 ? 'flex' : 'none';
+}
+
+/* ── Queue ── */
+function renderQueue() {
+  const review   = data.filter(r => r.status === 'REQUIRES_REVIEW' || r.status === 'UNDER_REVIEW').length;
+  const high     = data.filter(r => r._priority === 'HIGH').length;
+  const approved = data.filter(r => r.status === 'APPROVED').length;
+
+  document.getElementById('kpHigh').textContent    = high;
+  document.getElementById('kpReview').textContent  = review;
+  document.getElementById('kpApproved').textContent = approved;
+
+  const btn = document.getElementById('primaryBtn');
+  if (high > 0) {
+    btn.textContent = `⚠ ${high} High Priority — Review Now`;
+    btn.className = 'primary-btn alert-red';
+  } else if (review > 0) {
+    btn.textContent = '→ ENTER DECISION (' + review + ')';
+    btn.className = 'primary-btn';
+  } else {
+    btn.textContent = '→ EXECUTION QUEUE CLEAR';
+    btn.className = 'primary-btn';
+  }
+
+  const el = document.getElementById('queueList');
+  if (!data.length) { el.innerHTML = '<div class="empty">NO REQUESTS YET</div>'; return; }
+  el.innerHTML = data.map(r => {
+    const ph = r._priority === 'HIGH'
+      ? (r._ageHours >= 48 ? '<span class="badge b-sla">⛔ SLA</span>' : '<span class="badge b-high">⚠ HIGH</span>')
+      : '';
+    return `<div class="${cardClass(r)}" onclick="openDetail('${esc(r.execution_id)}')">
+      <div class="rc-top">
+        <div>
+          <div class="rc-id">${esc(r.execution_id)}</div>
+          <div class="rc-entity">${esc(r.entity || '—')}</div>
+          <div class="rc-email">${esc(r.email || '—')}</div>
+        </div>
+        <span class="${bc(r.status)}">${esc(r.status || '?')}</span>
+      </div>
+      <div class="rc-bottom">
+        ${ph}
+        <span class="rc-age">${ago(r.created_at)}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function primaryAction() {
+  const high = data.filter(r => r._priority === 'HIGH');
+  if (high.length) openDetail(high[0].execution_id);
+}
+
+/* ── Alerts ── */
+function renderAlerts() {
+  const el = document.getElementById('alertList');
+  const alerts = [];
+
+  data.filter(r => r._ageHours >= 48 && r._priority === 'HIGH').forEach(r => {
+    alerts.push({ type: 'sla', r, title: 'SLA BREACH', sub: r.execution_id + ' — Response overdue' });
+  });
+  data.filter(r => r._priority === 'HIGH' && r._ageHours < 48).forEach(r => {
+    alerts.push({ type: 'high', r, title: 'HIGH RISK', sub: r.execution_id + ' — Needs immediate review' });
+  });
+  data.filter(r => r.status === 'REQUIRES_REVIEW' || r.status === 'UNDER_REVIEW').forEach(r => {
+    alerts.push({ type: 'review', r, title: 'NEEDS REVIEW', sub: r.execution_id + (r.entity ? ' — ' + r.entity : '') });
+  });
+  data.filter(r => r.status === 'BLOCKED').forEach(r => {
+    alerts.push({ type: 'blocked', r, title: 'BLOCKED', sub: r.execution_id + (r.entity ? ' — ' + r.entity : '') });
+  });
+  data.filter(r => r.status === 'APPROVED').slice(0,3).forEach(r => {
+    alerts.push({ type: 'approved', r, title: 'APPROVED', sub: r.execution_id + ' — Completed' });
+  });
+
+  if (!alerts.length) { el.innerHTML = '<div class="empty">NO ALERTS</div>'; return; }
+
+  const icons = {
+    sla:      { ic: '⛔', cls: 'ai-red' },
+    high:     { ic: '⚠️',  cls: 'ai-amber' },
+    review:   { ic: '◎',  cls: 'ai-amber' },
+    blocked:  { ic: '✕',  cls: 'ai-red' },
+    approved: { ic: '✓',  cls: 'ai-green' }
+  };
+
+  el.innerHTML = alerts.map(a => {
+    const i = icons[a.type] || { ic: '○', cls: 'ai-grey' };
+    return `<div class="alert-item" onclick="openDetail('${esc(a.r.execution_id)}')">
+      <div class="alert-icon ${i.cls}">${i.ic}</div>
+      <div>
+        <div class="alert-title">${esc(a.title)}</div>
+        <div class="alert-sub">${esc(a.sub)}</div>
+        <div class="alert-time">${ago(a.r.created_at)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ── Detail ── */
+async function openDetail(id) {
+  selId = id;
+  prevTab = curTab;
+  const r = data.find(x => x.execution_id === id);
+  if (!r) return;
+
+  document.getElementById('dId').textContent = r.execution_id;
+  document.getElementById('dEntity').textContent = r.entity || '—';
+  document.getElementById('dBadge').innerHTML = `<span class="${bc(r.status)}">${esc(r.status)}</span>`;
+  document.getElementById('dBody').innerHTML = buildDetail(r, '<div class="loading" style="padding:10px 0;">Loading…</div>');
+  show('detail');
+  scrollTop();
+
+  try {
+    const res  = await fetch('/api/operator-history?executionId=' + encodeURIComponent(id), {
+      headers: { 'x-operator-token': T() }
+    });
+    const json = await res.json();
+    const acts = json.actions || [];
+    const auditHtml = acts.length
+      ? acts.map(a => `<div class="audit-row">
+          <div class="audit-dot ${esc(a.new_status || '')}"></div>
+          <div>
+            <div class="audit-s">${esc(a.new_status || a.action)}</div>
+            <div class="audit-m">${esc(a.reviewed_by || '')} · ${ago(a.created_at)}</div>
+            ${a.operator_note ? `<div class="audit-m">${esc(a.operator_note)}</div>` : ''}
+          </div>
+        </div>`).join('')
+      : '<div class="audit-m">No history.</div>';
+    document.getElementById('dBody').innerHTML = buildDetail(r, auditHtml);
+  } catch {}
+}
+
+function buildDetail(r, auditHtml) {
+  const loss = r.loss_exposure != null ? '€' + Number(r.loss_exposure).toLocaleString('en-US') : '—';
+  return `
+  <div class="d-card">
+    <div style="background:#FEF2F2;border:1px solid #FECACA;padding:11px 14px;border-radius:10px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#DC2626;margin-bottom:10px;">EXECUTION CONTINUES IF NOT BLOCKED</div>
+    <div class="d-row"><div class="d-lbl">ENTITY</div><div class="d-val">${esc(r.entity||'—')}</div></div>
+    <div class="d-row"><div class="d-lbl">EMAIL</div><div class="d-val mono">${esc(r.email||'—')}</div></div>
+    <div class="d-row"><div class="d-lbl">COUNTRY</div><div class="d-val">${esc(r.country||'—')}</div></div>
+    <div class="d-row"><div class="d-lbl">RISK SCORE</div><div class="d-val mono">${esc(r.risk_score??'—')}</div></div>
+    <div class="d-row"><div class="d-lbl">LOSS EXPOSURE</div><div class="d-val mono">${loss}</div></div>
+    <div class="d-row"><div class="d-lbl">LIFECYCLE</div><div class="d-val mono">${esc(r.lifecycle||'—')}</div></div>
+  </div>
+
+  <div class="d-card">
+    <div class="d-row"><div class="d-lbl">EXECUTION RISK</div><div class="d-val">${esc(r.risk_note||'—')}</div></div>
+    <div class="d-row" style="border:none;"><div class="d-lbl">WHAT HAPPENS IF THIS FAILS</div><div class="d-val">${esc(r.consequence||'—')}</div></div>
+  </div>
+
+  <div class="d-card">
+    <div class="d-row" style="border:none;"><div class="d-lbl">OPERATOR NOTE</div></div>
+    <textarea class="note-area" id="dnote" placeholder="Add internal note…">${esc(r.operator_note||'')}</textarea>
+  </div>
+
+  <div class="action-grid three">
+    <button class="act-btn act-review"  onclick="doUpdate('UNDER_REVIEW')">REVIEW</button>
+    <button class="act-btn act-approve" onclick="doUpdate('APPROVED')">ALLOW EXECUTION</button>
+    <button class="act-btn act-block"   onclick="doUpdate('BLOCKED')">BLOCK EXECUTION</button>
+  </div>
+  <div class="action-grid" style="padding-top:0;">
+    <button class="act-btn act-archive" onclick="doUpdate('ARCHIVED')">ARCHIVE</button>
+    <button class="act-btn act-review"  style="font-size:10px;" onclick="openDetail('${esc(r.execution_id)}')">↻ Refresh</button>
+  </div>
+  <div style="font-family:var(--mono);font-size:10px;letter-spacing:.09em;color:var(--red);text-align:center;padding:6px 14px 8px;background:#FEF2F2;border-radius:8px;margin:0 14px 4px;">If not blocked, this execution proceeds.</div>
+  <div class="act-msg" id="actMsg"></div>
+
+  <div class="d-card" style="margin-top:10px;">
+    <div style="padding:14px 16px;">
+      <div class="d-lbl" style="margin-bottom:10px;">AUDIT TRAIL</div>
+      ${auditHtml}
+    </div>
+  </div>`;
+}
+
+async function doUpdate(status) {
+  const tok  = T();
+  const note = document.getElementById('dnote')?.value || '';
+  const msg  = document.getElementById('actMsg');
+  if (!selId || !tok) return;
+  if ((status === 'BLOCKED' || status === 'ARCHIVED') && !confirm(status + ' this execution?')) return;
+  if ('vibrate' in navigator) navigator.vibrate(status === 'BLOCKED' ? [100,50,100] : [60]);
+  if (msg) msg.textContent = 'Updating…';
+  try {
+    const res  = await fetch('/api/operator-update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-operator-token': tok },
+      body: JSON.stringify({ executionId: selId, status, operatorNote: note, reviewedBy: N() })
+    });
+    const json = await res.json();
+    if (!res.ok || !json.ok) { if (msg) msg.textContent = 'FAILED: ' + (json.error || ''); return; }
+    const em = (status==='APPROVED'||status==='BLOCKED') ? (json.clientEmailOk?' · Email sent':' · Email failed') : '';
+    if (msg) msg.textContent = 'Updated → ' + status + em;
+    await loadData();
+    openDetail(selId);
+  } catch (e) { if (msg) msg.textContent = 'Error: ' + e.message; }
+}
+
+function goBack() { tab(prevTab === 'detail' ? 'queue' : prevTab, true); }
+
+/* ── Navigation ── */
+function show(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('s-' + name);
+  if (el) el.classList.add('active');
+}
+
+function scrollTop() { document.getElementById('scrollBody').scrollTop = 0; }
+
+function tab(name, noHighlight = false) {
+  if (name !== 'detail') curTab = name;
+  show(name);
+  scrollTop();
+  if (!noHighlight && name !== 'detail') {
+    document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+    const t = document.getElementById('t-' + name);
+    if (t) t.classList.add('active');
+  }
+}
+
+/* ── Boot ── */
+boot();
+</script>
+</body>
+</html>
