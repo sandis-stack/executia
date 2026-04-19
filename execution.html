@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXECUTIA — Execution Control</title>
+  <meta name="description" content="Live execution validation. Submit parameters. Receive system response.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/global.css">
+  <style>
+    /* ── EXECUTION-SPECIFIC LAYOUT ── */
+    .x-execution-sysbar {
+      background: var(--text);
+      padding: 8px var(--pad);
+    }
+    .x-execution-sysbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .x-sysbar-item {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .14em;
+      color: rgba(255,255,255,.45);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .x-sysbar-val       { color: #fff; }
+    .x-sysbar-val.red   { color: #FCA5A5; }
+    .x-sysbar-val.green { color: #86EFAC; }
+    .x-sysbar-sep { width: 1px; height: 12px; background: rgba(255,255,255,.15); }
+    .x-sysbar-live {
+      display: flex; align-items: center; gap: 5px;
+      color: #86EFAC;
+      font-family: var(--mono); font-size: 9px; letter-spacing: .12em;
+    }
+    .x-sysbar-dot { width: 5px; height: 5px; border-radius: 50%; background: #4ADE80; }
+
+    .x-execution-workspace {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 20px var(--pad);
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+      min-height: calc(100vh - 110px);
+    }
+
+    /* Input panel sections */
+    .x-execution-field { padding: 14px; border-bottom: 1px solid var(--line); }
+    .x-execution-field:last-of-type { border-bottom: none; }
+    .x-execution-field-unit {
+      font-family: var(--mono); font-size: 10px; color: var(--dim); margin-top: 4px;
+    }
+    input[type=range] { width: 100%; margin: 6px 0 2px; accent-color: var(--text); }
+    .x-range-labels {
+      display: flex; justify-content: space-between;
+      font-family: var(--mono); font-size: 9px; color: var(--dim);
+    }
+    .x-run-btn {
+      margin: 12px 14px;
+      width: calc(100% - 28px);
+      padding: 13px;
+    }
+
+    /* Output: status */
+    .x-execution-status {
+      padding: 20px;
+      border-bottom: 1px solid var(--line2);
+    }
+    .x-execution-status.blocked  { background: #FEF2F2; border-left: 3px solid var(--red); }
+    .x-execution-status.review   { background: #FFFBEB; border-left: 3px solid var(--amber); }
+    .x-execution-status.approved { background: #F0FDF4; border-left: 3px solid var(--green); }
+    .x-execution-verdict {
+      font-family: var(--mono); font-size: 18px; font-weight: 700;
+      letter-spacing: .08em; margin-bottom: 5px;
+    }
+    .x-execution-reason {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .07em; color: var(--muted);
+    }
+
+    /* Metrics row */
+    .x-execution-metrics {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--line2);
+    }
+    .x-execution-metric {
+      padding: 14px; border-right: 1px solid var(--line);
+    }
+    .x-execution-metric:last-child { border-right: none; }
+    .x-execution-metric-val {
+      font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--text);
+    }
+    .x-execution-metric-val.red   { color: var(--red); }
+    .x-execution-metric-val.amber { color: var(--amber); }
+
+    /* Trace */
+    .x-execution-trace { padding: 14px; overflow-y: auto; max-height: 260px; }
+
+    /* Registry + CTA bars */
+    .x-execution-registry {
+      padding: 10px 14px;
+      border-top: 1px solid var(--line2);
+      background: var(--bg);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .x-execution-cta {
+      padding: 14px;
+      border-top: 1px solid var(--line2);
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    }
+    .x-execution-cta-note {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--muted);
+    }
+    .x-execution-pressure {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .09em;
+      color: var(--muted); width: 100%; margin-bottom: 4px;
+    }
+
+    /* Idle */
+    .x-execution-idle {
+      flex: 1; padding: 48px 24px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    }
+
+    @media (max-width: 900px) {
+      .x-execution-sysbar { padding: 8px var(--pad-sm); }
+      .x-execution-workspace { grid-template-columns: 1fr; padding: 12px var(--pad-sm); }
+      .x-execution-metrics { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="x-header">
+  <div class="x-header-inner">
+    <a href="/" class="x-brand">
+      <div class="x-brand-name">EXECUTIA</div>
+      <div class="x-brand-sub">EXECUTION CONTROL</div>
+    </a>
+        <nav class="x-nav">
+      <a href="/" class="x-nav-item">ENTRY</a>
+      <a href="/execution" class="x-nav-item active">EXECUTION</a>
+      <a href="/institutional" class="x-nav-item">INSTITUTIONAL</a>
+      <a href="/status" class="x-nav-item">STATUS</a>
+      <a href="/request" class="x-nav-item cta">REQUEST CONTROL</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ── SYSTEM BAR ── -->
+<div class="x-execution-sysbar">
+  <div class="x-execution-sysbar-inner">
+    <div class="x-sysbar-live"><span class="x-sysbar-dot"></span>LIVE SYSTEM</div>
+    <div class="x-sysbar-sep"></div>
+    <div class="x-sysbar-item">AUTHORITY <span class="x-sysbar-val">EXECUTIA</span></div>
+    <div class="x-sysbar-sep"></div>
+    <div class="x-sysbar-item">OVERRIDE <span class="x-sysbar-val red">DISABLED</span></div>
+    <div class="x-sysbar-sep"></div>
+    <div class="x-sysbar-item">REGISTRY <span class="x-sysbar-val green">ACTIVE</span></div>
+    <div class="x-sysbar-sep"></div>
+    <div class="x-sysbar-item">ENDPOINT <span class="x-sysbar-val green">EXECUTION ENDPOINT ACTIVE</span></div>
+  </div>
+</div>
+
+<div class="x-execution-workspace">
+
+  <!-- ── INPUT PANEL ── -->
+  <div class="x-panel">
+    <div class="x-panel-head">
+      <span>EXECUTION PARAMETERS</span>
+      <span class="xs mono dim">REQUIRED</span>
+    </div>
+
+    <div class="x-execution-field">
+      <div class="x-label" style="margin-bottom:6px;">BUDGET / EXECUTION VALUE</div>
+      <input type="number" class="x-input" id="b" placeholder="0" min="1" oninput="updateBudgetDisplay()">
+      <div class="x-execution-field-unit" id="budgetDisplay">Enter amount in EUR</div>
+    </div>
+
+    <div class="x-execution-field">
+      <div class="x-label" style="margin-bottom:6px;">TIMELINE (MONTHS)</div>
+      <input type="range" id="t" min="1" max="60" value="12" oninput="document.getElementById('tval').textContent=this.value+' months'">
+      <div class="x-range-labels"><span>1</span><span id="tval" class="mono">12 months</span><span>60</span></div>
+    </div>
+
+    <div class="x-execution-field">
+      <div class="x-label" style="margin-bottom:6px;">COMPLEXITY (1–5)</div>
+      <input type="range" id="c" min="1" max="5" value="3" step="1" oninput="document.getElementById('cval').textContent='Level '+this.value+' — '+['Minimal','Low','Moderate','High','Critical'][this.value-1]">
+      <div class="x-range-labels"><span>1</span><span id="cval" class="mono">Level 3 — Moderate</span><span>5</span></div>
+    </div>
+
+    <div style="padding: 0 14px 14px;">
+      <button class="x-btn primary x-run-btn" id="runBtn" onclick="run()">→ RUN EXECUTION CONTROL</button>
+    </div>
+  </div>
+
+  <!-- ── OUTPUT PANEL ── -->
+  <div class="x-panel" style="display:flex;flex-direction:column;">
+    <div class="x-panel-head">
+      <span>EXECUTION RESULT</span>
+      <span class="xs mono dim" id="outputBadge">AWAITING INPUT</span>
+    </div>
+
+    <!-- Idle -->
+    <div class="x-execution-idle" id="idleState">
+      <div class="x-label">EXECUTION CONTROL ACTIVE</div>
+      <div class="mono sm muted" style="margin-top:6px;line-height:1.7;">
+        Execution is already running without control.<br>
+        Enter parameters. Execution control responds.
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="x-execution-status" id="statusBlock" style="display:none;">
+      <div class="x-execution-verdict" id="statusVerdict">—</div>
+      <div class="x-execution-reason" id="statusReason">—</div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="x-execution-metrics" id="metricsRow" style="display:none;">
+      <div class="x-execution-metric">
+        <div class="x-label" style="margin-bottom:5px;">RISK SCORE</div>
+        <div class="x-execution-metric-val" id="metricRisk">—</div>
+      </div>
+      <div class="x-execution-metric">
+        <div class="x-label" style="margin-bottom:5px;">LOSS EXPOSURE</div>
+        <div class="x-execution-metric-val red" id="metricLoss">—</div>
+      </div>
+      <div class="x-execution-metric">
+        <div class="x-label" style="margin-bottom:5px;">LIFECYCLE</div>
+        <div class="x-execution-metric-val" id="metricLifecycle">—</div>
+      </div>
+    </div>
+
+    <!-- Trace -->
+    <div id="traceSection" style="display:none;">
+      <div class="x-execution-trace">
+        <div class="x-label" style="margin-bottom:8px;">EXECUTION TRACE</div>
+        <div id="traceLines"></div>
+      </div>
+    </div>
+
+    <!-- Registry -->
+    <div class="x-execution-registry" id="registryBar" style="display:none;">
+      <span class="mono xs muted" id="regId">—</span>
+      <span class="mono xs" id="regStatus">—</span>
+    </div>
+
+    <!-- CTA: flow lock — determined by status -->
+    <div class="x-execution-cta" id="ctaArea" style="display:none;">
+      <div class="x-execution-pressure" id="pressureLine">CONTROL DECISION AVAILABLE</div>
+      <a href="#" class="x-btn primary" id="primaryAction">→ VIEW EXECUTION STATUS</a>
+      <a href="#" class="x-btn secondary" id="secondaryAction">→ RUN EXECUTION CONTROL</a>
+      <span class="x-execution-cta-note" id="ctaNote">REGISTRY RECORD AVAILABLE</span>
+    </div>
+
+    <!-- Error -->
+    <div class="x-alert red" id="errorBar" style="display:none;margin:14px;">
+      Execution not registered in control system. <a href="/request" style="color:var(--red);text-decoration:underline;">SUBMIT FOR CONTROL →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="x-footer">
+  <div class="x-footer-inner">
+    <div>
+      <div class="x-footer-brand">EXECUTIA</div>
+      <div class="x-footer-desc">Execution control infrastructure. Validation before outcome. No deviation, no override.</div>
+    </div>
+    <div>
+      <div class="x-footer-head">SYSTEM</div>
+      <a href="/execution" class="x-footer-link">Execution control</a>
+      <a href="/status" class="x-footer-link">Status registry</a>
+    </div>
+    <div>
+      <div class="x-footer-head">ENTRY</div>
+      <a href="/request" class="x-footer-link">Submit case</a>
+      <a href="/" class="x-footer-link">Entry</a>
+    </div>
+    <div>
+      <div class="x-footer-head">CONTACT</div>
+      <a href="mailto:control@executia.io" class="x-footer-link">control@executia.io</a>
+    </div>
+  </div>
+  <div class="x-footer-copy">
+    <span>EXECUTIA™ — STANDARD OF EXECUTION</span>
+    <span>PCT/IB2026/050141 · STATUS: PENDING</span>
+  </div>
+</footer>
+
+<script>
+function updateBudgetDisplay() {
+  var b = Number(document.getElementById('b').value);
+  var el = document.getElementById('budgetDisplay');
+  if (!b) { el.textContent = 'Enter amount in EUR'; return; }
+  if (b >= 1e9) el.textContent = '€' + (b/1e9).toFixed(2) + 'B';
+  else if (b >= 1e6) el.textContent = '€' + (b/1e6).toFixed(2) + 'M';
+  else if (b >= 1e3) el.textContent = '€' + Math.round(b/1e3) + 'K';
+  else el.textContent = '€' + b.toLocaleString('en-US');
+}
+function fmtLoss(v) {
+  if (v >= 1e9) return '€' + (v/1e9).toFixed(1) + 'B';
+  if (v >= 1e6) return '€' + (v/1e6).toFixed(1) + 'M';
+  if (v >= 1e3) return '€' + Math.round(v/1e3) + 'K';
+  return '€' + v.toLocaleString('en-US');
+}
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, function(s) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s];
+  });
+}
+
+async function run() {
+  var b = Number(document.getElementById('b').value);
+  var t = Number(document.getElementById('t').value);
+  var c = Number(document.getElementById('c').value);
+  var btn = document.getElementById('runBtn');
+  if (!b) { document.getElementById('b').focus(); return; }
+
+  btn.textContent = '→ VALIDATING…';
+  btn.disabled = true;
+  document.getElementById('idleState').style.display = 'none';
+  document.getElementById('errorBar').style.display = 'none';
+  document.getElementById('statusBlock').style.display = 'block';
+  document.getElementById('statusBlock').className = 'x-execution-status';
+  document.getElementById('statusVerdict').textContent = 'VALIDATING…';
+  document.getElementById('statusVerdict').className = 'x-execution-verdict muted';
+  document.getElementById('statusReason').textContent = 'CONNECTING TO EXECUTION REGISTRY';
+  document.getElementById('outputBadge').textContent = 'PROCESSING';
+  document.getElementById('metricsRow').style.display = 'none';
+  document.getElementById('traceSection').style.display = 'none';
+  document.getElementById('registryBar').style.display = 'none';
+  document.getElementById('ctaArea').style.display = 'none';
+
+  try {
+    var res  = await fetch('/api/execute', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ budget: b, timeline: t, complexity: c, source: 'execution_page' })
+    });
+    var data = await res.json().catch(function() { return {}; });
+    if (!res.ok || !data.ok) throw new Error(data.error || 'EXECUTION_FAILED');
+
+    var blocked = data.status === 'BLOCKED';
+    var review  = data.status === 'REQUIRES_REVIEW';
+    var sb = document.getElementById('statusBlock');
+    sb.className = 'x-execution-status ' + (blocked ? 'blocked' : review ? 'review' : 'approved');
+
+    document.getElementById('statusVerdict').textContent = data.status;
+    document.getElementById('statusVerdict').className   = 'x-execution-verdict ' + (blocked ? 'red' : review ? 'amber' : 'green');
+    document.getElementById('statusReason').textContent  = blocked
+      ? 'EXECUTION BLOCKED — control layer missing before execution'
+      : review
+        ? 'EXECUTION REQUIRES REVIEW — control validation required before authorization'
+        : 'EXECUTION AUTHORIZED — control validation complete';
+
+    document.getElementById('metricsRow').style.display = 'grid';
+    document.getElementById('metricRisk').textContent      = data.riskScore + '%';
+    document.getElementById('metricRisk').className        = 'x-execution-metric-val ' + (data.riskScore >= 70 ? 'red' : data.riskScore >= 50 ? 'amber' : '');
+    document.getElementById('metricLoss').textContent      = fmtLoss(data.lossExposure || 0);
+    document.getElementById('metricLifecycle').textContent = data.lifecycle || data.status;
+
+    var trace = Array.isArray(data.trace) ? data.trace : [];
+    if (trace.length) {
+      document.getElementById('traceSection').style.display = 'block';
+      document.getElementById('traceLines').innerHTML = trace.map(function(x, i) {
+        var val = (x.value !== null && x.value !== undefined) ? x.value : '—';
+        return '<div class="x-trace-line">'
+          + '<span class="x-trace-n">[' + String(i+1).padStart(2,'0') + ']</span>'
+          + '<span class="x-trace-s">' + esc(x.step) + '</span>'
+          + '<span class="x-trace-v">' + esc(String(val)) + '</span>'
+          + '</div>';
+      }).join('');
+    }
+
+    document.getElementById('registryBar').style.display = 'flex';
+    document.getElementById('regId').textContent = data.executionId;
+    var stored = data.registry === 'STORED';
+    document.getElementById('regStatus').textContent  = stored ? '✓ STORED IN REGISTRY' : '⚠ REGISTRY WRITE FAILED';
+    document.getElementById('regStatus').className    = 'mono xs ' + (stored ? 'green' : 'red');
+
+    document.getElementById('ctaArea').style.display = 'flex';
+
+    // FLOW LOCK — status determines next required action
+    var primaryAction   = document.getElementById('primaryAction');
+    var secondaryAction = document.getElementById('secondaryAction');
+    var pressureLine    = document.getElementById('pressureLine');
+    var ctaNote         = document.getElementById('ctaNote');
+    var statusUrl = '/status?id=' + encodeURIComponent(data.executionId);
+    var requestUrl = '/request?source=execution'
+      + '&budget=' + encodeURIComponent(b)
+      + '&timeline=' + encodeURIComponent(t)
+      + '&complexity=' + encodeURIComponent(c)
+      + '&risk=' + encodeURIComponent('Execution: ' + data.status + ' · Risk score: ' + data.riskScore + '%');
+
+    if (blocked) {
+      pressureLine.textContent    = 'EXECUTION MAY NOT PROCEED';
+      primaryAction.textContent   = '→ SUBMIT FOR CONTROL';
+      primaryAction.href          = requestUrl;
+      primaryAction.className     = 'x-btn danger';
+      secondaryAction.style.display = 'none';
+      ctaNote.textContent         = 'CONTROL LAYER REQUIRED BEFORE EXECUTION';
+    } else if (review) {
+      pressureLine.textContent    = 'OPERATOR REVIEW REQUIRED BEFORE EXECUTION';
+      primaryAction.textContent   = '→ SUBMIT FOR CONTROL';
+      primaryAction.href          = requestUrl;
+      primaryAction.className     = 'x-btn primary';
+      secondaryAction.style.display = 'none';
+      ctaNote.textContent         = 'REGISTRY RECORD CREATED · REVIEW REQUIRED';
+    } else {
+      pressureLine.textContent    = 'EXECUTION AUTHORIZED';
+      primaryAction.textContent   = '→ VIEW EXECUTION STATUS';
+      primaryAction.href          = statusUrl;
+      primaryAction.className     = 'x-btn primary';
+      secondaryAction.textContent = '→ RUN EXECUTION CONTROL';
+      secondaryAction.href        = '/execution';
+      secondaryAction.className   = 'x-btn secondary';
+      ctaNote.textContent         = 'REGISTRY RECORD CREATED';
+      // APPROVED: auto-redirect to status after 3s
+      setTimeout(function() { window.location.href = statusUrl; }, 3000);
+    }
+
+    document.getElementById('outputBadge').textContent = data.status;
+    // Auto-focus primary action — no escape from flow
+    setTimeout(function() {
+      var pa = document.getElementById('primaryAction');
+      if (pa) { pa.focus(); pa.scrollIntoView({ block: 'center' }); }
+    }, 100);
+    // BLOCKED: hard redirect after 2.8s — system enforces control
+    if (blocked) {
+      setTimeout(function() { window.location.href = requestUrl; }, 2800);
+    }
+
+  } catch(err) {
+    document.getElementById('idleState').style.display = 'none';
+    document.getElementById('statusBlock').style.display = 'none';
+    document.getElementById('errorBar').style.display = 'block';
+    document.getElementById('outputBadge').textContent = 'ERROR';
+  }
+
+  btn.textContent = '→ RUN EXECUTION CONTROL';
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>
