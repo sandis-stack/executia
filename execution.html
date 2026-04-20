@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EXECUTIA — Live Execution Control</title>
+<meta name="description" content="Run one process through the EXECUTIA control layer. Receive a validation result, live trace, and the difference between uncontrolled and governed execution.">
+<link rel="stylesheet" href="global.css">
+<style>
+.exec-layout { display: grid; grid-template-columns: 380px 1fr; min-height: calc(100vh - 52px - 36px); gap: 0; }
+.input-panel { background: var(--surf); border-right: 1px solid var(--border); padding: 32px 28px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+.output-panel { padding: 32px 32px; overflow-y: auto; }
+.panel-title { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
+.mode-switch { display: flex; border: 1px solid var(--border2); border-radius: var(--r); overflow: hidden; }
+.mode-btn { flex: 1; padding: 8px; font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; background: none; border: none; cursor: pointer; color: var(--ink3); transition: all .15s; }
+.mode-btn.active { background: var(--ink); color: #fff; }
+.fields-grid { display: grid; gap: 14px; }
+.run-btn { padding: 12px; background: var(--ink); color: #fff; border: none; border-radius: var(--r); font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: opacity .15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.run-btn:hover { opacity: .86; }
+.run-btn:disabled { opacity: .45; cursor: not-allowed; }
+.helper-text { font-size: 12px; color: var(--ink3); line-height: 1.5; }
+.empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 400px; text-align: center; padding: 40px; }
+.empty-icon { font-size: 28px; margin-bottom: 18px; opacity: .25; font-family: var(--mono); color: var(--ink3); }
+.empty-title { font-size: 15px; font-weight: 600; color: var(--ink2); margin-bottom: 8px; }
+.empty-body { font-size: 13px; color: var(--ink3); line-height: 1.6; max-width: 300px; }
+
+/* Result */
+.verdict { padding: 20px 24px; border-radius: var(--r2); margin-bottom: 24px; border: 1px solid; }
+.verdict.approved { background: var(--grn-bg); border-color: var(--grn-light); }
+.verdict.review   { background: var(--amb-bg);  border-color: #e8d48a; }
+.verdict.blocked  { background: var(--red-bg);  border-color: #f0b8b3; }
+.verdict-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 6px; }
+.verdict.approved .verdict-label { color: var(--grn); }
+.verdict.review   .verdict-label { color: var(--amb); }
+.verdict.blocked  .verdict-label { color: var(--red); }
+.verdict h2 { font-size: 1.8rem; margin-bottom: 6px; }
+.verdict-reason { font-family: var(--mono); font-size: 10px; color: var(--ink3); letter-spacing: .08em; text-transform: uppercase; }
+
+.metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.metric { background: var(--surf); border: 1px solid var(--border); border-radius: var(--r2); padding: 16px 18px; }
+.metric-label { font-family: var(--mono); font-size: 9.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
+.metric-val { font-family: var(--mono); font-size: 22px; font-weight: 600; color: var(--ink); }
+
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.comp-col { border: 1px solid var(--border); border-radius: var(--r2); padding: 20px; }
+.comp-col.without { background: var(--surf2); }
+.comp-col.with    { background: var(--surf); }
+.comp-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; display: block; }
+.comp-col.without .comp-label { color: var(--red); }
+.comp-col.with    .comp-label { color: var(--grn); }
+.comp-body { font-size: 12.5px; color: var(--ink3); line-height: 1.55; }
+
+.trace-block { background: var(--surf2); border: 1px solid var(--border); border-radius: var(--r2); padding: 20px 22px; margin-bottom: 24px; }
+.trace-label { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 14px; }
+.trace-lines { font-family: var(--mono); font-size: 11.5px; color: rgba(255,255,255,.75); line-height: 1.9; }
+.trace-line { display: flex; gap: 12px; }
+.trace-line .t-key { color: rgba(255,255,255,.35); min-width: 100px; flex-shrink: 0; }
+
+.result-cta { border: 1px solid var(--border); border-radius: var(--r2); padding: 24px; background: var(--surf); }
+.result-cta h3 { font-size: 15px; margin-bottom: 8px; }
+.result-cta p { font-size: 13px; color: var(--ink3); margin-bottom: 20px; line-height: 1.5; }
+.cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.bottom-note { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); letter-spacing: .05em; text-align: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+@media (max-width: 900px) {
+  .exec-layout { grid-template-columns: 1fr; }
+  .input-panel { border-right: none; border-bottom: 1px solid var(--border); }
+  .metrics-row { grid-template-columns: 1fr 1fr; }
+  .comparison { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo">EXECUTIA™ <span>CONTROL</span></a>
+    <ul class="nav-links">
+      <li><a href="execution.html" class="active">Execution</a></li>
+      <li><a href="request.html">Request</a></li>
+      <li><a href="status.html">Status</a></li>
+      <li><a href="institutional.html">Institutional</a></li>
+      
+    </ul>
+    <button class="hamburger" onclick="openMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ── MOBILE MENU ── -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-top">
+    <a href="index.html" class="nav-logo">EXECUTIA™</a>
+    <button class="mobile-close" onclick="closeMenu()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="execution.html" onclick="closeMenu()">Execution</a>
+    <a href="request.html" onclick="closeMenu()">Request</a>
+    <a href="status.html" onclick="closeMenu()">Status</a>
+    <a href="institutional.html" onclick="closeMenu()">Institutional</a>
+    
+  </div>
+  <div class="mobile-cta"><a href="request.html" class="btn btn-secondary" style="width:100%;justify-content:center">Request Pilot</a></div>
+</div>
+
+<!-- ── SYSBAR ── -->
+<div class="sysbar">
+  <div class="wrap sysbar-inner">
+    <div class="sysbar-item"><div class="sysbar-dot"></div>SYSTEM: ACTIVE</div>
+    <div class="sysbar-item"><div class="sysbar-dot"></div>LAYER: EXECUTION CONTROL</div>
+    <div class="sysbar-item"><div class="sysbar-dot"></div>MODE: LIVE CONTROL</div>
+    <div class="sysbar-item"><div class="sysbar-dot"></div>TRACE: ENABLED</div>
+  </div>
+</div>
+
+<!-- ── EXECUTION ENGINE ── -->
+<div class="exec-layout">
+
+  <!-- INPUT PANEL -->
+  <div class="input-panel">
+    <div>
+      <div class="panel-title">EXECUTION CONTROL</div>
+      <h2 style="font-size:1.2rem;margin-bottom:4px">Submit one process to the control layer.</h2>
+      <p style="font-size:13px;color:var(--ink3)">This is not a simulation. You are submitting an execution case for evaluation under current conditions.</p>
+    </div>
+
+    <div>
+      <div class="panel-title">PROCESS INPUT</div>
+      <div class="mode-switch" style="margin-bottom:16px">
+        <button class="mode-btn active" id="btn-simple" onclick="setMode('simple')">Simple Mode</button>
+        <button class="mode-btn" id="btn-advanced" onclick="setMode('advanced')">Advanced Mode</button>
+      </div>
+
+      <!-- Simple -->
+      <div id="fields-simple" class="fields-grid">
+        <div class="field">
+          <label class="field-label">PROCESS TYPE</label>
+          <select class="field-select" id="s-type">
+            <option value="">Select process type</option>
+            <option value="project">Project Delivery</option>
+            <option value="payment">Payment Execution</option>
+            <option value="procurement">Procurement Flow</option>
+            <option value="accounting">Accounting / Tax Flow</option>
+            <option value="custom">Custom Process</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label">ESTIMATED VALUE</label>
+          <input class="field-input" id="s-value" type="text" placeholder="e.g. €2,400,000">
+        </div>
+        <div class="field">
+          <label class="field-label">TIMELINE</label>
+          <input class="field-input" id="s-timeline" type="text" placeholder="e.g. 6 months">
+        </div>
+        <div class="field">
+          <label class="field-label">WHAT IS AT RISK</label>
+          <input class="field-input" id="s-risk" type="text" placeholder="e.g. contract obligation, budget overrun">
+        </div>
+        <div class="field">
+          <label class="field-label">COUNTRY</label>
+          <input class="field-input" id="s-country" type="text" placeholder="e.g. Norway">
+        </div>
+        <div class="field">
+          <label class="field-label">EMAIL (OPTIONAL)</label>
+          <input class="field-input" id="s-email" type="email" placeholder="For status tracking">
+        </div>
+        <p class="helper-text">Start with one real process. Precision improves the output, but clarity matters more than detail.</p>
+      </div>
+
+      <!-- Advanced -->
+      <div id="fields-advanced" class="fields-grid" style="display:none">
+        <div class="field">
+          <label class="field-label">ENTITY</label>
+          <input class="field-input" id="a-entity" type="text" placeholder="Company or project name">
+        </div>
+        <div class="field">
+          <label class="field-label">BUDGET</label>
+          <input class="field-input" id="a-budget" type="text" placeholder="e.g. €5,000,000">
+        </div>
+        <div class="field">
+          <label class="field-label">TIMELINE</label>
+          <input class="field-input" id="a-timeline" type="text" placeholder="e.g. 12 months">
+        </div>
+        <div class="field">
+          <label class="field-label">COMPLEXITY</label>
+          <select class="field-select" id="a-complexity">
+            <option value="">Select complexity level</option>
+            <option value="1">1 — Simple / contained</option>
+            <option value="2">2 — Moderate / some dependencies</option>
+            <option value="3">3 — Complex / multi-party</option>
+            <option value="4">4 — High-stakes / institutional</option>
+            <option value="5">5 — Critical / cross-border</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label">COUNTRY</label>
+          <input class="field-input" id="a-country" type="text" placeholder="e.g. UAE">
+        </div>
+        <div class="field">
+          <label class="field-label">EMAIL</label>
+          <input class="field-input" id="a-email" type="email" placeholder="For trace record">
+        </div>
+        <p class="helper-text">Use advanced mode when you want a more structured control signal based on scale, pressure, and complexity.</p>
+      </div>
+    </div>
+
+    <button class="run-btn" id="run-btn" onclick="runExecution()">
+      <span id="run-label">Submit to Control Layer</span>
+    </button>
+  </div>
+
+  <!-- OUTPUT PANEL -->
+  <div class="output-panel" id="output-panel">
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">⬡</div>
+      <div class="empty-title">No control record has been created yet.</div>
+      <p class="empty-body">Submit one execution case. The system will return a control verdict, trace, and lifecycle state.</p>
+    </div>
+    <div id="result-content" style="display:none"></div>
+  </div>
+</div>
+
+<script>
+let _mode = 'simple';
+function setMode(m) {
+  _mode = m;
+  document.getElementById('btn-simple').className    = 'mode-btn' + (m==='simple'?' active':'');
+  document.getElementById('btn-advanced').className  = 'mode-btn' + (m==='advanced'?' active':'');
+  document.getElementById('fields-simple').style.display   = m==='simple'?'grid':'none';
+  document.getElementById('fields-advanced').style.display = m==='advanced'?'grid':'none';
+}
+
+// Pre-fill from URL params
+const _params = new URLSearchParams(location.search);
+const _type = _params.get('type');
+if (_type) { const el = document.getElementById('s-type'); if(el) el.value = _type; }
+
+// Risk engine: server-side only via /api/execute
+
+function fmt(n) {
+  if (typeof n === 'string' && n.startsWith('€')) return n;
+  const num = Number(String(n).replace(/[^0-9.]/g, ''));
+  if (isNaN(num)) return n || '—';
+  if (num >= 1000000) return '€' + (num/1000000).toFixed(1) + 'M';
+  if (num >= 1000)    return '€' + (num/1000).toFixed(0) + 'K';
+  return '€' + num;
+}
+
+let currentId = null;
+
+  async function runExecution() {
+  const btn = document.getElementById('run-btn');
+  const lbl = document.getElementById('run-label');
+  btn.disabled = true; lbl.textContent = 'Evaluating…';
+
+  const input = _mode === 'simple' ? {
+    type:     document.getElementById('s-type').value,
+    budget:   document.getElementById('s-value').value || '€500,000',
+    timeline: document.getElementById('s-timeline').value || '6',
+    risk:     document.getElementById('s-risk').value,
+    country:  document.getElementById('s-country').value || 'Norway',
+    email:    document.getElementById('s-email').value,
+    complexity: '2',
+  } : {
+    entity:     document.getElementById('a-entity').value,
+    budget:     document.getElementById('a-budget').value || '€1,000,000',
+    timeline:   document.getElementById('a-timeline').value || '12',
+    complexity: document.getElementById('a-complexity').value || '3',
+    country:    document.getElementById('a-country').value || 'UAE',
+    email:      document.getElementById('a-email').value,
+  };
+
+  // Server-side execution only
+  try {
+    const res  = await fetch('/api/execute', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
+        processType:  input.type,
+        country:      input.country,
+        value:        input.budget,
+        timeline:     input.timeline,
+        risk:         input.risk,
+        mode:         _mode,
+        complexity:   input.complexity,
+      }),
+    });
+    const data = await res.json();
+    if (res.ok && data.ok) {
+      // Server-side verdict — use ID for status link
+      currentId = data.id || null;
+      const r = {
+        id:       data.id,
+        verdict:  data.verdict,
+        cls:      data.verdict==='APPROVED'?'approved':data.verdict==='BLOCKED'?'blocked':'review',
+        risk:     data.riskScore || data.risk,
+        exposure: data.exposure,
+        lifecycle:data.lifecycle,
+      };
+      window._lastExecutionResult = r;
+      renderResult(r, input);
+      // APPROVED: auto-redirect to status after 1.5s
+      if (r.cls === 'approved' && currentId) {
+        setTimeout(function() { window.location.href = 'status.html?id=' + encodeURIComponent(currentId); }, 1500);
+      }
+      btn.disabled = false; lbl.textContent = 'Submit to Control Layer';
+      return;
+    }
+  } catch(e) {
+    console.warn('[EXECUTIA] server unavailable:', e.message);
+    document.getElementById('result-content').style.display = 'none';
+    document.getElementById('empty-state').style.display = 'block';
+    document.getElementById('empty-state').querySelector('.empty-body').textContent = 'SYSTEM UNAVAILABLE. Please retry.';
+    btn.disabled = false; lbl.textContent = 'Submit to Control Layer';
+    return;
+  }
+  btn.disabled = false; lbl.textContent = 'Submit to Control Layer';
+}
+
+function renderResult(r, input) {
+  document.getElementById('empty-state').style.display  = 'none';
+  currentId = r.id || null;
+  document.getElementById('result-content').style.display = 'block';
+
+  const statusUrl = currentId ? ('status.html?id=' + encodeURIComponent(currentId)) : 'status.html';
+  const prefillData = JSON.stringify({
+    processType: input.type || input.processType || '',
+    country:     input.country || '',
+    value:       input.budget  || input.value || '',
+    risk:        input.risk    || '',
+    timeline:    input.timeline || '',
+    exposure:    r.exposure    || '',
+    executionId: r.id          || '',
+    lifecycle:   r.lifecycle   || '',
+  });
+  const requestUrl = 'request.html?prefill=' + encodeURIComponent(prefillData);
+
+  const ctaHTML = {
+    approved: `<div class="result-cta">
+      <h3>CONTROL VERDICT: APPROVED</h3>
+      <p>Control validation complete. Registry record created. Redirecting to status in 1.5s…</p>
+      <div class="cta-btns">
+        <a href="${statusUrl}" class="btn btn-primary">→ VIEW EXECUTION STATUS</a>
+        <button class="btn btn-secondary" onclick="resetExecution()">→ RUN EXECUTION CONTROL</button>
+      </div>
+    </div>`,
+    _approvedUrl: statusUrl,
+    review: `<div class="result-cta">
+      <h3>CONTROL VERDICT: REQUIRES REVIEW</h3>
+      <p>Control validation required before authorization. Registry record created.</p>
+      <div class="cta-btns">
+        <a href="${requestUrl}" class="btn btn-primary">→ SUBMIT FOR CONTROL</a>
+        <a href="${statusUrl}" class="btn btn-secondary">→ VIEW EXECUTION STATUS</a>
+      </div>
+    </div>`,
+    blocked: `<div class="result-cta">
+      <h3>CONTROL VERDICT: BLOCKED</h3>
+      <p>Control layer required before execution. This execution would proceed without control.</p>
+      <div class="cta-btns">
+        <a href="${requestUrl}" class="btn btn-primary" style="background:var(--red);border-color:var(--red);color:#fff">→ SUBMIT FOR CONTROL</a>
+      </div>
+    </div>`,
+  };
+
+  const traceTs = new Date().toISOString();
+  const traceId = currentId || 'LOCAL';
+
+  document.getElementById('result-content').innerHTML = `
+    <div class="verdict ${r.cls}">
+      <div class="verdict-label">CONTROL VERDICT</div>
+      <h2>${r.verdict === 'APPROVED' ? 'Approved' : r.verdict === 'REQUIRES REVIEW' ? 'Requires Review' : 'Blocked'}</h2>
+      <div class="verdict-reason">EXECUTION STATUS GENERATED FROM LIVE VALIDATION CONDITIONS</div>
+    </div>
+
+    <div class="metrics-row">
+      <div class="metric">
+        <div class="metric-label">RISK SCORE</div>
+        <div class="metric-val">${r.risk}/100</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">EXPOSURE</div>
+        <div class="metric-val">${fmt(r.exposure)}</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">LIFECYCLE</div>
+        <div class="metric-val" style="font-size:14px;padding-top:4px">${r.lifecycle}</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:8px"><span class="label">CONTROL DIFFERENCE</span></div>
+    <div class="comparison">
+      <div class="comp-col without">
+        <span class="comp-label">Without EXECUTIA</span>
+        <p class="comp-body">The process proceeds without live validation. Risk remains latent, intervention becomes reactive, and proof appears only after damage, delay, or leakage emerges.</p>
+      </div>
+      <div class="comp-col with">
+        <span class="comp-label">With EXECUTIA</span>
+        <p class="comp-body">The process is evaluated before it proceeds. Exposure becomes visible, trace is created immediately, and execution proceeds under control instead of improvisation.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:8px"><span class="label">EXECUTION TRACE</span></div>
+    <div class="trace-block">
+      <div class="trace-label">Every result is produced through a visible control path.</div>
+      <div class="trace-lines">
+        <div class="trace-line"><span class="t-key">trace_id</span><span>${traceId}</span></div>
+        <div class="trace-line"><span class="t-key">storage_mode</span><span>${currentId ? 'LIVE CONTROL' : 'LOCAL — NOT STORED'}</span></div>
+        <div class="trace-line"><span class="t-key">input_mode</span><span>${_mode.toUpperCase()}</span></div>
+        <div class="trace-line"><span class="t-key">timestamp</span><span>${traceTs}</span></div>
+        <div class="trace-line"><span class="t-key">verdict</span><span>${r.verdict}</span></div>
+        <div class="trace-line"><span class="t-key">risk_score</span><span>${r.risk}/100</span></div>
+        <div class="trace-line"><span class="t-key">exposure</span><span>${fmt(r.exposure)}</span></div>
+        <div class="trace-line"><span class="t-key">lifecycle</span><span>${r.lifecycle}</span></div>
+        <div class="trace-line"><span class="t-key">country</span><span>${input.country||'—'}</span></div>
+        <div class="trace-line">        <div class="trace-line"><span class="t-key">layer</span><span>EXECUTIA EXECUTION CONTROL v1</span></div>
+      </div>
+    </div>
+
+    ${ctaHTML[r.cls]}
+
+    <p class="bottom-note">EXECUTIA does not improve execution after failure. It exists to control execution before failure becomes real.</p>
+  `;
+}
+
+function viewStatus() {
+  const url = currentId
+    ? 'status.html?id=' + encodeURIComponent(currentId)
+    : 'status.html';
+  window.location.href = url;
+}
+
+function applyToReal() {
+  // Pull last rendered result data if available
+  const _lastResult = window._lastExecutionResult || {};
+  const payload = {
+    processType: document.getElementById('s-type')?.value || document.getElementById('a-entity')?.value || '',
+    country:     document.getElementById('s-country')?.value || document.getElementById('a-country')?.value || '',
+    value:       document.getElementById('s-value')?.value || document.getElementById('a-budget')?.value || '',
+    timeline:    document.getElementById('s-timeline')?.value || document.getElementById('a-timeline')?.value || '',
+    risk:        document.getElementById('s-risk')?.value || '',
+    consequence: '',
+    exposure:    _lastResult.exposure || '',
+    lifecycle:   _lastResult.lifecycle || '',
+    executionId: currentId || '',
+  };
+  window.location.href = 'request.html?prefill=' + encodeURIComponent(JSON.stringify(payload));
+}
+
+function resetExecution() {
+  document.getElementById('empty-state').style.display  = 'flex';
+  document.getElementById('result-content').style.display = 'none';
+  document.getElementById('result-content').innerHTML = '';
+}
+
+function openMenu()  { document.getElementById('mobile-menu').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow=''; }
+</script>
+</body>
+</html>
