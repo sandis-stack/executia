@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EXECUTIA — The Control Layer Between Decision and Result</title>
+<meta name="description" content="EXECUTIA is the execution control layer between decision and result. Enter one real process, see what happens with and without execution control, and apply EXECUTIA to reality.">
+<link rel="stylesheet" href="global.css">
+<style>
+/* ── INDEX-SPECIFIC ── */
+.hero {
+  padding: 88px 0 80px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-role {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  margin-bottom: 10px;
+}
+.hero-entry {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 28px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  display: inline-block;
+}
+.hero h1 { max-width: 700px; margin-bottom: 22px; }
+.hero h1 em { font-style: normal; color: var(--ink3); }
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--ink2);
+  max-width: 520px;
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+.hero-ctas { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+.hero-signal {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hero-signal span { display: flex; align-items: center; gap: 6px; }
+.hero-signal span::before { content:'·'; color: var(--border2); }
+.hero-signal span:first-child::before { display: none; }
+
+.problem-section { background: var(--surf); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.problem-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.problem-quote {
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+  letter-spacing: -.01em;
+}
+.problem-body p { font-size: 14px; margin-bottom: 12px; }
+
+.why-section { background: var(--surf2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.why-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.why-quote { font-size: 1.3rem; font-weight: 600; line-height: 1.4; color: var(--ink); }
+.why-body { font-size: 14px; color: var(--ink3); line-height: 1.7; }
+
+.final-cta-section { background: var(--surf); border-top: 2px solid var(--ink); padding: var(--section-pad); }
+.final-cta-section .label { color: var(--ink3); }
+.final-cta-section h2 { color: var(--ink); max-width: 520px; margin-bottom: 14px; }
+.final-cta-section p { color: var(--ink2); margin-bottom: 32px; font-size: 15px; }
+.final-cta-section .btn-secondary { color: var(--ink2); border-color: var(--border2); }
+.final-cta-section .btn-secondary:hover { border-color: var(--ink); color: var(--ink); }
+
+
+@media (max-width: 900px) {
+  .problem-inner, .why-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo">EXECUTIA™ <span>CONTROL</span></a>
+    <ul class="nav-links">
+      <li><a href="execution.html">Execution</a></li>
+      <li><a href="request.html">Request</a></li>
+      <li><a href="status.html">Status</a></li>
+    </ul>
+    <button class="hamburger" onclick="openMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── MOBILE MENU ── -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-top">
+    <a href="index.html" class="nav-logo">EXECUTIA™</a>
+    <button class="mobile-close" onclick="closeMenu()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="execution.html" onclick="closeMenu()">Execution</a>
+    <a href="request.html" onclick="closeMenu()">Request</a>
+    
+  </div>
+  <div class="mobile-cta">
+    <a href="execution.html" class="btn btn-primary" style="width:100%;justify-content:center">Run Execution Control</a>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-role">EXECUTION CONTROL INFRASTRUCTURE</div>
+    <div class="hero-entry">ENTRY POINT</div>
+    <h1>Execution is happening right now.<br>You are not controlling it.</h1>
+    <p style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase;margin-top:14px">You can test it in 30 seconds.</p>
+    <p class="hero-sub" style="font-size:1.15rem;color:var(--red);font-weight:600">Your system is not controlling it.</p>
+    <p class="hero-sub">EXECUTIA is the control layer between decision and result. Enter one real process. See what happens with and without execution control.</p>
+    <div class="hero-ctas">
+      
+      <a href="execution.html" class="btn btn-primary btn-lg">Run Execution Control</a>
+    </div>
+    <div class="hero-signal">
+      <span>LIVE EXECUTION</span>
+      <span>REAL TRACE</span>
+      <span>CONTROL BEFORE FAILURE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── TWO WORLDS ── -->
+<section style="background:var(--surf);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <span class="label">THE DIFFERENCE</span>
+    <div class="two-world mt-24">
+      <div class="two-world-col without">
+        <span class="two-world-label">WITHOUT EXECUTIA</span>
+        <ul class="world-list">
+          <li>Action proceeds before validation</li>
+          <li>Risk stays invisible until damage appears</li>
+          <li>Errors surface late</li>
+          <li>Response becomes manual</li>
+          <li>Proof comes after loss</li>
+          <li>Audit starts when reality is already broken</li>
+        </ul>
+      </div>
+      <div class="two-world-col with">
+        <span class="two-world-label">WITH EXECUTIA</span>
+        <ul class="world-list">
+          <li>Action is evaluated before it proceeds</li>
+          <li>Risk becomes visible at execution time</li>
+          <li>Trace is created instantly</li>
+          <li>Review path is defined early</li>
+          <li>Control exists before loss</li>
+          <li>Proof exists while execution is still alive</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ── FINAL CTA ── -->
+<section class="final-cta-section">
+  <div class="wrap">
+    <span class="label">ENTER THE LAYER</span>
+    <h2>Run one process through EXECUTIA.<br>See the difference before reality pays the price.</h2>
+    <p>Enter one real process. The control layer becomes visible immediately.</p>
+    <div class="flex gap-12 flex-wrap">
+      
+      <a href="execution.html" class="btn btn-primary btn-lg">Run Execution Control</a>
+      <a href="request.html" class="btn btn-secondary btn-lg">→ Apply to your process</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="nav-logo" style="margin-bottom:14px">EXECUTIA™</div>
+        <p class="footer-micro">EXECUTIA is the execution control layer between decision and result. Built for real processes where uncontrolled execution becomes loss, delay, bureaucracy, or institutional failure.</p>
+      </div>
+      <div class="footer-links">
+        <a href="execution.html">Execution</a>
+        <a href="request.html">Request</a>
+        <a href="status.html">Status</a>
+        
+        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:control@executia.io">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>control@executia.io · Initial pilot focus: Norway · UAE</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function openMenu()  { document.getElementById('mobile-menu').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow=''; }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+</script>
+</body>
+</html>
