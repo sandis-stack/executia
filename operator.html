@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EXECUTIA — Control Console</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="global.css">
+<style>
+/* ── CONSOLE LAYOUT ── */
+.console-auth {
+  max-width:420px; margin:80px auto; padding:0 var(--gutter);
+}
+.console-auth h1 { font-size:1.3rem; margin-bottom:6px; }
+.console-auth p  { font-size:13.5px; color:var(--ink2); margin-bottom:28px; }
+
+.console-layout {
+  display:grid; grid-template-columns:340px 1fr;
+  height:calc(100vh - 52px); overflow:hidden;
+}
+.console-list {
+  border-right:1px solid var(--border); overflow-y:auto;
+  display:flex; flex-direction:column;
+}
+.console-list-header {
+  padding:16px; border-bottom:1px solid var(--border);
+  background:var(--surf); position:sticky; top:0; z-index:10;
+}
+.console-list-header h2 { font-size:12px; letter-spacing:.1em; margin-bottom:10px; }
+.console-filters { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+.filter-btn {
+  font-family:var(--mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+  padding:3px 8px; border:1px solid var(--border); border-radius:3px;
+  background:var(--surf); color:var(--ink3); cursor:pointer;
+}
+.filter-btn.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+.console-search { width:100%; }
+
+.case-item {
+  padding:12px 16px; border-bottom:1px solid var(--border);
+  cursor:pointer; transition:background .1s;
+}
+.case-item:hover  { background:var(--surf2); }
+.case-item.active { background:var(--blu-bg); border-left:3px solid var(--blu); }
+.case-item-id { font-family:var(--mono); font-size:10px; color:var(--ink3); margin-bottom:3px; }
+.case-item-company { font-size:13px; font-weight:600; color:var(--ink); margin-bottom:3px; }
+.case-item-meta { font-size:11.5px; color:var(--ink3); display:flex; gap:8px; }
+.case-item-score { margin-left:auto; font-family:var(--mono); font-size:10px; }
+
+.console-empty-list { padding:40px 16px; text-align:center; color:var(--ink4); font-size:12px; font-family:var(--mono); }
+
+/* ── RIGHT PANEL ── */
+.console-detail {
+  overflow-y:auto; padding:0; display:flex; flex-direction:column;
+}
+.console-detail-empty {
+  flex:1; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--ink4);
+}
+.detail-header {
+  padding:16px 24px; border-bottom:1px solid var(--border);
+  background:var(--surf); position:sticky; top:0; z-index:10;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.detail-header h2 { font-size:12px; letter-spacing:.1em; }
+.detail-id { font-family:var(--mono); font-size:11px; color:var(--ink3); }
+.detail-body { padding:24px; flex:1; }
+.detail-section { margin-bottom:28px; }
+.detail-section-label { font-family:var(--mono); font-size:9px; letter-spacing:.16em; color:var(--ink4); text-transform:uppercase; margin-bottom:10px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+.kv-row { display:flex; gap:16px; padding:7px 0; border-bottom:1px solid rgba(0,0,0,.04); font-size:13px; }
+.kv-row:last-child { border-bottom:none; }
+.kv-key { font-family:var(--mono); font-size:10.5px; color:var(--ink3); min-width:140px; flex-shrink:0; padding-top:1px; }
+.kv-val { color:var(--ink2); word-break:break-word; }
+
+.trace-line { font-family:var(--mono); font-size:11px; color:var(--ink3); padding:4px 0; display:flex; gap:10px; }
+.trace-ts  { color:var(--ink4); min-width:80px; }
+
+.note-area { width:100%; resize:vertical; min-height:80px; margin-bottom:10px; }
+.action-strip { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.btn-review { background:var(--blu-bg); color:var(--blu); border-color:#b8cce8; }
+.btn-approve { background:var(--grn-bg); color:var(--grn); border-color:var(--grn-light); }
+.btn-block   { background:var(--red-bg); color:var(--red); border-color:#f0b8b3; }
+.btn-close   { background:var(--surf2); color:var(--ink3); border-color:var(--border2); }
+.action-msg  { font-family:var(--mono); font-size:11px; color:var(--grn); margin-top:8px; }
+.status-mini  { font-family:var(--mono); font-size:9px; opacity:.6; margin-left:4px; }
+
+.console-sysbar { background:var(--surf); border-bottom:1px solid var(--border); padding:8px var(--gutter); display:flex; gap:20px; align-items:center; }
+.sysbar-item-c { font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--ink3); display:flex; gap:6px; }
+.sysbar-item-c span { color:var(--ink); font-weight:600; }
+.sysbar-item-c span.red { color:var(--red); }
+.sysbar-item-c span.green { color:var(--grn); }
+
+@media (max-width:900px) {
+  .console-layout { grid-template-columns:1fr; }
+  .console-list { height:40vh; }
+  .console-detail { height:60vh; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── AUTH ── -->
+<div id="auth-screen">
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="nav-logo">EXECUTIA™ <span>CONTROL CONSOLE</span></div>
+    </div>
+  </nav>
+  <div class="console-auth">
+    <span class="label">OPERATOR ACCESS</span>
+    <h1>EXECUTIA Control Console</h1>
+    <p>Enter your operator token and reviewer name to access the control queue.</p>
+    <div class="field" style="margin-bottom:12px">
+      <label class="field-label">OPERATOR TOKEN</label>
+      <input class="field-input" id="auth-token" type="password" placeholder="Token" autocomplete="off">
+    </div>
+    <div class="field" style="margin-bottom:20px">
+      <label class="field-label">YOUR NAME (REVIEWER)</label>
+      <input class="field-input" id="auth-name" type="text" placeholder="e.g. Sandis">
+    </div>
+    <button class="btn btn-primary btn-lg" style="width:100%" onclick="doAuth()">ENTER CONSOLE</button>
+    <div id="auth-error" style="display:none;margin-top:12px;font-size:13px;color:var(--red);font-family:var(--mono)">INVALID TOKEN</div>
+  </div>
+</div>
+
+<!-- ── CONSOLE ── -->
+<div id="console-screen" style="display:none;height:100vh;flex-direction:column">
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="nav-logo">EXECUTIA™ <span>CONTROL CONSOLE</span></div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span class="label" style="margin:0" id="reviewer-label">—</span>
+        <button class="btn btn-secondary btn-sm" onclick="doSignOut()">SIGN OUT</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="console-sysbar">
+    <div class="sysbar-item-c">REGISTRY <span class="green">ACTIVE</span></div>
+    <div class="sysbar-item-c">OVERRIDE <span class="red">DISABLED</span></div>
+    <div class="sysbar-item-c">QUEUE <span id="queue-count">—</span></div>
+    <div class="sysbar-item-c">SELECTED <span id="selected-id">NONE</span></div>
+  </div>
+
+  <div class="console-layout">
+
+    <!-- LEFT: CASE LIST -->
+    <div class="console-list">
+      <div class="console-list-header">
+        <h2>CONTROL RECORDS</h2>
+        <div class="console-filters" id="filter-bar">
+          <button class="filter-btn active" data-status="all" onclick="setFilter('all',this)">ALL</button>
+          <button class="filter-btn" data-status="pending" onclick="setFilter('pending',this)">PENDING</button>
+          <button class="filter-btn" data-status="under_review" onclick="setFilter('under_review',this)">REVIEW</button>
+          <button class="filter-btn" data-status="approved" onclick="setFilter('approved',this)">APPROVED</button>
+          <button class="filter-btn" data-status="blocked" onclick="setFilter('blocked',this)">BLOCKED</button>
+          <button class="filter-btn" data-status="execution_record" onclick="setFilter('execution_record',this)">EXEC</button>
+        </div>
+        <input class="field-input console-search" id="search-input" placeholder="Search ID, company, email…" oninput="onSearch()">
+      </div>
+      <div id="case-list-body"></div>
+    </div>
+
+    <!-- RIGHT: DETAIL -->
+    <div class="console-detail" id="detail-pane">
+      <div class="console-detail-empty" id="detail-empty">NO CONTROL RECORD SELECTED</div>
+      <div id="detail-content" style="display:none"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let _token = '';
+let _reviewer = '';
+let _currentFilter = 'all';
+let _searchTimeout = null;
+
+// ── AUTH ──
+async function doAuth() {
+  const token = document.getElementById('auth-token').value.trim();
+  const name  = document.getElementById('auth-name').value.trim();
+  if (!token) return;
+  document.getElementById('auth-error').textContent = 'VERIFYING…';
+  document.getElementById('auth-error').style.display = 'block';
+  try {
+    const res  = await fetch('/api/operator/cases?limit=1', {
+      headers: { 'x-operator-token': token },
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) throw new Error('UNAUTHORIZED');
+    _token    = token;
+    _reviewer = name || 'operator';
+    sessionStorage.setItem('op_token', token);
+    sessionStorage.setItem('op_name',  _reviewer);
+    document.getElementById('auth-error').style.display = 'none';
+    initConsole();
+  } catch {
+    document.getElementById('auth-error').textContent = 'INVALID TOKEN';
+    document.getElementById('auth-error').style.display = 'block';
+  }
+}
+
+function doSignOut() {
+  sessionStorage.removeItem('op_token');
+  sessionStorage.removeItem('op_name');
+  document.getElementById('auth-screen').style.display  = 'block';
+  document.getElementById('console-screen').style.display = 'none';
+}
+
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, s =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[s]);
+}
+
+function fmt(iso) {
+  if (!iso) return '—';
+  try { return new Date(iso).toLocaleString('en-GB'); } catch { return iso; }
+}
+
+// ── INIT ──
+function initConsole() {
+  document.getElementById('auth-screen').style.display   = 'none';
+  document.getElementById('console-screen').style.display = 'flex';
+  document.getElementById('reviewer-label').textContent  = _reviewer.toUpperCase();
+  loadCases();
+}
+
+// ── FILTER ──
+function setFilter(status, btn) {
+  _currentFilter = status;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadCases();
+}
+
+function onSearch() {
+  clearTimeout(_searchTimeout);
+  _searchTimeout = setTimeout(loadCases, 300);
+}
+
+// ── LOAD CASES ──
+async function loadCases() {
+  const q     = document.getElementById('search-input').value.trim();
+  const body  = document.getElementById('case-list-body');
+  body.innerHTML = '<div class="console-empty-list">LOADING…</div>';
+
+  const params = new URLSearchParams({ limit: 200 });
+  if (_currentFilter !== 'all') params.set('status', _currentFilter);
+  if (q) params.set('q', q);
+
+  try {
+    const res  = await fetch('/api/operator/cases?' + params, {
+      headers: { 'x-operator-token': _token },
+    });
+    const data = await res.json();
+
+    if (res.status === 401) { doSignOut(); return; }
+    if (!res.ok || !data.ok) throw new Error(data.error);
+
+    document.getElementById('queue-count').textContent = data.count;
+
+    if (!data.items.length) {
+      body.innerHTML = '<div class="console-empty-list">NO MATCHING RECORDS</div>';
+      return;
+    }
+
+    body.innerHTML = data.items.map(r => `
+      <div class="case-item" onclick="loadCase('${esc(r.id)}')" id="item-${esc(r.id)}">
+        <div class="case-item-id">${esc(r.id)}</div>
+        <div class="case-item-company">${esc(r.company || r.email || '—')}</div>
+        <div class="case-item-meta">
+          <span>${esc(r.processType || '—')}</span>
+          <span>${esc(r.country || '')}</span>
+          <span class="badge ${r.verdict==='APPROVED'?'badge-ok':r.verdict==='BLOCKED'?'badge-block':'badge-warn'}">${esc(r.verdict||'—')}</span><span style="font-family:var(--mono);font-size:9px;color:var(--ink4);margin-left:4px">${esc(r.status||'')}</span>
+          <span class="case-item-score">${r.riskScore != null ? r.riskScore+'/100' : ''}</span>
+        </div>
+      </div>
+    `).join('');
+
+  } catch(e) {
+    body.innerHTML = `<div class="console-empty-list">ERROR: ${esc(e.message)}</div>`;
+  }
+}
+
+// ── LOAD CASE DETAIL ──
+async function loadCase(id) {
+  document.querySelectorAll('.case-item').forEach(el => el.classList.remove('active'));
+  const item = document.getElementById('item-'+id);
+  if (item) item.classList.add('active');
+  document.getElementById('selected-id').textContent = id;
+
+  const pane  = document.getElementById('detail-pane');
+  const empty = document.getElementById('detail-empty');
+  const cont  = document.getElementById('detail-content');
+  empty.style.display = 'none';
+  cont.style.display  = 'block';
+  cont.innerHTML = '<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--ink4)">LOADING…</div>';
+
+  try {
+    const res  = await fetch('/api/operator/case?id=' + encodeURIComponent(id), {
+      headers: { 'x-operator-token': _token },
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) throw new Error(data.error);
+    renderDetail(data.record);
+  } catch(e) {
+    cont.innerHTML = `<div style="padding:24px;font-family:var(--mono);font-size:12px;color:var(--red)">ERROR: ${esc(e.message)}</div>`;
+  }
+}
+
+function renderDetail(r) {
+  const trace = Array.isArray(r.trace) ? r.trace : [];
+  const traceHtml = trace.length
+    ? trace.map(t => `<div class="trace-line"><span class="trace-ts">${(t.ts||'').slice(11,19)}</span><span>${esc(t.event||'')}${t.note?' · '+esc(t.note):''}</span></div>`).join('')
+    : '<div style="font-family:var(--mono);font-size:11px;color:var(--ink4)">NO TRACE</div>';
+
+  const verdictCls = r.verdict==='APPROVED'?'badge-ok':r.verdict==='BLOCKED'?'badge-block':'badge-warn';
+
+  document.getElementById('detail-content').innerHTML = `
+    <div class="detail-header">
+      <div>
+        <h2>CASE DETAIL</h2>
+        <div class="detail-id">${esc(r.id)}</div>
+      </div>
+      <span class="badge ${verdictCls}">${esc(r.verdict||'—')}</span>
+    </div>
+    <div class="detail-body">
+
+      <div class="detail-section">
+        <div class="detail-section-label">IDENTITY</div>
+        <div class="kv-row"><span class="kv-key">id</span><span class="kv-val mono">${esc(r.id)}</span></div>
+        <div class="kv-row"><span class="kv-key">source</span><span class="kv-val">${esc(r.source||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">name</span><span class="kv-val">${esc(r.name||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">company</span><span class="kv-val">${esc(r.company||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">role</span><span class="kv-val">${esc(r.role||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">email</span><span class="kv-val">${esc(r.email||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">phone</span><span class="kv-val">${esc(r.phone||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">country</span><span class="kv-val">${esc(r.country||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">created</span><span class="kv-val mono">${fmt(r.createdAt)}</span></div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-label">PROCESS</div>
+        <div class="kv-row"><span class="kv-key">type</span><span class="kv-val">${esc(r.processType||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">operator</span><span class="kv-val">${esc(r.operatorName||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">value</span><span class="kv-val">${esc(r.processValue||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">main risk</span><span class="kv-val">${esc(r.mainRisk||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">consequence</span><span class="kv-val">${esc(r.consequence||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">context</span><span class="kv-val">${esc(r.context||'—')}</span></div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-label">CONTROL OUTPUT</div>
+        <div class="kv-row"><span class="kv-key">verdict</span><span class="kv-val"><span class="badge ${verdictCls}">${esc(r.verdict||'—')}</span></span></div>
+        <div class="kv-row"><span class="kv-key">lifecycle</span><span class="kv-val">${esc(r.lifecycle||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">status</span><span class="kv-val">${esc(r.status||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">risk score</span><span class="kv-val mono">${r.riskScore != null ? r.riskScore+'/100' : '—'}</span></div>
+        <div class="kv-row"><span class="kv-key">exposure</span><span class="kv-val">${esc(r.exposure||'—')}</span></div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-label">TRACE</div>
+        ${traceHtml}
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-label">OPERATOR RESPONSE</div>
+        <div class="kv-row"><span class="kv-key">reviewed by</span><span class="kv-val">${esc(r.reviewedBy||'—')}</span></div>
+        <div class="kv-row"><span class="kv-key">reviewed at</span><span class="kv-val mono">${fmt(r.reviewedAt)}</span></div>
+        <div style="margin-top:12px">
+          <textarea class="field-textarea note-area" id="op-note-${esc(r.id)}" placeholder="Operator note…">${esc(r.operatorNote||'')}</textarea>
+        </div>
+        <div class="action-strip">
+          <button class="btn btn-sm btn-review"  onclick="updateCase('${esc(r.id)}','under_review')">MOVE TO REVIEW</button>
+          <button class="btn btn-sm btn-approve" onclick="updateCase('${esc(r.id)}','approved')">APPROVE</button>
+          <button class="btn btn-sm btn-block"   onclick="updateCase('${esc(r.id)}','blocked')">BLOCK</button>
+          <button class="btn btn-sm btn-close"   onclick="updateCase('${esc(r.id)}','closed')">CLOSE</button>
+        </div>
+        <div class="action-msg" id="action-msg-${esc(r.id)}"></div>
+      </div>
+
+    </div>`;
+}
+
+// ── UPDATE ──
+async function updateCase(id, status) {
+  const note    = document.getElementById('op-note-'+id)?.value || '';
+  const msgEl   = document.getElementById('action-msg-'+id);
+  if (msgEl) msgEl.textContent = 'SAVING…';
+
+  try {
+    const res  = await fetch('/api/operator/update', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'x-operator-token': _token },
+      body:    JSON.stringify({ id, status, operatorNote: note, reviewedBy: _reviewer }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) throw new Error(data.error);
+
+    if (msgEl) msgEl.textContent = 'UPDATED → ' + status.toUpperCase();
+    loadCases();
+    setTimeout(() => loadCase(id), 300);
+  } catch(e) {
+    if (msgEl) msgEl.textContent = 'ERROR: ' + e.message;
+  }
+}
+
+// ── AUTO-INIT from session ──
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = sessionStorage.getItem('op_token');
+  if (saved) {
+    _token    = saved;
+    _reviewer = sessionStorage.getItem('op_name') || 'operator';
+    initConsole();
+  }
+  document.getElementById('auth-token').addEventListener('keydown', e => { if(e.key==='Enter') doAuth(); });
+});
+</script>
+</body>
+</html>
