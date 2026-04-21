@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 15
+    }
+  },
+  "routes": [
+    {
+      "src": "^/$",
+      "dest": "/index.html"
+    },
+    {
+      "src": "^/execution$",
+      "dest": "/execution.html"
+    },
+    {
+      "src": "^/request$",
+      "dest": "/request.html"
+    },
+    {
+      "src": "^/status$",
+      "dest": "/status.html"
+    },
+    {
+      "src": "^/institutional$",
+      "dest": "/institutional.html"
+    },
+    {
+      "src": "^/global$",
+      "dest": "/global.html"
+    },
+    {
+      "src": "/api/request-validation",
+      "dest": "/api/request-validation"
+    },
+    {
+      "src": "/api/status",
+      "dest": "/api/status"
+    },
+    {
+      "src": "/api/execute",
+      "dest": "/api/execute"
+    },
+    {
+      "src": "^/operator$",
+      "dest": "/operator.html"
+    },
+    {
+      "src": "/api/operator/cases",
+      "dest": "/api/operator-cases.js"
+    },
+    {
+      "src": "/api/operator/case",
+      "dest": "/api/operator-case.js"
+    },
+    {
+      "src": "/api/operator/update",
+      "dest": "/api/operator-update.js"
+    }
+  ]
+}

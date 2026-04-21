@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EXECUTIA — Execution Control Infrastructure</title>
+<meta name="description" content="EXECUTIA is an execution control system. It validates real processes before they proceed. Test it in 30 seconds.">
+<link rel="stylesheet" href="global.css">
+<style>
+.hero { padding: 88px 0 72px; border-bottom: 1px solid var(--border); }
+.hero h1 { max-width: 720px; margin-bottom: 0; line-height: 1.05; }
+.hero-red { color: var(--red); font-style: normal; }
+.hero-sub { font-size: 1.08rem; color: var(--red); font-weight: 600; max-width: none; margin: 14px 0 8px; line-height: 1.4; }
+.hero-cue { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin-bottom: 28px; }
+.hero-ctas { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+.what-section { background: var(--surf); border-bottom: 1px solid var(--border); }
+.what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.what-block h2 { font-size: 1.2rem; margin-bottom: 16px; }
+.what-block p { font-size: 15px; line-height: 1.75; color: var(--ink2); margin-bottom: 12px; }
+.not-list { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.not-list li { font-size: 14px; color: var(--ink2); padding-left: 20px; position: relative; line-height: 1.5; }
+.not-list li::before { content: '—'; position: absolute; left: 0; color: var(--ink4); font-family: var(--mono); }
+
+.test-section { border-bottom: 1px solid var(--border); }
+.test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.test-col h3 { font-size: 1rem; margin-bottom: 12px; color: var(--ink); }
+.test-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.test-list li { font-size: 14px; color: var(--ink2); padding-left: 20px; position: relative; line-height: 1.5; }
+.test-list li::before { content: '—'; position: absolute; left: 0; color: var(--ink4); font-family: var(--mono); }
+
+.why-section { background: var(--surf2); border-bottom: 1px solid var(--border); }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.risk-list { list-style: none; padding: 0; margin: 12px 0; display: flex; flex-direction: column; gap: 8px; }
+.risk-list li { font-size: 14px; color: var(--red); padding-left: 20px; position: relative; }
+.risk-list li::before { content: '—'; position: absolute; left: 0; color: var(--red); font-family: var(--mono); opacity:.5; }
+.why-result { font-size: 15px; font-weight: 600; color: var(--ink); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+
+.use-section { background: var(--surf); border-bottom: 1px solid var(--border); }
+.use-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.use-card { border: 1px solid var(--border); border-radius: var(--r2); padding: 20px; background: var(--surf); }
+.use-card p { font-size: 13px; color: var(--ink2); line-height: 1.55; margin: 0; }
+
+.how-section { border-bottom: 1px solid var(--border); }
+.how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--border); border-radius: var(--r2); overflow: hidden; margin-top: 24px; }
+.how-step { padding: 24px; border-right: 1px solid var(--border); background: var(--surf); }
+.how-step:last-child { border-right: none; }
+.how-num { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--ink4); letter-spacing: .1em; margin-bottom: 10px; }
+.how-step h3 { font-size: 13.5px; margin-bottom: 6px; }
+.how-step p { font-size: 12.5px; color: var(--ink3); line-height: 1.55; }
+
+.pilot-section { background: var(--surf2); border-bottom: 1px solid var(--border); }
+.pilot-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.pilot-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--grn); background: var(--grn-bg); border: 1px solid var(--grn-light); border-radius: 999px; padding: 5px 12px; margin-bottom: 16px; }
+.pilot-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--grn); }
+.evolution-block { border: 1px solid var(--border); border-radius: var(--r2); background: var(--surf); padding: 28px; }
+.evolution-row { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.evolution-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.evo-label { font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink4); min-width: 56px; margin-top: 2px; }
+.evo-text { font-size: 14px; color: var(--ink2); line-height: 1.55; }
+
+.trust-section { background: var(--surf); border-bottom: 1px solid var(--border); }
+.trust-inner { display: grid; grid-template-columns: 3fr 2fr; gap: 64px; align-items: start; }
+
+.final-cta-section { background: var(--surf); border-top: 2px solid var(--ink); }
+.final-cta-section h2 { color: var(--ink); max-width: 480px; margin-bottom: 12px; }
+.final-cta-section p { color: var(--ink2); margin-bottom: 28px; font-size: 15px; max-width: 480px; }
+
+@media (max-width: 900px) {
+  .what-grid, .test-grid, .why-grid, .pilot-inner, .trust-inner { grid-template-columns: 1fr; gap: 32px; }
+  .use-grid { grid-template-columns: 1fr 1fr; }
+  .how-steps { grid-template-columns: 1fr 1fr; }
+  .how-step { border-bottom: 1px solid var(--border); }
+}
+@media (max-width: 600px) {
+  .use-grid { grid-template-columns: 1fr; }
+  .how-steps { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-main">EXECUTIA<span class="nav-logo-mark">™</span></span>
+      <span class="nav-logo-divider" aria-hidden="true"></span>
+      <span class="nav-logo-sub">CONTROL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/execution">Execution</a></li>
+      <li><a href="/request">Request</a></li>
+      <li><a href="/status">Status</a></li>
+    </ul>
+    <button class="hamburger" onclick="openMenu()" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-top">
+    <a href="/" class="nav-logo">EXECUTIA™</a>
+    <button class="mobile-close" onclick="closeMenu()">✕</button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="/execution" onclick="closeMenu()">Execution</a>
+    <a href="/request" onclick="closeMenu()">Request</a>
+    <a href="/status" onclick="closeMenu()">Status</a>
+  </div>
+  <div class="mobile-cta">
+    <a href="/execution" class="btn btn-primary" style="width:100%;justify-content:center">Run Execution Control</a>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="wrap">
+    <h1>Execution is happening right now.<br>You are not controlling it.</h1>
+    <p class="hero-sub">Your system is not controlling it.</p>
+    <p class="hero-cue">You can test it in 30 seconds. No signup required.</p>
+    <div class="hero-ctas">
+      <a href="/execution" class="btn btn-primary btn-lg">Run Execution Control</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT THIS IS + WHAT THIS IS NOT ── -->
+<section class="what-section">
+  <div class="wrap what-grid">
+    <div class="what-block">
+      <span class="label">WHAT THIS IS</span>
+      <h2>An execution control system.</h2>
+      <p>EXECUTIA validates real processes before they proceed.</p>
+      <p>Instead of detecting problems after execution, it introduces control at the moment of action.</p>
+    </div>
+    <div class="what-block">
+      <span class="label">WHAT THIS IS NOT</span>
+      <h2>Not a financial platform.</h2>
+      <p>EXECUTIA is not a trading platform, broker, bank, or investment service.</p>
+      <p>It does not handle client funds or assets.</p>
+      <ul class="not-list">
+        <li>Not a payment processor</li>
+        <li>Not a compliance tool</li>
+        <li>Not a project management app</li>
+        <li>Not analytics after the fact</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ── SYSTEM STATUS ── -->
+<section style="background:var(--surf2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:36px 0">
+  <div class="wrap">
+    <span class="label">SYSTEM STATUS</span>
+    <p style="max-width:720px;font-size:14.5px;line-height:1.7;color:var(--ink2)">
+      EXECUTIA is an early-stage execution control system.
+      Initial pilots are being prepared in Norway, UAE, and selected EU environments.
+    </p>
+  </div>
+</section>
+
+<!-- ── WHAT YOU CAN TEST ── -->
+<section class="test-section">
+  <div class="wrap">
+    <span class="label">WHAT YOU CAN TEST</span>
+    <div class="test-grid" style="margin-top:24px">
+      <div class="test-col">
+        <h3>Enter one real process. See what happens:</h3>
+        <ul class="test-list">
+          <li>Without execution control</li>
+          <li>With execution control</li>
+        </ul>
+      </div>
+      <div class="test-col">
+        <h3>The system will return:</h3>
+        <ul class="test-list">
+          <li>Execution status</li>
+          <li>Risk visibility</li>
+          <li>Trace of what happens</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:32px">
+      <a href="/execution" class="btn btn-primary">Run Execution Control</a>
+    </div>
+    <p style="font-family:var(--mono);font-size:10.5px;color:var(--ink4);letter-spacing:.1em;text-transform:uppercase;margin-top:20px">Every system starts with one controlled process.</p>
+  </div>
+</section>
+
+<!-- ── THE DIFFERENCE ── -->
+<section style="background:var(--surf);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <span class="label">THE DIFFERENCE</span>
+    <div style="margin-top:24px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surf);overflow:hidden">
+      <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);background:linear-gradient(to bottom,rgba(10,37,64,.02),transparent)">
+        <div style="padding:18px 24px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--red);border-right:1px solid var(--border)">Without EXECUTIA</div>
+        <div style="padding:18px 24px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--grn)">With EXECUTIA</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div style="border-right:1px solid var(--border);background:rgba(181,71,71,.025)">
+          <div style="display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid var(--border)"><span style="width:22px;height:22px;flex-shrink:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid rgba(181,71,71,.3);color:var(--red);background:rgba(181,71,71,.04)">×</span><div style="font-size:14.5px;line-height:1.55;color:var(--ink2)">Action proceeds before validation.</div></div>
+          <div style="display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid var(--border)"><span style="width:22px;height:22px;flex-shrink:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid rgba(181,71,71,.3);color:var(--red);background:rgba(181,71,71,.04)">×</span><div style="font-size:14.5px;line-height:1.55;color:var(--ink2)">Risk stays invisible until damage appears.</div></div>
+          <div style="display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid var(--border)"><span style="width:22px;height:22px;flex-shrink:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid rgba(181,71,71,.3);color:var(--red);background:rgba(181,71,71,.04)">×</span><div style="font-size:14.5px;line-height:1.55;color:var(--ink2)">Errors surface late and response becomes reactive.</div></div>
+          <div style="display:flex;gap:14px;padding:18px 24px"><span style="width:22px;height:22px;flex-shrink:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid rgba(181,71,71,.3);color:var(--red);background:rgba(181,71,71,.04)">×</span><div style="font-size:14.5px;line-height:1.55;color:var(--ink2)">Proof comes after loss, when reality is already broken.</div></div>
+        </div>
+        <div style="background:rgba(21,115,71,.025)">
+          <div style="display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid var(--border)"><span style="width:22px;height:22px;flex-shrink:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid rgba(21,115,71,.3);color:var(--grn);background:rgba(21,115,71,.05)">✓</span><div style="font-size:14.5px;line-height:1.55;color:var(--ink2)">Action is evaluated before it proceeds.</div></div>
+          <div style="display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid var(--border)"><span style="width:22px;height:22px;flex-shrink:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid rgba(21,115,71,.3);color:var(--grn);background:rgba(21,115,71,.05)">✓</span><div style="font-size:14.5px;line-height:1.55;color:var(--ink2)">Risk becomes visible at execution time.</div></div>
+          <div style="display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid var(--border)"><span style="width:22px;height:22px;flex-shrink:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid rgba(21,115,71,.3);color:var(--grn);background:rgba(21,115,71,.05)">✓</span><div style="font-size:14.5px;line-height:1.55;color:var(--ink2)">Trace is created instantly and review path is defined early.</div></div>
+          <div style="display:flex;gap:14px;padding:18px 24px"><span style="width:22px;height:22px;flex-shrink:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;border:1px solid rgba(21,115,71,.3);color:var(--grn);background:rgba(21,115,71,.05)">✓</span><div style="font-size:14.5px;line-height:1.55;color:var(--ink2)">Control exists before loss, while execution is still alive.</div></div>
+        </div>
+      </div>
+      <div style="padding:13px 24px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);border-top:1px solid var(--border);background:rgba(10,37,64,.015)">Execution standard · Visible difference at control time</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY IT MATTERS ── -->
+<section class="why-section">
+  <div class="wrap why-grid">
+    <div>
+      <span class="label">WHY IT MATTERS</span>
+      <h2 style="margin-bottom:16px">In most systems, execution happens before validation.</h2>
+      <p style="font-size:14px;color:var(--ink2);margin-bottom:12px">This leads to:</p>
+      <ul class="risk-list">
+        <li>Hidden risk</li>
+        <li>Delayed response</li>
+        <li>Unnecessary bureaucracy</li>
+        <li>Loss before control exists</li>
+      </ul>
+      <p class="why-result">EXECUTIA moves validation to the moment of execution.</p>
+    </div>
+    <div>
+      <span class="label">USE CASES</span>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+        <div style="padding:14px 18px;border:1px solid var(--border);border-radius:var(--r);background:var(--surf);font-size:13.5px;color:var(--ink2)">Project execution</div>
+        <div style="padding:14px 18px;border:1px solid var(--border);border-radius:var(--r);background:var(--surf);font-size:13.5px;color:var(--ink2)">Procurement processes</div>
+        <div style="padding:14px 18px;border:1px solid var(--border);border-radius:var(--r);background:var(--surf);font-size:13.5px;color:var(--ink2)">Payment validation</div>
+        <div style="padding:14px 18px;border:1px solid var(--border);border-radius:var(--r);background:var(--surf);font-size:13.5px;color:var(--ink2)">Infrastructure delivery</div>
+        <div style="padding:14px 18px;border:1px solid var(--border);border-radius:var(--r);background:var(--surf);font-size:13.5px;color:var(--ink2)">High-risk operational decisions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW TO START ── -->
+<section class="how-section">
+  <div class="wrap">
+    <span class="label">HOW TO START</span>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <h3>Run execution control</h3>
+        <p>Enter one real process into the control layer.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <h3>See the evaluation</h3>
+        <p>The system returns execution status, risk score, and trace.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <h3>Identify control gaps</h3>
+        <p>See where execution proceeds without validation.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">04</div>
+        <h3>Introduce pilot</h3>
+        <p>Apply execution control to one selected real process.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PILOT STATUS + EVOLUTION ── -->
+<section class="pilot-section">
+  <div class="wrap pilot-inner">
+    <div>
+      <span class="label">PILOT STATUS</span>
+      <div class="pilot-badge"><span class="pilot-dot"></span>PILOT ACTIVE</div>
+      <h2 style="margin-bottom:14px">EXECUTIA is currently deployed as a pilot-stage system.</h2>
+      <p style="font-size:14.5px;color:var(--ink2);line-height:1.65;margin-bottom:20px">Initial pilot focus:</p>
+      <p style="font-family:var(--mono);font-size:13px;color:var(--ink);letter-spacing:.05em">Norway · UAE · Selected EU environments</p>
+      <div style="margin-top:28px">
+        <a href="/request" class="btn btn-primary">Submit for Control</a>
+      </div>
+    </div>
+    <div>
+      <span class="label">SYSTEM EVOLUTION</span>
+      <div class="evolution-block">
+        <div class="evolution-row">
+          <div class="evo-label">From</div>
+          <div class="evo-text">Post-fact validation and audit — problems found after execution has already occurred.</div>
+        </div>
+        <div class="evolution-row">
+          <div class="evo-label">To</div>
+          <div class="evo-text">Real-time execution validation — control introduced at the moment of action.</div>
+        </div>
+        <p style="font-size:13px;color:var(--ink3);margin-top:16px;line-height:1.6">EXECUTIA introduces a missing layer in modern systems: execution control.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST BLOCK ── -->
+<section class="trust-section">
+  <div class="wrap trust-inner">
+    <div>
+      <span class="label">TRUST BASIS</span>
+      <h2 style="margin-bottom:16px">Not a financial platform.</h2>
+      <p style="font-size:15px;line-height:1.75;color:var(--ink2);margin-bottom:12px">EXECUTIA does not process payments or assets. It evaluates execution logic and control conditions only.</p>
+      <p style="font-size:14px;line-height:1.7;color:var(--ink3)">It is not a trading platform, broker, bank, consumer finance application, or investment service. It does not take custody of client funds or assets.</p>
+    </div>
+    <div>
+      <span class="label">CONTACT</span>
+      <p style="font-size:14px;color:var(--ink2);margin-bottom:16px;line-height:1.6">To submit a real process for control evaluation or discuss a pilot:</p>
+      <a href="mailto:control@executia.io?subject=EXECUTIA%20Inquiry" style="font-family:var(--mono);font-size:13px;color:var(--ink);display:block;margin-bottom:8px">control@executia.io</a>
+      <a href="https://www.linkedin.com/company/executia" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em">LinkedIn →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<section class="final-cta-section" style="padding:var(--section-pad)">
+  <div class="wrap">
+    <span class="label">START HERE</span>
+    <h2>Run one process.<br>See the difference.</h2>
+    <p>Enter one real process into the execution control layer. The system returns a verdict, trace, and risk visibility in seconds.</p>
+    <div class="flex gap-12 flex-wrap">
+      <a href="/execution" class="btn btn-primary btn-lg">Run Execution Control</a>
+      <a href="/request" class="btn btn-secondary btn-lg">→ Apply to your process</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="nav-logo" style="margin-bottom:14px;display:inline-flex">
+          <span class="nav-logo-main">EXECUTIA<span class="nav-logo-mark">™</span></span>
+          <span class="nav-logo-divider" aria-hidden="true"></span>
+          <span class="nav-logo-sub">CONTROL</span>
+        </a>
+        <p class="footer-micro">EXECUTIA is the execution control layer between decision and result.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/execution">Execution</a>
+        <a href="/request">Request</a>
+        <a href="/status">Status</a>
+        <a href="/institutional">Institutional</a>
+        <a href="/global">Global</a>
+        <a href="/request">Contact</a>
+        <a href="mailto:control@executia.io?subject=EXECUTIA%20Inquiry">Email</a>
+        <a href="https://www.linkedin.com/company/executia" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>control@executia.io · Norway · UAE · Selected EU environments</span>
+      <span>Operator: EXECUTIA Control · control@executia.io</span>
+      <span>EXECUTIA is being prepared for real-world pilot deployment.</span>
+      <span>EXECUTIA operates as a system layer beyond this interface.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function openMenu()  { document.getElementById('mobile-menu').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeMenu() { document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow=''; }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+</script>
+</body>
+</html>
