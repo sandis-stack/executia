@@ -1,350 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EXECUTIA — Submit for Control</title>
-<meta name="description" content="Submit one real process to the EXECUTIA control layer. Create a control record, receive a verdict, and move the case into review.">
-<link rel="stylesheet" href="global.css">
-<style>
-.req-layout { display:grid; grid-template-columns:1fr 340px; gap:56px; padding:56px 0 80px; }
-.req-sub { font-size:14.5px; color:var(--ink2); line-height:1.65; max-width:560px; margin-bottom:24px; }
-.prefill-source { display:none; margin-bottom:18px; padding:12px 14px; border:1px solid var(--border); border-radius:var(--r2); background:var(--surf2); }
-.prefill-source-title { font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink3); margin-bottom:6px; }
-.prefill-source-body { font-size:13px; color:var(--ink2); }
-.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.form-grid .full { grid-column:1 / -1; }
-.form-note { font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3); margin-top:16px; }
-.form-actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; }
-.side-card { border:1px solid var(--border); border-radius:var(--r2); background:var(--surf); padding:22px; margin-bottom:16px; }
-.side-card h3 { font-size:14px; margin-bottom:10px; }
-.side-card p { font-size:13px; color:var(--ink3); line-height:1.55; }
-.success-box { display:none; border:1px solid var(--grn-light); background:var(--grn-bg); border-radius:var(--r2); padding:24px; margin-top:28px; }
-.success-box h3 { color:var(--grn); margin-bottom:8px; font-size:1.15rem; }
-.success-box p { font-size:13.5px; color:var(--ink2); margin-bottom:18px; }
-.success-meta { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
-.success-item { border:1px solid var(--border); border-radius:var(--r); background:var(--surf); padding:10px 12px; }
-.success-label { font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3); margin-bottom:4px; }
-.success-value { font-size:13.5px; color:var(--ink); font-family:var(--mono); font-weight:600; }
-.error-bar { display:none; margin-top:14px; padding:12px 14px; background:var(--red-bg); border:1px solid #f0b8b3; border-radius:var(--r); font-size:13px; color:var(--red); }
-@media (max-width:900px) {
-  .req-layout { grid-template-columns:1fr; gap:32px; padding:32px 0 60px; }
-  .form-grid { grid-template-columns:1fr; }
-  .form-grid .full { grid-column:1; }
-  .success-meta { grid-template-columns:1fr; }
-}
-.req-main { flex: 1; min-width: 0; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>EXECUTIA™ — Request Pilot</title>
+  <meta
+    name="description"
+    content="Request an EXECUTIA pilot intake for execution control evaluation."
+  />
+
+  <link rel="stylesheet" href="/global.css" />
 </head>
+
 <body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="nav-logo" href="/">
+        EXECUTIA™ <span>REQUEST</span>
+      </a>
 
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a href="/" class="nav-logo">
-      <span class="nav-logo-main">EXECUTIA<span class="nav-logo-mark">™</span></span>
-      <span class="nav-logo-divider" aria-hidden="true"></span>
-      <span class="nav-logo-sub">CONTROL</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="/execution">Execution</a></li>
-      <li><a href="/request" class="active">Request</a></li>
-      <li><a href="/status">Status</a></li>
-    </ul>
-    <button class="hamburger" onclick="openMenu()" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links">
+        <li><a href="/">Entry</a></li>
+        <li><a href="https://execution.executia.io/dashboard">Engine</a></li>
+        <li><a href="/institutional.html">Institutional</a></li>
+        <li><a href="/global.html">Global</a></li>
+        <li><a class="active" href="/request.html">Request</a></li>
+      </ul>
+
+      <a class="btn btn-primary btn-sm" href="https://execution.executia.io/dashboard">
+        Enter Execution
+      </a>
+    </div>
+  </header>
+
+  <div class="sysbar">
+    <div class="wrap sysbar-inner">
+      <div class="sysbar-item"><span class="sysbar-dot"></span>PILOT ACCESS: REQUEST ONLY</div>
+      <div class="sysbar-item"><span class="sysbar-dot"></span>REVIEW: OPERATOR CONTROLLED</div>
+      <div class="sysbar-item"><span class="sysbar-dot"></span>ENGINE CONNECTION: AVAILABLE</div>
+      <div class="sysbar-item"><span class="sysbar-dot"></span>STATUS: INTAKE ONLY</div>
+    </div>
   </div>
-</nav>
 
-<div class="mobile-menu" id="mobile-menu">
-  <div class="mobile-menu-top">
-    <a href="/" class="nav-logo">EXECUTIA™</a>
-    <button class="mobile-close" onclick="closeMenu()">✕</button>
-  </div>
-  <div class="mobile-nav-links">
-    <a href="/execution" onclick="closeMenu()">Execution</a>
-    <a href="/request" onclick="closeMenu()">Request</a>
-    <a href="/status" onclick="closeMenu()">Status</a>
-  </div>
-  <div class="mobile-cta">
-    <a href="/execution" class="btn btn-primary" style="width:100%;justify-content:center">Run Execution Control</a>
-  </div>
-</div>
+  <main>
+    <section>
+      <div class="wrap">
+        <div class="label">PILOT INTAKE</div>
 
-<div class="wrap">
-  <div class="req-layout">
+        <h1>
+          Request execution<br />
+          control access.
+        </h1>
 
-    <div class="req-main">
-      <span class="label">CONTROL GATE</span>
-      <h1 style="margin-bottom:10px;font-size:clamp(1.8rem,3.5vw,2.8rem)">Submit one real process for control.</h1>
-      <p class="req-sub" style="font-size:16px;color:var(--ink)">This opens a live EXECUTIA control record. The case is evaluated, stored in the registry, and moved into review.</p>
-
-      <p style="font-size:13.5px;color:var(--ink3);max-width:640px;margin-bottom:20px;line-height:1.6">This is a control intake for real processes. It is not a financial signup, trading account, or payment onboarding.</p>
-      <div class="prefill-source" id="prefill-source">
-        <div class="prefill-source-title">SOURCE: EXECUTION CONTROL LAYER</div>
-        <div class="prefill-source-body">Fields were prefilled from a live execution evaluation. Review and submit for control.</div>
+        <p class="mt-24" style="max-width:760px;font-size:21px;line-height:1.6;color:var(--ink2);">
+          Submit a real execution context for pilot review.
+          This request does not create an execution decision. It starts operator evaluation.
+        </p>
       </div>
+    </section>
 
-      <div style="margin-bottom:18px"><span class="label">PROCESS INTAKE</span></div>
+    <section>
+      <div class="wrap grid-2">
+        <div>
+          <div class="label">REQUEST SCOPE</div>
 
-      <form id="req-form">
-        <div class="form-grid">
+          <h2>
+            Define the execution process that should be controlled.
+          </h2>
 
+          <p class="mt-24" style="max-width:620px;font-size:17px;line-height:1.75;">
+            EXECUTIA pilots begin with a specific execution flow, not a general conversation.
+            The request should describe where decisions, responsibility, validation or status currently fail.
+          </p>
+
+          <div class="steps mt-48">
+            <div class="step">
+              <div class="step-num">01</div>
+              <h3>Submit context</h3>
+              <p>Describe the process, risk and required control.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-num">02</div>
+              <h3>Operator review</h3>
+              <p>Execution scope is reviewed before pilot access.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-num">03</div>
+              <h3>Scope definition</h3>
+              <p>Rules, responsibilities and validation points are identified.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-num">04</div>
+              <h3>Pilot decision</h3>
+              <p>Pilot access is approved only after scope review.</p>
+            </div>
+          </div>
+        </div>
+
+        <form id="request-form" class="card" style="display:grid;gap:18px;">
           <div class="field">
-            <label class="field-label">YOUR NAME</label>
-            <input class="field-input" id="f-name" type="text" placeholder="Full name" required>
+            <label class="field-label" for="organization">Organization / Entity</label>
+            <input class="field-input" id="organization" name="organization" required />
           </div>
 
           <div class="field">
-            <label class="field-label">COMPANY / ENTITY</label>
-            <input class="field-input" id="f-company" type="text" placeholder="Organization, company, or project">
+            <label class="field-label" for="operator">Responsible Operator</label>
+            <input class="field-input" id="operator" name="operator" required />
           </div>
 
           <div class="field">
-            <label class="field-label">ROLE</label>
-            <input class="field-input" id="f-role" type="text" placeholder="Your role or function">
+            <label class="field-label" for="email">Contact Email</label>
+            <input class="field-input" id="email" name="email" type="email" required />
           </div>
 
           <div class="field">
-            <label class="field-label">EMAIL</label>
-            <input class="field-input" id="f-email" type="email" placeholder="you@domain.com" required>
-          </div>
-
-          <div class="field">
-            <label class="field-label">PHONE (OPTIONAL)</label>
-            <input class="field-input" id="f-phone" type="text" placeholder="+47 / +971 / ...">
-          </div>
-
-          <div class="field">
-            <label class="field-label">PROCESS TYPE</label>
-            <select class="field-select" id="f-type">
-              <option value="">Select process type</option>
-              <option>Project Delivery</option>
-              <option>Payment Execution</option>
-              <option>Procurement Flow</option>
-              <option>Accounting / Tax Flow</option>
-              <option>Custom Process</option>
+            <label class="field-label" for="sector">Execution Area</label>
+            <select class="field-select" id="sector" name="sector" required>
+              <option value="">Select execution area</option>
+              <option value="Public sector">Public sector</option>
+              <option value="Finance">Finance</option>
+              <option value="Infrastructure">Infrastructure</option>
+              <option value="Procurement">Procurement</option>
+              <option value="Operations">Operations</option>
+              <option value="Governance">Governance</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
           <div class="field">
-            <label class="field-label">COUNTRY</label>
-            <input class="field-input" id="f-country" type="text" placeholder="e.g. Norway, UAE">
+            <label class="field-label" for="context">Execution Context</label>
+            <textarea
+              class="field-textarea"
+              id="context"
+              name="context"
+              required
+              placeholder="Describe the execution process, current failure points, missing validation, unclear responsibility or delayed status..."
+            ></textarea>
           </div>
 
           <div class="field">
-            <label class="field-label">DECISION-MAKER / OPERATOR</label>
-            <input class="field-input" id="f-operator" type="text" placeholder="Who authorizes or drives execution">
+            <label class="field-label" for="outcome">Expected Control Outcome</label>
+            <textarea
+              class="field-textarea"
+              id="outcome"
+              name="outcome"
+              placeholder="What should EXECUTIA control, prevent, validate or make traceable?"
+            ></textarea>
           </div>
 
-          <div class="field">
-            <label class="field-label">PROCESS VALUE / VOLUME</label>
-            <input class="field-input" id="f-value" type="text" placeholder="e.g. €2,000,000 / 35 transactions">
+          <button class="btn btn-primary btn-lg" type="submit">
+            Submit Pilot Request
+          </button>
+
+          <p id="request-message" style="display:none;font-size:13px;color:var(--ink3);line-height:1.6;"></p>
+
+          <p style="font-size:12.5px;color:var(--ink4);line-height:1.6;">
+            ENTRY rule: this form is intake only. Execution validation and decisions are performed only by the ENGINE.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="label">AFTER SUBMISSION</div>
+
+        <div class="trust-grid mt-32">
+          <div class="trust-item">
+            <span class="trust-item-label">Request received</span>
+            <p>The request is recorded as pilot intake, not as execution approval.</p>
           </div>
 
-          <div class="field full">
-            <label class="field-label">MAIN EXECUTION RISK</label>
-            <input class="field-input" id="f-main-risk" type="text" placeholder="e.g. contract penalty, compliance exposure, delivery failure">
+          <div class="trust-item">
+            <span class="trust-item-label">Operator notified</span>
+            <p>An operator receives the execution context for scope review.</p>
           </div>
 
-          <div class="field full">
-            <label class="field-label">CONSEQUENCE IF WRONG</label>
-            <textarea class="field-textarea" id="f-consequence" rows="4" placeholder="What happens if this proceeds without control?"></textarea>
+          <div class="trust-item">
+            <span class="trust-item-label">Scope evaluated</span>
+            <p>The control area is reviewed before any pilot access is activated.</p>
           </div>
 
-          <div class="field full">
-            <label class="field-label">ADDITIONAL CONTEXT</label>
-            <textarea class="field-textarea" id="f-context" rows="5" placeholder="Short context, dependencies, timing, or execution constraints"></textarea>
+          <div class="trust-item">
+            <span class="trust-item-label">Engine separated</span>
+            <p>No execution decision is made on executia.io.</p>
           </div>
-        </div>
 
-        <div class="form-note">CONTROL RECORD · EMAIL CONFIRMATION · OPERATOR REVIEW · STATUS REGISTRY</div>
-        <p style="font-family:var(--mono);font-size:10px;color:var(--ink4);letter-spacing:.06em;margin-top:10px">No funds, assets, or financial transactions are processed in this flow.</p>
-
-        <div class="form-actions">
-          <button class="btn btn-primary btn-lg" type="submit" id="submit-btn">Submit for Control</button>
-          <a class="btn btn-secondary btn-lg" href="/execution">Back to Execution</a>
-        </div>
-
-        <div class="form-note" style="margin-top:10px">The clearer the process and stakes, the stronger the control review.</div>
-
-        <div class="error-bar" id="error-bar">
-          Execution control is currently unavailable. Please retry.
-        </div>
-      </form>
-
-      <div class="success-box" id="success-box">
-        <h3>CONTROL RECORD CREATED</h3>
-        <p>Your process has entered the EXECUTIA review flow. The case is now stored in the registry and available for status lookup.</p>
-        <div class="success-meta">
-          <div class="success-item">
-            <div class="success-label">REQUEST ID</div>
-            <div class="success-value" id="success-id">—</div>
+          <div class="trust-item">
+            <span class="trust-item-label">Registry protected</span>
+            <p>Only execution.executia.io may commit execution truth.</p>
           </div>
-          <div class="success-item">
-            <div class="success-label">VERDICT</div>
-            <div class="success-value" id="success-verdict">—</div>
-          </div>
-          <div class="success-item">
-            <div class="success-label">EMAIL SENT</div>
-            <div class="success-value" id="success-email">—</div>
-          </div>
-          <div class="success-item">
-            <div class="success-label">STATUS AVAILABLE</div>
-            <div class="success-value">Yes — use Request ID</div>
+
+          <div class="trust-item">
+            <span class="trust-item-label">Pilot controlled</span>
+            <p>Access starts only after operator review and defined execution scope.</p>
           </div>
         </div>
-        <p style="font-size:12px;color:var(--ink4);margin-bottom:14px">No funds, assets, or trading activity are handled through this flow.</p>
-          <div class="form-actions">
-          <a class="btn btn-primary" id="status-link" href="/status">Open Execution Record</a>
-          <button class="btn btn-secondary" type="button" onclick="resetForm()">Submit Another Case</button>
+
+        <div class="flex flex-wrap gap-12 mt-32">
+          <a class="btn btn-secondary btn-lg" href="https://execution.executia.io/dashboard">
+            View Engine
+          </a>
+          <a class="btn btn-secondary btn-lg" href="/">
+            Back to Entry
+          </a>
         </div>
       </div>
-    </div>
+    </section>
+  </main>
 
-    <aside>
-      <div class="side-card">
-        <span class="label">WHAT HAPPENS NEXT</span>
-        <h3>One process enters the layer.</h3>
-        <p>The system creates a control record, evaluates the case, sends confirmation, and makes the record queryable in the registry.</p>
-      </div>
-      <div class="side-card">
-        <span class="label">WHY THIS MATTERS</span>
-        <h3>Control before consequence.</h3>
-        <p>EXECUTIA exists for processes where delay, compliance exposure, cost leakage, or execution drift become expensive before reporting catches up.</p>
-      </div>
-      <div class="side-card">
-        <span class="label">ENTRY POINTS</span>
-        <h3>Already ran an execution test?</h3>
-        <p>Submit directly here. If you arrived from the execution layer, fields are already prefilled from your evaluation.</p>
-      </div>
-    </aside>
-
-  </div>
-</div>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
+  <footer class="footer">
+    <div class="wrap footer-grid">
       <div>
-        <a href="/" class="nav-logo" style="margin-bottom:14px;display:inline-flex">
-          <span class="nav-logo-main">EXECUTIA<span class="nav-logo-mark">™</span></span>
-          <span class="nav-logo-divider" aria-hidden="true"></span>
-          <span class="nav-logo-sub">CONTROL</span>
+        <a class="nav-logo" href="/">
+          EXECUTIA™ <span>CONTROL STANDARD</span>
         </a>
-        <p class="footer-micro">EXECUTIA is the execution control layer between decision and result.</p>
+
+        <p class="footer-micro mt-16">
+          EXECUTIA is an execution control standard between decision and reality.
+          ENTRY receives intake. ENGINE decides. REGISTRY records.
+        </p>
       </div>
+
       <div class="footer-links">
-        <a href="/execution">Execution</a>
-        <a href="/request">Request</a>
-        <a href="/status">Status</a>
-        <a href="/institutional">Institutional</a>
-        <a href="/global">Global</a>
-        <a href="/request">Contact</a>
-        <a href="mailto:control@executia.io?subject=EXECUTIA%20Inquiry">Email</a>
-        <a href="https://www.linkedin.com/company/executia" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="/">Entry</a>
+        <a href="https://execution.executia.io/dashboard">Engine</a>
+        <a href="/request.html">Request</a>
+        <a href="/institutional.html">Institutional</a>
+        <a href="/global.html">Global</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>control@executia.io · Norway · UAE · Selected EU environments</span>
-      <span>© EXECUTIA</span>
+
+    <div class="wrap footer-bottom">
+      <span>EXECUTIA™ / PILOT INTAKE</span>
+      <span>NO EXECUTION DECISION ON ENTRY</span>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<script>
-function openMenu()  { document.getElementById('mobile-menu').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeMenu() { document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow=''; }
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
+  <script>
+    const form = document.getElementById("request-form");
+    const message = document.getElementById("request-message");
 
-function tryPrefillFromExecution() {
-  const params = new URLSearchParams(window.location.search);
-  const raw = params.get('prefill');
-  if (!raw) return;
-  let data;
-  try { data = JSON.parse(raw); } catch(e) { return; }
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
 
-  const strip = document.getElementById('prefill-source');
-  if (strip) strip.style.display = 'block';
+      message.style.display = "block";
+      message.style.color = "var(--ink3)";
+      message.textContent = "Submitting pilot intake...";
 
-  const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
-  set('f-type',      data.processType || '');
-  set('f-country',   data.country     || '');
-  set('f-value',     data.value       || '');
-  set('f-main-risk', data.risk        || '');
-  set('f-consequence', data.consequence || '');
+      const payload = Object.fromEntries(new FormData(form));
 
-  const bits = [];
-  if (data.timeline)    bits.push('Timeline: ' + data.timeline);
-  if (data.executionId) bits.push('Source execution record: ' + data.executionId);
-  if (data.lifecycle)   bits.push('Execution lifecycle: ' + data.lifecycle);
-  if (data.exposure)    bits.push('Estimated exposure: ' + data.exposure);
-  if (bits.length) {
-    const ctx = document.getElementById('f-context');
-    if (ctx) ctx.value = (ctx.value ? ctx.value + '\n\n' : '') + bits.join('\n');
-  }
-}
+      try {
+        const response = await fetch("/api/request", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
 
-async function submitRequest(event) {
-  event.preventDefault();
-  const btn = document.getElementById('submit-btn');
-  const errBar = document.getElementById('error-bar');
-  btn.disabled = true;
-  btn.textContent = 'SUBMITTING…';
-  errBar.style.display = 'none';
+        const result = await response.json().catch(() => ({}));
 
-  const payload = {
-    name:        document.getElementById('f-name').value,
-    company:     document.getElementById('f-company').value,
-    role:        document.getElementById('f-role').value,
-    email:       document.getElementById('f-email').value,
-    phone:       document.getElementById('f-phone').value,
-    processType: document.getElementById('f-type').value,
-    country:     document.getElementById('f-country').value,
-    operator:    document.getElementById('f-operator').value,
-    value:       document.getElementById('f-value').value,
-    risk:        document.getElementById('f-main-risk').value,
-    consequence: document.getElementById('f-consequence').value,
-    context:     document.getElementById('f-context').value,
-  };
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || "REQUEST_FAILED");
+        }
 
-  try {
-    const res  = await fetch('/api/request-validation', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+        message.style.color = "var(--grn)";
+        message.textContent =
+          "Request received. Status: UNDER REVIEW. Operator review will define the next step.";
+
+        form.reset();
+      } catch (error) {
+        message.style.color = "var(--red)";
+        message.textContent =
+          "Request could not be submitted. Please try again or contact the operator directly.";
+      }
     });
-    const data = await res.json();
-    if (!res.ok || !data.ok) throw new Error(data.error || 'REQUEST_FAILED');
-
-    document.getElementById('req-form').style.display   = 'none';
-    document.getElementById('success-box').style.display = 'block';
-    document.getElementById('success-id').textContent      = data.id      || '—';
-    document.getElementById('success-verdict').textContent = data.verdict  || '—';
-    document.getElementById('success-email').textContent   = data.emailSent ? 'Sent' : 'Not sent';
-    document.getElementById('status-link').href = '/status?id=' + encodeURIComponent(data.id);
-    window.scrollTo({ top: 0 });
-
-  } catch(e) {
-    errBar.style.display = 'block';
-    btn.disabled = false;
-    btn.textContent = 'SUBMIT FOR CONTROL';
-  }
-}
-
-function resetForm() {
-  document.getElementById('req-form').reset();
-  document.getElementById('req-form').style.display   = 'block';
-  document.getElementById('success-box').style.display = 'none';
-  document.getElementById('submit-btn').disabled = false;
-  document.getElementById('submit-btn').textContent = 'SUBMIT FOR CONTROL';
-  document.getElementById('prefill-source').style.display = 'none';
-  document.getElementById('error-bar').style.display = 'none';
-  history.replaceState(null, '', window.location.pathname);
-  window.scrollTo({ top: 0 });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  tryPrefillFromExecution();
-  document.getElementById('req-form').addEventListener('submit', submitRequest);
-});
-</script>
+  </script>
 </body>
 </html>
