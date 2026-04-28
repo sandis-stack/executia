@@ -1,431 +1,793 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>EXECUTIA — Execution Control</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-:root{
-  --bg:#ffffff;
-  --surface:#f7f9fc;
-  --line:#d9e4f2;
-  --ink:#0A1F44;
-  --muted:#667085;
-  --blue:#0A1F44;
-  --red:#DC2626;
-  --green:#15803D;
-}
+  <title>EXECUTIA™ — Execution Control Standard</title>
+  <meta
+    name="description"
+    content="EXECUTIA is an execution control standard that enforces validation, responsibility and status before failure becomes reality."
+  />
 
-*{box-sizing:border-box}
+  <meta property="og:title" content="EXECUTIA™ — Execution Control Standard" />
+  <meta
+    property="og:description"
+    content="A system that enforces execution before failure becomes reality."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://executia.io" />
 
-body{
-  margin:0;
-  font-family:Arial,system-ui,sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-}
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f6f8fb;
+      --bg-blue: #eef4fa;
+      --border: #d9e3ee;
 
-a{color:inherit;text-decoration:none}
+      --blue: #1e3a5f;
+      --blue-soft: #2f5f8f;
+      --text: #24364a;
+      --muted: #66788a;
 
-.wrap{
-  width:min(1120px,calc(100% - 40px));
-  margin:0 auto;
-}
+      --green: #0f7a55;
+      --red: #b84a4a;
+      --amber: #9a6a15;
 
-header{
-  border-bottom:1px solid var(--line);
-  background:#fff;
-}
+      --max: 1180px;
+    }
 
-.nav{
-  height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-.logo{
-  font-weight:900;
-  letter-spacing:.04em;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-.navlinks{
-  display:flex;
-  gap:18px;
-  align-items:center;
-  font-size:13px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid var(--blue);
-  background:var(--blue);
-  color:#fff;
-  padding:13px 18px;
-  border-radius:8px;
-  font-weight:800;
-  font-size:13px;
-  text-transform:uppercase;
-  letter-spacing:.06em;
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-.btn.secondary{
-  background:#fff;
-  color:var(--blue);
-}
+    .wrap {
+      width: min(var(--max), calc(100% - 48px));
+      margin: 0 auto;
+    }
 
-.hero{
-  padding:86px 0 70px;
-  border-bottom:1px solid var(--line);
-}
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
 
-.kicker{
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  color:var(--muted);
-  font-weight:800;
-  margin-bottom:18px;
-}
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
 
-h1{
-  max-width:880px;
-  font-size:56px;
-  line-height:1.02;
-  letter-spacing:-.04em;
-  margin:0 0 22px;
-}
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      color: var(--blue);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
 
-.sub{
-  max-width:680px;
-  font-size:18px;
-  line-height:1.55;
-  color:var(--muted);
-  margin:0 0 18px;
-}
+    .brand span {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      font-weight: 700;
+    }
 
-.hero-cue{
-  font-size:14px;
-  color:var(--muted);
-  margin-bottom:30px;
-}
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
 
-.ctas{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-}
+    .nav-links a:hover {
+      color: var(--blue);
+    }
 
-.funnel{
-  background:var(--surface);
-  border-bottom:1px solid var(--line);
-  padding:34px 0;
-}
+    .nav-action {
+      border: 1px solid var(--blue);
+      padding: 11px 16px;
+      color: var(--blue);
+    }
 
-.funnel-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  border:1px solid var(--line);
-  background:#fff;
-}
+    .nav-action:hover {
+      background: var(--blue);
+      color: #ffffff;
+    }
 
-.step{
-  padding:24px;
-  border-right:1px solid var(--line);
-}
+    .hero {
+      padding: 110px 0 84px;
+      border-bottom: 1px solid var(--border);
+    }
 
-.step:last-child{border-right:none}
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
 
-.num{
-  font-size:11px;
-  color:var(--muted);
-  font-weight:800;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  margin-bottom:10px;
-}
+    .label::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
 
-.step h3{
-  margin:0 0 8px;
-  font-size:18px;
-}
+    h1 {
+      max-width: 940px;
+      margin: 0;
+      color: var(--blue);
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 760;
+    }
 
-.step p{
-  margin:0;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.55;
-}
+    .lead {
+      max-width: 720px;
+      margin: 32px 0 0;
+      color: var(--muted);
+      font-size: clamp(19px, 2vw, 24px);
+      line-height: 1.55;
+    }
 
-.section{
-  padding:62px 0;
-  border-bottom:1px solid var(--line);
-}
+    .hero-actions {
+      margin-top: 38px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-.two{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-}
+    .primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 24px;
+      background: var(--blue);
+      border: 1px solid var(--blue);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-.block{
-  border:1px solid var(--line);
-  background:#fff;
-  padding:28px;
-}
+    .primary:hover {
+      background: var(--blue-soft);
+      border-color: var(--blue-soft);
+    }
 
-.block h2{
-  margin:0 0 12px;
-  font-size:24px;
-}
+    .cue {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
 
-.block p{
-  margin:0;
-  color:var(--muted);
-  line-height:1.65;
-}
+    .status-strip {
+      background: var(--bg-soft);
+      border-bottom: 1px solid var(--border);
+    }
 
-.compare{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  border:1px solid var(--line);
-  margin-top:22px;
-}
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-left: 1px solid var(--border);
+    }
 
-.compare-col{
-  padding:26px;
-}
+    .status {
+      padding: 26px;
+      border-right: 1px solid var(--border);
+    }
 
-.compare-col:first-child{
-  border-right:1px solid var(--line);
-  background:#fff7f7;
-}
+    .status span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
 
-.compare-col:last-child{
-  background:#f3fbf5;
-}
+    .status strong {
+      color: var(--green);
+      font-size: 20px;
+      letter-spacing: 0.04em;
+    }
 
-.compare-title{
-  font-size:12px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  margin-bottom:16px;
-}
+    section {
+      padding: 86px 0;
+      border-bottom: 1px solid var(--border);
+    }
 
-.bad{color:var(--red)}
-.good{color:var(--green)}
+    h2 {
+      max-width: 820px;
+      margin: 0;
+      color: var(--blue);
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-weight: 740;
+    }
 
-ul{
-  margin:0;
-  padding-left:18px;
-  color:var(--muted);
-  line-height:1.8;
-}
+    .section-text {
+      max-width: 760px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.7;
+    }
 
-.final{
-  padding:72px 0;
-  background:var(--surface);
-  border-bottom:1px solid var(--line);
-}
+    .definition-grid {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+    }
 
-.final h2{
-  font-size:38px;
-  margin:0 0 14px;
-  letter-spacing:-.03em;
-}
+    .definition-card {
+      min-height: 210px;
+      padding: 30px;
+      border-right: 1px solid var(--border);
+      background: #ffffff;
+    }
 
-.final p{
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.6;
-  max-width:640px;
-  margin-bottom:26px;
-}
+    .definition-card:last-child {
+      border-right: none;
+    }
 
-footer{
-  padding:28px 0;
-  color:var(--muted);
-  font-size:13px;
-}
+    .definition-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
 
-@media(max-width:800px){
-  h1{font-size:40px}
-  .funnel-grid,.two,.compare{grid-template-columns:1fr}
-  .step,.compare-col:first-child{border-right:none;border-bottom:1px solid var(--line)}
-  .navlinks{display:none}
-}
-</style>
+    .definition-card h3 {
+      margin: 0 0 14px;
+      color: var(--blue);
+      font-size: 24px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .definition-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .engine-preview {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      margin-top: 42px;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      background: #ffffff;
+      padding: 32px;
+    }
+
+    .panel.soft {
+      background: var(--bg-soft);
+    }
+
+    .panel-title {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .blocked {
+      color: var(--red);
+      font-size: 36px;
+      font-weight: 820;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .approved {
+      color: var(--green);
+      font-size: 36px;
+      font-weight: 820;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 17px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .row span {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .row strong {
+      color: var(--blue);
+      text-align: right;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    .compare {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+    }
+
+    .compare-col {
+      padding: 34px;
+      background: #ffffff;
+    }
+
+    .compare-col:first-child {
+      border-right: 1px solid var(--border);
+      background: #fff7f7;
+    }
+
+    .compare-col:last-child {
+      background: #f3fbf7;
+    }
+
+    .compare-col h3 {
+      margin: 0 0 20px;
+      color: var(--blue);
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+
+    .compare-col ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    .sectors {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin-top: 42px;
+      border: 1px solid var(--border);
+    }
+
+    .sector {
+      padding: 24px;
+      border-right: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      min-height: 112px;
+    }
+
+    .sector:last-child {
+      border-right: none;
+    }
+
+    .final {
+      background: var(--bg-blue);
+    }
+
+    .final-box {
+      border: 1px solid var(--border);
+      background: #ffffff;
+      padding: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .final-box h2 {
+      max-width: 720px;
+    }
+
+    footer {
+      background: #ffffff;
+      padding: 36px 0;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+      align-items: flex-start;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .footer-brand {
+      color: var(--blue);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 22px;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        height: auto;
+        padding: 20px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .status-grid,
+      .definition-grid,
+      .engine-preview,
+      .compare,
+      .sectors {
+        grid-template-columns: 1fr;
+      }
+
+      .status,
+      .definition-card,
+      .compare-col:first-child,
+      .sector {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .definition-card:last-child,
+      .sector:last-child {
+        border-bottom: none;
+      }
+
+      .final-box,
+      .footer-grid {
+        flex-direction: column;
+      }
+
+      .row {
+        flex-direction: column;
+      }
+
+      .row strong {
+        text-align: left;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "EXECUTIA",
+    "applicationCategory": "BusinessApplication",
+    "description": "EXECUTIA is an execution control standard that enforces validation, responsibility and status before failure becomes reality.",
+    "url": "https://executia.io"
+  }
+  </script>
 </head>
 
 <body>
-
-<header>
-  <div class="wrap nav">
-    <a class="logo" href="/">EXECUTIA™</a>
-
-    <nav class="navlinks">
-      <a href="https://execution.executia.io/dashboard">Engine</a>
-      <a href="/request">Request</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-
-<section class="hero">
-  <div class="wrap">
-
-    <div class="kicker">ENTRY POINT</div>
-
-    <h1>
-      Execution happens before control exists.<br>
-      EXECUTIA introduces control at the moment of action.
-    </h1>
-
-    <p class="sub">
-      EXECUTIA is the execution control layer between decision and reality.
-      It validates execution before action, records proof, and prevents deviation.
-    </p>
-
-    <p style="margin-top:18px;font-weight:600;color:var(--blue)">
-      Execution is no longer trusted. It is controlled and proven.
-    </p>
-
-    <p class="hero-cue">
-      Enter the system. Run one execution. See the difference.
-    </p>
-
-    <div class="ctas">
-      <a class="btn" href="https://execution.executia.io/dashboard">
-        Enter Execution Control
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        EXECUTIA™ <span>CONTROL STANDARD</span>
       </a>
 
-      <a class="btn secondary" href="https://execution.executia.io/console/">
-        Run Manual Test →
-      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="/">Entry</a>
+        <a href="https://execution.executia.io/dashboard">Engine</a>
+        <a href="/request">Request</a>
+        <a class="nav-action" href="https://execution.executia.io/dashboard">
+          Enter Execution
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="label">ENTRY POINT</div>
+
+        <h1>
+          Execution is already happening.<br />
+          Control is missing.
+        </h1>
+
+        <p class="lead">
+          EXECUTIA is an execution control standard that enforces validation,
+          responsibility and status before failure becomes reality.
+        </p>
+
+        <div class="hero-actions">
+          <a class="primary" href="https://execution.executia.io/dashboard">
+            Enter Execution
+          </a>
+
+          <div class="cue">
+            Live engine · status registry · operator review
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="status-strip">
+      <div class="wrap status-grid">
+        <div class="status">
+          <span>System status</span>
+          <strong>LIVE</strong>
+        </div>
+
+        <div class="status">
+          <span>Control layer</span>
+          <strong>ACTIVE</strong>
+        </div>
+
+        <div class="status">
+          <span>Rule adaptation</span>
+          <strong>ENABLED</strong>
+        </div>
+
+        <div class="status">
+          <span>Registry</span>
+          <strong>AVAILABLE</strong>
+        </div>
+      </div>
     </div>
 
-  </div>
-</section>
+    <section>
+      <div class="wrap">
+        <div class="label">WHY THIS EXISTS</div>
 
-<section class="funnel">
-  <div class="wrap funnel-grid">
+        <h2>
+          Most systems record execution after it happens.
+          EXECUTIA controls it before it becomes failure.
+        </h2>
 
-    <div class="step">
-      <div class="num">01 / ENTRY</div>
-      <h3>Execution lacks control</h3>
-      <p>Actions proceed before validation exists.</p>
-    </div>
+        <p class="section-text">
+          Decisions move faster than validation. Responsibility becomes diffused.
+          Status becomes unclear. EXECUTIA introduces a control layer between
+          decision and reality.
+        </p>
 
-    <div class="step">
-      <div class="num">02 / ENGINE</div>
-      <h3>Control is applied</h3>
-      <p>Execution is validated in real time.</p>
-    </div>
+        <div class="definition-grid">
+          <div class="definition-card">
+            <small>Entry</small>
+            <h3>Defines the standard</h3>
+            <p>
+              EXECUTIA explains the execution control model and routes users
+              into the live engine.
+            </p>
+          </div>
 
-    <div class="step">
-      <div class="num">03 / REQUEST</div>
-      <h3>System is deployed</h3>
-      <p>Control is applied to a real process.</p>
-    </div>
+          <div class="definition-card">
+            <small>Engine</small>
+            <h3>Decides execution status</h3>
+            <p>
+              The engine validates rules, responsibility and dependencies before
+              execution proceeds.
+            </p>
+          </div>
 
-  </div>
-</section>
+          <div class="definition-card">
+            <small>Registry</small>
+            <h3>Records execution truth</h3>
+            <p>
+              Decisions are committed into a traceable status registry with
+              audit and review.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="section">
-  <div class="wrap two">
+    <section>
+      <div class="wrap">
+        <div class="label">LIVE ENGINE LOGIC</div>
 
-    <div class="block">
-      <div class="kicker">WHY THIS EXISTS</div>
-      <h2>The problem is not planning.</h2>
-      <p>
-        The problem is execution without control. Decisions are made, but reality moves through
-        people, systems, delays, interpretation, and fragmented responsibility.
-      </p>
-    </div>
+        <h2>
+          The value becomes obvious when execution status changes.
+        </h2>
 
-    <div class="block">
-      <div class="kicker">WHAT EXECUTIA DOES</div>
-      <h2>It validates before action.</h2>
-      <p>
-        EXECUTIA checks execution conditions before a process proceeds and records proof at the
-        moment of execution.
-      </p>
-    </div>
+        <p class="section-text">
+          EXECUTIA does not add another reporting layer. It exposes whether
+          execution is controlled, blocked or ready to proceed.
+        </p>
 
-  </div>
-</section>
+        <div class="engine-preview">
+          <div class="panel">
+            <div class="panel-title">Without execution control</div>
 
-<section class="section">
-  <div class="wrap">
+            <div class="blocked">STATUS: BLOCKED</div>
 
-    <div class="kicker">SEE THE DIFFERENCE</div>
+            <div class="row">
+              <span>Reason</span>
+              <strong>MISSING VALIDATION</strong>
+            </div>
 
-    <div class="compare">
+            <div class="row">
+              <span>Responsibility</span>
+              <strong>NOT LOCKED</strong>
+            </div>
 
-      <div class="compare-col">
-        <div class="compare-title bad">Without EXECUTIA</div>
-        <ul>
-          <li>Action proceeds before validation</li>
-          <li>Risk appears after damage</li>
-          <li>Manual review comes too late</li>
-          <li>Proof is created after loss</li>
-        </ul>
+            <div class="row">
+              <span>Decision truth</span>
+              <strong>NOT RECORDED</strong>
+            </div>
+          </div>
+
+          <div class="panel soft">
+            <div class="panel-title">With EXECUTIA</div>
+
+            <div class="approved">STATUS: APPROVED</div>
+
+            <div class="row">
+              <span>Validation</span>
+              <strong>CONFIRMED</strong>
+            </div>
+
+            <div class="row">
+              <span>Responsibility</span>
+              <strong>LOCKED</strong>
+            </div>
+
+            <div class="row">
+              <span>Registry</span>
+              <strong>COMMITTED</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="label">CONTROL DIFFERENCE</div>
+
+        <h2>
+          Execution becomes enforceable when rules, decisions and status are connected.
+        </h2>
+
+        <div class="compare">
+          <div class="compare-col">
+            <h3>Without EXECUTIA</h3>
+            <ul>
+              <li>Decisions continue without validation</li>
+              <li>Responsibility is interpreted after failure</li>
+              <li>Status is reported too late</li>
+              <li>Audit follows damage</li>
+            </ul>
+          </div>
+
+          <div class="compare-col">
+            <h3>With EXECUTIA</h3>
+            <ul>
+              <li>Execution is validated before action</li>
+              <li>Responsibility is locked before movement</li>
+              <li>Status is generated in real time</li>
+              <li>Truth is recorded at execution</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="label">WHERE THIS APPLIES</div>
+
+        <h2>
+          Built for environments where delayed truth creates operational risk.
+        </h2>
+
+        <div class="sectors">
+          <div class="sector">Public sector</div>
+          <div class="sector">Finance</div>
+          <div class="sector">Infrastructure</div>
+          <div class="sector">Procurement</div>
+          <div class="sector">Operations</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap">
+        <div class="final-box">
+          <div>
+            <div class="label">NEXT STEP</div>
+            <h2>
+              Enter the engine and see execution control directly.
+            </h2>
+          </div>
+
+          <a class="primary" href="https://execution.executia.io/dashboard">
+            Enter Execution
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <div class="footer-brand">EXECUTIA™</div>
+        <div>
+          Execution control standard between decision and reality.
+        </div>
       </div>
 
-      <div class="compare-col">
-        <div class="compare-title good">With EXECUTIA</div>
-        <ul>
-          <li>Action is checked before execution</li>
-          <li>Risk is visible at control time</li>
-          <li>System routes to APPROVED / BLOCKED / REVIEW</li>
-          <li>Proof is recorded immediately</li>
-        </ul>
+      <div class="footer-links">
+        <a href="https://execution.executia.io/dashboard">Engine</a>
+        <a href="/request">Request pilot</a>
+        <a href="/institutional">Institutional</a>
+        <a href="/global">Global</a>
       </div>
-
     </div>
-
-  </div>
-</section>
-
-<section class="final">
-  <div class="wrap">
-
-    <div class="kicker">NEXT ACTION</div>
-
-    <h2>Do not read more. Enter the engine.</h2>
-
-    <p>
-      The system is understood through execution. Run one controlled process and see the result.
-    </p>
-
-    <div class="ctas">
-      <a class="btn" href="https://execution.executia.io/dashboard">
-        Enter Execution Control
-      </a>
-
-      <a class="btn secondary" href="/request">
-        Request Pilot
-      </a>
-    </div>
-
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    EXECUTIA™ · The execution control layer between decision and reality
-  </div>
-</footer>
-
+  </footer>
 </body>
 </html>
