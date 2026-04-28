@@ -38,16 +38,26 @@ export default async function handler(req, res) {
     };
 
     /*
-      ENTRY RULE:
-      This endpoint must NOT validate execution,
-      approve, reject, calculate status,
-      or create execution truth.
+      EXECUTIA ENTRY RULE:
+      This endpoint is intake only.
 
-      It only receives pilot intake and sends notification.
+      It must NOT:
+      - validate execution
+      - approve
+      - reject
+      - calculate execution status
+      - create execution truth
+      - write to execution ledger
+
+      Allowed:
+      - receive pilot request
+      - send notification email
+      - forward raw intake to ENGINE control-request endpoint
     */
 
+    // 1. Notify operator
     if (process.env.RESEND_API_KEY && process.env.OPERATOR_EMAIL) {
-      await fetch("https://api.resend.com/emails", {
+      const operatorEmail = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
@@ -59,23 +69,37 @@ export default async function handler(req, res) {
           subject: `EXECUTIA Pilot Request — ${organization}`,
           html: `
             <h2>EXECUTIA Pilot Request</h2>
-            <p><strong>Request ID:</strong> ${requestId}</p>
-            <p><strong>Organization:</strong> ${organization}</p>
-            <p><strong>Responsible Operator:</strong> ${operator}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Sector:</strong> ${sector || "Not specified"}</p>
+
+            <p><strong>Request ID:</strong> ${escapeHtml(requestId)}</p>
+            <p><strong>Organization:</strong> ${escapeHtml(organization)}</p>
+            <p><strong>Responsible Operator:</strong> ${escapeHtml(operator)}</p>
+            <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+            <p><strong>Sector:</strong> ${escapeHtml(sector || "Not specified")}</p>
+
             <hr />
+
             <p><strong>Execution Context:</strong></p>
             <p>${escapeHtml(context)}</p>
+
             <p><strong>Expected Outcome:</strong></p>
             <p>${escapeHtml(outcome || "Not specified")}</p>
+
+            <hr />
+
+            <p><strong>Source:</strong> executia.io/request</p>
+            <p><strong>Status:</strong> RECEIVED / INTAKE ONLY</p>
           `
         })
       });
+
+      if (!operatorEmail.ok) {
+        console.error("Operator email failed:", await operatorEmail.text());
+      }
     }
 
+    // 2. Confirm receipt to requester
     if (process.env.RESEND_API_KEY) {
-      await fetch("https://api.resend.com/emails", {
+      const userEmail = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
@@ -87,19 +111,51 @@ export default async function handler(req, res) {
           subject: "EXECUTIA pilot request received",
           html: `
             <h2>Request received</h2>
+
             <p>Your EXECUTIA pilot request has been received.</p>
-            <p><strong>Request ID:</strong> ${requestId}</p>
+
+            <p><strong>Request ID:</strong> ${escapeHtml(requestId)}</p>
             <p><strong>Status:</strong> UNDER REVIEW</p>
             <p><strong>Next step:</strong> execution scope review by operator.</p>
+
+            <hr />
+
+            <p>
+              EXECUTIA is an execution control standard between decision and reality.
+            </p>
           `
         })
       });
+
+      if (!userEmail.ok) {
+        console.error("User confirmation email failed:", await userEmail.text());
+      }
+    }
+
+    // 3. Optional forward to ENGINE as raw intake only
+    if (
+      process.env.ENGINE_CONTROL_REQUEST_URL &&
+      process.env.ENGINE_REQUEST_TOKEN
+    ) {
+      const forward = await fetch(process.env.ENGINE_CONTROL_REQUEST_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.ENGINE_REQUEST_TOKEN}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!forward.ok) {
+        console.error("Engine forward failed:", await forward.text());
+      }
     }
 
     return res.status(200).json({
       ok: true,
       request_id: requestId,
       status: "UNDER_REVIEW",
+      mode: "INTAKE_ONLY",
       message: "REQUEST_RECEIVED"
     });
   } catch (error) {
