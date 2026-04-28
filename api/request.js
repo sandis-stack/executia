@@ -2,7 +2,7 @@ function setJsonHeaders(res) {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 }
 
-function cleanText(value) {
+function clean(value) {
   return String(value || "").trim();
 }
 
@@ -16,11 +16,19 @@ function escapeHtml(value) {
 }
 
 function isEmail(value) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean(value));
 }
 
 async function sendEmail({ to, subject, html }) {
-  if (!process.env.RESEND_API_KEY) return { skipped: true };
+  if (!process.env.RESEND_API_KEY) {
+    return { ok: false, skipped: true, error: "RESEND_API_KEY_MISSING" };
+  }
+
+  const recipients = Array.isArray(to) ? to.filter(Boolean) : [to].filter(Boolean);
+
+  if (!recipients.length) {
+    return { ok: false, skipped: true, error: "NO_RECIPIENTS" };
+  }
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -29,20 +37,28 @@ async function sendEmail({ to, subject, html }) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      from: process.env.FROM_EMAIL || "EXECUTIA <no-reply@executia.io>",
-      to,
+      from: process.env.FROM_EMAIL || "EXECUTIA <no-reply@mail.executia.io>",
+      to: recipients,
       subject,
       html
     })
   });
 
-  if (!response.ok) {
-    const text = await response.text();
-    console.error("RESEND_EMAIL_FAILED:", text);
-    return { ok: false, error: text };
+  const text = await response.text();
+
+  let data = {};
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = { raw: text };
   }
 
-  return { ok: true };
+  if (!response.ok) {
+    console.error("RESEND_EMAIL_FAILED:", data);
+    return { ok: false, error: data };
+  }
+
+  return { ok: true, data };
 }
 
 async function forwardToEngine(payload) {
@@ -54,8 +70,14 @@ async function forwardToEngine(payload) {
 
   if (!token) {
     console.error("ENGINE_REQUEST_TOKEN_MISSING");
-    return { ok: false, error: "ENGINE_REQUEST_TOKEN_MISSING" };
+    return {
+      ok: false,
+      error: "ENGINE_REQUEST_TOKEN_MISSING"
+    };
   }
+
+  console.log("FORWARDING_TO_ENGINE:", url);
+  console.log("FORWARD_PAYLOAD_REQUEST_ID:", payload.request_id);
 
   const response = await fetch(url, {
     method: "POST",
@@ -75,12 +97,25 @@ async function forwardToEngine(payload) {
     data = { raw: text };
   }
 
-  if (!response.ok) {
+  console.log("ENGINE_RESPONSE_STATUS:", response.status);
+  console.log("ENGINE_RESPONSE_DATA:", data);
+
+  if (!response.ok || !data.ok) {
     console.error("ENGINE_FORWARD_FAILED:", data);
-    return { ok: false, error: data.error || "ENGINE_FORWARD_FAILED" };
+
+    return {
+      ok: false,
+      status: response.status,
+      error: data.error || "ENGINE_FORWARD_FAILED",
+      data
+    };
   }
 
-  return { ok: true, data };
+  return {
+    ok: true,
+    status: response.status,
+    data
+  };
 }
 
 export default async function handler(req, res) {
@@ -96,12 +131,12 @@ export default async function handler(req, res) {
   try {
     const body = req.body || {};
 
-    const organization = cleanText(body.organization || body.company);
-    const operator = cleanText(body.operator || body.name);
-    const email = cleanText(body.email);
-    const sector = cleanText(body.sector || body.area || "Not specified");
-    const context = cleanText(body.context || body.message);
-    const outcome = cleanText(body.outcome || "Not specified");
+    const organization = clean(body.organization || body.company);
+    const operator = clean(body.operator || body.name);
+    const email = clean(body.email);
+    const sector = clean(body.sector || body.area || "Not specified");
+    const context = clean(body.context || body.message);
+    const outcome = clean(body.outcome || "Not specified");
 
     if (!organization || !operator || !email || !context) {
       return res.status(400).json({
@@ -133,22 +168,9 @@ export default async function handler(req, res) {
       received_at: new Date().toISOString()
     };
 
-    /*
-      EXECUTIA ENTRY RULE:
-      This endpoint is INTAKE ONLY.
-
-      It must NOT:
-      - validate execution
-      - approve execution
-      - reject execution
-      - calculate execution status
-      - create execution truth
-      - write to execution ledger
-    */
-
     const engineForward = await forwardToEngine(payload);
 
-    await sendEmail({
+    const operatorEmail = await sendEmail({
       to: [process.env.OPERATOR_EMAIL].filter(Boolean),
       subject: `EXECUTIA Pilot Intake — ${organization}`,
       html: `
@@ -172,11 +194,13 @@ export default async function handler(req, res) {
 
         <p><strong>Mode:</strong> INTAKE ONLY</p>
         <p><strong>Forwarded to ENGINE:</strong> ${engineForward.ok ? "YES" : "NO"}</p>
+        <p><strong>ENGINE decision:</strong> ${escapeHtml(engineForward.data?.decision || "NOT_AVAILABLE")}</p>
+        <p><strong>ENGINE reason:</strong> ${escapeHtml(engineForward.data?.decision_reason || "NOT_AVAILABLE")}</p>
         <p><strong>Received:</strong> ${escapeHtml(payload.received_at)}</p>
       `
     });
 
-    await sendEmail({
+    const userEmail = await sendEmail({
       to: [email],
       subject: "EXECUTIA pilot request received",
       html: `
@@ -186,24 +210,28 @@ export default async function handler(req, res) {
 
         <p><strong>Request ID:</strong> ${escapeHtml(requestId)}</p>
         <p><strong>Status:</strong> UNDER REVIEW</p>
-        <p><strong>Next step:</strong> operator review and execution scope evaluation.</p>
+        <p><strong>Engine forwarded:</strong> ${engineForward.ok ? "YES" : "NO"}</p>
 
         <hr />
 
         <p>
-          This request does not create an execution decision.
+          This request does not create an execution decision inside the entry layer.
           Execution decisions are made only by the EXECUTIA Engine.
         </p>
       `
     });
 
-    return res.status(200).json({
-      ok: true,
+    return res.status(engineForward.ok ? 200 : 502).json({
+      ok: engineForward.ok,
       request_id: requestId,
-      status: "UNDER_REVIEW",
+      status: engineForward.ok ? "UNDER_REVIEW" : "ENGINE_FORWARD_FAILED",
       mode: "INTAKE_ONLY",
       engine_forwarded: engineForward.ok,
-      message: "REQUEST_RECEIVED"
+      engine_status: engineForward.status || null,
+      engine_response: engineForward.data || null,
+      email_operator_sent: operatorEmail.ok,
+      email_user_sent: userEmail.ok,
+      message: engineForward.ok ? "REQUEST_RECEIVED" : "REQUEST_NOT_FORWARDED_TO_ENGINE"
     });
   } catch (error) {
     console.error("REQUEST_HANDLER_FAILED:", error);
