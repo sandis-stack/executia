@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EXECUTIA™ — Execution Control Standard</title>
+  <meta name="description" content="EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.">
+  <link rel="canonical" href="https://executia.io/">
+  <meta property="og:title" content="EXECUTIA™ — Execution Control Standard">
+  <meta property="og:description" content="EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.">
+  <meta property="og:url" content="https://executia.io/">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap header-inner"><a class="brand" href="/" aria-label="EXECUTIA entry"><span class="brand-main">EXECUTIA™</span><span class="brand-sub">EXECUTION STANDARD</span></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button><nav class="nav" aria-label="Primary"><a data-nav="entry" href="/">ENTRY</a><a data-nav="global" href="/global">GLOBAL</a><a data-nav="institutional" href="/institutional">INSTITUTIONAL</a><a data-nav="request" href="/request">REQUEST</a></nav><div class="header-cta"><a class="pill-btn" href="https://execution.executia.io/dashboard">Enter engine ↗</a></div></div></header>
+<main class="main">
+  <section class="hero">
+    <div class="wrap">
+      <h1 class="hero-title-split"><span>Execution is already happening.</span><span class="control-missing">Control is missing.</span></h1>
+      <p>Without control, errors become reality.</p>
+      <div class="actions"><a class="pill-btn primary" href="https://execution.executia.io/dashboard">ENTER EXECUTION</a><a class="pill-btn" href="#live-execution">SEE HOW IT WORKS</a></div>
+      <p class="micro">Run the engine first. If the execution logic is clear, request a pilot.</p>
+    </div>
+  </section>
+  <div class="live-strip"><div class="wrap live-inner"><i class="pulse"></i><strong class="live-label">LIVE EXECUTION STATUS</strong><span id="live-status">VALIDATION LAYER ACTIVE</span><span id="live-ts"></span><span class="live-system-active">SYSTEM ACTIVE</span></div></div>
+  <section class="section" id="why">
+    <div class="wrap">
+      <span class="kicker">WHY THIS MUST EXIST</span>
+      <h2 class="compact">Most systems record failure after it happens. EXECUTIA moves control to the moment of execution.</h2>
+      <p class="lead">Organizations often execute first and reconstruct truth later through reports, audits and responsibility chains. EXECUTIA changes this by validating the action before it becomes operational reality.</p>
+      <div class="grid-3">
+        <div class="card"><span class="tag">Before</span><h3>Action moves first</h3><p>Approvals, payments and decisions can proceed before all required conditions are confirmed.</p></div>
+        <div class="card"><span class="tag">EXECUTIA</span><h3>Control happens first</h3><p>The engine checks request, rules, responsibility and risk before execution continues.</p></div>
+        <div class="card"><span class="tag">Proof</span><h3>Truth is recorded</h3><p>The result is committed as registry, ledger and audit proof at execution time.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="wrap">
+      <span class="kicker">SYSTEM FLOW</span>
+      <h2>One engine. One flow. No shadow logic.</h2>
+      <div class="system-flow"><div class="flow-step">Request</div><div class="flow-step">Validation</div><div class="flow-step">Decision</div><div class="flow-step">Registry</div><div class="flow-step">Ledger</div><div class="flow-step">Audit</div></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid-2">
+      <div class="panel"><h3>Without EXECUTIA</h3><div class="comparison-row"><span class="label">Status</span><span class="value">Execution proceeds without real-time validation</span><span class="status risk">Risk</span></div><div class="comparison-row"><span class="label">Control</span><span class="value">Responsibility is interpreted after failure</span><span class="status risk">Delayed</span></div><div class="comparison-row"><span class="label">Truth</span><span class="value">Truth is reconstructed from reports</span><span class="status risk">Late</span></div></div>
+      <div class="panel"><h3>With EXECUTIA</h3><div class="comparison-row"><span class="label">Status</span><span class="value">Execution is validated before action</span><span class="status ok">Controlled</span></div><div class="comparison-row"><span class="label">Control</span><span class="value">Responsibility is visible before movement</span><span class="status ok">Traceable</span></div><div class="comparison-row"><span class="label">Truth</span><span class="value">Decision state is recorded at execution time</span><span class="status ok">Recorded</span></div></div>
+    </div>
+  </section>
+  <section class="section soft" id="live-execution">
+    <div class="wrap">
+      <span class="kicker">LIVE EXECUTION</span>
+      <div class="engine-card">
+        <div class="engine-top"><div><h2>Test execution before action becomes reality.</h2><p class="lead">Submit a controlled execution request. The engine validates, decides and records the result.</p></div><a class="pill-btn" href="https://execution.executia.io/dashboard">Open registry ↗</a></div>
+        <form id="execution-demo-form" class="engine-form"><input class="input" id="demo-input" value="Approve controlled pilot execution" aria-label="Execution request"><button class="pill-btn primary" type="submit">Run execution</button></form>
+        <div class="state-grid"><div class="state"><span>Request</span><strong id="s-request">Ready</strong></div><div class="state"><span>Validation</span><strong id="s-validation">—</strong></div><div class="state"><span>Decision</span><strong id="s-decision">—</strong></div><div class="state"><span>Registry</span><strong id="s-registry">—</strong></div><div class="state"><span>Ledger</span><strong id="s-ledger">—</strong></div><div class="state"><span>Audit</span><strong id="s-audit">—</strong></div></div>
+        <div id="demo-message" class="message">Ready. For full proof, open the execution engine registry.</div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <span class="kicker">WHERE THIS BECOMES NECESSARY</span>
+      <h2>EXECUTIA controls the point where risk becomes action.</h2>
+      <div class="grid-3"><div class="card"><span class="tag">Money</span><h3>Payments and approvals</h3><p>Money cannot move until validation, responsibility and rule compliance are confirmed.</p></div><div class="card"><span class="tag">Procurement</span><h3>Contracts and suppliers</h3><p>Execution is blocked if required documents, approvals or comparison rules are missing.</p></div><div class="card"><span class="tag">Compliance</span><h3>Regulated execution</h3><p>Compliance is checked before execution, not reconstructed after the action.</p></div></div>
+    </div>
+  </section>
+  <section class="final-cta"><div class="wrap"><h2>Run the engine. Then request a controlled pilot.</h2><p>EXECUTIA is understood through execution: request, validation, decision, registry, ledger and audit.</p><div class="actions"><a class="pill-btn primary" href="https://execution.executia.io/dashboard">Open Execution Layer ↗</a><a class="pill-btn" href="/request">Request Controlled Execution</a></div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand footer-logo" href="/" aria-label="EXECUTIA entry">EXECUTIA™</a>
+      <p>Execution Control Standard.</p>
+      <p>ENTRY → ENGINE → REGISTRY</p>
+    </div>
+    <div class="footer-col"><h4>System</h4><a href="/">Entry</a><a href="https://execution.executia.io/dashboard">Engine</a><a href="/standard">Standard</a></div>
+    <div class="footer-col"><h4>Structure</h4><a href="/global">Global</a><a href="/institutional">Institutional</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="/contact">Contact</a><a href="/request">Request Pilot</a><a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener">LinkedIn</a></div>
+  </div>
+  <div class="footer-bottom"><span>© EXECUTIA</span><span>Execution Control Standard</span></div>
+</footer>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

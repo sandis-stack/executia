@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.js": { "maxDuration": 15 }
+  },
+  "routes": [
+    { "src": "^/$", "dest": "/index.html" },
+    { "src": "^/llms.txt$", "dest": "/llms.txt" },
+    { "src": "^/robots.txt$", "dest": "/robots.txt" },
+    { "src": "^/sitemap.xml$", "dest": "/sitemap.xml" },
+    { "src": "^/request$", "dest": "/request.html" },
+    { "src": "^/contact$", "dest": "/contact.html" },
+    { "src": "^/standard$", "dest": "/standard.html" },
+    { "src": "^/definition$", "dest": "/definition.html" },
+    { "src": "^/global$", "dest": "/global.html" },
+    { "src": "^/institutional$", "dest": "/institutional.html" },
+    { "src": "^/test$", "status": 302, "headers": { "Location": "https://execution.executia.io/dashboard" } },
+    { "src": "^/engine$", "status": 302, "headers": { "Location": "https://execution.executia.io/dashboard" } },
+    { "src": "^/execution$", "status": 302, "headers": { "Location": "https://execution.executia.io/dashboard" } },
+    { "src": "^/dashboard$", "status": 302, "headers": { "Location": "https://execution.executia.io/dashboard" } },
+    { "src": "^/api/request$", "dest": "/api/request.js" }
+  ]
+}
