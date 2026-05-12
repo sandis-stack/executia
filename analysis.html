@@ -110,6 +110,29 @@
 
 
 
+
+<section class="section soft">
+  <div class="wrap">
+
+    <span class="kicker">MULTI-SESSION GOVERNANCE HISTORY</span>
+
+    <h2>Governance continuity across executions.</h2>
+
+    <p class="lead">
+      EXECUTIA compares execution continuity, governance outcomes and audit synchronization across registered runtime sessions.
+    </p>
+
+    <div class="card" style="margin-top:28px">
+
+      <div class="mono" id="multi-session-history">
+        <span>LOADING GOVERNANCE HISTORY</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
 
@@ -1701,6 +1724,80 @@ setInterval(function(){
 </script>
 
 <script>
+
+
+
+/* Multi-session governance history */
+(async function(){
+
+const container =
+  document.getElementById("multi-session-history");
+
+if(!container) return;
+
+try{
+
+  const res =
+    await fetch("/api/execution/session");
+
+  const json =
+    await res.json();
+
+  container.innerHTML = "";
+
+  if(
+    !json ||
+    !json.sessions ||
+    !json.sessions.length
+  ){
+
+    const span =
+      document.createElement("span");
+
+    span.textContent =
+      "NO GOVERNANCE HISTORY AVAILABLE";
+
+    container.appendChild(span);
+
+    return;
+
+  }
+
+  json.sessions.forEach(function(session,index){
+
+    const span =
+      document.createElement("span");
+
+    span.textContent =
+      "#" + (index + 1) +
+      " · " +
+      (session.session_id || "UNKNOWN") +
+      " · " +
+      String(session.status || "ACTIVE").toUpperCase() +
+      " · " +
+      String(session.governance_state || "INTERPRETED").toUpperCase() +
+      " · CONTINUITY " +
+      (session.continuity_score || "N/A");
+
+    container.appendChild(span);
+
+  });
+
+}catch(err){
+
+  container.innerHTML = "";
+
+  const span =
+    document.createElement("span");
+
+  span.textContent =
+    "GOVERNANCE HISTORY UNAVAILABLE";
+
+  container.appendChild(span);
+
+}
+
+})();
 
 
 /* Session open view */
