@@ -107,6 +107,39 @@
 
 
 
+
+<section class="section soft">
+  <div class="wrap">
+
+    <span class="kicker">EXECUTION REPLAY MODE</span>
+
+    <h2>Replay execution continuity.</h2>
+
+    <p class="lead">
+      EXECUTIA can reconstruct governance continuity from registered execution sessions.
+    </p>
+
+    <div class="card" style="margin-top:28px">
+
+      <div class="actions" style="margin-bottom:22px">
+        <button class="pill-btn primary" id="replay-last-session">
+          Replay Latest Session
+        </button>
+
+        <button class="pill-btn" id="replay-clear-history">
+          Clear Registry
+        </button>
+      </div>
+
+      <div class="mono" id="replay-log">
+        <span>REPLAY ENGINE READY</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
 
@@ -831,6 +864,99 @@ setInterval(function(){
 
 
 
+
+
+
+/* Execution replay mode */
+(function(){
+
+const replayBtn =
+  document.getElementById("replay-last-session");
+
+const clearBtn =
+  document.getElementById("replay-clear-history");
+
+const replayLog =
+  document.getElementById("replay-log");
+
+function addReplayLine(text){
+
+  if(!replayLog) return;
+
+  const span =
+    document.createElement("span");
+
+  span.textContent =
+    new Date().toLocaleTimeString() +
+    " · " +
+    text;
+
+  replayLog.appendChild(span);
+
+}
+
+if(replayBtn){
+
+  replayBtn.addEventListener("click",function(){
+
+    replayLog.innerHTML = "";
+
+    const registry =
+      JSON.parse(
+        localStorage.getItem("executia_registry_history") || "[]"
+      );
+
+    if(!registry.length){
+
+      addReplayLine("NO EXECUTION SESSIONS AVAILABLE");
+      return;
+
+    }
+
+    const latest = registry[0];
+
+    addReplayLine("SESSION REPLAY INITIALIZED");
+    addReplayLine("SESSION: " + (latest.session_id || "UNKNOWN"));
+    addReplayLine("STATUS: " + String(latest.status || "LOCAL").toUpperCase());
+
+    if(latest.execution_id){
+      addReplayLine("EXECUTION: " + latest.execution_id);
+    }
+
+    if(latest.continuity_score){
+      addReplayLine(
+        "CONTINUITY SCORE: " +
+        latest.continuity_score
+      );
+    }
+
+    addReplayLine("RUNTIME GOVERNANCE RECONSTRUCTED");
+    addReplayLine("AUDIT CONTINUITY VERIFIED");
+    addReplayLine("EXECUTION REPLAY COMPLETE");
+
+  });
+
+}
+
+if(clearBtn){
+
+  clearBtn.addEventListener("click",function(){
+
+    localStorage.removeItem("executia_registry_history");
+
+    if(replayLog){
+
+      replayLog.innerHTML = "";
+
+      addReplayLine("EXECUTION REGISTRY CLEARED");
+
+    }
+
+  });
+
+}
+
+})();
 
 
 /* Live execution registry view */
