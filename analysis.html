@@ -728,6 +728,77 @@ setInterval(function(){
 
 
 
+
+/* Runtime response standardization */
+(function(){
+
+const raw = JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
+
+const normalized = {
+  execution_id:
+    raw.execution_id ||
+    raw.id ||
+    raw.request_id ||
+    raw.requestId ||
+    raw?.data?.execution_id ||
+    raw?.execution?.id ||
+    "LOCAL-ANALYSIS",
+
+  status:
+    raw.status ||
+    raw.decision ||
+    raw.result ||
+    raw?.data?.status ||
+    raw?.execution?.status ||
+    "LOCAL_INTELLIGENCE",
+
+  governance_state:
+    raw.governance_state ||
+    raw?.data?.governance_state ||
+    raw?.execution?.governance_state ||
+    "INTERPRETED",
+
+  registry_state:
+    raw.registry_state ||
+    raw?.data?.registry_state ||
+    raw?.execution?.registry_state ||
+    "LOCAL",
+
+  audit_state:
+    raw.audit_state ||
+    raw?.data?.audit_state ||
+    raw?.execution?.audit_state ||
+    "ACTIVE",
+
+  continuity_score:
+    raw.continuity_score ||
+    raw?.data?.continuity_score ||
+    raw?.execution?.continuity_score ||
+    null,
+
+  risk_flags:
+    raw.risk_flags ||
+    raw?.data?.risk_flags ||
+    raw?.execution?.risk_flags ||
+    []
+};
+
+localStorage.setItem(
+  "executia_normalized_runtime",
+  JSON.stringify(normalized)
+);
+
+setText("proof-id", normalized.execution_id);
+setText("proof-registry", String(normalized.registry_state).toUpperCase());
+setText("proof-audit", String(normalized.audit_state).toUpperCase());
+
+if(normalized.continuity_score){
+  setText("score-after", normalized.continuity_score);
+}
+
+})();
+
+
 /* Runtime materialization from engine response */
 (function(){
 
