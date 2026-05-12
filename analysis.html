@@ -727,6 +727,93 @@ setInterval(function(){
 }, 2600);
 
 
+
+/* Runtime materialization from engine response */
+(function(){
+
+const rr = JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
+
+const executionId =
+  rr.execution_id ||
+  rr.id ||
+  rr.requestId ||
+  rr.request_id ||
+  rr?.data?.execution_id ||
+  rr?.execution?.id ||
+  "";
+
+const runtimeStatus =
+  rr.status ||
+  rr.decision ||
+  rr.result ||
+  rr?.data?.status ||
+  rr?.execution?.status ||
+  "";
+
+const events =
+  rr.events ||
+  rr.timeline ||
+  rr?.data?.events ||
+  rr?.execution?.events ||
+  [];
+
+if(executionId){
+  setText("proof-id", executionId);
+}
+
+if(runtimeStatus){
+  setText("timeline-3", String(runtimeStatus).toUpperCase());
+  setText("proof-registry", "RUNTIME LINKED");
+  setText("proof-audit", "ENGINE RESPONSE");
+}
+
+if(Array.isArray(events) && events.length){
+
+  const eventIds = [
+    "event-1",
+    "event-2",
+    "event-3",
+    "event-4",
+    "event-5",
+    "event-6"
+  ];
+
+  eventIds.forEach(function(id,index){
+
+    const el = document.getElementById(id);
+
+    if(el && events[index]){
+
+      if(typeof events[index] === "string"){
+        el.textContent = events[index];
+      }
+
+      else if(typeof events[index] === "object"){
+        const label =
+          events[index].type ||
+          events[index].event ||
+          events[index].status ||
+          events[index].name ||
+          "RUNTIME_EVENT";
+
+        const time =
+          events[index].time ||
+          events[index].timestamp ||
+          events[index].created_at ||
+          "";
+
+        el.textContent = (time ? time + " · " : "") + String(label).toUpperCase();
+      }
+
+    }
+
+  });
+
+}
+
+})();
+
+
 /* Engine decision interpretation */
 const engineStatus =
   runtimeResponse.status ||
