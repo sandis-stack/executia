@@ -182,7 +182,46 @@ fetch("https://execution.executia.io/api/v1/control-request", {
   body: JSON.stringify({
     source: "EXECUTIA_ENTRY",
     runtime: "COMMERCIAL_ANALYSIS",
-    payload: data
+
+    execution_type:
+      (data.domain || "").toUpperCase().includes("PROCUREMENT")
+        ? "PROCUREMENT"
+        : (data.domain || "").toUpperCase().includes("FINANCIAL")
+          ? "FINANCIAL"
+          : (data.domain || "").toUpperCase().includes("INFRASTRUCTURE")
+            ? "INFRASTRUCTURE"
+            : "GENERAL_EXECUTION",
+
+    governance_level:
+      (data.governance || "").toUpperCase().includes("MULTI")
+        ? "MULTI_LAYER"
+        : (data.governance || "").toUpperCase().includes("HIGH")
+          ? "HIGH"
+          : "STANDARD",
+
+    risk_profile:
+      (data.compliance || "").toUpperCase().includes("CRITICAL")
+        ? "HIGH"
+        : (data.compliance || "").toUpperCase().includes("REGULATED")
+          ? "MODERATE"
+          : "STANDARD",
+
+    requested_action: "EXECUTION_VALIDATION",
+
+    compliance_mode: (data.compliance || "").toUpperCase(),
+
+    execution_scope: {
+      project: data.project || "",
+      domain: data.domain || "",
+      governance: data.governance || "",
+      procurement: data.procurement || "",
+      compliance: data.compliance || "",
+      budget: data.budget || "",
+      suppliers: data.suppliers || "",
+      timeline: data.timeline || "",
+      scope: data.scope || "",
+      timestamp: new Date().toISOString()
+    }
   })
 })
 .then(async function(res){
