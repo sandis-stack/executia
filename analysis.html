@@ -290,6 +290,103 @@
   </div>
 </section>
 
+
+<section class="section soft">
+  <div class="wrap">
+
+    <span class="kicker">LIVE EXECUTION DEMONSTRATION</span>
+
+    <h2>Execution states synchronized before reality changes.</h2>
+
+    <p class="lead">
+      EXECUTIA validates governance, procurement, operational continuity and audit synchronization before execution proceeds.
+    </p>
+
+    <div class="grid-2" style="margin-top:32px">
+
+      <div class="card">
+
+        <span class="tag">PUBLIC PROCUREMENT FLOW</span>
+
+        <div class="system-flow" style="margin-top:24px">
+          <div class="flow-step">Supplier</div>
+          <div class="flow-step">Approval</div>
+          <div class="flow-step">Budget</div>
+          <div class="flow-step">Execution</div>
+          <div class="flow-step">Registry</div>
+          <div class="flow-step">Audit</div>
+        </div>
+
+        <div class="state-grid" style="margin-top:24px">
+
+          <div class="state">
+            <span>Governance</span>
+            <strong id="proc-state-1">SYNCED</strong>
+          </div>
+
+          <div class="state">
+            <span>Procurement</span>
+            <strong id="proc-state-2">VALIDATED</strong>
+          </div>
+
+          <div class="state">
+            <span>Registry</span>
+            <strong id="proc-state-3">RECORDED</strong>
+          </div>
+
+          <div class="state">
+            <span>Audit</span>
+            <strong id="proc-state-4">CONTINUOUS</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <span class="tag">AI EXECUTION GOVERNANCE</span>
+
+        <div class="system-flow" style="margin-top:24px">
+          <div class="flow-step">AI Request</div>
+          <div class="flow-step">Validation</div>
+          <div class="flow-step">Decision</div>
+          <div class="flow-step">Review</div>
+          <div class="flow-step">Registry</div>
+          <div class="flow-step">Execution</div>
+        </div>
+
+        <div class="state-grid" style="margin-top:24px">
+
+          <div class="state">
+            <span>Authority</span>
+            <strong id="ai-state-1">CHECKED</strong>
+          </div>
+
+          <div class="state">
+            <span>Compliance</span>
+            <strong id="ai-state-2">VERIFIED</strong>
+          </div>
+
+          <div class="state">
+            <span>Decision</span>
+            <strong id="ai-state-3">APPROVED</strong>
+          </div>
+
+          <div class="state">
+            <span>Execution</span>
+            <strong id="ai-state-4">CONTROLLED</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 <section class="section" id="execution-map">
   <div class="wrap">
     <span class="kicker">EXECUTION INTELLIGENCE MAP</span>
@@ -553,6 +650,61 @@ if(exportBtn){
 
 })();
 
+</script>
+
+
+<script>
+
+(function(){
+
+const procurementStates = [
+  ["SYNCED","VALIDATED","RECORDED","CONTINUOUS"],
+  ["CHECKING","MAPPING","RECORDING","VERIFYING"],
+  ["SYNCED","VALIDATED","RECORDED","CONTINUOUS"]
+];
+
+const aiStates = [
+  ["CHECKED","VERIFIED","APPROVED","CONTROLLED"],
+  ["SCANNING","VALIDATING","REVIEWING","HOLDING"],
+  ["CHECKED","VERIFIED","APPROVED","CONTROLLED"]
+];
+
+let step = 0;
+
+setInterval(function(){
+
+  step = (step + 1) % procurementStates.length;
+
+  const p = procurementStates[step];
+  const a = aiStates[step];
+
+  const procIds = [
+    "proc-state-1",
+    "proc-state-2",
+    "proc-state-3",
+    "proc-state-4"
+  ];
+
+  const aiIds = [
+    "ai-state-1",
+    "ai-state-2",
+    "ai-state-3",
+    "ai-state-4"
+  ];
+
+  procIds.forEach(function(id,i){
+    const el = document.getElementById(id);
+    if(el) el.textContent = p[i];
+  });
+
+  aiIds.forEach(function(id,i){
+    const el = document.getElementById(id);
+    if(el) el.textContent = a[i];
+  });
+
+}, 2400);
+
+})();
 </script>
 
 </body>
