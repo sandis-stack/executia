@@ -94,6 +94,10 @@
     {
       "src": "^/api/proposal/export$",
       "dest": "/api/proposal/export.js"
+    },
+    {
+      "src": "^/api/execution/events$",
+      "dest": "/api/execution/events.js"
     }
   ]
 }
