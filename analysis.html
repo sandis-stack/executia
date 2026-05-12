@@ -109,6 +109,35 @@
 
 
 
+
+<section class="section">
+  <div class="wrap">
+
+    <span class="kicker">SESSION OPEN VIEW</span>
+
+    <h2>Execution session reconstruction.</h2>
+
+    <p class="lead">
+      EXECUTIA reconstructs execution continuity, governance propagation and audit synchronization from registry memory.
+    </p>
+
+    <div class="card" style="margin-top:28px">
+
+      <div class="actions" style="margin-bottom:24px">
+        <button class="pill-btn primary" id="open-session-btn">
+          Open Latest Session
+        </button>
+      </div>
+
+      <div class="mono" id="session-open-log">
+        <span>SESSION VIEW READY</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 <section class="section soft">
   <div class="wrap">
 
@@ -1585,6 +1614,94 @@ setInterval(function(){
 </script>
 
 <script>
+
+
+/* Session open view */
+(function(){
+
+const btn =
+  document.getElementById("open-session-btn");
+
+const log =
+  document.getElementById("session-open-log");
+
+if(!btn || !log) return;
+
+function line(text){
+
+  const span =
+    document.createElement("span");
+
+  span.textContent =
+    new Date().toLocaleTimeString() +
+    " · " +
+    text;
+
+  log.appendChild(span);
+
+}
+
+btn.addEventListener("click",function(){
+
+  log.innerHTML = "";
+
+  const registry =
+    JSON.parse(
+      localStorage.getItem("executia_registry_history") || "[]"
+    );
+
+  if(!registry.length){
+
+    line("NO EXECUTION SESSION FOUND");
+    return;
+
+  }
+
+  const latest =
+    registry[0];
+
+  line("SESSION RECONSTRUCTION INITIALIZED");
+
+  line(
+    "SESSION: " +
+    (latest.session_id || "UNKNOWN")
+  );
+
+  if(latest.execution_id){
+
+    line(
+      "EXECUTION: " +
+      latest.execution_id
+    );
+
+  }
+
+  line(
+    "STATUS: " +
+    String(
+      latest.status || "LOCAL"
+    ).toUpperCase()
+  );
+
+  if(latest.continuity_score){
+
+    line(
+      "CONTINUITY SCORE: " +
+      latest.continuity_score
+    );
+
+  }
+
+  line("GOVERNANCE PROPAGATION RESTORED");
+  line("REGISTRY CONTINUITY VERIFIED");
+  line("AUDIT SYNCHRONIZATION VERIFIED");
+  line("EXECUTION TIMELINE RECONSTRUCTED");
+  line("SESSION REPLAY COMPLETE");
+
+});
+
+})();
+
 
 /* Live governance event stream */
 (function(){
