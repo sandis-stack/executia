@@ -106,6 +106,33 @@
 
 <section class="section soft">
   <div class="wrap">
+    <span class="kicker">ENGINE DECISION INTERPRETATION</span>
+    <h2>Runtime execution decision.</h2>
+
+    <div class="grid-3" style="margin-top:28px">
+      <div class="card">
+        <span class="tag">Engine Decision</span>
+        <h3 id="engine-decision">LOCAL INTELLIGENCE</h3>
+        <p id="engine-decision-text">Execution analysis is currently interpreted through the local intelligence layer.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Execution Meaning</span>
+        <h3 id="engine-meaning">Assessment mode</h3>
+        <p id="engine-meaning-text">The system will use runtime status when the execution substrate returns a decision state.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Control Outcome</span>
+        <h3 id="control-outcome">Analysis generated</h3>
+        <p id="control-outcome-text">Governance, procurement and execution risk are interpreted before pilot activation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="wrap">
     <span class="kicker">EXECUTION CONSEQUENCE</span>
     <h2>Control changes the execution outcome.</h2>
 
@@ -559,6 +586,81 @@ setText("pilot-recommendation", recommendation);
 setText("project-domain", domain || "Execution structure");
 setText("project-budget", budget || "Not specified");
 setText("project-suppliers", suppliers || "Not specified");
+
+
+/* Engine decision interpretation */
+const engineStatus =
+  runtimeResponse.status ||
+  runtimeResponse.decision ||
+  runtimeResponse.result ||
+  runtimeResponse?.data?.status ||
+  runtimeResponse?.execution?.status ||
+  "";
+
+const normalizedStatus = String(engineStatus || "").toUpperCase();
+
+if(normalizedStatus){
+  setText("engine-decision", normalizedStatus);
+}
+
+if(normalizedStatus === "APPROVED"){
+  setText("engine-decision-text", "Execution request passed runtime governance validation.");
+  setText("engine-meaning", "Execution allowed");
+  setText("engine-meaning-text", "The structure can proceed under controlled execution conditions.");
+  setText("control-outcome", "APPROVED");
+  setText("control-outcome-text", "Execution-time validation confirmed before action becomes reality.");
+}
+
+else if(normalizedStatus === "BLOCKED"){
+  setText("engine-decision-text", "Execution request was blocked by runtime governance control.");
+  setText("engine-meaning", "Failure prevented");
+  setText("engine-meaning-text", "Execution was stopped before an incorrect action became operational reality.");
+  setText("control-outcome", "BLOCKED");
+  setText("control-outcome-text", "EXECUTIA detected a condition that should not proceed without correction.");
+}
+
+else if(normalizedStatus === "PENDING_REVIEW"){
+  setText("engine-decision-text", "Execution request requires operator or governance review.");
+  setText("engine-meaning", "Human review required");
+  setText("engine-meaning-text", "The state is unclear and should not proceed automatically.");
+  setText("control-outcome", "REVIEW");
+  setText("control-outcome-text", "EXECUTIA routed the execution state to review instead of allowing silent drift.");
+}
+
+else if(normalizedStatus === "COMMITTED"){
+  setText("engine-decision-text", "Execution result was committed into the runtime record.");
+  setText("engine-meaning", "Recorded execution truth");
+  setText("engine-meaning-text", "The decision state has been materialized into the execution record.");
+  setText("control-outcome", "COMMITTED");
+  setText("control-outcome-text", "Execution is no longer only intended; it has become recorded institutional truth.");
+}
+
+else if(normalizedStatus === "FAILED"){
+  setText("engine-decision-text", "Runtime execution failed or could not be completed.");
+  setText("engine-meaning", "Execution failure");
+  setText("engine-meaning-text", "The system detected failure in execution processing or runtime response.");
+  setText("control-outcome", "FAILED");
+  setText("control-outcome-text", "The request should be reviewed before any operational continuation.");
+}
+
+else if(runtimeResponse && runtimeResponse.ok){
+  setText("engine-decision", "RECEIVED");
+  setText("engine-decision-text", "Runtime substrate responded, but no final execution decision state was returned.");
+  setText("engine-meaning", "Runtime connected");
+  setText("engine-meaning-text", "The analysis is using connected runtime context with local interpretation.");
+  setText("control-outcome", "HYBRID");
+  setText("control-outcome-text", "EXECUTIA combines runtime response with local execution intelligence.");
+}
+
+else {
+  setText("engine-decision", "LOCAL INTELLIGENCE");
+  setText("engine-decision-text", "No final runtime decision state was returned from the execution substrate.");
+  setText("engine-meaning", "Fallback analysis");
+  setText("engine-meaning-text", "EXECUTIA continues with local commercial analysis until runtime decision data is available.");
+  setText("control-outcome", "ANALYSIS");
+  setText("control-outcome-text", "Governance, procurement and execution intelligence remain available for pilot evaluation.");
+}
+
 
 
 /* Engine connection status */
