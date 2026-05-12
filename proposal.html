@@ -1354,6 +1354,13 @@ setInterval(pushEvent, 2200);
   const input = JSON.parse(localStorage.getItem("executia_pilot_mode_input") || localStorage.getItem("executia_execution_input") || "{}");
   const session = JSON.parse(localStorage.getItem("executia_engine_session") || "{}");
 
+  const continuity =
+    JSON.parse(
+      localStorage.getItem(
+        "executia_continuity_state"
+      ) || "{}"
+    );
+
   function setText(id,value){
     const el=document.getElementById(id);
     if(el) el.textContent=value;
@@ -1361,7 +1368,14 @@ setInterval(pushEvent, 2200);
 
   setText("proposal-scope", input.process || input.project || "Execution control pilot");
   setText("proposal-risk", (input.risk || input.governance || session.status || "INTERPRETED").toUpperCase());
-  setText("proposal-continuity", session.continuity_score || "88");
+  
+setText(
+  "proposal-continuity",
+  continuity.continuity_score ||
+  session.continuity_score ||
+  "88"
+);
+
 })();
 </script>
 </body>

@@ -1268,6 +1268,72 @@ localStorage.setItem(
 
 
 
+
+/* Real engine continuity propagation */
+(function(){
+
+try{
+
+  const runtime =
+    JSON.parse(
+      localStorage.getItem(
+        "executia_runtime_response"
+      ) || "{}"
+    );
+
+  const session =
+    JSON.parse(
+      localStorage.getItem(
+        "executia_engine_session"
+      ) || "{}"
+    );
+
+  const continuity = {
+
+    execution_id:
+      runtime.execution_id ||
+      session.execution_id ||
+      "EXE-LOCAL",
+
+    governance_state:
+      runtime.governance_state ||
+      session.governance_state ||
+      "INTERPRETED",
+
+    registry_state:
+      runtime.registry_state ||
+      session.registry_state ||
+      "COMMITTED",
+
+    audit_state:
+      runtime.audit_state ||
+      session.audit_state ||
+      "ACTIVE",
+
+    continuity_score:
+      runtime.continuity_score ||
+      session.continuity_score ||
+      88
+
+  };
+
+  localStorage.setItem(
+    "executia_continuity_state",
+    JSON.stringify(continuity)
+  );
+
+}catch(err){
+
+  console.error(
+    "CONTINUITY_PROPAGATION_FAILED",
+    err
+  );
+
+}
+
+})();
+
+
 /* Engine-backed session persistence */
 (async function(){
 
