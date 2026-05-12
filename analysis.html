@@ -1594,7 +1594,17 @@ const stream =
 
 if(!stream) return;
 
-const events = [
+const runtimeResponse =
+  JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
+
+const runtimeEvents =
+  runtimeResponse.events ||
+  runtimeResponse.timeline ||
+  runtimeResponse?.data?.events ||
+  runtimeResponse?.execution?.events ||
+  [];
+
+const fallbackEvents = [
   "GOVERNANCE VALIDATION RECEIVED",
   "EXECUTION STRUCTURE INTERPRETED",
   "PROCUREMENT SURFACE CHECKED",
@@ -1603,6 +1613,29 @@ const events = [
   "AUDIT CHAIN ACTIVE",
   "EXECUTION MEMORY UPDATED"
 ];
+
+const events =
+  Array.isArray(runtimeEvents) && runtimeEvents.length
+    ? runtimeEvents.map(function(e){
+
+        if(typeof e === "string"){
+          return e;
+        }
+
+        if(typeof e === "object"){
+          return (
+            e.type ||
+            e.event ||
+            e.status ||
+            e.name ||
+            "RUNTIME_EVENT"
+          );
+        }
+
+        return "RUNTIME_EVENT";
+
+      })
+    : fallbackEvents;
 
 let index = 0;
 
