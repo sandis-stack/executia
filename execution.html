@@ -17,24 +17,131 @@
 <body>
 <header class="site-header"><div class="wrap header-inner"><a class="brand" href="/" aria-label="EXECUTIA entry"><span class="brand-main">EXECUTIA™</span><span class="brand-sub">EXECUTION STANDARD</span></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button><nav class="nav" aria-label="Primary"><a data-nav="entry" href="/">ENTRY</a><a data-nav="global" href="/global">GLOBAL</a><a data-nav="institutional" href="/institutional">INSTITUTIONAL</a><a data-nav="request" href="/request">REQUEST</a></nav><div class="header-cta"><a class="pill-btn" href="https://execution.executia.io/dashboard">Enter engine ↗</a></div></div></header>
 <main class="main">
+
 <section class="hero">
   <div class="wrap">
     <span class="kicker">EXECUTION TEST</span>
+
     <h1>Submit your execution structure.</h1>
-    <p>EXECUTIA analyzes governance exposure, procurement instability, coordination risk and execution integrity before failure becomes reality.</p>
-    <div class="actions">
-      <a class="pill-btn primary" href="/analysis">Analyze execution</a>
-      <a class="pill-btn" href="/">Return to entry</a>
+
+    <p>
+      EXECUTIA analyzes governance exposure, procurement instability,
+      operational dependencies and execution integrity before failure becomes reality.
+    </p>
+
+    <div class="state-grid" style="margin-top:28px">
+      <div class="state"><span>Validation Layer</span><strong>Active</strong></div>
+      <div class="state"><span>Governance Logic</span><strong>Ready</strong></div>
+      <div class="state"><span>Registry State</span><strong>Protected</strong></div>
+      <div class="state"><span>Audit Synchronization</span><strong>Enabled</strong></div>
     </div>
+
   </div>
 </section>
+
 <section class="section soft">
-  <div class="wrap grid-3">
-    <div class="card"><span class="tag">Input</span><h3>Project structure</h3><p>Budget, suppliers, approvals, jurisdiction and operational dependencies.</p></div>
-    <div class="card"><span class="tag">Analysis</span><h3>Execution risk</h3><p>Governance exposure, procurement leakage and coordination drift.</p></div>
-    <div class="card"><span class="tag">Output</span><h3>Integrity score</h3><p>Projected stabilization under EXECUTIA governance control.</p></div>
+  <div class="wrap">
+
+    <span class="kicker">EXECUTION STRUCTURE</span>
+
+    <form id="execution-analysis-form" class="engine-form" style="margin-top:28px">
+
+      <input class="input" name="project" placeholder="Project / execution point" required>
+
+      <select class="input" name="domain">
+        <option>Infrastructure</option>
+        <option>Energy</option>
+        <option>Public procurement</option>
+        <option>Government operations</option>
+        <option>Financial systems</option>
+        <option>Enterprise operations</option>
+      </select>
+
+      <input class="input" name="budget" placeholder="Budget / execution value">
+
+      <input class="input" name="timeline" placeholder="Execution timeline">
+
+      <input class="input" name="team" placeholder="Coordination size">
+
+      <input class="input" name="suppliers" placeholder="Suppliers / contractors">
+
+      <select class="input" name="governance">
+        <option>Low governance complexity</option>
+        <option>Medium governance complexity</option>
+        <option>High governance complexity</option>
+        <option>Multi-layered governance</option>
+      </select>
+
+      <select class="input" name="procurement">
+        <option>Centralized procurement</option>
+        <option>Distributed procurement</option>
+        <option>Multi-vendor procurement</option>
+        <option>Public procurement</option>
+        <option>Hybrid procurement</option>
+      </select>
+
+      <select class="input" name="compliance">
+        <option>Standard compliance</option>
+        <option>Regulated environment</option>
+        <option>Multi-jurisdiction execution</option>
+        <option>Critical infrastructure</option>
+      </select>
+
+      <textarea class="input" name="scope" rows="5" placeholder="Describe operational structure, dependencies, approvals and execution risks."></textarea>
+
+      <button class="pill-btn primary" type="submit">
+        Analyze execution
+      </button>
+
+    </form>
+
   </div>
 </section>
+
+<section class="section">
+  <div class="wrap">
+
+    <div id="runtime-panel" style="display:none">
+
+      <span class="kicker">EXECUTION PROCESSING</span>
+
+      <div class="state-grid" style="margin-top:28px">
+
+        <div class="state">
+          <span>Governance</span>
+          <strong id="r1">Waiting</strong>
+        </div>
+
+        <div class="state">
+          <span>Procurement</span>
+          <strong id="r2">Waiting</strong>
+        </div>
+
+        <div class="state">
+          <span>Execution</span>
+          <strong id="r3">Waiting</strong>
+        </div>
+
+        <div class="state">
+          <span>Integrity</span>
+          <strong id="r4">Waiting</strong>
+        </div>
+
+      </div>
+
+      <div class="card" style="margin-top:28px">
+        <span class="tag">Runtime Analysis</span>
+        <h3 id="runtime-title">Initializing execution analysis</h3>
+        <p id="runtime-text">
+          Governance structure validation initialized.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
@@ -50,5 +157,61 @@
   <div class="footer-bottom"><span>© EXECUTIA</span><span>Execution Control Standard</span></div>
 </footer>
 <script src="/assets/app.js" defer></script>
+
+<script>
+document.getElementById("execution-analysis-form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const data = Object.fromEntries(
+  new FormData(e.target).entries()
+);
+
+localStorage.setItem(
+  "executia_execution_input",
+  JSON.stringify(data)
+);
+
+document.getElementById("runtime-panel").style.display = "block";
+
+const title = document.getElementById("runtime-title");
+const text  = document.getElementById("runtime-text");
+
+const r1 = document.getElementById("r1");
+const r2 = document.getElementById("r2");
+const r3 = document.getElementById("r3");
+const r4 = document.getElementById("r4");
+
+setTimeout(function(){
+  r1.textContent = "Validated";
+  title.textContent = "Governance structure mapped";
+  text.textContent  = "Execution authority and approval dependencies synchronized.";
+}, 800);
+
+setTimeout(function(){
+  r2.textContent = "Analyzed";
+  title.textContent = "Procurement dependencies detected";
+  text.textContent  = "Supplier structure and operational fragmentation evaluated.";
+}, 1800);
+
+setTimeout(function(){
+  r3.textContent = "Stabilized";
+  title.textContent = "Execution coordination modeled";
+  text.textContent  = "Operational continuity and execution drift calculated.";
+}, 3000);
+
+setTimeout(function(){
+  r4.textContent = "Generated";
+  title.textContent = "Execution integrity model completed";
+  text.textContent  = "Preparing institutional execution intelligence report.";
+}, 4200);
+
+setTimeout(function(){
+  window.location.href = "/analysis";
+}, 5600);
+
+});
+</script>
 </body>
+
 </html>
