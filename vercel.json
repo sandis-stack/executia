@@ -11,6 +11,10 @@
       "dest": "/analysis.html"
     },
     {
+      "src": "^/execution$",
+      "dest": "/execution.html"
+    },
+    {
       "src": "^/$",
       "dest": "/index.html"
     },
@@ -59,13 +63,6 @@
     },
     {
       "src": "^/engine$",
-      "status": 302,
-      "headers": {
-        "Location": "https://execution.executia.io/dashboard"
-      }
-    },
-    {
-      "src": "^/execution$",
       "status": 302,
       "headers": {
         "Location": "https://execution.executia.io/dashboard"
