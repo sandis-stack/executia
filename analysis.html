@@ -108,6 +108,28 @@
 
 
 
+
+<section class="section soft">
+  <div class="wrap">
+
+    <span class="kicker">LIVE GOVERNANCE EVENT STREAM</span>
+
+    <h2>Runtime governance events.</h2>
+
+    <p class="lead">
+      EXECUTIA streams governance validation, registry synchronization and audit continuity as execution states materialize.
+    </p>
+
+    <div class="card" style="margin-top:28px">
+      <div class="mono" id="governance-event-stream">
+        <span>STREAM INITIALIZED</span>
+        <span>WAITING FOR GOVERNANCE EVENTS</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <section class="section soft">
   <div class="wrap">
 
@@ -1562,5 +1584,53 @@ setInterval(function(){
 })();
 </script>
 
+<script>
+
+/* Live governance event stream */
+(function(){
+
+const stream =
+  document.getElementById("governance-event-stream");
+
+if(!stream) return;
+
+const events = [
+  "GOVERNANCE VALIDATION RECEIVED",
+  "EXECUTION STRUCTURE INTERPRETED",
+  "PROCUREMENT SURFACE CHECKED",
+  "RUNTIME DECISION STATE VERIFIED",
+  "REGISTRY CONTINUITY SYNCHRONIZED",
+  "AUDIT CHAIN ACTIVE",
+  "EXECUTION MEMORY UPDATED"
+];
+
+let index = 0;
+
+function pushEvent(){
+
+  const span = document.createElement("span");
+
+  span.textContent =
+    new Date().toLocaleTimeString() +
+    " · " +
+    events[index % events.length];
+
+  stream.appendChild(span);
+
+  index++;
+
+  const rows = stream.querySelectorAll("span");
+
+  if(rows.length > 9){
+    rows[0].remove();
+  }
+
+}
+
+setInterval(pushEvent, 2200);
+
+})();
+
+</script>
 </body>
 </html>
