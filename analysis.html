@@ -2107,73 +2107,211 @@ const stream =
 
 if(!stream) return;
 
-const runtimeResponse =
-  JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
-
-const runtimeEvents =
-  runtimeResponse.events ||
-  runtimeResponse.timeline ||
-  runtimeResponse?.data?.events ||
-  runtimeResponse?.execution?.events ||
-  [];
-
 const fallbackEvents = [
-  "GOVERNANCE VALIDATION RECEIVED",
-  "EXECUTION STRUCTURE INTERPRETED",
-  "PROCUREMENT SURFACE CHECKED",
-  "RUNTIME DECISION STATE VERIFIED",
-  "REGISTRY CONTINUITY SYNCHRONIZED",
-  "AUDIT CHAIN ACTIVE",
-  "EXECUTION MEMORY UPDATED"
+  {
+    type:"GOVERNANCE_VALIDATION_RECEIVED",
+    state:"LOCAL",
+    layer:"FALLBACK",
+    timestamp:new Date().toISOString()
+  },
+  {
+    type:"EXECUTION_STRUCTURE_INTERPRETED",
+    state:"LOCAL",
+    layer:"FALLBACK",
+    timestamp:new Date().toISOString()
+  },
+  {
+    type:"REGISTRY_CONTINUITY_SYNCHRONIZED",
+    state:"LOCAL",
+    layer:"FALLBACK",
+    timestamp:new Date().toISOString()
+  },
+  {
+    type:"AUDIT_CHAIN_ACTIVE",
+    state:"LOCAL",
+    layer:"FALLBACK",
+    timestamp:new Date().toISOString()
+  }
 ];
 
-const events =
-  Array.isArray(runtimeEvents) && runtimeEvents.length
-    ? runtimeEvents.map(function(e){
+function normalizeEvent(e){
 
-        if(typeof e === "string"){
-          return e;
-        }
+  if(typeof e === "string"){
+    return {
+      type:e,
+      state:"ACTIVE",
+      layer:"RUNTIME",
+      timestamp:new Date().toISOString()
+    };
+  }
 
-        if(typeof e === "object"){
-          return (
-            e.type ||
-            e.event ||
-            e.status ||
-            e.name ||
-            "RUNTIME_EVENT"
-          );
-        }
+  if(e && typeof e === "object"){
+    return {
+      type:e.type || e.event || e.status || e.name || "RUNTIME_EVENT",
+      state:e.state || e.status || "ACTIVE",
+      layer:e.layer || e.source || "GOVERNANCE",
+      timestamp:e.timestamp || e.time || e.created_at || new Date().toISOString()
+    };
+  }
 
-        return "RUNTIME_EVENT";
+  return {
+    type:"RUNTIME_EVENT",
+    state:"ACTIVE",
+    layer:"GOVERNANCE",
+    timestamp:new Date().toISOString()
+  };
 
-      })
-    : fallbackEvents;
+}
 
-let index = 0;
+function eventLabel(e){
 
-function pushEvent(){
+  const time = e.timestamp
+    ? new Date(e.timestamp).toLocaleTimeString()
+    : new Date().toLocaleTimeString();
 
-  const span = document.createElement("span");
-
-  span.textContent =
-    new Date().toLocaleTimeString() +
+  return (
+    time +
     " · " +
-    events[index % events.length];
+    String(e.type || "RUNTIME_EVENT").toUpperCase() +
+    " · " +
+    String(e.state || "ACTIVE").toUpperCase() +
+    " · " +
+    String(e.layer || "GOVERNANCE").toUpperCase()
+  );
 
-  stream.appendChild(span);
+}
 
-  index++;
+function renderEventRows(events, source){
 
-  const rows = stream.querySelectorAll("span");
+  stream.innerHTML = "";
 
-  if(rows.length > 9){
-    rows[0].remove();
+  const rows = events.map(normalizeEvent).slice(0, 9);
+
+  rows.forEach(function(e){
+    const span = document.createElement("span");
+    span.textContent = eventLabel(e);
+    stream.appendChild(span);
+  });
+
+  const sourceRow = document.createElement("span");
+  sourceRow.textContent =
+    new Date().toLocaleTimeString() +
+    " · EVENT SOURCE · " +
+    String(source || "EXECUTIA_EVENT_BRIDGE").toUpperCase();
+
+  stream.appendChild(sourceRow);
+
+}
+
+function materializeTimeline(events){
+
+  const rows = events.map(normalizeEvent);
+
+  const eventIds = [
+    "event-1",
+    "event-2",
+    "event-3",
+    "event-4",
+    "event-5",
+    "event-6"
+  ];
+
+  eventIds.forEach(function(id,index){
+
+    const el = document.getElementById(id);
+
+    if(el && rows[index]){
+      el.textContent = eventLabel(rows[index]);
+    }
+
+  });
+
+  if(rows[0]){
+    setText("timeline-1", String(rows[0].state || "ACTIVE").toUpperCase());
+  }
+
+  if(rows[1]){
+    setText("timeline-2", String(rows[1].state || "COMPLETE").toUpperCase());
+  }
+
+  if(rows[2]){
+    setText("timeline-3", String(rows[2].state || "SYNCHRONIZED").toUpperCase());
+  }
+
+  if(rows[3]){
+    setText("timeline-4", String(rows[3].state || "VERIFIED").toUpperCase());
   }
 
 }
 
-setInterval(pushEvent, 2200);
+async function loadLiveGovernanceEvents(){
+
+  try{
+
+    const response = await fetch("/api/execution/events", {
+      method:"GET",
+      headers:{
+        "Accept":"application/json"
+      },
+      cache:"no-store"
+    });
+
+    if(!response.ok){
+      throw new Error("EVENT_BRIDGE_HTTP_" + response.status);
+    }
+
+    const payload = await response.json();
+
+    const liveEvents =
+      payload.events ||
+      payload.timeline ||
+      payload?.data?.events ||
+      [];
+
+    if(!Array.isArray(liveEvents) || !liveEvents.length){
+      throw new Error("EVENT_BRIDGE_EMPTY");
+    }
+
+    localStorage.setItem(
+      "executia_live_governance_events",
+      JSON.stringify({
+        source:payload.source || "EXECUTIA_EVENT_BRIDGE",
+        events:liveEvents,
+        received_at:new Date().toISOString()
+      })
+    );
+
+    renderEventRows(liveEvents, payload.source || "EXECUTIA_EVENT_BRIDGE");
+    materializeTimeline(liveEvents);
+
+  }
+
+  catch(error){
+
+    const runtimeResponse =
+      JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
+
+    const runtimeEvents =
+      runtimeResponse.events ||
+      runtimeResponse.timeline ||
+      runtimeResponse?.data?.events ||
+      runtimeResponse?.execution?.events ||
+      [];
+
+    const safeEvents =
+      Array.isArray(runtimeEvents) && runtimeEvents.length
+        ? runtimeEvents
+        : fallbackEvents;
+
+    renderEventRows(safeEvents, "LOCAL_RUNTIME_FALLBACK");
+    materializeTimeline(safeEvents);
+
+  }
+
+}
+
+loadLiveGovernanceEvents();
+setInterval(loadLiveGovernanceEvents, 8000);
 
 })();
 
