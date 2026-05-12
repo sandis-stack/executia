@@ -120,6 +120,41 @@
   </div>
 </section>
 
+<section class="section soft">
+  <div class="wrap">
+    <span class="kicker">AUTOMATIC PILOT STRUCTURE</span>
+    <h2>Suggested EXECUTIA pilot.</h2>
+
+    <div class="grid-3" style="margin-top:28px">
+      <div class="card">
+        <span class="tag">Pilot Scope</span>
+        <h3 id="pilot-scope">Execution control point</h3>
+        <p id="pilot-scope-text">Start with one measurable execution process.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Control Layer</span>
+        <h3 id="control-layer">Execution-time validation</h3>
+        <p id="control-layer-text">Validate governance conditions before action becomes reality.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Impact Range</span>
+        <h3 id="impact-range">12–24%</h3>
+        <p>Projected stabilization potential across leakage, drift and delayed verification.</p>
+      </div>
+    </div>
+
+    <div class="system-flow" style="margin-top:28px">
+      <div class="flow-step" id="rollout-1">Pilot</div>
+      <div class="flow-step" id="rollout-2">Validation</div>
+      <div class="flow-step" id="rollout-3">Registry</div>
+      <div class="flow-step" id="rollout-4">Audit</div>
+      <div class="flow-step" id="rollout-5">Rollout</div>
+    </div>
+  </div>
+</section>
+
 <section class="final-cta">
   <div class="wrap">
     <h2>Move from analysis to controlled pilot.</h2>
@@ -205,6 +240,64 @@ setText("pilot-recommendation", recommendation);
 setText("project-domain", domain || "Execution structure");
 setText("project-budget", budget || "Not specified");
 setText("project-suppliers", suppliers || "Not specified");
+
+
+/* Automatic pilot proposal */
+let pilotScope = "Execution control point";
+let pilotScopeText = "Start with one measurable execution process.";
+let controlLayer = "Execution-time validation";
+let controlLayerText = "Validate governance conditions before action becomes reality.";
+let impactRange = "12–24%";
+let rollout = ["Pilot", "Validation", "Registry", "Audit", "Rollout"];
+
+if(domain.includes("Public") || procurement.includes("Public")){
+  pilotScope = "Procurement approval synchronization";
+  pilotScopeText = "Control supplier approval, documentation and procurement decision states before execution proceeds.";
+  controlLayer = "Procurement governance layer";
+  controlLayerText = "Apply execution-time validation to procurement decisions, approval chains and supplier records.";
+  impactRange = before < 40 ? "24–41%" : "18–34%";
+  rollout = ["Procurement", "Approval", "Registry", "Audit", "Scale"];
+}
+
+if(domain.includes("Infrastructure") || compliance.includes("Critical")){
+  pilotScope = "Critical execution continuity";
+  pilotScopeText = "Control high-risk operational dependencies where delayed verification can create structural failure.";
+  controlLayer = "Infrastructure execution layer";
+  controlLayerText = "Synchronize governance, registry and audit continuity across critical execution states.";
+  impactRange = before < 40 ? "28–46%" : "20–36%";
+  rollout = ["Control Point", "Dependencies", "Registry", "Continuity", "Expansion"];
+}
+
+if(domain.includes("Financial")){
+  pilotScope = "Transaction execution integrity";
+  pilotScopeText = "Validate payment, approval and ledger states before financial execution is committed.";
+  controlLayer = "Financial execution control";
+  controlLayerText = "Connect validation, decision, registry and audit into one execution-time control layer.";
+  impactRange = before < 40 ? "22–38%" : "16–31%";
+  rollout = ["Payment", "Validation", "Ledger", "Audit", "Institution"];
+}
+
+if(domain.includes("Enterprise")){
+  pilotScope = "Operational execution control";
+  pilotScopeText = "Start with one workflow where approvals, suppliers and operational dependencies create drift.";
+  controlLayer = "Enterprise governance layer";
+  controlLayerText = "Apply EXECUTIA above existing systems without replacing current platforms.";
+  impactRange = before < 40 ? "18–32%" : "10–22%";
+  rollout = ["Workflow", "Validation", "Registry", "Audit", "Rollout"];
+}
+
+setText("pilot-scope", pilotScope);
+setText("pilot-scope-text", pilotScopeText);
+setText("control-layer", controlLayer);
+setText("control-layer-text", controlLayerText);
+setText("impact-range", impactRange);
+
+setText("rollout-1", rollout[0]);
+setText("rollout-2", rollout[1]);
+setText("rollout-3", rollout[2]);
+setText("rollout-4", rollout[3]);
+setText("rollout-5", rollout[4]);
+
 
 })();
 </script>
