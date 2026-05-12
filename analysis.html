@@ -1269,8 +1269,8 @@ localStorage.setItem(
 
 
 
-/* Real engine continuity propagation */
-(function(){
+/* Real continuity status model */
+(async function(){
 
 try{
 
@@ -1288,12 +1288,17 @@ try{
       ) || "{}"
     );
 
-  const continuity = {
+  const baseContinuity = {
 
     execution_id:
       runtime.execution_id ||
       session.execution_id ||
       "EXE-LOCAL",
+
+    status:
+      runtime.status ||
+      session.status ||
+      "ACTIVE",
 
     governance_state:
       runtime.governance_state ||
@@ -1317,15 +1322,54 @@ try{
 
   };
 
+  const response = await fetch(
+    "/api/execution/continuity",
+    {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(baseContinuity)
+    }
+  );
+
+  const model = await response.json();
+
+  const continuity = {
+    ...baseContinuity,
+    continuity_status:
+      model.continuity_status ||
+      session.continuity_status ||
+      "STABLE",
+    continuity_model:
+      model.source ||
+      "EXECUTIA_CONTINUITY_MODEL"
+  };
+
   localStorage.setItem(
     "executia_continuity_state",
     JSON.stringify(continuity)
   );
 
+  setText(
+    "session-continuity",
+    String(continuity.continuity_status).toUpperCase()
+  );
+
+  setText(
+    "proof-registry",
+    String(continuity.registry_state).toUpperCase()
+  );
+
+  setText(
+    "proof-audit",
+    String(continuity.audit_state).toUpperCase()
+  );
+
 }catch(err){
 
   console.error(
-    "CONTINUITY_PROPAGATION_FAILED",
+    "CONTINUITY_MODEL_FAILED",
     err
   );
 
@@ -1361,7 +1405,10 @@ try{
       normalized.audit_state || "ACTIVE",
 
     continuity_score:
-      normalized.continuity_score || 88
+      normalized.continuity_score || 88,
+
+    continuity_status:
+      normalized.continuity_status || null
   };
 
   const res = await fetch(

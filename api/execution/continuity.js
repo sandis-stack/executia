@@ -68,86 +68,40 @@ function deriveContinuityStatus(input = {}){
   return "STABLE";
 }
 
-const REGISTRY = globalThis.EXECUTIA_REGISTRY || [];
-globalThis.EXECUTIA_REGISTRY = REGISTRY;
+export default async function handler(req,res){
 
-export default async function handler(req, res) {
-
-  if(req.method === "GET"){
-
-    return res.status(200).json({
-      ok:true,
-      sessions: REGISTRY.slice(-25).reverse()
-    });
-
-  }
-
-  if(req.method !== "POST"){
-
+  if(req.method !== "POST" && req.method !== "GET"){
     return res.status(405).json({
       ok:false,
       error:"METHOD_NOT_ALLOWED"
     });
-
   }
 
-  try{
+  const source =
+    req.method === "POST"
+      ? (req.body || {})
+      : (req.query || {});
 
-    const body = req.body || {};
+  const continuity_status = deriveContinuityStatus(source);
 
-    const session = {
-
-      ok:true,
-
-      session_id:
-        "SES-" + Date.now(),
-
-      execution_id:
-        body.execution_id ||
-        ("EXE-" + Date.now()),
-
-      status:
-        body.status || "ACTIVE",
-
-      governance_state:
-        body.governance_state || "INTERPRETED",
-
-      registry_state:
-        body.registry_state || "COMMITTED",
-
-      audit_state:
-        body.audit_state || "ACTIVE",
-
-      continuity_score:
-        body.continuity_score || 88,
-
-      continuity_status:
-        deriveContinuityStatus(body),
-
-      created_at:
-        new Date().toISOString(),
-
-      events:
-        body.events || [
-          "SESSION_CREATED",
-          "EXECUTION_REGISTERED",
-          "GOVERNANCE_PROPAGATED",
-          "AUDIT_CONTINUITY_ACTIVE"
-        ]
-
-    };
-
-    REGISTRY.push(session);
-
-    return res.status(200).json(session);
-
-  }catch(err){
-
-    return res.status(500).json({
-      ok:false,
-      error:"EXECUTION_REGISTRY_FAILED"
-    });
-
-  }
-
+  return res.status(200).json({
+    ok:true,
+    source:"EXECUTIA_CONTINUITY_MODEL",
+    continuity_status,
+    allowed_states:[
+      "APPROVED",
+      "BLOCKED",
+      "REVIEW",
+      "CRITICAL",
+      "STABLE"
+    ],
+    input:{
+      status:source.status || null,
+      governance_state:source.governance_state || null,
+      registry_state:source.registry_state || null,
+      audit_state:source.audit_state || null,
+      continuity_score:source.continuity_score || null
+    },
+    generated_at:new Date().toISOString()
+  });
 }

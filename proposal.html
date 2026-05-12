@@ -1367,14 +1367,25 @@ setInterval(pushEvent, 2200);
   }
 
   setText("proposal-scope", input.process || input.project || "Execution control pilot");
-  setText("proposal-risk", (input.risk || input.governance || session.status || "INTERPRETED").toUpperCase());
+
+  setText(
+    "proposal-risk",
+    (
+      continuity.continuity_status ||
+      session.continuity_status ||
+      input.risk ||
+      input.governance ||
+      session.status ||
+      "INTERPRETED"
+    ).toUpperCase()
+  );
   
-setText(
-  "proposal-continuity",
-  continuity.continuity_score ||
-  session.continuity_score ||
-  "88"
-);
+  setText(
+    "proposal-continuity",
+    continuity.continuity_status
+      ? continuity.continuity_status + " / " + (continuity.continuity_score || session.continuity_score || "88")
+      : (session.continuity_status || session.continuity_score || "88")
+  );
 
 })();
 </script>
