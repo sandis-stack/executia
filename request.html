@@ -26,7 +26,41 @@
   </section>
   <section class="section soft">
     <div class="wrap form-grid">
-      <form id="request-form" class="form-card">
+      
+<section class="section soft" id="prefill-summary" style="display:none">
+  <div class="wrap">
+
+    <span class="kicker">EXECUTION ANALYSIS DETECTED</span>
+
+    <div class="grid-3" style="margin-top:28px">
+
+      <div class="card">
+        <span class="tag">Pilot Scope</span>
+        <h3 id="prefill-pilot-scope">Execution control point</h3>
+        <p>Recommended first execution layer.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Exposure</span>
+        <h3 id="prefill-exposure">MODERATE</h3>
+        <p>Projected governance and procurement exposure level.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Forecast</span>
+        <h3 id="prefill-forecast-title">Stabilization Potential</h3>
+        <p id="prefill-forecast">
+          Operational stabilization potential detected.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<form id="request-form" class="form-card">
         <div class="field"><label for="organization">Organization</label><input class="input" id="organization" name="organization" required placeholder="Company, institution or project"></div>
         <div class="field"><label for="operator">Operator</label><input class="input" id="operator" name="operator" required placeholder="Your name"></div>
         <div class="field"><label for="email">Email</label><input class="input" id="email" name="email" type="email" required placeholder="name@organization.com"></div>
@@ -58,5 +92,83 @@
   <div class="footer-bottom"><span>© EXECUTIA</span><span>Execution Control Standard</span></div>
 </footer>
 <script src="/assets/app.js" defer></script>
+
+<script>
+
+(function(){
+
+const params = new URLSearchParams(window.location.search);
+
+if(!params.get("prefill")) return;
+
+const data = JSON.parse(
+  localStorage.getItem("executia_execution_input") || "{}"
+);
+
+document.getElementById("prefill-summary").style.display = "block";
+
+function setText(id, value){
+  const el = document.getElementById(id);
+  if(el) el.textContent = value;
+}
+
+const governance = data.governance || "";
+const procurement = data.procurement || "";
+const compliance = data.compliance || "";
+const domain = data.domain || "";
+
+let exposure = "MODERATE";
+let forecast = "Operational stabilization potential detected.";
+let pilot = "Execution control point";
+
+if(governance.includes("Multi") || compliance.includes("Critical")){
+  exposure = "HIGH";
+}
+
+if(procurement.includes("Public")){
+  pilot = "Procurement governance synchronization";
+}
+
+if(domain.includes("Infrastructure")){
+  pilot = "Critical execution continuity";
+}
+
+if(domain.includes("Financial")){
+  pilot = "Transaction execution integrity";
+}
+
+if(exposure === "HIGH"){
+  forecast =
+    "Strong stabilization potential detected across governance and operational coordination.";
+}
+
+setText("prefill-pilot-scope", pilot);
+setText("prefill-exposure", exposure);
+setText("prefill-forecast", forecast);
+
+const fields = document.querySelectorAll("input, textarea");
+
+fields.forEach(function(field){
+
+  const name = (field.name || "").toLowerCase();
+
+  if(name.includes("project") && data.project){
+    field.value = data.project;
+  }
+
+  if(name.includes("budget") && data.budget){
+    field.value = data.budget;
+  }
+
+  if(name.includes("scope") && pilot){
+    field.value =
+      "Suggested EXECUTIA pilot: " + pilot;
+  }
+
+});
+
+})();
+</script>
+
 </body>
 </html>
