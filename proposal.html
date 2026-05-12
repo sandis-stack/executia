@@ -1387,6 +1387,47 @@ setInterval(pushEvent, 2200);
       : (session.continuity_status || session.continuity_score || "88")
   );
 
+  const proposalPrefill = {
+    organization:
+      input.organization ||
+      input.company ||
+      input.institution ||
+      "",
+
+    process:
+      input.process ||
+      input.project ||
+      input.scope ||
+      "Execution control pilot",
+
+    governance_state:
+      continuity.continuity_status ||
+      session.continuity_status ||
+      input.governance ||
+      input.risk ||
+      "STABLE",
+
+    continuity:
+      continuity.continuity_status
+        ? continuity.continuity_status + " / " + (continuity.continuity_score || session.continuity_score || "88")
+        : (session.continuity_status || session.continuity_score || "88"),
+
+    pilot_scope:
+      input.process ||
+      input.project ||
+      "Controlled execution point",
+
+    sector:
+      input.domain ||
+      input.sector ||
+      "Other controlled execution"
+  };
+
+  localStorage.setItem(
+    "executia_proposal_prefill",
+    JSON.stringify(proposalPrefill)
+  );
+
 })();
 </script>
 </body>

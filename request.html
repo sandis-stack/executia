@@ -94,78 +94,132 @@
 <script src="/assets/app.js" defer></script>
 
 <script>
-
 (function(){
 
-const params = new URLSearchParams(window.location.search);
-
-if(!params.get("prefill")) return;
-
-const data = JSON.parse(
-  localStorage.getItem("executia_execution_input") || "{}"
-);
-
-document.getElementById("prefill-summary").style.display = "block";
-
-function setText(id, value){
+function setText(id,value){
   const el = document.getElementById(id);
   if(el) el.textContent = value;
 }
 
-const governance = data.governance || "";
-const procurement = data.procurement || "";
-const compliance = data.compliance || "";
-const domain = data.domain || "";
-
-let exposure = "MODERATE";
-let forecast = "Operational stabilization potential detected.";
-let pilot = "Execution control point";
-
-if(governance.includes("Multi") || compliance.includes("Critical")){
-  exposure = "HIGH";
+function setValue(id,value){
+  const el = document.getElementById(id);
+  if(el && value) el.value = value;
 }
 
-if(procurement.includes("Public")){
-  pilot = "Procurement governance synchronization";
-}
+function normalizeSector(value){
+  const v = String(value || "").toLowerCase();
 
-if(domain.includes("Infrastructure")){
-  pilot = "Critical execution continuity";
-}
-
-if(domain.includes("Financial")){
-  pilot = "Transaction execution integrity";
-}
-
-if(exposure === "HIGH"){
-  forecast =
-    "Strong stabilization potential detected across governance and operational coordination.";
-}
-
-setText("prefill-pilot-scope", pilot);
-setText("prefill-exposure", exposure);
-setText("prefill-forecast", forecast);
-
-const fields = document.querySelectorAll("input, textarea");
-
-fields.forEach(function(field){
-
-  const name = (field.name || "").toLowerCase();
-
-  if(name.includes("project") && data.project){
-    field.value = data.project;
+  if(v.includes("procurement") || v.includes("public")){
+    return "Public procurement";
   }
 
-  if(name.includes("budget") && data.budget){
-    field.value = data.budget;
+  if(v.includes("financial") || v.includes("transaction") || v.includes("payment")){
+    return "Financial control";
   }
 
-  if(name.includes("scope") && pilot){
-    field.value =
-      "Suggested EXECUTIA pilot: " + pilot;
+  if(v.includes("compliance")){
+    return "Compliance execution";
   }
 
-});
+  if(v.includes("infrastructure")){
+    return "Infrastructure operation";
+  }
+
+  if(v.includes("ai")){
+    return "AI agent governance";
+  }
+
+  return "Other controlled execution";
+}
+
+const params = new URLSearchParams(window.location.search);
+const shouldPrefill = params.get("prefill") === "1";
+
+if(!shouldPrefill) return;
+
+const proposal =
+  JSON.parse(localStorage.getItem("executia_proposal_prefill") || "{}");
+
+const continuity =
+  JSON.parse(localStorage.getItem("executia_continuity_state") || "{}");
+
+const input =
+  JSON.parse(
+    localStorage.getItem("executia_pilot_mode_input") ||
+    localStorage.getItem("executia_execution_input") ||
+    "{}"
+  );
+
+const session =
+  JSON.parse(localStorage.getItem("executia_engine_session") || "{}");
+
+const organization =
+  proposal.organization ||
+  input.organization ||
+  input.company ||
+  input.institution ||
+  "";
+
+const process =
+  proposal.process ||
+  input.process ||
+  input.project ||
+  input.scope ||
+  "Controlled execution process";
+
+const governanceState =
+  proposal.governance_state ||
+  continuity.continuity_status ||
+  session.continuity_status ||
+  input.governance ||
+  input.risk ||
+  "STABLE";
+
+const continuityValue =
+  proposal.continuity ||
+  continuity.continuity_status ||
+  session.continuity_status ||
+  continuity.continuity_score ||
+  session.continuity_score ||
+  "STABLE";
+
+const pilotScope =
+  proposal.pilot_scope ||
+  process ||
+  "Execution control point";
+
+const sector =
+  normalizeSector(
+    proposal.sector ||
+    input.domain ||
+    input.sector ||
+    process
+  );
+
+const contextText =
+  "Proposal-linked EXECUTIA pilot request.\n\n" +
+  "Process: " + process + "\n" +
+  "Governance state: " + governanceState + "\n" +
+  "Continuity: " + continuityValue + "\n" +
+  "Pilot scope: " + pilotScope;
+
+const outcomeText =
+  "Validate execution before action, synchronize registry continuity and produce auditable execution-time proof.";
+
+const summary = document.getElementById("prefill-summary");
+if(summary) summary.style.display = "block";
+
+setText("prefill-pilot-scope", pilotScope);
+setText("prefill-exposure", String(governanceState).toUpperCase());
+setText(
+  "prefill-forecast",
+  "Pilot request prefilled from proposal continuity and governance state."
+);
+
+setValue("organization", organization);
+setValue("sector", sector);
+setValue("context", contextText);
+setValue("outcome", outcomeText);
 
 })();
 </script>
