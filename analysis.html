@@ -106,6 +106,53 @@
 
 
 
+
+<section class="section">
+  <div class="wrap">
+
+    <span class="kicker">LIVE EXECUTION REGISTRY VIEW</span>
+
+    <h2>Registered execution sessions.</h2>
+
+    <p class="lead">
+      EXECUTIA maintains a local registry surface for execution continuity, session replay and governance traceability.
+    </p>
+
+    <div class="card" style="margin-top:28px">
+
+      <div class="state-grid" id="registry-view">
+
+        <div class="state">
+          <span>Session</span>
+          <strong>WAITING</strong>
+        </div>
+
+        <div class="state">
+          <span>Status</span>
+          <strong>WAITING</strong>
+        </div>
+
+        <div class="state">
+          <span>Continuity</span>
+          <strong>WAITING</strong>
+        </div>
+
+        <div class="state">
+          <span>Created</span>
+          <strong>WAITING</strong>
+        </div>
+
+      </div>
+
+      <div class="mono" id="registry-log" style="margin-top:28px">
+        <span>REGISTRY INITIALIZED</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 <section class="section soft">
   <div class="wrap">
 
@@ -783,6 +830,112 @@ setInterval(function(){
 
 
 
+
+
+
+/* Live execution registry view */
+(function(){
+
+const current =
+  JSON.parse(localStorage.getItem("executia_session_registry") || "{}");
+
+let registry =
+  JSON.parse(localStorage.getItem("executia_registry_history") || "[]");
+
+if(current && current.session_id){
+
+  registry.unshift(current);
+
+  const seen = new Set();
+
+  registry = registry.filter(function(item){
+
+    if(!item || !item.session_id) return false;
+
+    if(seen.has(item.session_id)) return false;
+
+    seen.add(item.session_id);
+
+    return true;
+
+  }).slice(0,5);
+
+  localStorage.setItem(
+    "executia_registry_history",
+    JSON.stringify(registry)
+  );
+
+}
+
+const view = document.getElementById("registry-view");
+const log = document.getElementById("registry-log");
+
+if(view && registry.length){
+
+  const latest = registry[0];
+
+  view.innerHTML = "";
+
+  const cells = [
+    ["Session", latest.session_id || "SES-LOCAL"],
+    ["Status", String(latest.status || "LOCAL").toUpperCase()],
+    ["Continuity", latest.continuity_score ? String(latest.continuity_score) : "SYNCHRONIZED"],
+    ["Created", latest.created_at ? new Date(latest.created_at).toLocaleTimeString() : "NOW"]
+  ];
+
+  cells.forEach(function(cell){
+
+    const div = document.createElement("div");
+    div.className = "state";
+
+    const span = document.createElement("span");
+    span.textContent = cell[0];
+
+    const strong = document.createElement("strong");
+    strong.textContent = cell[1];
+
+    div.appendChild(span);
+    div.appendChild(strong);
+    view.appendChild(div);
+
+  });
+
+}
+
+if(log){
+
+  log.innerHTML = "";
+
+  if(registry.length){
+
+    registry.forEach(function(item,index){
+
+      const span = document.createElement("span");
+
+      span.textContent =
+        "#" + (index + 1) +
+        " · " +
+        (item.session_id || "SES-LOCAL") +
+        " · " +
+        String(item.status || "LOCAL").toUpperCase() +
+        " · " +
+        (item.created_at ? new Date(item.created_at).toLocaleTimeString() : "NOW");
+
+      log.appendChild(span);
+
+    });
+
+  } else {
+
+    const span = document.createElement("span");
+    span.textContent = "NO REGISTRY HISTORY";
+    log.appendChild(span);
+
+  }
+
+}
+
+})();
 
 
 /* Execution session registry */
