@@ -25,7 +25,7 @@
     <p>Projected execution stabilization under EXECUTIA governance control.</p>
 
     <div class="mono" style="font-size:42px;line-height:1.15;margin-top:32px">
-      <span><strong>42</strong> → <strong>88</strong></span>
+      <span><strong id="score-before">42</strong> → <strong id="score-after">88</strong></span>
     </div>
 
     <div class="state-grid" style="margin-top:28px">
@@ -35,7 +35,27 @@
       <div class="state"><span>Operational Drift</span><strong>Contained</strong></div>
     </div>
 
-    <div class="actions">
+    
+    <div class="state-grid" style="margin-top:28px">
+      <div class="state"><span>Exposure Level</span><strong id="exposure-level">MODERATE</strong></div>
+      <div class="state"><span>Project Domain</span><strong id="project-domain">Execution structure</strong></div>
+      <div class="state"><span>Budget Signal</span><strong id="project-budget">Not specified</strong></div>
+      <div class="state"><span>Supplier Signal</span><strong id="project-suppliers">Not specified</strong></div>
+    </div>
+
+    <div class="card" style="margin-top:28px">
+      <span class="tag">EXECUTIA Forecast</span>
+      <h3>Stabilization potential</h3>
+      <p id="forecast-text">Operational stabilization potential detected.</p>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <span class="tag">Recommended Pilot</span>
+      <h3>Suggested first control point</h3>
+      <p id="pilot-recommendation">Start with one controlled execution point.</p>
+    </div>
+
+<div class="actions">
       <a class="pill-btn primary" href="/request">Request EXECUTIA Pilot</a>
       <a class="pill-btn" href="/execution">Run new analysis</a>
     </div>
@@ -123,5 +143,71 @@
   <div class="footer-bottom"><span>© EXECUTIA</span><span>Execution Control Standard</span></div>
 </footer>
 <script src="/assets/app.js" defer></script>
+
+<script>
+(function(){
+
+const input = JSON.parse(localStorage.getItem("executia_execution_input") || "{}");
+
+const governance = input.governance || "";
+const procurement = input.procurement || "";
+const compliance = input.compliance || "";
+const domain = input.domain || "";
+const budget = input.budget || "";
+const suppliers = input.suppliers || "";
+
+let before = 58;
+let exposure = "MODERATE";
+let forecast = "Operational stabilization potential detected.";
+let recommendation = "Start with one controlled execution point.";
+
+if(governance.includes("High")) before -= 10;
+if(governance.includes("Multi")) before -= 16;
+if(procurement.includes("Distributed")) before -= 8;
+if(procurement.includes("Multi")) before -= 12;
+if(procurement.includes("Public")) before -= 10;
+if(procurement.includes("Hybrid")) before -= 9;
+if(compliance.includes("Regulated")) before -= 6;
+if(compliance.includes("Multi")) before -= 10;
+if(compliance.includes("Critical")) before -= 14;
+if(domain.includes("Infrastructure")) before -= 6;
+if(domain.includes("Government")) before -= 6;
+if(domain.includes("Public")) before -= 8;
+if(domain.includes("Financial")) before -= 7;
+
+before = Math.max(29, before);
+const after = Math.min(94, before + 42 + (before < 40 ? 7 : 0));
+
+if(before < 40){
+  exposure = "HIGH";
+  forecast = "Strong stabilization potential detected across governance, procurement and coordination layers.";
+  recommendation = "Recommended pilot: governance-controlled execution validation for one high-risk process.";
+} else if(before < 55){
+  exposure = "ELEVATED";
+  forecast = "Material stabilization potential detected. EXECUTIA can reduce fragmentation before execution drift becomes visible.";
+  recommendation = "Recommended pilot: execution integrity layer above procurement and approval flow.";
+} else {
+  exposure = "MODERATE";
+  forecast = "Operational control improvement detected. EXECUTIA can improve audit readiness and execution consistency.";
+  recommendation = "Recommended pilot: controlled execution monitoring for one operational workflow.";
+}
+
+function setText(id, value){
+  const el = document.getElementById(id);
+  if(el) el.textContent = value;
+}
+
+setText("score-before", before);
+setText("score-after", after);
+setText("exposure-level", exposure);
+setText("forecast-text", forecast);
+setText("pilot-recommendation", recommendation);
+setText("project-domain", domain || "Execution structure");
+setText("project-budget", budget || "Not specified");
+setText("project-suppliers", suppliers || "Not specified");
+
+})();
+</script>
+
 </body>
 </html>
