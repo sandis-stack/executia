@@ -44,6 +44,12 @@
 
     <span class="kicker">EXECUTION STRUCTURE</span>
 
+    <div class="state-grid" style="margin-top:28px">
+      <button class="pill-btn" type="button" data-demo-scenario="PROCUREMENT">PROCUREMENT DEMO</button>
+      <button class="pill-btn" type="button" data-demo-scenario="FINANCIAL">FINANCIAL DEMO</button>
+      <button class="pill-btn" type="button" data-demo-scenario="COMPLIANCE">COMPLIANCE DEMO</button>
+    </div>
+
     <form id="execution-analysis-form" class="engine-form" style="margin-top:28px">
 
       <input class="input" name="project" placeholder="Project / execution point" required>
@@ -159,6 +165,89 @@
 <script src="/assets/app.js" defer></script>
 
 <script>
+const EXECUTIA_DEMO_SCENARIOS = {
+  PROCUREMENT:{
+    project:"Public procurement approval chain",
+    domain:"Public procurement",
+    budget:"EUR 2.4M",
+    timeline:"90 days",
+    team:"8 departments / 14 approval points",
+    suppliers:"5 suppliers / multi-vendor structure",
+    governance:"Multi-layered governance",
+    procurement:"Public procurement",
+    compliance:"Regulated environment",
+    scope:"Predefined EXECUTIA procurement demo: supplier approval, tender documentation, authorization chain, registry commitment and audit continuity are validated before procurement execution proceeds.",
+    continuity_status:"REVIEW",
+    proposal_output:"Recommended pilot: procurement governance synchronization with execution-time supplier approval control."
+  },
+  FINANCIAL:{
+    project:"Financial transaction execution integrity",
+    domain:"Financial systems",
+    budget:"EUR 850K transaction flow",
+    timeline:"30 days",
+    team:"Finance, compliance, approval authority",
+    suppliers:"Bank / payment / accounting interfaces",
+    governance:"High governance complexity",
+    procurement:"Centralized procurement",
+    compliance:"Multi-jurisdiction execution",
+    scope:"Predefined EXECUTIA financial demo: payment approval, ledger state, audit synchronization and execution authority are validated before financial commitment.",
+    continuity_status:"APPROVED",
+    proposal_output:"Recommended pilot: transaction execution integrity layer above payment, accounting and audit flow."
+  },
+  COMPLIANCE:{
+    project:"Critical compliance execution control",
+    domain:"Government operations",
+    budget:"Institutional process",
+    timeline:"60 days",
+    team:"Compliance, operations, legal, audit",
+    suppliers:"Internal and external control points",
+    governance:"Multi-layered governance",
+    procurement:"Hybrid procurement",
+    compliance:"Critical infrastructure",
+    scope:"Predefined EXECUTIA compliance demo: authority, legal constraint, operational dependency and audit continuity are checked before execution becomes reality.",
+    continuity_status:"CRITICAL",
+    proposal_output:"Recommended pilot: compliance execution control for one high-risk operational process."
+  }
+};
+
+function fillExecutionForm(data){
+  const form = document.getElementById("execution-analysis-form");
+  if(!form) return;
+
+  Object.keys(data).forEach(function(key){
+    const field = form.querySelector("[name='" + key + "']");
+    if(field) field.value = data[key];
+  });
+}
+
+function startExecutionAnalysis(form){
+  const event = new Event("submit", { bubbles:true, cancelable:true });
+  form.dispatchEvent(event);
+}
+
+document.querySelectorAll("[data-demo-scenario]").forEach(function(button){
+  button.addEventListener("click", function(){
+    const scenarioKey = button.getAttribute("data-demo-scenario");
+    const scenario = EXECUTIA_DEMO_SCENARIOS[scenarioKey];
+
+    if(!scenario) return;
+
+    localStorage.setItem(
+      "executia_demo_scenario",
+      JSON.stringify({
+        scenario:scenarioKey,
+        ...scenario,
+        generated_at:new Date().toISOString()
+      })
+    );
+
+    fillExecutionForm(scenario);
+
+    const form = document.getElementById("execution-analysis-form");
+    if(form) startExecutionAnalysis(form);
+  });
+});
+
 document.getElementById("execution-analysis-form").addEventListener("submit", function(e){
 
 e.preventDefault();
@@ -167,9 +256,22 @@ const data = Object.fromEntries(
   new FormData(e.target).entries()
 );
 
+const activeScenario =
+  JSON.parse(localStorage.getItem("executia_demo_scenario") || "{}");
+
+const enrichedData = {
+  ...data,
+  demo_scenario:
+    activeScenario.scenario || null,
+  continuity_status:
+    activeScenario.continuity_status || null,
+  proposal_output:
+    activeScenario.proposal_output || null
+};
+
 localStorage.setItem(
   "executia_execution_input",
-  JSON.stringify(data)
+  JSON.stringify(enrichedData)
 );
 
 document.getElementById("runtime-panel").style.display = "block";
@@ -220,6 +322,9 @@ fetch("https://execution.executia.io/api/v1/control-request", {
       suppliers: data.suppliers || "",
       timeline: data.timeline || "",
       scope: data.scope || "",
+      demo_scenario: enrichedData.demo_scenario || null,
+      continuity_status: enrichedData.continuity_status || null,
+      proposal_output: enrichedData.proposal_output || null,
       timestamp: new Date().toISOString()
     }
   })
