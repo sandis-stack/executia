@@ -1199,6 +1199,93 @@ localStorage.setItem(
 })();
 
 
+
+/* Engine-backed session persistence */
+(async function(){
+
+try{
+
+  const normalized =
+    JSON.parse(
+      localStorage.getItem("executia_normalized_runtime") || "{}"
+    );
+
+  const payload = {
+    execution_id:
+      normalized.execution_id || null,
+
+    status:
+      normalized.status || "ACTIVE",
+
+    governance_state:
+      normalized.governance_state || "INTERPRETED",
+
+    registry_state:
+      normalized.registry_state || "LOCAL",
+
+    audit_state:
+      normalized.audit_state || "ACTIVE",
+
+    continuity_score:
+      normalized.continuity_score || 88
+  };
+
+  const res = await fetch(
+    "/api/execution/session",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify(payload)
+    }
+  );
+
+  const json = await res.json();
+
+  if(json && json.ok){
+
+    localStorage.setItem(
+      "executia_engine_session",
+      JSON.stringify(json)
+    );
+
+    const current =
+      JSON.parse(
+        localStorage.getItem("executia_session_registry") || "{}"
+      );
+
+    current.session_id =
+      json.session_id || current.session_id;
+
+    current.execution_id =
+      json.execution_id || current.execution_id;
+
+    current.status =
+      json.status || current.status;
+
+    current.continuity_score =
+      json.continuity_score || current.continuity_score;
+
+    localStorage.setItem(
+      "executia_session_registry",
+      JSON.stringify(current)
+    );
+
+  }
+
+}catch(err){
+
+  console.error(
+    "ENGINE_SESSION_PERSISTENCE_FAILED",
+    err
+  );
+
+}
+
+})();
+
+
 /* Runtime response standardization */
 (function(){
 
