@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Execution Analysis — EXECUTIA™ — Execution Control Standard</title>
+  <meta name="description" content="EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.">
+  <link rel="canonical" href="https://executia.io/">
+  <meta property="og:title" content="EXECUTIA™ — Execution Control Standard">
+  <meta property="og:description" content="EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.">
+  <meta property="og:url" content="https://executia.io/">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<header class="site-header"><div class="wrap header-inner"><a class="brand" href="/" aria-label="EXECUTIA entry"><span class="brand-main">EXECUTIA™</span><span class="brand-sub">EXECUTION STANDARD</span></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button><nav class="nav" aria-label="Primary"><a data-nav="entry" href="/">ENTRY</a><a data-nav="global" href="/global">GLOBAL</a><a data-nav="institutional" href="/institutional">INSTITUTIONAL</a><a data-nav="request" href="/request">REQUEST</a></nav><div class="header-cta"><a class="pill-btn" href="https://execution.executia.io/dashboard">Enter engine ↗</a></div></div></header>
+<main class="main">
+
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">PILOT MODE</span>
+    <h1>Map one real execution process.</h1>
+    <p>Submit a real institutional process and EXECUTIA will map governance dependencies, execution risk, continuity state and recommended pilot structure.</p>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="wrap">
+    <span class="kicker">PILOT PROCESS INPUT</span>
+
+    <form id="pilot-mode-form" class="engine-form" style="margin-top:28px">
+      <input class="input" name="organization" placeholder="Organization / institution" required>
+      <input class="input" name="process" placeholder="Process name / execution point" required>
+      <select class="input" name="domain">
+        <option>Public procurement</option>
+        <option>Infrastructure operations</option>
+        <option>Financial execution</option>
+        <option>AI execution governance</option>
+        <option>Enterprise operations</option>
+      </select>
+      <input class="input" name="budget" placeholder="Budget / transaction value">
+      <input class="input" name="actors" placeholder="Departments / actors involved">
+      <input class="input" name="systems" placeholder="Existing systems / platforms">
+      <select class="input" name="risk">
+        <option>Moderate risk</option>
+        <option>High risk</option>
+        <option>Critical execution risk</option>
+      </select>
+      <textarea class="input" name="description" rows="5" placeholder="Describe approvals, dependencies, delays, audit gaps, supplier or execution problems."></textarea>
+      <button class="pill-btn primary" type="submit">Generate Pilot Structure</button>
+    </form>
+
+    <div id="pilot-runtime" class="state-grid" style="display:none;margin-top:32px">
+      <div class="state"><span>Process</span><strong>MAPPING</strong></div>
+      <div class="state"><span>Dependencies</span><strong>ANALYZING</strong></div>
+      <div class="state"><span>Governance</span><strong>INTERPRETING</strong></div>
+      <div class="state"><span>Pilot</span><strong>GENERATING</strong></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand footer-logo" href="/" aria-label="EXECUTIA entry">EXECUTIA™</a>
+      <p>Execution Control Standard.</p>
+      <p>ENTRY → ENGINE → REGISTRY</p>
+    </div>
+    <div class="footer-col"><h4>System</h4><a href="/">Entry</a><a href="https://execution.executia.io/dashboard">Engine</a><a href="/standard">Standard</a></div>
+    <div class="footer-col"><h4>Structure</h4><a href="/global">Global</a><a href="/institutional">Institutional</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="/contact">Contact</a><a href="/request">Request Pilot</a><a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener">LinkedIn</a></div>
+  </div>
+  <div class="footer-bottom"><span>© EXECUTIA</span><span>Execution Control Standard</span></div>
+</footer>
+<script src="/assets/app.js" defer></script>
+
+<script>
+document.getElementById("execution-analysis-form").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const data = Object.fromEntries(
+  new FormData(e.target).entries()
+);
+
+localStorage.setItem(
+  "executia_execution_input",
+  JSON.stringify(data)
+);
+
+document.getElementById("runtime-panel").style.display = "block";
+
+fetch("https://execution.executia.io/api/v1/control-request", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    source: "EXECUTIA_ENTRY",
+    runtime: "COMMERCIAL_ANALYSIS",
+
+    execution_type:
+      (data.domain || "").toUpperCase().includes("PROCUREMENT")
+        ? "PROCUREMENT"
+        : (data.domain || "").toUpperCase().includes("FINANCIAL")
+          ? "FINANCIAL"
+          : (data.domain || "").toUpperCase().includes("INFRASTRUCTURE")
+            ? "INFRASTRUCTURE"
+            : "GENERAL_EXECUTION",
+
+    governance_level:
+      (data.governance || "").toUpperCase().includes("MULTI")
+        ? "MULTI_LAYER"
+        : (data.governance || "").toUpperCase().includes("HIGH")
+          ? "HIGH"
+          : "STANDARD",
+
+    risk_profile:
+      (data.compliance || "").toUpperCase().includes("CRITICAL")
+        ? "HIGH"
+        : (data.compliance || "").toUpperCase().includes("REGULATED")
+          ? "MODERATE"
+          : "STANDARD",
+
+    requested_action: "EXECUTION_VALIDATION",
+
+    compliance_mode: (data.compliance || "").toUpperCase(),
+
+    execution_scope: {
+      project: data.project || "",
+      domain: data.domain || "",
+      governance: data.governance || "",
+      procurement: data.procurement || "",
+      compliance: data.compliance || "",
+      budget: data.budget || "",
+      suppliers: data.suppliers || "",
+      timeline: data.timeline || "",
+      scope: data.scope || "",
+      timestamp: new Date().toISOString()
+    }
+  })
+})
+.then(async function(res){
+
+  try{
+    const json = await res.json();
+
+    localStorage.setItem(
+      "executia_runtime_response",
+      JSON.stringify(json)
+    );
+
+  }catch(err){
+
+    localStorage.setItem(
+      "executia_runtime_response",
+      JSON.stringify({
+        ok:false,
+        error:"INVALID_RUNTIME_RESPONSE"
+      })
+    );
+
+  }
+
+})
+.catch(function(err){
+
+  localStorage.setItem(
+    "executia_runtime_response",
+    JSON.stringify({
+      ok:false,
+      error:"ENGINE_CONNECTION_FAILED"
+    })
+  );
+
+});
+
+const title = document.getElementById("runtime-title");
+const text  = document.getElementById("runtime-text");
+
+const r1 = document.getElementById("r1");
+const r2 = document.getElementById("r2");
+const r3 = document.getElementById("r3");
+const r4 = document.getElementById("r4");
+
+setTimeout(function(){
+  r1.textContent = "Validated";
+  title.textContent = "Governance structure mapped";
+  text.textContent  = "Execution authority and approval dependencies synchronized.";
+}, 800);
+
+setTimeout(function(){
+  r2.textContent = "Analyzed";
+  title.textContent = "Procurement dependencies detected";
+  text.textContent  = "Supplier structure and operational fragmentation evaluated.";
+}, 1800);
+
+setTimeout(function(){
+  r3.textContent = "Stabilized";
+  title.textContent = "Execution coordination modeled";
+  text.textContent  = "Operational continuity and execution drift calculated.";
+}, 3000);
+
+setTimeout(function(){
+  r4.textContent = "Generated";
+  title.textContent = "Execution integrity model completed";
+  text.textContent  = "Preparing institutional execution intelligence report.";
+}, 4200);
+
+setTimeout(function(){
+  window.location.href = "/analysis";
+}, 5600);
+
+});
+</script>
+
+<script>
+document.getElementById("pilot-mode-form").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const data = Object.fromEntries(new FormData(e.target).entries());
+
+  localStorage.setItem("executia_pilot_mode_input", JSON.stringify(data));
+  localStorage.setItem("executia_execution_input", JSON.stringify({
+    project: data.process,
+    domain: data.domain,
+    budget: data.budget,
+    governance: data.risk,
+    procurement: data.domain,
+    compliance: data.risk,
+    scope: data.description
+  }));
+
+  document.getElementById("pilot-runtime").style.display = "grid";
+
+  setTimeout(function(){
+    window.location.href = "/analysis";
+  }, 1800);
+});
+</script>
+</body>
+
+
+</html>

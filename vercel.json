@@ -15,6 +15,10 @@
       "dest": "/execution.html"
     },
     {
+      "src": "^/pilot-mode$",
+      "dest": "/pilot-mode.html"
+    },
+    {
       "src": "^/$",
       "dest": "/index.html"
     },
