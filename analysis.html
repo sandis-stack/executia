@@ -123,13 +123,12 @@
       EXECUTIA maps how request, governance, procurement, registry and audit states depend on each other across execution continuity.
     </p>
 
-    <div class="system-flow" style="margin-top:28px">
-      <div class="flow-step">Request</div>
-      <div class="flow-step">Governance</div>
-      <div class="flow-step">Procurement</div>
-      <div class="flow-step">Decision</div>
-      <div class="flow-step">Registry</div>
-      <div class="flow-step">Audit</div>
+    <div
+      class="system-flow"
+      style="margin-top:28px"
+      id="runtime-governance-graph"
+    >
+      <div class="flow-step">INITIALIZING</div>
     </div>
 
     <div class="grid-3" style="margin-top:28px">
@@ -1771,6 +1770,107 @@ setInterval(function(){
 
 <script>
 
+
+
+
+/* Runtime governance graph */
+(async function(){
+
+const graph =
+  document.getElementById(
+    "runtime-governance-graph"
+  );
+
+if(!graph) return;
+
+try{
+
+  const res =
+    await fetch("/api/execution/session");
+
+  const json =
+    await res.json();
+
+  graph.innerHTML = "";
+
+  const sessions =
+    json.sessions || [];
+
+  if(!sessions.length){
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "flow-step";
+
+    div.textContent =
+      "NO EXECUTIONS";
+
+    graph.appendChild(div);
+
+    return;
+
+  }
+
+  const nodes = [
+    "REQUEST",
+    "GOVERNANCE",
+    "DECISION",
+    "REGISTRY",
+    "AUDIT"
+  ];
+
+  nodes.forEach(function(node){
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "flow-step";
+
+    let score = 0;
+
+    sessions.forEach(function(session){
+
+      if(session.continuity_score){
+        score += session.continuity_score;
+      }
+
+    });
+
+    const avg =
+      Math.round(
+        score / sessions.length
+      );
+
+    div.textContent =
+      node +
+      " · " +
+      avg;
+
+    graph.appendChild(div);
+
+  });
+
+}catch(err){
+
+  graph.innerHTML = "";
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "flow-step";
+
+  div.textContent =
+    "GRAPH UNAVAILABLE";
+
+  graph.appendChild(div);
+
+}
+
+})();
 
 
 /* Multi-session governance history */
