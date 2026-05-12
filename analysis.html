@@ -61,6 +61,13 @@
     </div>
 
     <div class="state-grid" style="margin-top:28px">
+      <div class="state"><span>Engine Connection</span><strong id="engine-status">CHECKING</strong></div>
+      <div class="state"><span>Runtime Response</span><strong id="engine-response">PENDING</strong></div>
+      <div class="state"><span>Substrate Link</span><strong id="substrate-link">ENTRY → ENGINE</strong></div>
+      <div class="state"><span>Analysis Mode</span><strong id="analysis-mode">HYBRID</strong></div>
+    </div>
+
+    <div class="state-grid" style="margin-top:28px">
       <div class="state"><span>Execution Stability</span><strong>Projected</strong></div>
       <div class="state"><span>Governance Integrity</span><strong>Aligned</strong></div>
       <div class="state"><span>Procurement Exposure</span><strong>Reduced</strong></div>
@@ -552,6 +559,27 @@ setText("pilot-recommendation", recommendation);
 setText("project-domain", domain || "Execution structure");
 setText("project-budget", budget || "Not specified");
 setText("project-suppliers", suppliers || "Not specified");
+
+
+/* Engine connection status */
+const runtimeResponse = JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
+
+if(runtimeResponse && Object.keys(runtimeResponse).length){
+  if(runtimeResponse.ok){
+    setText("engine-status", "CONNECTED");
+    setText("engine-response", "RECEIVED");
+    setText("analysis-mode", "RUNTIME");
+  } else {
+    setText("engine-status", "FALLBACK");
+    setText("engine-response", runtimeResponse.error || "NO_ENGINE_RESPONSE");
+    setText("analysis-mode", "LOCAL INTELLIGENCE");
+  }
+} else {
+  setText("engine-status", "LOCAL");
+  setText("engine-response", "NO_RUNTIME_RESPONSE");
+  setText("analysis-mode", "LOCAL INTELLIGENCE");
+}
+
 
 
 /* Automatic pilot proposal */
