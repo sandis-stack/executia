@@ -105,6 +105,61 @@
 </section>
 
 
+
+<section class="section soft">
+  <div class="wrap">
+
+    <span class="kicker">EXECUTION SESSION REGISTRY</span>
+
+    <h2>Execution continuity memory.</h2>
+
+    <p class="lead">
+      EXECUTIA maintains execution continuity through structured runtime session materialization.
+    </p>
+
+    <div class="grid-4" style="margin-top:28px">
+
+      <div class="card">
+        <span class="tag">Session ID</span>
+        <h3 id="session-id">SES-LOCAL</h3>
+        <p>Execution session continuity reference.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Execution State</span>
+        <h3 id="session-state">ACTIVE</h3>
+        <p>Current runtime governance state.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Continuity</span>
+        <h3 id="session-continuity">SYNCHRONIZED</h3>
+        <p>Execution continuity synchronization status.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Replay</span>
+        <h3 id="session-replay">AVAILABLE</h3>
+        <p>Structured execution replay capability.</p>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top:28px">
+
+      <span class="tag">Execution Memory</span>
+
+      <div class="mono" id="session-memory" style="margin-top:18px">
+        <span>SESSION INITIALIZED</span>
+        <span>RUNTIME CONTINUITY ACTIVE</span>
+        <span>EXECUTION MEMORY LINKED</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 <section class="section soft">
   <div class="wrap">
 
@@ -727,6 +782,91 @@ setInterval(function(){
 }, 2600);
 
 
+
+
+
+/* Execution session registry */
+(function(){
+
+const normalized =
+  JSON.parse(localStorage.getItem("executia_normalized_runtime") || "{}");
+
+const sessionId =
+  "SES-" +
+  Math.random().toString(36).substring(2,8).toUpperCase();
+
+setText("session-id", sessionId);
+
+const state =
+  normalized.status ||
+  "ACTIVE";
+
+setText(
+  "session-state",
+  String(state).toUpperCase()
+);
+
+if(normalized.continuity_score){
+
+  if(normalized.continuity_score >= 85){
+    setText("session-continuity","HIGH");
+  }
+
+  else if(normalized.continuity_score >= 65){
+    setText("session-continuity","STABLE");
+  }
+
+  else{
+    setText("session-continuity","FRAGMENTED");
+  }
+
+}
+
+const memory = document.getElementById("session-memory");
+
+if(memory){
+
+  const logs = [
+    "SESSION INITIALIZED",
+    "EXECUTION PAYLOAD MATERIALIZED",
+    "RUNTIME GOVERNANCE LINKED",
+    "EXECUTION TIMELINE SYNCHRONIZED",
+    "AUDIT CONTINUITY ACTIVE",
+    "EXECUTION MEMORY REGISTERED"
+  ];
+
+  memory.innerHTML = "";
+
+  logs.forEach(function(log){
+
+    const span = document.createElement("span");
+
+    const ts =
+      new Date().toLocaleTimeString();
+
+    span.textContent =
+      ts + " · " + log;
+
+    memory.appendChild(span);
+
+  });
+
+}
+
+const session = {
+  session_id: sessionId,
+  execution_id: normalized.execution_id || null,
+  status: normalized.status || "LOCAL",
+  continuity_score: normalized.continuity_score || null,
+  created_at: new Date().toISOString()
+};
+
+localStorage.setItem(
+  "executia_session_registry",
+  JSON.stringify(session)
+);
+
+})();
 
 
 /* Runtime response standardization */
