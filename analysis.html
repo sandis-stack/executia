@@ -104,6 +104,109 @@
   </div>
 </section>
 
+
+<section class="section soft">
+  <div class="wrap">
+
+    <span class="kicker">EXECUTION TIMELINE</span>
+
+    <h2>Materialized execution sequence.</h2>
+
+    <p class="lead">
+      EXECUTIA records synchronized execution states before operational reality changes.
+    </p>
+
+    <div class="card" style="margin-top:32px">
+
+      <div class="system-flow">
+
+        <div class="flow-step">REQUEST</div>
+        <div class="flow-step">VALIDATION</div>
+        <div class="flow-step">PROCUREMENT</div>
+        <div class="flow-step">DECISION</div>
+        <div class="flow-step">REGISTRY</div>
+        <div class="flow-step">AUDIT</div>
+
+      </div>
+
+      <div class="state-grid" style="margin-top:28px">
+
+        <div class="state">
+          <span>Request</span>
+          <strong id="timeline-1">RECEIVED</strong>
+        </div>
+
+        <div class="state">
+          <span>Validation</span>
+          <strong id="timeline-2">PROCESSING</strong>
+        </div>
+
+        <div class="state">
+          <span>Decision</span>
+          <strong id="timeline-3">PENDING</strong>
+        </div>
+
+        <div class="state">
+          <span>Registry</span>
+          <strong id="timeline-4">WAITING</strong>
+        </div>
+
+      </div>
+
+      <div class="mono" style="margin-top:28px">
+
+        <span id="event-1">06:41:12 · REQUEST RECEIVED</span>
+        <span id="event-2">06:41:14 · GOVERNANCE VALIDATION INITIALIZED</span>
+        <span id="event-3">06:41:17 · PROCUREMENT STRUCTURE ANALYZED</span>
+        <span id="event-4">06:41:21 · EXECUTION DECISION MATERIALIZED</span>
+        <span id="event-5">06:41:24 · REGISTRY SYNCHRONIZATION CONFIRMED</span>
+        <span id="event-6">06:41:27 · AUDIT CONTINUITY ACTIVE</span>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+
+    <span class="kicker">EXECUTION PROOF LAYER</span>
+
+    <h2>Execution continuity reference.</h2>
+
+    <div class="grid-4" style="margin-top:28px">
+
+      <div class="card">
+        <span class="tag">Execution ID</span>
+        <h3 id="proof-id">EXE-RUNTIME</h3>
+        <p>Runtime execution reference.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Registry State</span>
+        <h3 id="proof-registry">SYNCHRONIZED</h3>
+        <p>Execution registry continuity status.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Audit Chain</span>
+        <h3 id="proof-audit">ACTIVE</h3>
+        <p>Structured execution audit continuity.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Control Layer</span>
+        <h3 id="proof-control">EXECUTIA</h3>
+        <p>Execution-time governance validation.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 <section class="section soft">
   <div class="wrap">
     <span class="kicker">ENGINE DECISION INTERPRETATION</span>
@@ -588,6 +691,42 @@ setText("project-budget", budget || "Not specified");
 setText("project-suppliers", suppliers || "Not specified");
 
 
+
+/* Execution timeline runtime */
+const timelineStates = [
+  ["RECEIVED","PROCESSING","PENDING","WAITING"],
+  ["VALIDATED","ANALYZING","REVIEWING","SYNCING"],
+  ["CONFIRMED","COMPLETE","MATERIALIZED","RECORDED"]
+];
+
+let timelineStep = 0;
+
+setInterval(function(){
+
+  timelineStep = (timelineStep + 1) % timelineStates.length;
+
+  const states = timelineStates[timelineStep];
+
+  const ids = [
+    "timeline-1",
+    "timeline-2",
+    "timeline-3",
+    "timeline-4"
+  ];
+
+  ids.forEach(function(id,i){
+
+    const el = document.getElementById(id);
+
+    if(el){
+      el.textContent = states[i];
+    }
+
+  });
+
+}, 2600);
+
+
 /* Engine decision interpretation */
 const engineStatus =
   runtimeResponse.status ||
@@ -661,6 +800,15 @@ else {
   setText("control-outcome-text", "Governance, procurement and execution intelligence remain available for pilot evaluation.");
 }
 
+
+
+
+/* Dynamic execution proof */
+const proofId =
+  "EXECUTION-" +
+  Math.random().toString(36).substring(2,8).toUpperCase();
+
+setText("proof-id", proofId);
 
 
 /* Engine connection status */
