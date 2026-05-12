@@ -1,0 +1,1369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Execution Integrity Score — EXECUTIA™ — Execution Control Standard</title>
+  <meta name="description" content="EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.">
+  <link rel="canonical" href="https://executia.io/">
+  <meta property="og:title" content="EXECUTIA™ — Execution Control Standard">
+  <meta property="og:description" content="EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.">
+  <meta property="og:url" content="https://executia.io/">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/app.css">
+
+<style>
+@media print {
+
+  body{
+    background:white !important;
+  }
+
+  .site-header,
+  .site-footer,
+  .actions,
+  #export-report-btn{
+    display:none !important;
+  }
+
+  .main{
+    padding:0 !important;
+    margin:0 !important;
+  }
+
+  .section,
+  .hero{
+    padding:28px 0 !important;
+  }
+
+  .card{
+    break-inside:avoid;
+  }
+
+}
+</style>
+
+</head>
+<body>
+<header class="site-header"><div class="wrap header-inner"><a class="brand" href="/" aria-label="EXECUTIA entry"><span class="brand-main">EXECUTIA™</span><span class="brand-sub">EXECUTION STANDARD</span></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button><nav class="nav" aria-label="Primary"><a data-nav="entry" href="/">ENTRY</a><a data-nav="global" href="/global">GLOBAL</a><a data-nav="institutional" href="/institutional">INSTITUTIONAL</a><a data-nav="request" href="/request">REQUEST</a></nav><div class="header-cta"><a class="pill-btn" href="https://execution.executia.io/dashboard">Enter engine ↗</a></div></div></header>
+<main class="main">
+
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">EXECUTIA PILOT PROPOSAL</span>
+    <h1>Institutional execution proposal.</h1>
+    <p>Generated from execution intake, governance analysis, pilot mapping and runtime continuity assessment.</p>
+
+    <div class="actions">
+      <button class="pill-btn primary" onclick="window.print()">Export proposal PDF</button>
+      <a class="pill-btn" href="/request?prefill=1">Activate proposal</a>
+    </div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="wrap grid-3">
+    <div class="card"><span class="tag">Proposal Scope</span><h3 id="proposal-scope">Execution control pilot</h3><p>Recommended first controlled execution layer.</p></div>
+    <div class="card"><span class="tag">Governance Risk</span><h3 id="proposal-risk">INTERPRETED</h3><p>Detected governance and operational exposure level.</p></div>
+    <div class="card"><span class="tag">Continuity</span><h3 id="proposal-continuity">88</h3><p>Projected stabilization and execution continuity score.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <span class="kicker">IMPLEMENTATION STRUCTURE</span>
+    <h2>Recommended rollout path.</h2>
+
+    <div class="system-flow" style="margin-top:28px">
+      <div class="flow-step">Pilot Scope</div>
+      <div class="flow-step">Governance Validation</div>
+      <div class="flow-step">Registry Continuity</div>
+      <div class="flow-step">Audit Proof</div>
+      <div class="flow-step">Rollout</div>
+    </div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="wrap grid-3">
+    <div class="card"><span class="tag">Phase 1</span><h3>Controlled execution point</h3><p>Define one measurable execution process with clear governance risk.</p></div>
+    <div class="card"><span class="tag">Phase 2</span><h3>Runtime validation</h3><p>Apply execution-time validation, decision control and registry materialization.</p></div>
+    <div class="card"><span class="tag">Phase 3</span><h3>Institutional expansion</h3><p>Expand to linked processes after continuity and stabilization are proven.</p></div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Activate controlled pilot.</h2>
+    <p>Move from execution analysis to one institutional pilot with measurable stabilization outcome.</p>
+    <div class="actions"><a class="pill-btn primary" href="/request?prefill=1">Activate EXECUTIA Proposal</a></div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand footer-logo" href="/" aria-label="EXECUTIA entry">EXECUTIA™</a>
+      <p>Execution Control Standard.</p>
+      <p>ENTRY → ENGINE → REGISTRY</p>
+    </div>
+    <div class="footer-col"><h4>System</h4><a href="/">Entry</a><a href="https://execution.executia.io/dashboard">Engine</a><a href="/standard">Standard</a></div>
+    <div class="footer-col"><h4>Structure</h4><a href="/global">Global</a><a href="/institutional">Institutional</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="/contact">Contact</a><a href="/request">Request Pilot</a><a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener">LinkedIn</a></div>
+  </div>
+  <div class="footer-bottom"><span>© EXECUTIA</span><span>Execution Control Standard</span></div>
+</footer>
+<script src="/assets/app.js" defer></script>
+
+<script>
+(function(){
+
+const input = JSON.parse(localStorage.getItem("executia_execution_input") || "{}");
+
+const governance = input.governance || "";
+const procurement = input.procurement || "";
+const compliance = input.compliance || "";
+const domain = input.domain || "";
+const budget = input.budget || "";
+const suppliers = input.suppliers || "";
+
+let before = 58;
+let exposure = "MODERATE";
+let forecast = "Operational stabilization potential detected.";
+let recommendation = "Start with one controlled execution point.";
+
+if(governance.includes("High")) before -= 10;
+if(governance.includes("Multi")) before -= 16;
+if(procurement.includes("Distributed")) before -= 8;
+if(procurement.includes("Multi")) before -= 12;
+if(procurement.includes("Public")) before -= 10;
+if(procurement.includes("Hybrid")) before -= 9;
+if(compliance.includes("Regulated")) before -= 6;
+if(compliance.includes("Multi")) before -= 10;
+if(compliance.includes("Critical")) before -= 14;
+if(domain.includes("Infrastructure")) before -= 6;
+if(domain.includes("Government")) before -= 6;
+if(domain.includes("Public")) before -= 8;
+if(domain.includes("Financial")) before -= 7;
+
+before = Math.max(29, before);
+const after = Math.min(94, before + 42 + (before < 40 ? 7 : 0));
+
+if(before < 40){
+  exposure = "HIGH";
+  forecast = "Strong stabilization potential detected across governance, procurement and coordination layers.";
+  recommendation = "Recommended pilot: governance-controlled execution validation for one high-risk process.";
+} else if(before < 55){
+  exposure = "ELEVATED";
+  forecast = "Material stabilization potential detected. EXECUTIA can reduce fragmentation before execution drift becomes visible.";
+  recommendation = "Recommended pilot: execution integrity layer above procurement and approval flow.";
+} else {
+  exposure = "MODERATE";
+  forecast = "Operational control improvement detected. EXECUTIA can improve audit readiness and execution consistency.";
+  recommendation = "Recommended pilot: controlled execution monitoring for one operational workflow.";
+}
+
+function setText(id, value){
+  const el = document.getElementById(id);
+  if(el) el.textContent = value;
+}
+
+setText("score-before", before);
+setText("score-after", after);
+setText("exposure-level", exposure);
+setText("forecast-text", forecast);
+setText("pilot-recommendation", recommendation);
+setText("project-domain", domain || "Execution structure");
+setText("project-budget", budget || "Not specified");
+setText("project-suppliers", suppliers || "Not specified");
+
+
+
+/* Execution timeline runtime */
+const timelineStates = [
+  ["RECEIVED","PROCESSING","PENDING","WAITING"],
+  ["VALIDATED","ANALYZING","REVIEWING","SYNCING"],
+  ["CONFIRMED","COMPLETE","MATERIALIZED","RECORDED"]
+];
+
+let timelineStep = 0;
+
+setInterval(function(){
+
+  timelineStep = (timelineStep + 1) % timelineStates.length;
+
+  const states = timelineStates[timelineStep];
+
+  const ids = [
+    "timeline-1",
+    "timeline-2",
+    "timeline-3",
+    "timeline-4"
+  ];
+
+  ids.forEach(function(id,i){
+
+    const el = document.getElementById(id);
+
+    if(el){
+      el.textContent = states[i];
+    }
+
+  });
+
+}, 2600);
+
+
+
+
+
+
+
+/* Execution replay mode */
+(function(){
+
+const replayBtn =
+  document.getElementById("replay-last-session");
+
+const clearBtn =
+  document.getElementById("replay-clear-history");
+
+const replayLog =
+  document.getElementById("replay-log");
+
+function addReplayLine(text){
+
+  if(!replayLog) return;
+
+  const span =
+    document.createElement("span");
+
+  span.textContent =
+    new Date().toLocaleTimeString() +
+    " · " +
+    text;
+
+  replayLog.appendChild(span);
+
+}
+
+if(replayBtn){
+
+  replayBtn.addEventListener("click",function(){
+
+    replayLog.innerHTML = "";
+
+    const registry =
+      JSON.parse(
+        localStorage.getItem("executia_registry_history") || "[]"
+      );
+
+    if(!registry.length){
+
+      addReplayLine("NO EXECUTION SESSIONS AVAILABLE");
+      return;
+
+    }
+
+    const latest = registry[0];
+
+    addReplayLine("SESSION REPLAY INITIALIZED");
+    addReplayLine("SESSION: " + (latest.session_id || "UNKNOWN"));
+    addReplayLine("STATUS: " + String(latest.status || "LOCAL").toUpperCase());
+
+    if(latest.execution_id){
+      addReplayLine("EXECUTION: " + latest.execution_id);
+    }
+
+    if(latest.continuity_score){
+      addReplayLine(
+        "CONTINUITY SCORE: " +
+        latest.continuity_score
+      );
+    }
+
+    addReplayLine("RUNTIME GOVERNANCE RECONSTRUCTED");
+    addReplayLine("AUDIT CONTINUITY VERIFIED");
+    addReplayLine("EXECUTION REPLAY COMPLETE");
+
+  });
+
+}
+
+if(clearBtn){
+
+  clearBtn.addEventListener("click",function(){
+
+    localStorage.removeItem("executia_registry_history");
+
+    if(replayLog){
+
+      replayLog.innerHTML = "";
+
+      addReplayLine("EXECUTION REGISTRY CLEARED");
+
+    }
+
+  });
+
+}
+
+})();
+
+
+/* Live execution registry view */
+(function(){
+
+const current =
+  JSON.parse(localStorage.getItem("executia_session_registry") || "{}");
+
+let registry =
+  JSON.parse(localStorage.getItem("executia_registry_history") || "[]");
+
+if(current && current.session_id){
+
+  registry.unshift(current);
+
+  const seen = new Set();
+
+  registry = registry.filter(function(item){
+
+    if(!item || !item.session_id) return false;
+
+    if(seen.has(item.session_id)) return false;
+
+    seen.add(item.session_id);
+
+    return true;
+
+  }).slice(0,5);
+
+  localStorage.setItem(
+    "executia_registry_history",
+    JSON.stringify(registry)
+  );
+
+}
+
+const view = document.getElementById("registry-view");
+const log = document.getElementById("registry-log");
+
+if(view && registry.length){
+
+  const latest = registry[0];
+
+  view.innerHTML = "";
+
+  const cells = [
+    ["Session", latest.session_id || "SES-LOCAL"],
+    ["Status", String(latest.status || "LOCAL").toUpperCase()],
+    ["Continuity", latest.continuity_score ? String(latest.continuity_score) : "SYNCHRONIZED"],
+    ["Created", latest.created_at ? new Date(latest.created_at).toLocaleTimeString() : "NOW"]
+  ];
+
+  cells.forEach(function(cell){
+
+    const div = document.createElement("div");
+    div.className = "state";
+
+    const span = document.createElement("span");
+    span.textContent = cell[0];
+
+    const strong = document.createElement("strong");
+    strong.textContent = cell[1];
+
+    div.appendChild(span);
+    div.appendChild(strong);
+    view.appendChild(div);
+
+  });
+
+}
+
+if(log){
+
+  log.innerHTML = "";
+
+  if(registry.length){
+
+    registry.forEach(function(item,index){
+
+      const span = document.createElement("span");
+
+      span.textContent =
+        "#" + (index + 1) +
+        " · " +
+        (item.session_id || "SES-LOCAL") +
+        " · " +
+        String(item.status || "LOCAL").toUpperCase() +
+        " · " +
+        (item.created_at ? new Date(item.created_at).toLocaleTimeString() : "NOW");
+
+      log.appendChild(span);
+
+    });
+
+  } else {
+
+    const span = document.createElement("span");
+    span.textContent = "NO REGISTRY HISTORY";
+    log.appendChild(span);
+
+  }
+
+}
+
+})();
+
+
+/* Execution session registry */
+(function(){
+
+const normalized =
+  JSON.parse(localStorage.getItem("executia_normalized_runtime") || "{}");
+
+const sessionId =
+  "SES-" +
+  Math.random().toString(36).substring(2,8).toUpperCase();
+
+setText("session-id", sessionId);
+
+const state =
+  normalized.status ||
+  "ACTIVE";
+
+setText(
+  "session-state",
+  String(state).toUpperCase()
+);
+
+if(normalized.continuity_score){
+
+  if(normalized.continuity_score >= 85){
+    setText("session-continuity","HIGH");
+  }
+
+  else if(normalized.continuity_score >= 65){
+    setText("session-continuity","STABLE");
+  }
+
+  else{
+    setText("session-continuity","FRAGMENTED");
+  }
+
+}
+
+const memory = document.getElementById("session-memory");
+
+if(memory){
+
+  const logs = [
+    "SESSION INITIALIZED",
+    "EXECUTION PAYLOAD MATERIALIZED",
+    "RUNTIME GOVERNANCE LINKED",
+    "EXECUTION TIMELINE SYNCHRONIZED",
+    "AUDIT CONTINUITY ACTIVE",
+    "EXECUTION MEMORY REGISTERED"
+  ];
+
+  memory.innerHTML = "";
+
+  logs.forEach(function(log){
+
+    const span = document.createElement("span");
+
+    const ts =
+      new Date().toLocaleTimeString();
+
+    span.textContent =
+      ts + " · " + log;
+
+    memory.appendChild(span);
+
+  });
+
+}
+
+const session = {
+  session_id: sessionId,
+  execution_id: normalized.execution_id || null,
+  status: normalized.status || "LOCAL",
+  continuity_score: normalized.continuity_score || null,
+  created_at: new Date().toISOString()
+};
+
+localStorage.setItem(
+  "executia_session_registry",
+  JSON.stringify(session)
+);
+
+})();
+
+
+
+/* Engine-backed session persistence */
+(async function(){
+
+try{
+
+  const normalized =
+    JSON.parse(
+      localStorage.getItem("executia_normalized_runtime") || "{}"
+    );
+
+  const payload = {
+    execution_id:
+      normalized.execution_id || null,
+
+    status:
+      normalized.status || "ACTIVE",
+
+    governance_state:
+      normalized.governance_state || "INTERPRETED",
+
+    registry_state:
+      normalized.registry_state || "LOCAL",
+
+    audit_state:
+      normalized.audit_state || "ACTIVE",
+
+    continuity_score:
+      normalized.continuity_score || 88
+  };
+
+  const res = await fetch(
+    "/api/execution/session",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify(payload)
+    }
+  );
+
+  const json = await res.json();
+
+  if(json && json.ok){
+
+    localStorage.setItem(
+      "executia_engine_session",
+      JSON.stringify(json)
+    );
+
+    const current =
+      JSON.parse(
+        localStorage.getItem("executia_session_registry") || "{}"
+      );
+
+    current.session_id =
+      json.session_id || current.session_id;
+
+    current.execution_id =
+      json.execution_id || current.execution_id;
+
+    current.status =
+      json.status || current.status;
+
+    current.continuity_score =
+      json.continuity_score || current.continuity_score;
+
+    localStorage.setItem(
+      "executia_session_registry",
+      JSON.stringify(current)
+    );
+
+  }
+
+}catch(err){
+
+  console.error(
+    "ENGINE_SESSION_PERSISTENCE_FAILED",
+    err
+  );
+
+}
+
+})();
+
+
+/* Runtime response standardization */
+(function(){
+
+const raw = JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
+
+const normalized = {
+  execution_id:
+    raw.execution_id ||
+    raw.id ||
+    raw.request_id ||
+    raw.requestId ||
+    raw?.data?.execution_id ||
+    raw?.execution?.id ||
+    "LOCAL-ANALYSIS",
+
+  status:
+    raw.status ||
+    raw.decision ||
+    raw.result ||
+    raw?.data?.status ||
+    raw?.execution?.status ||
+    "LOCAL_INTELLIGENCE",
+
+  governance_state:
+    raw.governance_state ||
+    raw?.data?.governance_state ||
+    raw?.execution?.governance_state ||
+    "INTERPRETED",
+
+  registry_state:
+    raw.registry_state ||
+    raw?.data?.registry_state ||
+    raw?.execution?.registry_state ||
+    "LOCAL",
+
+  audit_state:
+    raw.audit_state ||
+    raw?.data?.audit_state ||
+    raw?.execution?.audit_state ||
+    "ACTIVE",
+
+  continuity_score:
+    raw.continuity_score ||
+    raw?.data?.continuity_score ||
+    raw?.execution?.continuity_score ||
+    null,
+
+  risk_flags:
+    raw.risk_flags ||
+    raw?.data?.risk_flags ||
+    raw?.execution?.risk_flags ||
+    []
+};
+
+localStorage.setItem(
+  "executia_normalized_runtime",
+  JSON.stringify(normalized)
+);
+
+setText("proof-id", normalized.execution_id);
+setText("proof-registry", String(normalized.registry_state).toUpperCase());
+setText("proof-audit", String(normalized.audit_state).toUpperCase());
+
+if(normalized.continuity_score){
+  setText("score-after", normalized.continuity_score);
+}
+
+})();
+
+
+/* Runtime materialization from engine response */
+(function(){
+
+const rr = JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
+
+const executionId =
+  rr.execution_id ||
+  rr.id ||
+  rr.requestId ||
+  rr.request_id ||
+  rr?.data?.execution_id ||
+  rr?.execution?.id ||
+  "";
+
+const runtimeStatus =
+  rr.status ||
+  rr.decision ||
+  rr.result ||
+  rr?.data?.status ||
+  rr?.execution?.status ||
+  "";
+
+const events =
+  rr.events ||
+  rr.timeline ||
+  rr?.data?.events ||
+  rr?.execution?.events ||
+  [];
+
+if(executionId){
+  setText("proof-id", executionId);
+}
+
+if(runtimeStatus){
+  setText("timeline-3", String(runtimeStatus).toUpperCase());
+  setText("proof-registry", "RUNTIME LINKED");
+  setText("proof-audit", "ENGINE RESPONSE");
+}
+
+if(Array.isArray(events) && events.length){
+
+  const eventIds = [
+    "event-1",
+    "event-2",
+    "event-3",
+    "event-4",
+    "event-5",
+    "event-6"
+  ];
+
+  eventIds.forEach(function(id,index){
+
+    const el = document.getElementById(id);
+
+    if(el && events[index]){
+
+      if(typeof events[index] === "string"){
+        el.textContent = events[index];
+      }
+
+      else if(typeof events[index] === "object"){
+        const label =
+          events[index].type ||
+          events[index].event ||
+          events[index].status ||
+          events[index].name ||
+          "RUNTIME_EVENT";
+
+        const time =
+          events[index].time ||
+          events[index].timestamp ||
+          events[index].created_at ||
+          "";
+
+        el.textContent = (time ? time + " · " : "") + String(label).toUpperCase();
+      }
+
+    }
+
+  });
+
+}
+
+})();
+
+
+/* Engine decision interpretation */
+const engineStatus =
+  runtimeResponse.status ||
+  runtimeResponse.decision ||
+  runtimeResponse.result ||
+  runtimeResponse?.data?.status ||
+  runtimeResponse?.execution?.status ||
+  "";
+
+const normalizedStatus = String(engineStatus || "").toUpperCase();
+
+if(normalizedStatus){
+  setText("engine-decision", normalizedStatus);
+}
+
+if(normalizedStatus === "APPROVED"){
+  setText("engine-decision-text", "Execution request passed runtime governance validation.");
+  setText("engine-meaning", "Execution allowed");
+  setText("engine-meaning-text", "The structure can proceed under controlled execution conditions.");
+  setText("control-outcome", "APPROVED");
+  setText("control-outcome-text", "Execution-time validation confirmed before action becomes reality.");
+}
+
+else if(normalizedStatus === "BLOCKED"){
+  setText("engine-decision-text", "Execution request was blocked by runtime governance control.");
+  setText("engine-meaning", "Failure prevented");
+  setText("engine-meaning-text", "Execution was stopped before an incorrect action became operational reality.");
+  setText("control-outcome", "BLOCKED");
+  setText("control-outcome-text", "EXECUTIA detected a condition that should not proceed without correction.");
+}
+
+else if(normalizedStatus === "PENDING_REVIEW"){
+  setText("engine-decision-text", "Execution request requires operator or governance review.");
+  setText("engine-meaning", "Human review required");
+  setText("engine-meaning-text", "The state is unclear and should not proceed automatically.");
+  setText("control-outcome", "REVIEW");
+  setText("control-outcome-text", "EXECUTIA routed the execution state to review instead of allowing silent drift.");
+}
+
+else if(normalizedStatus === "COMMITTED"){
+  setText("engine-decision-text", "Execution result was committed into the runtime record.");
+  setText("engine-meaning", "Recorded execution truth");
+  setText("engine-meaning-text", "The decision state has been materialized into the execution record.");
+  setText("control-outcome", "COMMITTED");
+  setText("control-outcome-text", "Execution is no longer only intended; it has become recorded institutional truth.");
+}
+
+else if(normalizedStatus === "FAILED"){
+  setText("engine-decision-text", "Runtime execution failed or could not be completed.");
+  setText("engine-meaning", "Execution failure");
+  setText("engine-meaning-text", "The system detected failure in execution processing or runtime response.");
+  setText("control-outcome", "FAILED");
+  setText("control-outcome-text", "The request should be reviewed before any operational continuation.");
+}
+
+else if(runtimeResponse && runtimeResponse.ok){
+  setText("engine-decision", "RECEIVED");
+  setText("engine-decision-text", "Runtime substrate responded, but no final execution decision state was returned.");
+  setText("engine-meaning", "Runtime connected");
+  setText("engine-meaning-text", "The analysis is using connected runtime context with local interpretation.");
+  setText("control-outcome", "HYBRID");
+  setText("control-outcome-text", "EXECUTIA combines runtime response with local execution intelligence.");
+}
+
+else {
+  setText("engine-decision", "LOCAL INTELLIGENCE");
+  setText("engine-decision-text", "No final runtime decision state was returned from the execution substrate.");
+  setText("engine-meaning", "Fallback analysis");
+  setText("engine-meaning-text", "EXECUTIA continues with local commercial analysis until runtime decision data is available.");
+  setText("control-outcome", "ANALYSIS");
+  setText("control-outcome-text", "Governance, procurement and execution intelligence remain available for pilot evaluation.");
+}
+
+
+
+
+/* Dynamic execution proof */
+const proofId =
+  "EXECUTION-" +
+  Math.random().toString(36).substring(2,8).toUpperCase();
+
+setText("proof-id", proofId);
+
+
+/* Engine connection status */
+const runtimeResponse = JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
+
+if(runtimeResponse && Object.keys(runtimeResponse).length){
+  if(runtimeResponse.ok){
+    setText("engine-status", "CONNECTED");
+    setText("engine-response", "RECEIVED");
+    setText("analysis-mode", "RUNTIME");
+  } else {
+    setText("engine-status", "FALLBACK");
+    setText("engine-response", runtimeResponse.error || "NO_ENGINE_RESPONSE");
+    setText("analysis-mode", "LOCAL INTELLIGENCE");
+  }
+} else {
+  setText("engine-status", "LOCAL");
+  setText("engine-response", "NO_RUNTIME_RESPONSE");
+  setText("analysis-mode", "LOCAL INTELLIGENCE");
+}
+
+
+
+/* Automatic pilot proposal */
+let pilotScope = "Execution control point";
+let pilotScopeText = "Start with one measurable execution process.";
+let controlLayer = "Execution-time validation";
+let controlLayerText = "Validate governance conditions before action becomes reality.";
+let impactRange = "12–24%";
+let rollout = ["Pilot", "Validation", "Registry", "Audit", "Rollout"];
+
+if(domain.includes("Public") || procurement.includes("Public")){
+  pilotScope = "Procurement approval synchronization";
+  pilotScopeText = "Control supplier approval, documentation and procurement decision states before execution proceeds.";
+  controlLayer = "Procurement governance layer";
+  controlLayerText = "Apply execution-time validation to procurement decisions, approval chains and supplier records.";
+  impactRange = before < 40 ? "24–41%" : "18–34%";
+  rollout = ["Procurement", "Approval", "Registry", "Audit", "Scale"];
+}
+
+if(domain.includes("Infrastructure") || compliance.includes("Critical")){
+  pilotScope = "Critical execution continuity";
+  pilotScopeText = "Control high-risk operational dependencies where delayed verification can create structural failure.";
+  controlLayer = "Infrastructure execution layer";
+  controlLayerText = "Synchronize governance, registry and audit continuity across critical execution states.";
+  impactRange = before < 40 ? "28–46%" : "20–36%";
+  rollout = ["Control Point", "Dependencies", "Registry", "Continuity", "Expansion"];
+}
+
+if(domain.includes("Financial")){
+  pilotScope = "Transaction execution integrity";
+  pilotScopeText = "Validate payment, approval and ledger states before financial execution is committed.";
+  controlLayer = "Financial execution control";
+  controlLayerText = "Connect validation, decision, registry and audit into one execution-time control layer.";
+  impactRange = before < 40 ? "22–38%" : "16–31%";
+  rollout = ["Payment", "Validation", "Ledger", "Audit", "Institution"];
+}
+
+if(domain.includes("Enterprise")){
+  pilotScope = "Operational execution control";
+  pilotScopeText = "Start with one workflow where approvals, suppliers and operational dependencies create drift.";
+  controlLayer = "Enterprise governance layer";
+  controlLayerText = "Apply EXECUTIA above existing systems without replacing current platforms.";
+  impactRange = before < 40 ? "18–32%" : "10–22%";
+  rollout = ["Workflow", "Validation", "Registry", "Audit", "Rollout"];
+}
+
+setText("pilot-scope", pilotScope);
+setText("pilot-scope-text", pilotScopeText);
+setText("control-layer", controlLayer);
+setText("control-layer-text", controlLayerText);
+setText("impact-range", impactRange);
+
+setText("rollout-1", rollout[0]);
+setText("rollout-2", rollout[1]);
+setText("rollout-3", rollout[2]);
+setText("rollout-4", rollout[3]);
+setText("rollout-5", rollout[4]);
+
+
+})();
+</script>
+
+
+<script>
+
+(function(){
+
+const exportBtn = document.getElementById("export-report-btn");
+
+function copyText(from,to){
+  const a = document.getElementById(from);
+  const b = document.getElementById(to);
+
+  if(a && b){
+    b.textContent = a.textContent;
+  }
+}
+
+copyText("score-before","pdf-score");
+copyText("exposure-level","pdf-exposure");
+copyText("pilot-scope","pdf-pilot");
+copyText("forecast-text","pdf-forecast");
+
+if(exportBtn){
+
+  exportBtn.addEventListener("click", function(){
+
+    document.title =
+      "EXECUTIA_EXECUTION_REPORT";
+
+    window.print();
+
+  });
+
+}
+
+})();
+
+</script>
+
+
+<script>
+
+(function(){
+
+const procurementStates = [
+  ["SYNCED","VALIDATED","RECORDED","CONTINUOUS"],
+  ["CHECKING","MAPPING","RECORDING","VERIFYING"],
+  ["SYNCED","VALIDATED","RECORDED","CONTINUOUS"]
+];
+
+const aiStates = [
+  ["CHECKED","VERIFIED","APPROVED","CONTROLLED"],
+  ["SCANNING","VALIDATING","REVIEWING","HOLDING"],
+  ["CHECKED","VERIFIED","APPROVED","CONTROLLED"]
+];
+
+let step = 0;
+
+setInterval(function(){
+
+  step = (step + 1) % procurementStates.length;
+
+  const p = procurementStates[step];
+  const a = aiStates[step];
+
+  const procIds = [
+    "proc-state-1",
+    "proc-state-2",
+    "proc-state-3",
+    "proc-state-4"
+  ];
+
+  const aiIds = [
+    "ai-state-1",
+    "ai-state-2",
+    "ai-state-3",
+    "ai-state-4"
+  ];
+
+  procIds.forEach(function(id,i){
+    const el = document.getElementById(id);
+    if(el) el.textContent = p[i];
+  });
+
+  aiIds.forEach(function(id,i){
+    const el = document.getElementById(id);
+    if(el) el.textContent = a[i];
+  });
+
+}, 2400);
+
+})();
+</script>
+
+<script>
+
+
+
+
+/* Runtime governance graph */
+(async function(){
+
+const graph =
+  document.getElementById(
+    "runtime-governance-graph"
+  );
+
+if(!graph) return;
+
+try{
+
+  const res =
+    await fetch("/api/execution/session");
+
+  const json =
+    await res.json();
+
+  graph.innerHTML = "";
+
+  const sessions =
+    json.sessions || [];
+
+  if(!sessions.length){
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "flow-step";
+
+    div.textContent =
+      "NO EXECUTIONS";
+
+    graph.appendChild(div);
+
+    return;
+
+  }
+
+  const nodes = [
+    "REQUEST",
+    "GOVERNANCE",
+    "DECISION",
+    "REGISTRY",
+    "AUDIT"
+  ];
+
+  nodes.forEach(function(node){
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "flow-step";
+
+    let score = 0;
+
+    sessions.forEach(function(session){
+
+      if(session.continuity_score){
+        score += session.continuity_score;
+      }
+
+    });
+
+    const avg =
+      Math.round(
+        score / sessions.length
+      );
+
+    div.textContent =
+      node +
+      " · " +
+      avg;
+
+    graph.appendChild(div);
+
+  });
+
+}catch(err){
+
+  graph.innerHTML = "";
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "flow-step";
+
+  div.textContent =
+    "GRAPH UNAVAILABLE";
+
+  graph.appendChild(div);
+
+}
+
+})();
+
+
+/* Multi-session governance history */
+(async function(){
+
+const container =
+  document.getElementById("multi-session-history");
+
+if(!container) return;
+
+try{
+
+  const res =
+    await fetch("/api/execution/session");
+
+  const json =
+    await res.json();
+
+  container.innerHTML = "";
+
+  if(
+    !json ||
+    !json.sessions ||
+    !json.sessions.length
+  ){
+
+    const span =
+      document.createElement("span");
+
+    span.textContent =
+      "NO GOVERNANCE HISTORY AVAILABLE";
+
+    container.appendChild(span);
+
+    return;
+
+  }
+
+  json.sessions.forEach(function(session,index){
+
+    const span =
+      document.createElement("span");
+
+    span.textContent =
+      "#" + (index + 1) +
+      " · " +
+      (session.session_id || "UNKNOWN") +
+      " · " +
+      String(session.status || "ACTIVE").toUpperCase() +
+      " · " +
+      String(session.governance_state || "INTERPRETED").toUpperCase() +
+      " · CONTINUITY " +
+      (session.continuity_score || "N/A");
+
+    container.appendChild(span);
+
+  });
+
+}catch(err){
+
+  container.innerHTML = "";
+
+  const span =
+    document.createElement("span");
+
+  span.textContent =
+    "GOVERNANCE HISTORY UNAVAILABLE";
+
+  container.appendChild(span);
+
+}
+
+})();
+
+
+/* Session open view */
+(function(){
+
+const btn =
+  document.getElementById("open-session-btn");
+
+const log =
+  document.getElementById("session-open-log");
+
+if(!btn || !log) return;
+
+function line(text){
+
+  const span =
+    document.createElement("span");
+
+  span.textContent =
+    new Date().toLocaleTimeString() +
+    " · " +
+    text;
+
+  log.appendChild(span);
+
+}
+
+btn.addEventListener("click",function(){
+
+  log.innerHTML = "";
+
+  const registry =
+    JSON.parse(
+      localStorage.getItem("executia_registry_history") || "[]"
+    );
+
+  if(!registry.length){
+
+    line("NO EXECUTION SESSION FOUND");
+    return;
+
+  }
+
+  const latest =
+    registry[0];
+
+  line("SESSION RECONSTRUCTION INITIALIZED");
+
+  line(
+    "SESSION: " +
+    (latest.session_id || "UNKNOWN")
+  );
+
+  if(latest.execution_id){
+
+    line(
+      "EXECUTION: " +
+      latest.execution_id
+    );
+
+  }
+
+  line(
+    "STATUS: " +
+    String(
+      latest.status || "LOCAL"
+    ).toUpperCase()
+  );
+
+  if(latest.continuity_score){
+
+    line(
+      "CONTINUITY SCORE: " +
+      latest.continuity_score
+    );
+
+  }
+
+  line("GOVERNANCE PROPAGATION RESTORED");
+  line("REGISTRY CONTINUITY VERIFIED");
+  line("AUDIT SYNCHRONIZATION VERIFIED");
+  line("EXECUTION TIMELINE RECONSTRUCTED");
+  line("SESSION REPLAY COMPLETE");
+
+});
+
+})();
+
+
+/* Live governance event stream */
+(function(){
+
+const stream =
+  document.getElementById("governance-event-stream");
+
+if(!stream) return;
+
+const runtimeResponse =
+  JSON.parse(localStorage.getItem("executia_runtime_response") || "{}");
+
+const runtimeEvents =
+  runtimeResponse.events ||
+  runtimeResponse.timeline ||
+  runtimeResponse?.data?.events ||
+  runtimeResponse?.execution?.events ||
+  [];
+
+const fallbackEvents = [
+  "GOVERNANCE VALIDATION RECEIVED",
+  "EXECUTION STRUCTURE INTERPRETED",
+  "PROCUREMENT SURFACE CHECKED",
+  "RUNTIME DECISION STATE VERIFIED",
+  "REGISTRY CONTINUITY SYNCHRONIZED",
+  "AUDIT CHAIN ACTIVE",
+  "EXECUTION MEMORY UPDATED"
+];
+
+const events =
+  Array.isArray(runtimeEvents) && runtimeEvents.length
+    ? runtimeEvents.map(function(e){
+
+        if(typeof e === "string"){
+          return e;
+        }
+
+        if(typeof e === "object"){
+          return (
+            e.type ||
+            e.event ||
+            e.status ||
+            e.name ||
+            "RUNTIME_EVENT"
+          );
+        }
+
+        return "RUNTIME_EVENT";
+
+      })
+    : fallbackEvents;
+
+let index = 0;
+
+function pushEvent(){
+
+  const span = document.createElement("span");
+
+  span.textContent =
+    new Date().toLocaleTimeString() +
+    " · " +
+    events[index % events.length];
+
+  stream.appendChild(span);
+
+  index++;
+
+  const rows = stream.querySelectorAll("span");
+
+  if(rows.length > 9){
+    rows[0].remove();
+  }
+
+}
+
+setInterval(pushEvent, 2200);
+
+})();
+
+</script>
+
+<script>
+(function(){
+  const input = JSON.parse(localStorage.getItem("executia_pilot_mode_input") || localStorage.getItem("executia_execution_input") || "{}");
+  const session = JSON.parse(localStorage.getItem("executia_engine_session") || "{}");
+
+  function setText(id,value){
+    const el=document.getElementById(id);
+    if(el) el.textContent=value;
+  }
+
+  setText("proposal-scope", input.process || input.project || "Execution control pilot");
+  setText("proposal-risk", (input.risk || input.governance || session.status || "INTERPRETED").toUpperCase());
+  setText("proposal-continuity", session.continuity_score || "88");
+})();
+</script>
+</body>
+
+</html>

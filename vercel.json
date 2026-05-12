@@ -19,6 +19,10 @@
       "dest": "/pilot-mode.html"
     },
     {
+      "src": "^/proposal$",
+      "dest": "/proposal.html"
+    },
+    {
       "src": "^/$",
       "dest": "/index.html"
     },
