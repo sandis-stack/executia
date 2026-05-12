@@ -90,6 +90,10 @@
     {
       "src": "^/api/execution/session$",
       "dest": "/api/execution/session.js"
+    },
+    {
+      "src": "^/api/proposal/export$",
+      "dest": "/api/proposal/export.js"
     }
   ]
 }
