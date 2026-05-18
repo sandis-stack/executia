@@ -8,7 +8,7 @@ EXECUTIA is a system interface, not a marketing website.
 ## Header — locked
 - Left: `EXECUTIA™` + `EXECUTION STANDARD`
 - Center: `ENTRY / GLOBAL / INSTITUTIONAL / REQUEST`
-- Right: `Enter engine ↗`
+- Right: `Enter Execution Layer ↗`
 - `EXECUTIA™` always links to `/`.
 - Do not remove GLOBAL or INSTITUTIONAL.
 - Do not replace the navigation with `ENTRY / ENGINE / REQUEST`.
@@ -69,5 +69,5 @@ No fake execution statuses.
 - Clicking EXECUTIA™ always returns to Entry (`/` on public site, `https://executia.io` from engine).
 - Header background is slightly transparent white, never black.
 - Primary navigation is quiet by default; active `ENTRY` may be slightly stronger to preserve the flow.
-- Header CTA `Enter engine ↗` is visible but not dominant.
-- Buttons must not dominate the system interface; flow cues may be slightly highlighted only for `Entry ↗` and `Enter engine ↗`.
+- Header CTA `Enter Execution Layer ↗` is visible but not dominant.
+- Buttons must not dominate the system interface; flow cues may be slightly highlighted only for `Entry ↗` and `Enter Execution Layer ↗`.
