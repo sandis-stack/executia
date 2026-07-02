@@ -1,11 +1,19 @@
-# EXECUTIA™
+# EXECUTIA®
 
 EXECUTIA is an execution control standard for execution-time truth.
 
 It validates intended actions before execution, blocks invalid execution, and records decisions in an execution registry, ledger and audit trail.
 
+Platform separation (three repositories, not merged):
+
+| Platform | Repository | Canonical URL |
+|----------|------------|---------------|
+| Public website | executia | https://executia.io |
+| Execution Engine | executia-layer | https://execution.executia.io |
+| EXECUTIA® ONE | executia-one | https://one.executia.io (deploy pending) |
+
 Canonical flow:
-ENTRY → ENGINE → PROOF → REQUEST
+ENTRY → ENGINE → ONE → DOCS → INSTITUTIONAL → PILOT
 
 Execution engine flow:
 REQUEST → VALIDATION → DECISION → REGISTRY → LEDGER → AUDIT
@@ -14,7 +22,10 @@ Canonical public site:
 https://executia.io
 
 Canonical engine:
-https://execution.executia.io/dashboard
+https://execution.executia.io/
+
+Canonical EXECUTIA® ONE (planned):
+https://one.executia.io
 
 Purpose:
 EXECUTIA is not a reporting tool. It is not conventional project management, accounting, procurement or compliance software. EXECUTIA is a control layer above existing systems that converts delayed trust into execution-time truth.

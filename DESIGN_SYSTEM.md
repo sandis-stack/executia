@@ -33,7 +33,7 @@ Allowed backgrounds:
 - Header and footer are not decorative; they are part of the EXECUTIA protocol.
 
 ## Locked header
-`EXECUTIA™  EXECUTION STANDARD` + `ENTRY / GLOBAL / INSTITUTIONAL / REQUEST` + `Enter Execution Layer ↗`
+`EXECUTIA®  EXECUTION STANDARD` + `ENTRY / ENGINE / ONE / DOCS / INSTITUTIONAL / PILOT` + `Enter Execution Engine ↗`
 
 ## Locked footer
-Compact one-line footer with EXECUTIA™, Definition, Standard, Global, Institutional, Contact and copyright.
+Compact footer with EXECUTIA®, Entry, Execution Engine, EXECUTIA® ONE, Documentation, Institutional, Pilot, Global, Contact and copyright.

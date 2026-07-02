@@ -41,9 +41,9 @@
     const key=a.getAttribute('data-nav');
     const isActive =
       (key === 'entry' && path === '/') ||
-      (key === 'global' && path === '/global') ||
+      (key === 'docs' && (path === '/standard' || path === '/definition')) ||
       (key === 'institutional' && path === '/institutional') ||
-      (key === 'request' && path === '/request');
+      (key === 'pilot' && (path === '/pilot-mode' || path === '/request'));
     if (isActive) a.classList.add('active');
   });
 
