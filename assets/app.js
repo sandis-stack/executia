@@ -38,10 +38,11 @@
   function initShellNavigation() {
     const page = document.body.getAttribute('data-page');
     const pageActive = {
-      entry: 'overview',
+      entry: 'entry',
+      engine: 'engine',
+      pilot: 'pilot',
+      one: 'one',
       docs: 'docs',
-      support: 'support',
-      institutional: 'institutional',
     };
     const activeNav = page ? pageActive[page] : null;
     if (activeNav) {
@@ -53,10 +54,11 @@
       document.querySelectorAll('[data-nav]').forEach(function (a) {
         const key = a.getAttribute('data-nav');
         const isActive =
-          (key === 'overview' && (path === '/' || path === '/index')) ||
-          (key === 'institutional' && path === '/institutional') ||
-          (key === 'docs' && (path === '/docs' || path === '/standard' || path === '/definition' || path === '/global')) ||
-          (key === 'support' && (path === '/support' || path === '/contact'));
+          (key === 'entry' && (path === '/' || path === '/index' || path === '/entry')) ||
+          (key === 'engine' && path === '/engine') ||
+          (key === 'pilot' && (path === '/pilot' || path === '/pilot-mode' || path === '/request')) ||
+          (key === 'one' && path === '/one') ||
+          (key === 'docs' && (path === '/docs' || path === '/standard' || path === '/definition' || path === '/global'));
         if (isActive) a.classList.add('active');
       });
     }

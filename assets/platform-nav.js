@@ -1,22 +1,22 @@
 /**
  * EXECUTIA global header + primary navigation shell.
+ * UI Constitution v1.0 — FROZEN
  */
 (function () {
   const NAV = [
-    { id: 'overview', label: 'Overview', href: '/' },
-    { id: 'institutional', label: 'Institutional', href: '/institutional' },
-    { id: 'docs', label: 'Documentation', href: '/docs' },
-    { id: 'support', label: 'Support', href: '/support' },
+    { id: 'entry', label: 'ENTRY', href: '/' },
+    { id: 'engine', label: 'ENGINE', href: '/engine' },
+    { id: 'pilot', label: 'PILOT', href: '/pilot' },
+    { id: 'one', label: 'ONE', href: '/one' },
+    { id: 'docs', label: 'Docs', href: '/docs' },
   ];
 
   const PAGE_ACTIVE = {
-    entry: 'overview',
+    entry: 'entry',
+    engine: 'engine',
+    pilot: 'pilot',
+    one: 'one',
     docs: 'docs',
-    support: 'support',
-    institutional: 'institutional',
-    engine: null,
-    pilot: null,
-    one: null,
   };
 
   function resolveActiveId(page) {
@@ -50,7 +50,7 @@
       '<div class="wrap" style="text-align:center">' +
       '<h2>Ready to evaluate your organization?</h2>' +
       '<div class="actions" style="justify-content:center">' +
-      '<a class="pill-btn primary" href="/#pilot">Begin Executive Assessment</a>' +
+      '<a class="pill-btn primary" href="/request">Request Pilot</a>' +
       '</div></div></section>'
     );
   }
@@ -60,7 +60,7 @@
       var brand =
         window.EXECUTIA_BRAND && window.EXECUTIA_BRAND.renderBrandIdentity
           ? window.EXECUTIA_BRAND.renderBrandIdentity()
-          : '<a class="brand shell-brand" href="/"><span class="brand-main">EXECUTIA\u2122</span></a>';
+          : '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><span class="brand-main">EXECUTIA\u2122</span></a>';
       return (
         '<header class="site-header">' +
         '<div class="wrap header-inner">' +
@@ -69,7 +69,7 @@
         '<nav class="nav" aria-label="Primary">' +
         navLinks(activeId) +
         '</nav>' +
-        '<div class="header-cta"><a class="pill-btn" href="/contact">Contact</a></div>' +
+        '<div class="header-cta"><a class="pill-btn" href="/request">Request Pilot</a></div>' +
         '</div></header>'
       );
     },

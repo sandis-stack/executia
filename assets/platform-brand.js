@@ -1,13 +1,8 @@
 /**
  * EXECUTIA global brand + corporate footer shell.
+ * UI Constitution v1.0 — FROZEN
  */
 (function () {
-  const FOOTER_LINKS = [
-    { label: 'Documentation', href: '/docs' },
-    { label: 'Support', href: '/support' },
-    { label: 'Contact', href: '/contact' },
-  ];
-
   function renderBrandIdentity() {
     return (
       '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home">' +
@@ -18,14 +13,29 @@
   function renderPlatformFooter() {
     return (
       '<footer class="site-footer shell-footer">' +
-      '<div class="wrap shell-footer-inner">' +
-      renderBrandIdentity() +
-      '<nav class="shell-footer-nav" aria-label="Footer">' +
-      FOOTER_LINKS.map(function (link) {
-        return '<a href="' + link.href + '">' + link.label + '</a>';
-      }).join('') +
-      '</nav></div>' +
-      '<div class="shell-footer-bottom"><span>\u00a9 EXECUTIA</span></div></footer>'
+      '<div class="footer-inner">' +
+      '<div class="footer-brand">' +
+      '<a class="brand footer-logo" href="/" aria-label="EXECUTIA home">EXECUTIA\u2122</a>' +
+      '<p>A New Standard for Organizational Execution</p>' +
+      '</div>' +
+      '<div class="footer-col"><h4>Platform</h4>' +
+      '<a href="/">ENTRY</a>' +
+      '<a href="/engine">ENGINE</a>' +
+      '<a href="/pilot">PILOT</a>' +
+      '<a href="/one">ONE</a>' +
+      '</div>' +
+      '<div class="footer-col"><h4>Resources</h4>' +
+      '<a href="/docs">Documentation</a>' +
+      '<a href="/standard">Standard</a>' +
+      '<a href="/institutional">Institutional</a>' +
+      '</div>' +
+      '<div class="footer-col"><h4>Company</h4>' +
+      '<a href="/support">Support</a>' +
+      '<a href="/contact">Contact</a>' +
+      '</div>' +
+      '</div>' +
+      '<div class="footer-bottom"><span>\u00a9 EXECUTIA</span></div>' +
+      '</footer>'
     );
   }
 
