@@ -35,40 +35,51 @@
     setInterval(updateTs, 1000);
   }
 
-  // Nav active state — unified platform navigation
-  const page = document.body.getAttribute('data-page');
-  if (page) {
-    document.querySelectorAll('[data-nav]').forEach(function (a) {
-      if (a.getAttribute('data-nav') === page) a.classList.add('active');
-    });
-  } else {
-    const path = window.location.pathname.replace(/\.html$/, '') || '/';
-    document.querySelectorAll('[data-nav]').forEach(function (a) {
-      const key = a.getAttribute('data-nav');
-      const isActive =
-        (key === 'entry' && (path === '/' || path === '/index')) ||
-        (key === 'engine' && path === '/engine') ||
-        (key === 'docs' && (path === '/docs' || path === '/standard')) ||
-        (key === 'institutional' && path === '/institutional') ||
-        (key === 'pilot' && path.startsWith('/pilot')) ||
-        (key === 'one' && path === '/one') ||
-        (key === 'support' && (path === '/support' || path === '/contact'));
-      if (isActive) a.classList.add('active');
-    });
+  function initShellNavigation() {
+    const page = document.body.getAttribute('data-page');
+    const pageActive = {
+      entry: 'overview',
+      docs: 'docs',
+      support: 'support',
+      institutional: 'institutional',
+    };
+    const activeNav = page ? pageActive[page] : null;
+    if (activeNav) {
+      document.querySelectorAll('[data-nav]').forEach(function (a) {
+        if (a.getAttribute('data-nav') === activeNav) a.classList.add('active');
+      });
+    } else if (!page) {
+      const path = window.location.pathname.replace(/\.html$/, '') || '/';
+      document.querySelectorAll('[data-nav]').forEach(function (a) {
+        const key = a.getAttribute('data-nav');
+        const isActive =
+          (key === 'overview' && (path === '/' || path === '/index')) ||
+          (key === 'institutional' && path === '/institutional') ||
+          (key === 'docs' && (path === '/docs' || path === '/standard' || path === '/definition' || path === '/global')) ||
+          (key === 'support' && (path === '/support' || path === '/contact'));
+        if (isActive) a.classList.add('active');
+      });
+    }
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+    if (menuToggle && nav && !menuToggle.dataset.shellBound) {
+      menuToggle.dataset.shellBound = '1';
+      menuToggle.addEventListener('click', function () {
+        const open = nav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          nav.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
   }
 
-
-  const menuToggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav');
-  if(menuToggle && nav){
-    menuToggle.addEventListener('click',()=>{
-      const open = nav.classList.toggle('open');
-      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-      nav.classList.remove('open');
-      menuToggle.setAttribute('aria-expanded','false');
-    }));
+  if (document.querySelector('[data-platform-header]')) {
+    document.addEventListener('DOMContentLoaded', initShellNavigation);
   }
 
   const demo = document.getElementById('execution-demo-form');

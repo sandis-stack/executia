@@ -1,102 +1,81 @@
 /**
- * EXECUTIA Platform Navigation — PRODUCT-003
- * Golden rule: EXECUTIA logo ALWAYS → https://executia.io/
+ * EXECUTIA global header + primary navigation shell.
  */
 (function () {
-  const ORIGIN = 'https://executia.io';
-  const ONE_URL = 'https://one.executia.io/';
-  const ENGINE_LIVE = 'https://execution.executia.io/dashboard';
-
   const NAV = [
-    { id: 'entry', label: 'ENTRY', href: ORIGIN + '/' },
-    { id: 'engine', label: 'ENGINE', href: ORIGIN + '/engine' },
-    { id: 'docs', label: 'DOCS', href: ORIGIN + '/docs' },
-    { id: 'support', label: 'SUPPORT', href: ORIGIN + '/support' },
-    { id: 'institutional', label: 'INSTITUTIONAL', href: ORIGIN + '/institutional' },
-    { id: 'pilot', label: 'PILOT', href: ORIGIN + '/pilot' },
-    { id: 'one', label: 'ONE', href: ORIGIN + '/one' },
+    { id: 'overview', label: 'Overview', href: '/' },
+    { id: 'institutional', label: 'Institutional', href: '/institutional' },
+    { id: 'docs', label: 'Documentation', href: '/docs' },
+    { id: 'support', label: 'Support', href: '/support' },
   ];
 
-  const JOURNEY = [
-    { id: 'entry', label: 'ENTRY', href: ORIGIN + '/', purpose: 'Understand' },
-    { id: 'engine', label: 'ENGINE', href: ORIGIN + '/engine', purpose: 'Prove' },
-    { id: 'pilot', label: 'PILOT', href: ORIGIN + '/pilot', purpose: 'Adopt' },
-    { id: 'one', label: 'ONE', href: ORIGIN + '/one', purpose: 'Operate' },
-  ];
+  const PAGE_ACTIVE = {
+    entry: 'overview',
+    docs: 'docs',
+    support: 'support',
+    institutional: 'institutional',
+    engine: null,
+    pilot: null,
+    one: null,
+  };
+
+  function resolveActiveId(page) {
+    if (!page) return null;
+    if (Object.prototype.hasOwnProperty.call(PAGE_ACTIVE, page)) {
+      return PAGE_ACTIVE[page];
+    }
+    return null;
+  }
 
   function navLinks(activeId) {
     return NAV.map(function (item) {
       const cls = item.id === activeId ? ' active' : '';
-      return '<a data-nav="' + item.id + '" href="' + item.href + '" class="' + cls.trim() + '">' + item.label + '</a>';
+      return (
+        '<a data-nav="' +
+        item.id +
+        '" href="' +
+        item.href +
+        '" class="' +
+        cls.trim() +
+        '">' +
+        item.label +
+        '</a>'
+      );
     }).join('');
-  }
-
-  function journeyBar(activeId) {
-    return (
-      '<div class="journey-bar" aria-label="EXECUTIA journey"><div class="wrap">' +
-      JOURNEY.map(function (stage, index) {
-        const sep = index > 0 ? '<span class="journey-sep" aria-hidden="true">→</span>' : '';
-        const isActive = stage.id === activeId;
-        const mark = isActive ? ' ●' : '';
-        const cls = isActive ? 'journey-step active' : 'journey-step';
-        return (
-          sep +
-          '<a class="' +
-          cls +
-          '" href="' +
-          stage.href +
-          '" title="' +
-          stage.purpose +
-          '">' +
-          stage.label +
-          mark +
-          '</a>'
-        );
-      }).join('') +
-      '</div></div>'
-    );
   }
 
   function engineFooter() {
     return (
       '<section class="engine-footer section soft">' +
       '<div class="wrap" style="text-align:center">' +
-      '<h2>Ready to operate your organization?</h2>' +
-      '<p class="lead">Move from proof to adoption to governed daily execution.</p>' +
+      '<h2>Ready to evaluate your organization?</h2>' +
       '<div class="actions" style="justify-content:center">' +
-      '<a class="pill-btn" href="' + ORIGIN + '/pilot">Request Pilot</a>' +
-      '<a class="pill-btn primary" href="' + ORIGIN + '/one">Open EXECUTIA ONE</a>' +
+      '<a class="pill-btn primary" href="/#pilot">Begin Executive Assessment</a>' +
       '</div></div></section>'
     );
   }
 
   window.EXECUTIA_PLATFORM = {
-    ORIGIN: ORIGIN,
-    ONE_URL: ONE_URL,
-    ENGINE_LIVE: ENGINE_LIVE,
     renderHeader: function (activeId) {
-      var brandRow =
+      var brand =
         window.EXECUTIA_BRAND && window.EXECUTIA_BRAND.renderBrandIdentity
-          ? window.EXECUTIA_BRAND.renderBrandIdentity(activeId)
-          : '';
+          ? window.EXECUTIA_BRAND.renderBrandIdentity()
+          : '<a class="brand shell-brand" href="/"><span class="brand-main">EXECUTIA\u2122</span></a>';
       return (
         '<header class="site-header">' +
-        (brandRow ? '<div class="wrap brand-row-wrap">' + brandRow + '</div>' : '') +
         '<div class="wrap header-inner">' +
+        brand +
         '<button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>' +
         '<nav class="nav" aria-label="Primary">' +
         navLinks(activeId) +
         '</nav>' +
-        '<div class="header-cta"><a class="pill-btn" href="' +
-        ENGINE_LIVE +
-        '">Demonstrator ↗</a></div>' +
-        '</div>' +
-        journeyBar(activeId) +
-        '</header>'
+        '<div class="header-cta"><a class="pill-btn" href="/contact">Contact</a></div>' +
+        '</div></header>'
       );
     },
     engineFooter: engineFooter,
-    mount: function (activeId) {
+    mount: function (pageId) {
+      const activeId = resolveActiveId(pageId);
       const mount = document.querySelector('[data-platform-header]');
       if (mount) {
         mount.outerHTML = window.EXECUTIA_PLATFORM.renderHeader(activeId);
@@ -112,9 +91,8 @@
   };
 
   document.addEventListener('DOMContentLoaded', function () {
-    const page = document.body.getAttribute('data-page');
-    if (page) {
-      window.EXECUTIA_PLATFORM.mount(page);
+    if (document.querySelector('[data-platform-header]')) {
+      window.EXECUTIA_PLATFORM.mount(document.body.getAttribute('data-page'));
     }
   });
 })();
