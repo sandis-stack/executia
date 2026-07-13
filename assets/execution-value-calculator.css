@@ -1,0 +1,242 @@
+/* Execution Value Calculator — product UI */
+
+.evc-shell {
+  margin-top: 1.75rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .evc-shell { grid-template-columns: 1fr; }
+}
+
+.evc-panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.evc-panel h3 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.evc-disclosure {
+  margin: 0 0 1.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #92400e;
+}
+
+.evc-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.875rem 1rem;
+}
+
+@media (max-width: 640px) {
+  .evc-form-grid { grid-template-columns: 1fr; }
+}
+
+.evc-field { margin: 0; }
+.evc-field-full { grid-column: 1 / -1; }
+
+.evc-field label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #55708b;
+}
+
+.evc-field label .optional {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: #8a96a8;
+}
+
+.evc-field input,
+.evc-field select {
+  width: 100%;
+  min-height: 44px;
+}
+
+.evc-risks {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.evc-risk {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 14px;
+  color: #405870;
+  line-height: 1.4;
+}
+
+.evc-risk input { margin-top: 0.2rem; flex-shrink: 0; }
+
+.evc-results {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.evc-metric {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 1rem;
+  align-items: baseline;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.evc-metric:last-child { border-bottom: 0; padding-bottom: 0; }
+
+.evc-metric-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.evc-metric-kind {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a96a8;
+}
+
+.evc-metric-value {
+  grid-column: 1 / -1;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.evc-metric-value.loss { color: #9a3e3e; }
+.evc-metric-value.gain { color: #18704f; }
+
+.evc-priority-list {
+  margin: 0.25rem 0 0;
+  padding-left: 1.1rem;
+  color: #405870;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.evc-chart {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.evc-chart h4 {
+  margin: 0 0 0.875rem;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #55708b;
+}
+
+.evc-chart-row {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr 4.5rem;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.625rem;
+}
+
+.evc-chart-row span:first-child {
+  font-size: 12px;
+  font-weight: 600;
+  color: #50677e;
+}
+
+.evc-chart-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: #eef2f7;
+  overflow: hidden;
+}
+
+.evc-chart-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 180ms ease;
+}
+
+.evc-chart-fill.loss { background: #c97a7a; }
+.evc-chart-fill.recovered { background: #3d8b67; }
+.evc-chart-fill.enterprise { background: #124155; }
+
+.evc-chart-row span:last-child {
+  font-size: 11px;
+  font-weight: 700;
+  color: #657a90;
+  text-align: right;
+}
+
+.evc-flow {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #657a90;
+}
+
+.evc-flow .step { color: var(--ink); }
+.evc-flow .arrow { color: #c5d0dc; }
+
+.evc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.evc-handoff {
+  margin-top: 1rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius);
+  background: var(--soft-2);
+  border: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4f6881;
+}
+
+.evc-handoff strong { color: var(--ink); }
+
+.evc-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,103 +1,30 @@
 {
   "version": 2,
   "functions": {
-    "api/**/*.js": {
-      "maxDuration": 15
-    }
+    "api/**/*.js": { "maxDuration": 15 }
   },
   "routes": [
-    {
-      "src": "^/analysis$",
-      "dest": "/analysis.html"
-    },
-    {
-      "src": "^/execution$",
-      "dest": "/execution.html"
-    },
-    {
-      "src": "^/pilot-mode$",
-      "dest": "/pilot-mode.html"
-    },
-    {
-      "src": "^/proposal$",
-      "dest": "/proposal.html"
-    },
-    {
-      "src": "^/$",
-      "dest": "/index.html"
-    },
-    {
-      "src": "^/llms.txt$",
-      "dest": "/llms.txt"
-    },
-    {
-      "src": "^/robots.txt$",
-      "dest": "/robots.txt"
-    },
-    {
-      "src": "^/sitemap.xml$",
-      "dest": "/sitemap.xml"
-    },
-    {
-      "src": "^/request$",
-      "dest": "/request.html"
-    },
-    {
-      "src": "^/contact$",
-      "dest": "/contact.html"
-    },
-    {
-      "src": "^/standard$",
-      "dest": "/standard.html"
-    },
-    {
-      "src": "^/definition$",
-      "dest": "/definition.html"
-    },
-    {
-      "src": "^/global$",
-      "dest": "/global.html"
-    },
-    {
-      "src": "^/institutional$",
-      "dest": "/institutional.html"
-    },
-    {
-      "src": "^/test$",
-      "status": 302,
-      "headers": {
-        "Location": "https://execution.executia.io/dashboard"
-      }
-    },
-    {
-      "src": "^/engine$",
-      "status": 302,
-      "headers": {
-        "Location": "https://execution.executia.io/dashboard"
-      }
-    },
-    {
-      "src": "^/dashboard$",
-      "status": 302,
-      "headers": {
-        "Location": "https://execution.executia.io/dashboard"
-      }
-    },
-    {
-      "src": "^/api/request$",
-      "dest": "/api/request.js"
-    },
-    {
-      "src": "^/api/execution/session$",
-      "dest": "/api/execution/session.js"
-    },
-    {
-      "src": "^/api/proposal/export$",
-      "dest": "/api/proposal/export.js"
-    },
-    {
-      "src": "^/api/execution/events$",
-      "dest": "/api/execution/events.js"
-    }
+    { "src": "^/$", "dest": "/index.html" },
+    { "src": "^/llms.txt$", "dest": "/llms.txt" },
+    { "src": "^/robots.txt$", "dest": "/robots.txt" },
+    { "src": "^/sitemap.xml$", "dest": "/sitemap.xml" },
+    { "src": "^/entry$", "dest": "/index.html" },
+    { "src": "^/entry/legacy$", "dest": "/index.legacy.html" },
+    { "src": "^/engine$", "dest": "/engine.html" },
+    { "src": "^/docs$", "dest": "/docs.html" },
+    { "src": "^/pilot$", "dest": "/pilot.html" },
+    { "src": "^/pilot/approved$", "dest": "/pilot-approved.html" },
+    { "src": "^/one$", "dest": "/one.html" },
+    { "src": "^/support$", "dest": "/support.html" },
+    { "src": "^/request$", "dest": "/request.html" },
+    { "src": "^/contact$", "dest": "/contact.html" },
+    { "src": "^/standard$", "dest": "/standard.html" },
+    { "src": "^/definition$", "dest": "/definition.html" },
+    { "src": "^/global$", "dest": "/global.html" },
+    { "src": "^/institutional$", "dest": "/institutional.html" },
+    { "src": "^/test$", "status": 302, "headers": { "Location": "https://execution.executia.io/dashboard" } },
+    { "src": "^/execution$", "status": 302, "headers": { "Location": "https://executia.io/engine" } },
+    { "src": "^/dashboard$", "status": 302, "headers": { "Location": "https://execution.executia.io/dashboard" } },
+    { "src": "^/api/request$", "dest": "/api/request.js" }
   ]
 }

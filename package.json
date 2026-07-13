@@ -4,5 +4,8 @@
   "type": "module",
   "private": true,
   "dependencies": {},
-  "engines": { "node": ">=18" }
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node --test tests/**/*.test.js"
+  }
 }

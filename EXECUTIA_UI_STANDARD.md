@@ -1,26 +1,25 @@
 # EXECUTIA UI STANDARD — LOCKED
 
+> **DEPRECATED (partial):** Homepage structure, hero copy lock, and funnel rules in this file are **superseded** by `governance/EXECUTIA_MASTER_PLAN.md` v3.0 and `governance/EXECUTIA_PRODUCT_MODEL.md`. Color, typography, and component token sections remain reference until merged into `DESIGN_SYSTEM.md`.
+
 This file defines the visual and structural rules for executia.io.
 
 ## Core principle
 EXECUTIA is a system interface, not a marketing website.
 
-## Header — platform separation (2026-06)
-- Left: `EXECUTIA®` + `EXECUTION STANDARD`
-- Center: `ENTRY / ENGINE / ONE / DOCS / INSTITUTIONAL / PILOT`
-- Right: `Enter Execution Engine ↗`
-- `EXECUTIA®` always links to `/` (public site) or `https://executia.io` (from engine).
-- **ENGINE** → `https://execution.executia.io/` (Execution Engine / executia-layer)
-- **ONE** → `https://one.executia.io/` (EXECUTIA® ONE platform / executia-one; deploy pending)
-- **DOCS** → `/standard` (Documentation)
-- **INSTITUTIONAL** → `/institutional`
-- **PILOT** → `/pilot-mode`
+## Header — locked
+- Left: `EXECUTIA™` + `EXECUTION STANDARD`
+- Center: `ENTRY / GLOBAL / INSTITUTIONAL / REQUEST`
+- Right: `Enter engine ↗`
+- `EXECUTIA™` always links to `/`.
+- Do not remove GLOBAL or INSTITUTIONAL.
+- Do not replace the navigation with `ENTRY / ENGINE / REQUEST`.
 - Navigation is intentionally quiet: low opacity, uppercase, small, institutional.
 
 ## Funnel
 The site must always guide:
 
-ENTRY → EXECUTION ENGINE → EXECUTIA® ONE → DOCUMENTATION → INSTITUTIONAL → PILOT
+ENTRY → EXECUTION LAYER → REQUEST
 
 ## Color rules
 - Never use black background.
@@ -67,10 +66,10 @@ No fake execution statuses.
 
 
 ## HEADER BRAND LOCK — 2026-05-04
-- EXECUTIA® is the brand layer.
+- EXECUTIA™ is the brand layer.
 - EXECUTION STANDARD is the second layer, lighter and secondary.
-- Clicking EXECUTIA® always returns to Entry (`/` on public site, `https://executia.io` from engine).
+- Clicking EXECUTIA™ always returns to Entry (`/` on public site, `https://executia.io` from engine).
 - Header background is slightly transparent white, never black.
 - Primary navigation is quiet by default; active `ENTRY` may be slightly stronger to preserve the flow.
-- Header CTA `Enter Execution Engine ↗` is visible but not dominant.
-- Buttons must not dominate the system interface; flow cues may be slightly highlighted only for `Entry ↗` and `Enter Execution Layer ↗`.
+- Header CTA `Enter engine ↗` is visible but not dominant.
+- Buttons must not dominate the system interface; flow cues may be slightly highlighted only for `Entry ↗` and `Enter engine ↗`.

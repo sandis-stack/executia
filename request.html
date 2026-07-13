@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Request Controlled Execution — EXECUTIA®</title>
+  <title>Request Controlled Execution — EXECUTIA™</title>
   <meta name="description" content="Request a controlled EXECUTIA pilot for one execution point where validation must happen before action.">
   <link rel="canonical" href="https://executia.io/request">
-  <meta property="og:title" content="Request Controlled Execution — EXECUTIA®">
+  <meta property="og:title" content="Request Controlled Execution — EXECUTIA™">
   <meta property="og:description" content="Request a controlled EXECUTIA pilot for one execution point where validation must happen before action.">
   <meta property="og:url" content="https://executia.io/request">
   <meta property="og:type" content="website">
@@ -14,8 +14,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
 </head>
-<body>
-<header class="site-header"><div class="wrap header-inner"><a class="brand" href="/" aria-label="EXECUTIA entry"><span class="brand-main">EXECUTIA®</span><span class="brand-sub">EXECUTION STANDARD</span></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button><nav class="nav" aria-label="Primary"><a data-nav="entry" href="/">ENTRY</a><a data-nav="engine" href="https://execution.executia.io/" rel="noopener">ENGINE</a><a data-nav="one" href="https://one.executia.io/" rel="noopener">ONE</a><a data-nav="docs" href="/standard">DOCS</a><a data-nav="institutional" href="/institutional">INSTITUTIONAL</a><a data-nav="pilot" href="/pilot-mode">PILOT</a></nav><div class="header-cta"><a class="pill-btn" href="https://execution.executia.io/">Enter Execution Engine ↗</a></div></div></header>
+<body data-page="pilot">
+<div data-platform-header></div>
 <main class="main">
   <section class="hero">
     <div class="wrap">
@@ -26,41 +26,7 @@
   </section>
   <section class="section soft">
     <div class="wrap form-grid">
-      
-<section class="section soft" id="prefill-summary" style="display:none">
-  <div class="wrap">
-
-    <span class="kicker">EXECUTION ANALYSIS DETECTED</span>
-
-    <div class="grid-3" style="margin-top:28px">
-
-      <div class="card">
-        <span class="tag">Pilot Scope</span>
-        <h3 id="prefill-pilot-scope">Execution control point</h3>
-        <p>Recommended first execution layer.</p>
-      </div>
-
-      <div class="card">
-        <span class="tag">Exposure</span>
-        <h3 id="prefill-exposure">MODERATE</h3>
-        <p>Projected governance and procurement exposure level.</p>
-      </div>
-
-      <div class="card">
-        <span class="tag">Forecast</span>
-        <h3 id="prefill-forecast-title">Stabilization Potential</h3>
-        <p id="prefill-forecast">
-          Operational stabilization potential detected.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-
-<form id="request-form" class="form-card">
+      <form id="request-form" class="form-card">
         <div class="field"><label for="organization">Organization</label><input class="input" id="organization" name="organization" required placeholder="Company, institution or project"></div>
         <div class="field"><label for="operator">Operator</label><input class="input" id="operator" name="operator" required placeholder="Your name"></div>
         <div class="field"><label for="email">Email</label><input class="input" id="email" name="email" type="email" required placeholder="name@organization.com"></div>
@@ -78,152 +44,10 @@
     </div>
   </section>
 </main>
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <a class="brand footer-logo" href="/" aria-label="EXECUTIA entry">EXECUTIA®</a>
-      <p>Execution Control Standard.</p>
-      <p>ENTRY → ENGINE → REGISTRY</p>
-    </div>
-    <div class="footer-col"><h4>Platform</h4><a href="/">Entry</a><a href="https://execution.executia.io/">Execution Engine</a><a href="https://one.executia.io/">EXECUTIA® ONE</a><a href="/standard">Documentation</a></div>
-    <div class="footer-col"><h4>Structure</h4><a href="/institutional">Institutional</a><a href="/pilot-mode">Pilot</a><a href="/global">Global</a></div>
-    <div class="footer-col"><h4>Contact</h4><a href="/contact">Contact</a><a href="/request">Request Pilot</a><a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener">LinkedIn</a></div>
-  </div>
-  <div class="footer-legal">EXECUTIA is a governance execution system. It is not a bank, broker, investment platform, payment provider or financial intermediary. EXECUTIA validates execution logic, continuity and auditability before action becomes reality.</div>
-  <div class="footer-bottom"><span>© EXECUTIA</span><span>Execution Control Standard</span></div>
-</footer>
-<script src="/assets/app.js" defer></script>
-
-<script>
-(function(){
-
-function setText(id,value){
-  const el = document.getElementById(id);
-  if(el) el.textContent = value;
-}
-
-function setValue(id,value){
-  const el = document.getElementById(id);
-  if(el && value) el.value = value;
-}
-
-function normalizeSector(value){
-  const v = String(value || "").toLowerCase();
-
-  if(v.includes("procurement") || v.includes("public")){
-    return "Public procurement";
-  }
-
-  if(v.includes("financial") || v.includes("transaction") || v.includes("payment")){
-    return "Financial control";
-  }
-
-  if(v.includes("compliance")){
-    return "Compliance execution";
-  }
-
-  if(v.includes("infrastructure")){
-    return "Infrastructure operation";
-  }
-
-  if(v.includes("ai")){
-    return "AI agent governance";
-  }
-
-  return "Other controlled execution";
-}
-
-const params = new URLSearchParams(window.location.search);
-const shouldPrefill = params.get("prefill") === "1";
-
-if(!shouldPrefill) return;
-
-const proposal =
-  JSON.parse(localStorage.getItem("executia_proposal_prefill") || "{}");
-
-const continuity =
-  JSON.parse(localStorage.getItem("executia_continuity_state") || "{}");
-
-const input =
-  JSON.parse(
-    localStorage.getItem("executia_pilot_mode_input") ||
-    localStorage.getItem("executia_execution_input") ||
-    "{}"
-  );
-
-const session =
-  JSON.parse(localStorage.getItem("executia_engine_session") || "{}");
-
-const organization =
-  proposal.organization ||
-  input.organization ||
-  input.company ||
-  input.institution ||
-  "";
-
-const process =
-  proposal.process ||
-  input.process ||
-  input.project ||
-  input.scope ||
-  "Controlled execution process";
-
-const governanceState =
-  proposal.governance_state ||
-  continuity.continuity_status ||
-  session.continuity_status ||
-  input.governance ||
-  input.risk ||
-  "STABLE";
-
-const continuityValue =
-  proposal.continuity ||
-  continuity.continuity_status ||
-  session.continuity_status ||
-  continuity.continuity_score ||
-  session.continuity_score ||
-  "STABLE";
-
-const pilotScope =
-  proposal.pilot_scope ||
-  process ||
-  "Execution control point";
-
-const sector =
-  normalizeSector(
-    proposal.sector ||
-    input.domain ||
-    input.sector ||
-    process
-  );
-
-const contextText =
-  "Proposal-linked EXECUTIA pilot request.\n\n" +
-  "Process: " + process + "\n" +
-  "Governance state: " + governanceState + "\n" +
-  "Continuity: " + continuityValue + "\n" +
-  "Pilot scope: " + pilotScope;
-
-const outcomeText =
-  "Validate execution before action, synchronize registry continuity and produce auditable execution-time proof.";
-
-const summary = document.getElementById("prefill-summary");
-if(summary) summary.style.display = "block";
-
-setText("prefill-pilot-scope", pilotScope);
-setText("prefill-exposure", String(governanceState).toUpperCase());
-setText(
-  "prefill-forecast",
-  "Pilot request prefilled from proposal continuity and governance state."
-);
-
-setValue("organization", organization);
-setValue("sector", sector);
-setValue("context", contextText);
-setValue("outcome", outcomeText);
-
-})();
-</script>
-
+<div data-platform-footer></div>
+<script src="/assets/platform-brand.js"></script>
+<script src="/assets/platform-nav.js"></script>
+<script src="/assets/public-funnel-bootstrap.js"></script>
+<script src="/assets/app.js"></script>
 </body>
 </html>

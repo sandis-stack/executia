@@ -3,88 +3,425 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EXECUTIA® — Execution Control Standard</title>
-  <meta name="description" content="EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.">
+  <title>EXECUTIA™ — Execution Platform</title>
+  <meta name="description" content="EXECUTIA is the Execution Platform — global infrastructure that makes invisible execution visible and transforms governed execution into measurable enterprise value.">
   <link rel="canonical" href="https://executia.io/">
-  <meta property="og:title" content="EXECUTIA® — Execution Control Standard">
-  <meta property="og:description" content="EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.">
+  <meta property="og:title" content="EXECUTIA™ — Execution Platform">
+  <meta property="og:description" content="EXECUTIA is the Execution Platform — global infrastructure that makes invisible execution visible and transforms governed execution into measurable enterprise value.">
   <meta property="og:url" content="https://executia.io/">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
+  <link rel="stylesheet" href="/assets/homepage-migrated.css">
+  <link rel="stylesheet" href="/assets/execution-value-calculator.css">
+  <link rel="stylesheet" href="/assets/organization-assessment.css">
+  <link rel="stylesheet" href="/assets/living-engine.css">
+  <link rel="stylesheet" href="/assets/one-core.css">
+  <link rel="stylesheet" href="/assets/economy.css">
 </head>
-<body>
-<header class="site-header"><div class="wrap header-inner"><a class="brand" href="/" aria-label="EXECUTIA entry"><span class="brand-main">EXECUTIA®</span><span class="brand-sub">EXECUTION STANDARD</span></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button><nav class="nav" aria-label="Primary"><a data-nav="entry" href="/">ENTRY</a><a data-nav="engine" href="https://execution.executia.io/" rel="noopener">ENGINE</a><a data-nav="one" href="https://one.executia.io/" rel="noopener">ONE</a><a data-nav="docs" href="/standard">DOCS</a><a data-nav="institutional" href="/institutional">INSTITUTIONAL</a><a data-nav="pilot" href="/pilot-mode">PILOT</a></nav><div class="header-cta"><a class="pill-btn" href="https://execution.executia.io/">Enter Execution Engine ↗</a></div></div></header>
+<body data-page="entry">
+<div data-platform-header></div>
 <main class="main">
-  <section class="hero">
-    <div class="wrap">
-      <h1 class="hero-title-split"><span>Execution is already happening.</span><span class="control-missing">Control is missing.</span></h1>
-      <p>Without control, failure becomes reality.</p>
-      <div class="actions"><a class="pill-btn primary" href="https://execution.executia.io/execution-test/">ENTER EXECUTION LAYER</a><a class="pill-btn" href="#live-execution">SEE HOW IT WORKS</a></div>
-      <p class="micro">Run the engine first. If the execution logic is clear, request a pilot.</p>
-    </div>
-  </section>
-  <div class="live-strip"><div class="wrap live-inner"><i class="pulse"></i><strong class="live-label">LIVE EXECUTION STATUS</strong><span id="live-status">VALIDATION LAYER ACTIVE</span><span id="live-ts"></span><span class="live-system-active">SYSTEM ACTIVE</span></div></div>
-  <section class="section" id="why">
-    <div class="wrap">
-      <span class="kicker">WHY THIS MUST EXIST</span>
-      <h2 class="compact">Most systems record failure after it happens. EXECUTIA moves control to the moment of execution.</h2>
-      <p class="lead">Organizations often execute first and reconstruct truth later through reports, audits and responsibility chains. EXECUTIA changes this by validating the action before it becomes operational reality.</p>
-      <div class="grid-3">
-        <div class="card"><span class="tag">Before</span><h3>Action moves first</h3><p>Approvals, payments and decisions can proceed before all required conditions are confirmed.</p></div>
-        <div class="card"><span class="tag">EXECUTIA</span><h3>Control happens first</h3><p>The engine checks request, rules, responsibility and risk before execution continues.</p></div>
-        <div class="card"><span class="tag">Proof</span><h3>Truth is recorded</h3><p>The result is committed as registry, ledger and audit proof at execution time.</p></div>
+
+  <!-- 1 Hero -->
+  <section class="hp-hero" id="hero" aria-label="Hero">
+    <div class="hp-hero-glow" aria-hidden></div>
+    <div class="wrap-home hp-hero-inner">
+      <div class="hp-hero-grid">
+        <div class="hp-hero-copy">
+          <h1>The Global Execution Standard</h1>
+          <div class="hp-hero-body">
+            <p class="hp-hero-lead">One living system that helps organizations</p>
+            <ul class="hp-hero-capabilities" aria-label="Capabilities">
+              <li>Predict</li>
+              <li>Execute</li>
+              <li>Validate</li>
+              <li>Learn</li>
+              <li>Continuously Improve</li>
+            </ul>
+            <p>Every decision. Every project. Every organization.</p>
+          </div>
+          <div class="hp-hero-actions">
+            <a class="hp-btn-primary" href="#execution-value">Calculate Your Execution Value</a>
+            <a class="hp-btn-secondary" href="#living-engine">Try the Living Engine</a>
+          </div>
+        </div>
+        <div class="hp-monitor-wrap">
+          <div id="hp-funnel-journey"></div>
+        </div>
       </div>
     </div>
   </section>
-  <section class="section soft">
-    <div class="wrap">
-      <span class="kicker">SYSTEM FLOW</span>
-      <h2>One engine. One flow. No shadow logic.</h2>
-      <div class="system-flow"><div class="flow-step">Request</div><div class="flow-step">Validation</div><div class="flow-step">Decision</div><div class="flow-step">Registry</div><div class="flow-step">Ledger</div><div class="flow-step">Audit</div></div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="wrap grid-2">
-      <div class="panel"><h3>Without EXECUTIA</h3><div class="comparison-row"><span class="label">Status</span><span class="value">Execution proceeds without real-time validation</span><span class="status risk">Risk</span></div><div class="comparison-row"><span class="label">Control</span><span class="value">Responsibility is interpreted after failure</span><span class="status risk">Delayed</span></div><div class="comparison-row"><span class="label">Truth</span><span class="value">Truth is reconstructed from reports</span><span class="status risk">Late</span></div></div>
-      <div class="panel"><h3>With EXECUTIA</h3><div class="comparison-row"><span class="label">Status</span><span class="value">Execution is validated before action</span><span class="status ok">Controlled</span></div><div class="comparison-row"><span class="label">Control</span><span class="value">Responsibility is visible before movement</span><span class="status ok">Traceable</span></div><div class="comparison-row"><span class="label">Truth</span><span class="value">Decision state is recorded at execution time</span><span class="status ok">Recorded</span></div></div>
-    </div>
-  </section>
-  <section class="section soft" id="live-execution">
-    <div class="wrap">
-      <span class="kicker">LIVE EXECUTION</span>
-      <div class="engine-card">
-        <div class="engine-top"><div><h2>Test execution before action becomes reality.</h2><p class="lead">Submit a controlled execution request. The engine validates, decides and records the result.</p></div><a class="pill-btn" href="https://execution.executia.io/execution-test/">Enter Execution Test ↗</a></div>
-        <form id="execution-demo-form" class="engine-form"><input class="input" id="demo-input" value="Approve controlled pilot execution" aria-label="Execution request"><button class="pill-btn primary" type="submit">Run execution</button></form>
-        <div class="state-grid"><div class="state"><span>Request</span><strong id="s-request">Ready</strong></div><div class="state"><span>Validation</span><strong id="s-validation">—</strong></div><div class="state"><span>Decision</span><strong id="s-decision">—</strong></div><div class="state"><span>Registry</span><strong id="s-registry">—</strong></div><div class="state"><span>Ledger</span><strong id="s-ledger">—</strong></div><div class="state"><span>Audit</span><strong id="s-audit">—</strong></div></div>
-        <div id="demo-message" class="message">Ready. For full proof, open the execution engine registry.</div>
+
+  <!-- 2 Problem -->
+  <section class="hp-story" id="problem" aria-label="The Execution Problem">
+    <div class="wrap-home">
+      <span class="kicker">THE EXECUTION PROBLEM</span>
+      <h2 class="compact" style="max-width:760px;margin:0 0 1rem;font-size:clamp(26px,2.7vw,34px);line-height:1.14;font-weight:500;color:var(--ink)">Organizations rarely fail because people stop working. They fail because execution becomes invisible.</h2>
+      <div id="story-film-player" role="region" aria-label="EXECUTIA story film">
+        <div class="hp-film-stage"></div>
+        <div class="hp-film-controls">
+          <div class="hp-film-progress"><div class="hp-film-progress-fill"></div></div>
+          <div class="hp-film-toolbar">
+            <button type="button" data-action="play">Pause</button>
+            <span class="hp-film-status"></span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-  <section class="section">
-    <div class="wrap">
-      <span class="kicker">WHERE THIS BECOMES NECESSARY</span>
-      <h2>EXECUTIA controls the point where risk becomes action.</h2>
-      <div class="grid-3"><div class="card"><span class="tag">Money</span><h3>Payments and approvals</h3><p>Money cannot move until validation, responsibility and rule compliance are confirmed.</p></div><div class="card"><span class="tag">Procurement</span><h3>Contracts and suppliers</h3><p>Execution is blocked if required documents, approvals or comparison rules are missing.</p></div><div class="card"><span class="tag">Compliance</span><h3>Regulated execution</h3><p>Compliance is checked before execution, not reconstructed after the action.</p></div></div>
+
+  <!-- 3 Execution Value -->
+  <section class="hp-section soft" id="execution-value" aria-label="Execution Value Calculator">
+    <div class="wrap-home">
+      <span class="kicker">EXECUTION VALUE</span>
+      <h2>How much enterprise value is lost because execution is invisible?</h2>
+      <p class="lead">Enter your organization data. EXECUTIA estimates execution loss and recoverable value using demonstration assumptions — not verified outcomes.</p>
+
+      <div id="execution-value-calculator" class="evc-shell">
+        <div class="evc-panel">
+          <h3>Organization inputs</h3>
+          <p class="evc-disclosure" role="note"></p>
+          <form id="ev-calculator-form" novalidate>
+            <div class="evc-form-grid">
+              <div class="evc-field">
+                <label for="ev-industry">Industry</label>
+                <select class="input" id="ev-industry" name="industry" required></select>
+              </div>
+              <div class="evc-field">
+                <label for="ev-revenue">Annual Revenue (USD)</label>
+                <input class="input" id="ev-revenue" name="annualRevenue" type="number" min="1000000" step="100000" required inputmode="numeric">
+              </div>
+              <div class="evc-field">
+                <label for="ev-employees">Employees</label>
+                <input class="input" id="ev-employees" name="employees" type="number" min="10" step="1" required inputmode="numeric">
+              </div>
+              <div class="evc-field">
+                <label for="ev-countries">Countries</label>
+                <input class="input" id="ev-countries" name="countries" type="number" min="1" max="120" step="1" required inputmode="numeric">
+              </div>
+              <div class="evc-field">
+                <label for="ev-projects">Active Projects</label>
+                <input class="input" id="ev-projects" name="activeProjects" type="number" min="1" step="1" required inputmode="numeric">
+              </div>
+              <div class="evc-field">
+                <label for="ev-project-value">Average Project Value (USD)</label>
+                <input class="input" id="ev-project-value" name="averageProjectValue" type="number" min="10000" step="10000" required inputmode="numeric">
+              </div>
+              <div class="evc-field">
+                <label for="ev-ebit">EBIT Margin (%) <span class="optional">Optional</span></label>
+                <input class="input" id="ev-ebit" name="ebitMargin" type="number" min="-50" max="80" step="0.1" inputmode="decimal" placeholder="e.g. 12">
+              </div>
+              <fieldset class="evc-field evc-field-full">
+                <legend class="evc-field"><span class="optional">Optional</span> Major Risks</legend>
+                <div id="ev-risks" class="evc-risks"></div>
+              </fieldset>
+            </div>
+          </form>
+        </div>
+
+        <div class="evc-panel">
+          <h3>Estimated business impact</h3>
+          <div id="ev-calculator-results" class="evc-results" aria-live="polite" aria-relevant="additions text">
+            <div class="evc-metric" data-metric="estimatedExecutionLoss">
+              <span class="evc-metric-name">Estimated Execution Loss</span>
+              <span class="evc-metric-kind">Estimated</span>
+              <span class="evc-metric-value loss">—</span>
+            </div>
+            <div class="evc-metric" data-metric="recoverableValue">
+              <span class="evc-metric-name">Recoverable Value</span>
+              <span class="evc-metric-kind">Estimated</span>
+              <span class="evc-metric-value gain">—</span>
+            </div>
+            <div class="evc-metric" data-metric="enterpriseValueCreated">
+              <span class="evc-metric-name">Enterprise Value Created</span>
+              <span class="evc-metric-kind">Estimated</span>
+              <span class="evc-metric-value gain">—</span>
+            </div>
+            <div class="evc-metric" data-metric="executionScore">
+              <span class="evc-metric-name">Execution Score</span>
+              <span class="evc-metric-kind">Calculated</span>
+              <span class="evc-metric-value">—</span>
+            </div>
+            <div class="evc-metric" data-metric="executionRisk">
+              <span class="evc-metric-name">Execution Risk</span>
+              <span class="evc-metric-kind">Calculated</span>
+              <span class="evc-metric-value">—</span>
+            </div>
+            <div class="evc-metric" data-metric="executionQuality">
+              <span class="evc-metric-name">Execution Quality</span>
+              <span class="evc-metric-kind">Calculated</span>
+              <span class="evc-metric-value">—</span>
+            </div>
+            <div class="evc-metric" data-metric="estimatedRoi">
+              <span class="evc-metric-name">Estimated ROI</span>
+              <span class="evc-metric-kind">Estimated</span>
+              <span class="evc-metric-value">—</span>
+            </div>
+            <div class="evc-metric" data-metric="estimatedPayback">
+              <span class="evc-metric-name">Estimated Payback</span>
+              <span class="evc-metric-kind">Estimated</span>
+              <span class="evc-metric-value">—</span>
+            </div>
+            <div class="evc-metric" data-metric="priorityImprovementAreas">
+              <span class="evc-metric-name">Priority Improvement Areas</span>
+              <span class="evc-metric-kind">Calculated</span>
+              <span class="evc-metric-value">—</span>
+            </div>
+            <div class="evc-metric" data-metric="confidenceLevel">
+              <span class="evc-metric-name">Confidence Level</span>
+              <span class="evc-metric-kind">Calculated</span>
+              <span class="evc-metric-value">—</span>
+            </div>
+          </div>
+
+          <div id="ev-calculator-chart" class="evc-chart" aria-hidden="false">
+            <h4>Value flow (estimated)</h4>
+            <div class="evc-flow" aria-hidden="true">
+              <span class="step">Execution Loss</span><span class="arrow">↓</span>
+              <span class="step">Recovered Value</span><span class="arrow">↓</span>
+              <span class="step">Enterprise Value Created</span>
+            </div>
+            <div class="evc-chart-row">
+              <span>Execution Loss</span>
+              <div class="evc-chart-bar"><div class="evc-chart-fill loss" data-bar="loss" style="width:0"></div></div>
+              <span data-pct="loss">—</span>
+            </div>
+            <div class="evc-chart-row">
+              <span>Recovered Value</span>
+              <div class="evc-chart-bar"><div class="evc-chart-fill recovered" data-bar="recovered" style="width:0"></div></div>
+              <span data-pct="recovered">—</span>
+            </div>
+            <div class="evc-chart-row">
+              <span>Enterprise Value</span>
+              <div class="evc-chart-bar"><div class="evc-chart-fill enterprise" data-bar="enterprise" style="width:0"></div></div>
+              <span data-pct="enterprise">—</span>
+            </div>
+          </div>
+
+          <div class="evc-actions">
+            <a class="pill-btn primary" id="ev-cta-assessment" href="#organization-assessment">Continue to Execution Assessment</a>
+            <a class="pill-btn" href="#living-engine">Try the Engine</a>
+          </div>
+          <p id="ev-calculator-live" class="evc-live">Calculator results will update here.</p>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="final-cta"><div class="wrap"><h2>Run the engine. Then request a controlled pilot.</h2><p>EXECUTIA is understood through execution: request, validation, decision, registry, ledger and audit.</p><div class="actions"><a class="pill-btn primary" href="https://execution.executia.io/execution-test/">Open Execution Layer ↗</a><a class="pill-btn" href="https://execution.executia.io/request-pilot/">Request Controlled Execution</a><a class="pill-btn" href="/pilot-mode">Map real process</a></div></div></section>
+
+  <!-- 4 Living Engine -->
+  <section class="hp-section" id="living-engine" aria-label="Living Engine">
+    <div class="wrap-home">
+      <span class="kicker">LIVING ENGINE</span>
+      <div id="living-engine-product" class="engine-card">
+        <div id="ev-engine-handoff" class="evc-handoff" hidden></div>
+        <div class="engine-top">
+          <div>
+            <h2>Enter one business objective. Watch EXECUTIA build execution.</h2>
+            <p class="lead">Mission, analysis, planning, graph, validation, and readiness — generated progressively from your objective and funnel context.</p>
+          </div>
+          <a class="pill-btn" href="/engine">Live registry proof ↗</a>
+        </div>
+        <p class="le-disclosure" role="note"></p>
+        <form id="living-engine-form" class="engine-form">
+          <input class="input" id="living-engine-input" placeholder="e.g. We want to expand into Germany." aria-label="Business objective">
+          <button class="pill-btn primary" type="submit">Build execution</button>
+        </form>
+        <div id="living-engine-workspace" class="le-workspace" hidden>
+          <div id="le-lifecycle" class="le-lifecycle" aria-label="Execution lifecycle"></div>
+          <div id="le-phase-panels" class="le-phase-panels"></div>
+          <div class="le-actions">
+            <a class="pill-btn primary" id="le-cta-pilot" href="/request" data-funnel-request>Request Pilot with context</a>
+            <a class="pill-btn" id="le-cta-one" href="https://one.executia.io/" data-funnel-one>Continue to ONE</a>
+          </div>
+        </div>
+        <p id="le-message" class="le-message">Enter a mission above. Funnel context from Execution Value and Assessment is consumed automatically.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 One Core -->
+  <section class="hp-section soft" id="one-core" aria-label="One Core">
+    <div class="wrap-home">
+      <span class="kicker">ONE CORE</span>
+      <h2>Everything begins with one Mission. Everything else emerges from it.</h2>
+      <p class="lead">One living execution system — not disconnected modules. Hover or select any node to see how execution flows through ONE.</p>
+      <p class="oc-clarify" role="note">This is not CRM, ERP, project management, or accounting. Those systems become execution participants. EXECUTIA orchestrates execution above them.</p>
+
+      <div id="one-core-product">
+        <div class="oc-context-bar" hidden aria-label="Funnel context bound to One Core"></div>
+        <div class="oc-shell">
+          <div class="oc-map-canvas" id="oc-map-canvas"></div>
+          <div class="oc-detail-panel" aria-live="polite" aria-label="Node detail"></div>
+        </div>
+        <div class="oc-actions">
+          <a class="pill-btn primary" id="oc-cta-one" href="https://one.executia.io/" data-funnel-one>Open EXECUTIA ONE ↗</a>
+          <a class="pill-btn" href="/one">Learn about ONE</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 Execution Economy -->
+  <section class="hp-section" id="execution-economy" aria-label="Execution Economy">
+    <div class="wrap-home">
+      <span class="kicker">EXECUTION ECONOMY</span>
+      <h2>Execution becomes enterprise value — and the cycle never stops.</h2>
+      <p class="lead">Hover or select each stage to see how governed execution creates measurable organizational capital.</p>
+
+      <div id="execution-economy-product">
+        <p class="ee-cycle-message" role="note"></p>
+        <div class="ee-indicators" aria-label="Live funnel indicators"></div>
+        <div class="ee-shell">
+          <div class="ee-flow-canvas" tabindex="0"></div>
+          <div class="ee-detail-panel" aria-live="polite" aria-label="Stage detail"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 Execution Standard -->
+  <section class="hp-section soft" id="execution-standard" aria-label="Execution Standard">
+    <div class="wrap-home">
+      <span class="kicker">EXECUTION STANDARD</span>
+      <h2>EXECUTIA defines how execution is controlled.</h2>
+      <p class="lead">The standard applies one flow to all controlled execution: request, validation, decision, registry, ledger and audit.</p>
+      <div class="system-flow">
+        <div class="flow-step">Request</div>
+        <div class="flow-step">Validation</div>
+        <div class="flow-step">Decision</div>
+        <div class="flow-step">Registry</div>
+        <div class="flow-step">Ledger</div>
+        <div class="flow-step">Audit</div>
+      </div>
+      <div class="grid-3" style="margin-top:1.75rem">
+        <div class="card"><span class="tag">Not reporting</span><h3>Before action</h3><p>EXECUTIA controls the point before an intended action becomes reality.</p></div>
+        <div class="card"><span class="tag">Not replacement</span><h3>Above systems</h3><p>It sits above existing workflows, rules, platforms and approval chains.</p></div>
+        <div class="card"><span class="tag">Standard</span><h3>Repeatable logic</h3><p>The same execution states can be applied across organizations and jurisdictions.</p></div>
+      </div>
+      <div class="actions" style="margin-top:1.75rem"><a class="pill-btn" href="/standard">Read the Execution Standard</a></div>
+    </div>
+  </section>
+
+  <!-- 8 Organization Assessment -->
+  <section class="hp-section" id="organization-assessment" aria-label="Organization Assessment">
+    <div class="wrap-home">
+      <span class="kicker">ORGANIZATION ASSESSMENT</span>
+      <h2>Evaluate execution maturity, loss exposure, and readiness.</h2>
+      <p class="lead">Second step in the public funnel — consumes Execution Value Calculator results and produces Execution Score, gap analysis, Value Report, Improvement Plan, and pilot recommendation.</p>
+
+      <div id="organization-assessment-product">
+        <p class="oa-disclosure" role="note"></p>
+
+        <div id="oa-calculator-gate" class="oa-gate" hidden></div>
+
+        <div id="oa-assessment-workspace" class="oa-shell" hidden>
+          <div class="oa-panel">
+            <h3>Qualification inputs</h3>
+            <ul id="oa-qualification-focus" class="oa-focus-list" aria-label="Qualification focus"></ul>
+            <div id="oa-calculator-baseline" class="oa-baseline" hidden></div>
+            <form id="oa-assessment-form" class="oa-form-grid" novalidate>
+              <div class="oa-field">
+                <label for="oa-organization">Organization</label>
+                <input class="input" id="oa-organization" name="organization" required placeholder="Company or institution" autocomplete="organization">
+              </div>
+              <div class="oa-field">
+                <label for="oa-contact">Contact person</label>
+                <input class="input" id="oa-contact" name="contact" required placeholder="Executive sponsor" autocomplete="name">
+              </div>
+              <div class="oa-field">
+                <label for="oa-email">Email</label>
+                <input class="input" id="oa-email" name="email" type="email" placeholder="name@organization.com" autocomplete="email">
+              </div>
+              <div class="oa-field">
+                <label for="oa-domain">Execution domain</label>
+                <select class="input" id="oa-domain" name="executionDomain"></select>
+              </div>
+              <div class="oa-field">
+                <label for="oa-outcome">Governance outcome</label>
+                <textarea class="input" id="oa-outcome" name="governanceOutcome" rows="3" style="min-height:88px;padding:12px 16px"></textarea>
+              </div>
+              <fieldset class="oa-field">
+                <legend>Governance self-assessment (1–5)</legend>
+                <div id="oa-sliders"></div>
+              </fieldset>
+            </form>
+          </div>
+
+          <div class="oa-panel">
+            <h3>Assessment outputs</h3>
+            <div id="oa-assessment-results" class="oa-results" aria-live="polite" aria-relevant="additions text">
+              <div class="oa-metric" data-oa-metric="executionScore">
+                <div class="oa-metric-head"><span class="oa-metric-name">Execution Score</span><span class="oa-metric-kind">Calculated</span></div>
+                <div class="oa-metric-value">—</div>
+              </div>
+              <div class="oa-metric" data-oa-metric="executionRisk">
+                <div class="oa-metric-head"><span class="oa-metric-name">Execution Risk</span><span class="oa-metric-kind">Calculated</span></div>
+                <div class="oa-metric-value">—</div>
+              </div>
+              <div class="oa-metric" data-oa-metric="executionQuality">
+                <div class="oa-metric-head"><span class="oa-metric-name">Execution Quality</span><span class="oa-metric-kind">Calculated</span></div>
+                <div class="oa-metric-value">—</div>
+              </div>
+              <div class="oa-metric" data-oa-metric="valueReport">
+                <div class="oa-metric-head"><span class="oa-metric-name">Value Report</span><span class="oa-metric-kind">Estimated</span></div>
+                <div class="oa-metric-value">—</div>
+              </div>
+              <div class="oa-metric" data-oa-metric="gapAnalysis">
+                <div class="oa-metric-head"><span class="oa-metric-name">Gap Analysis</span><span class="oa-metric-kind">Calculated</span></div>
+                <div class="oa-metric-value">—</div>
+              </div>
+              <div class="oa-metric" data-oa-metric="improvementPlan">
+                <div class="oa-metric-head"><span class="oa-metric-name">Improvement Plan</span><span class="oa-metric-kind">Calculated</span></div>
+                <div class="oa-metric-value">—</div>
+              </div>
+              <div class="oa-metric" data-oa-metric="pilotRecommendation">
+                <div class="oa-metric-head"><span class="oa-metric-name">Pilot Recommendation</span><span class="oa-metric-kind">Calculated</span></div>
+                <div class="oa-metric-value">—</div>
+              </div>
+              <div class="oa-metric" data-oa-metric="confidenceLevel">
+                <div class="oa-metric-head"><span class="oa-metric-name">Confidence Level</span><span class="oa-metric-kind">Calculated</span></div>
+                <div class="oa-metric-value">—</div>
+              </div>
+            </div>
+            <div id="oa-assessment-actions" class="oa-actions">
+              <a class="pill-btn primary" href="#living-engine">Try the Engine</a>
+              <a class="pill-btn" id="oa-cta-pilot" href="#pilot">Continue to Pilot</a>
+            </div>
+            <p id="oa-assessment-live" class="oa-live">Assessment results will update here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 Pilot -->
+  <section class="hp-pilot-cta" id="pilot" aria-label="Pilot">
+    <div class="wrap-home">
+      <span class="kicker">PILOT</span>
+      <h2 style="max-width:760px;margin:0 auto 1rem;text-align:center;font-size:clamp(26px,2.7vw,34px);font-weight:500;color:var(--ink)">Request a governed pilot.</h2>
+      <p class="lead" style="margin:0 auto 1.75rem;text-align:center;max-width:660px">Move from proof to adoption with executive onboarding, mission setup, and governed execution validation.</p>
+      <div id="ev-pilot-handoff" class="evc-handoff" hidden style="max-width:660px;margin:0 auto 1.25rem"></div>
+      <div style="text-align:center;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center">
+        <a class="hp-btn-secondary" id="ev-cta-pilot-request" href="/request" data-funnel-request>Request Pilot</a>
+        <a class="pill-btn" href="/one" data-funnel-one>Continue to ONE</a>
+      </div>
+    </div>
+  </section>
+
 </main>
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <a class="brand footer-logo" href="/" aria-label="EXECUTIA entry">EXECUTIA®</a>
-      <p>Execution Control Standard.</p>
-      <p>ENTRY → ENGINE → REGISTRY</p>
-    </div>
-    <div class="footer-col"><h4>Platform</h4><a href="/">Entry</a><a href="https://execution.executia.io/">Execution Engine</a><a href="https://one.executia.io/">EXECUTIA® ONE</a><a href="/standard">Documentation</a></div>
-    <div class="footer-col"><h4>Structure</h4><a href="/institutional">Institutional</a><a href="/pilot-mode">Pilot</a><a href="/global">Global</a></div>
-    <div class="footer-col"><h4>Contact</h4><a href="/contact">Contact</a><a href="https://execution.executia.io/request-pilot/">Request Pilot</a><a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener">LinkedIn</a></div>
-  </div>
-  <div class="footer-legal">EXECUTIA is a governance execution system. It is not a bank, broker, investment platform, payment provider or financial intermediary. EXECUTIA validates execution logic, continuity and auditability before action becomes reality.</div>
-  <div class="footer-bottom"><span>© EXECUTIA</span><span>Execution Control Standard</span></div>
-</footer>
+<div data-platform-footer></div>
+<script src="/assets/platform-brand.js"></script>
+<script src="/assets/platform-nav.js"></script>
+<script type="module" src="/assets/homepage-hero.js"></script>
+<script src="/assets/homepage-story-film.js" defer></script>
+<script type="module" src="/assets/execution-value-calculator.js"></script>
+<script type="module" src="/assets/organization-assessment.js"></script>
+<script type="module" src="/assets/living-engine-ui.js"></script>
+<script type="module" src="/assets/one-core-ui.js"></script>
+<script type="module" src="/assets/economy-ui.js"></script>
+<script src="/assets/public-funnel-bootstrap.js"></script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

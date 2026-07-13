@@ -35,17 +35,27 @@
     setInterval(updateTs, 1000);
   }
 
-  // Nav active state
-  const path = window.location.pathname.replace(/\.html$/, '') || '/';
-  document.querySelectorAll('[data-nav]').forEach(a=>{
-    const key=a.getAttribute('data-nav');
-    const isActive =
-      (key === 'entry' && path === '/') ||
-      (key === 'docs' && (path === '/standard' || path === '/definition')) ||
-      (key === 'institutional' && path === '/institutional') ||
-      (key === 'pilot' && (path === '/pilot-mode' || path === '/request'));
-    if (isActive) a.classList.add('active');
-  });
+  // Nav active state — unified platform navigation
+  const page = document.body.getAttribute('data-page');
+  if (page) {
+    document.querySelectorAll('[data-nav]').forEach(function (a) {
+      if (a.getAttribute('data-nav') === page) a.classList.add('active');
+    });
+  } else {
+    const path = window.location.pathname.replace(/\.html$/, '') || '/';
+    document.querySelectorAll('[data-nav]').forEach(function (a) {
+      const key = a.getAttribute('data-nav');
+      const isActive =
+        (key === 'entry' && (path === '/' || path === '/index')) ||
+        (key === 'engine' && path === '/engine') ||
+        (key === 'docs' && (path === '/docs' || path === '/standard')) ||
+        (key === 'institutional' && path === '/institutional') ||
+        (key === 'pilot' && path.startsWith('/pilot')) ||
+        (key === 'one' && path === '/one') ||
+        (key === 'support' && (path === '/support' || path === '/contact'));
+      if (isActive) a.classList.add('active');
+    });
+  }
 
 
   const menuToggle = document.querySelector('.menu-toggle');
@@ -62,7 +72,7 @@
   }
 
   const demo = document.getElementById('execution-demo-form');
-  if(demo){
+  if(demo && !document.getElementById('living-engine-form')){
     const set=(id,v,c)=>{const el=document.getElementById(id); if(!el)return; el.textContent=v; el.className=c||'';};
     demo.addEventListener('submit', async e=>{
       e.preventDefault();
@@ -75,6 +85,18 @@
         if(!res.ok||json.ok===false) throw new Error(json.error||'ENGINE_UNAVAILABLE');
         set('s-request','ACCEPTED'); set('s-validation',json.validation||'PASSED'); set('s-decision',json.decision||'APPROVED'); set('s-registry',json.registry_status||'COMMITTED'); set('s-ledger',json.ledger_status||'RECORDED'); set('s-audit',json.audit_status||'TRACEABLE');
         if(msg) msg.textContent='Live execution completed. Open the engine registry for full proof.';
+        try{
+          sessionStorage.setItem(window.EXECUTIA_PUBLIC_FUNNEL?.ENGINE_RUN_KEY||'executia.publicFunnel.engine.v1',JSON.stringify({
+            missionText:text,
+            completed:true,
+            decision:json.decision||'APPROVED',
+            validation:json.validation||'PASSED',
+            recordedAt:new Date().toISOString()
+          }));
+          window.EXECUTIA_PUBLIC_FUNNEL?.wirePilotLinks?.();
+          window.EXECUTIA_PUBLIC_FUNNEL?.wirePilotBanner?.();
+          window.EXECUTIA_PUBLIC_FUNNEL?.refreshEngineHandoff?.();
+        }catch(_e){}
       }catch(err){
         set('s-request','ENGINE CONNECTION REQUIRED'); set('s-validation','—'); set('s-decision','—'); set('s-registry','—'); set('s-ledger','—'); set('s-audit','—');
         if(msg) msg.textContent='Open the live engine for validated proof. No approval is shown without engine confirmation.';
@@ -84,6 +106,7 @@
 
   const req=document.getElementById('request-form');
   if(req){
+    if(window.EXECUTIA_PUBLIC_FUNNEL) window.EXECUTIA_PUBLIC_FUNNEL.prefillRequest(req);
     req.addEventListener('submit',async e=>{
       e.preventDefault();
       const msg=document.getElementById('form-message');
