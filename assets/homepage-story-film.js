@@ -8,10 +8,11 @@
     { start: 0.2, end: 0.4, text: 'Decisions take too long.', visual: 'decisions' },
     { start: 0.4, end: 0.5, text: 'Work is repeated.', visual: 'repeat' },
     { start: 0.5, end: 0.6, text: 'No one owns the outcome.', visual: 'owner' },
-    { start: 0.6, end: 0.7, text: 'These are not separate problems.', visual: 'converge' },
-    { start: 0.7, end: 0.8, text: 'They are symptoms of invisible execution.', visual: 'invisible' },
+    { start: 0.6, end: 0.667, text: 'Different symptoms.', visual: 'converge' },
+    { start: 0.667, end: 0.733, text: 'One cause.', visual: 'converge' },
+    { start: 0.733, end: 0.8, text: 'Invisible execution.', visual: 'invisible' },
     { start: 0.8, end: 0.9, text: 'EXECUTIA makes execution visible before failure.', visual: 'executia' },
-    { start: 0.9, end: 1, text: 'How much is invisible execution costing your organization?', visual: 'question' },
+    { start: 0.9, end: 1, text: 'What is invisible execution costing your organization?', visual: 'question' },
   ];
 
   function clamp01(value) {
@@ -76,8 +77,8 @@
     if (narrative) {
       narrative.textContent = beat.text;
       narrative.style.opacity = String(0.4 + beatBlend * 0.6);
-      narrative.classList.toggle('sf-narrative-solution', beatIndex >= 6);
-      narrative.classList.toggle('sf-narrative-question', beatIndex === 7);
+      narrative.classList.toggle('sf-narrative-solution', beatIndex >= 7);
+      narrative.classList.toggle('sf-narrative-question', beatIndex === 8);
     }
 
     visuals.forEach(function (layer) {
@@ -108,7 +109,8 @@
 
       if (key === 'converge' && active) {
         var core = layer.querySelector('.sf-converge-core');
-        if (core) core.style.opacity = String(enter(beatLocal, 0.35, 0.25));
+        var isCause = beat.text === 'One cause.';
+        if (core) core.style.opacity = String(isCause ? 0.75 + beatLocal * 0.25 : enter(beatLocal, 0.35, 0.25));
       }
 
       if (key === 'invisible' && active) {

@@ -599,7 +599,7 @@
   margin: 0;
   max-width: min(92%, 40rem);
   padding: 0 1rem;
-  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  font-size: clamp(1.5rem, 2.9vw, 2.05rem);
   font-weight: 700;
   line-height: 1.25;
   color: #0f172a;
@@ -611,7 +611,7 @@
 }
 .sf-narrative.sf-narrative-question {
   max-width: min(94%, 44rem);
-  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-size: clamp(1.45rem, 2.7vw, 1.95rem);
 }
 
 /* Section helpers */
