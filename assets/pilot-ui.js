@@ -223,7 +223,7 @@ function updateCta(root, ctx) {
 
   if (cta) {
     cta.href = buildRequestUrl();
-    cta.textContent = 'Begin Executive Assessment';
+    cta.textContent = 'Request Pilot';
   }
 
   if (hint) {
