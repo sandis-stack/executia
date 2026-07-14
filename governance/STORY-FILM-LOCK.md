@@ -1,7 +1,7 @@
 # Story Film — LOCKED
 
 **Status:** LOCKED  
-**Commit:** `01560bf` baseline → final lock at mission completion  
+**Commit:** `3e185f8`  
 **Surface:** ENTRY `#problem` — `assets/homepage-story-film.js`, `assets/homepage-migrated.css` (story-film section only), `index.html` (story-film player markup only)
 
 ## Locked narrative (14s)
