@@ -1,17 +1,30 @@
 (function () {
   'use strict';
 
+  /** LOCK CANDIDATE — ENTRY story film v1 (14s CEO narrative) */
+
   var STORY_SCENES = [
-    { id: 'healthy', durationMs: 3500 },
-    { id: 'gaps', durationMs: 3500 },
-    { id: 'loss', durationMs: 3500 },
-    { id: 'visible', durationMs: 3500 },
+    { id: 'healthy', durationMs: 3000 },
+    { id: 'hidden', durationMs: 3000 },
+    { id: 'loss', durationMs: 4000 },
+    { id: 'visible', durationMs: 4000 },
   ];
 
   var STORY_TOTAL_MS = STORY_SCENES.reduce(function (sum, s) {
     return sum + s.durationMs;
   }, 0);
-  var STORY_FADE_MS = 320;
+  var STORY_FADE_MS = 280;
+
+  var GAP_SIGNALS = [
+    'Dependencies',
+    'Missing approvals',
+    'Unknown ownership',
+    'Invisible handoffs',
+  ];
+
+  var LOSS_SIGNALS = ['Delay', 'Rework', 'Cost', 'Risk'];
+
+  var CHAIN_NODES = ['Mission', 'Decision', 'Project', 'Task', 'Evidence', 'Outcome'];
 
   function clamp01(value) {
     return Math.max(0, Math.min(1, value));
@@ -21,88 +34,43 @@
     return clamp01((progress - start) / (end - start));
   }
 
+  function motionEnter(progress, delay, span) {
+    return segment(progress, delay, delay + (span || 0.2));
+  }
+
   var SCENE_HTML = {
     healthy:
       '<div class="hp-film-scene sf-scene-healthy" data-scene="healthy">' +
-      '<p class="sf-idea">Execution looks healthy</p>' +
-      '<div class="sf-healthy-row">' +
-      ['Project', 'Budget', 'Tasks']
-        .map(function (label, i) {
-          return (
-            '<div class="sf-status-card" data-anim="' +
-            i +
-            '"><span class="sf-status-label">' +
-            label +
-            '</span><span class="sf-status-value">Green</span><span class="sf-status-dot" aria-hidden="true"></span></div>'
-          );
-        })
-        .join('') +
-      '</div></div>',
+      '<p class="sf-idea">Everything looks healthy.</p>' +
+      '<div class="sf-green-row" aria-hidden="true">' +
+      '<span class="sf-green-bar" data-anim="0"></span>' +
+      '<span class="sf-green-bar" data-anim="1"></span>' +
+      '<span class="sf-green-bar" data-anim="2"></span>' +
+      '</div>' +
+      '<p class="sf-line sf-line-sub" data-anim="sub">Under control.</p>' +
+      '</div>',
 
-    gaps:
-      '<div class="hp-film-scene sf-scene-gaps" data-scene="gaps">' +
-      '<p class="sf-idea">Hidden gaps appear</p>' +
-      '<div class="sf-gap-stage">' +
-      '<div class="sf-surface-card" data-anim="surface"><span>Surface</span><strong>All green</strong></div>' +
-      '<svg class="sf-connector" viewBox="0 0 320 72" aria-hidden="true">' +
-      '<line class="sf-connector-line" x1="160" y1="8" x2="160" y2="64" />' +
-      '</svg>' +
-      '<ul class="sf-gap-list">' +
-      ['Approval waiting', 'Owner missing', 'Evidence gap']
-        .map(function (label, i) {
-          return (
-            '<li class="sf-gap-item" data-anim="' +
-            i +
-            '"><span class="sf-risk-dot" aria-hidden="true"></span><span>' +
-            label +
-            '</span></li>'
-          );
-        })
-        .join('') +
-      '</ul></div></div>',
+    hidden:
+      '<div class="hp-film-scene sf-scene-hidden" data-scene="hidden">' +
+      '<p class="sf-idea">Hidden execution appears.</p>' +
+      '<p class="sf-line sf-gap-line" data-anim="gap"></p>' +
+      '</div>',
 
     loss:
       '<div class="hp-film-scene sf-scene-loss" data-scene="loss">' +
-      '<p class="sf-idea">Value is lost</p>' +
-      '<div class="sf-loss-grid">' +
-      [
-        { label: 'Time', level: 0.82 },
-        { label: 'Cost', level: 0.74 },
-        { label: 'Trust', level: 0.68 },
-        { label: 'Delivery', level: 0.79 },
-      ]
-        .map(function (item, i) {
-          return (
-            '<div class="sf-loss-card" data-anim="' +
-            i +
-            '"><span class="sf-loss-label">' +
-            item.label +
-            '</span><div class="sf-leak-track"><div class="sf-leak-fill" data-level="' +
-            item.level +
-            '"></div></div></div>'
-          );
-        })
-        .join('') +
-      '</div>' +
-      '<p class="sf-loss-caption">Leakage compounds before anyone sees it.</p></div>',
+      '<p class="sf-idea">Visible losses emerge.</p>' +
+      '<div class="sf-loss-row">' +
+      LOSS_SIGNALS.map(function (label, i) {
+        return '<span class="sf-loss-signal" data-anim="' + i + '">' + label + '</span>';
+      }).join('') +
+      '</div></div>',
 
     visible:
       '<div class="hp-film-scene sf-scene-visible" data-scene="visible">' +
-      '<p class="sf-idea">EXECUTIA makes execution visible</p>' +
-      '<div class="sf-visible-chain">' +
-      ['Mission', 'Decision', 'Project', 'Evidence', 'Outcome']
-        .map(function (node, i) {
-          return (
-            (i > 0 ? '<span class="sf-chain-link" data-anim="' + i + '" aria-hidden="true"></span>' : '') +
-            '<div class="sf-chain-node" data-anim="' +
-            i +
-            '"><span>' +
-            node +
-            '</span></div>'
-          );
-        })
-        .join('') +
-      '</div></div>',
+      '<p class="sf-idea sf-idea-intro" data-anim="intro">EXECUTIA reveals execution.</p>' +
+      '<div class="sf-visible-chain" data-anim="chain"></div>' +
+      '<p class="sf-line sf-payoff" data-anim="payoff">Execution becomes visible before failure.</p>' +
+      '</div>',
   };
 
   function sceneStarts() {
@@ -134,83 +102,94 @@
     return (elapsedMs - start) / duration;
   }
 
-  function activeSceneIndex(elapsedMs, starts) {
-    for (var i = 0; i < starts.length; i += 1) {
-      var end = starts[i] + STORY_SCENES[i].durationMs;
-      if (elapsedMs >= starts[i] && elapsedMs < end) return i;
-    }
-    return STORY_SCENES.length - 1;
-  }
-
-  function motionEnter(progress, delay, span) {
-    return segment(progress, delay, delay + (span || 0.22));
+  function buildChainMarkup() {
+    return CHAIN_NODES.map(function (node, i) {
+      return (
+        (i > 0 ? '<span class="sf-chain-link" data-anim="' + i + '" aria-hidden="true"></span>' : '') +
+        '<div class="sf-chain-node" data-anim="' + i + '"><span>' + node + '</span></div>'
+      );
+    }).join('');
   }
 
   function applySceneMotion(sceneEl, sceneId, progress) {
     if (!sceneEl) return;
 
     if (sceneId === 'healthy') {
-      sceneEl.querySelectorAll('.sf-status-card').forEach(function (card) {
-        var i = Number(card.getAttribute('data-anim') || 0);
-        var p = motionEnter(progress, 0.08 + i * 0.1);
-        card.style.opacity = String(p);
-        card.style.transform = 'translateY(' + (1 - p) * 18 + 'px) scale(' + (0.94 + p * 0.06) + ')';
+      sceneEl.querySelectorAll('.sf-green-bar').forEach(function (bar) {
+        var i = Number(bar.getAttribute('data-anim') || 0);
+        var p = motionEnter(progress, 0.12 + i * 0.12, 0.18);
+        bar.style.opacity = String(p);
+        bar.style.transform = 'scaleX(' + (0.2 + p * 0.8) + ')';
       });
+      var sub = sceneEl.querySelector('[data-anim="sub"]');
+      if (sub) {
+        var subP = segment(progress, 0.58, 0.82);
+        sub.style.opacity = String(subP);
+      }
       return;
     }
 
-    if (sceneId === 'gaps') {
-      var surface = sceneEl.querySelector('.sf-surface-card');
-      var surfaceP = motionEnter(progress, 0, 0.18);
-      if (surface) {
-        surface.style.opacity = String(surfaceP);
-        surface.style.transform = 'scale(' + (0.96 + surfaceP * 0.04) + ')';
+    if (sceneId === 'hidden') {
+      var gapLine = sceneEl.querySelector('.sf-gap-line');
+      if (gapLine) {
+        if (progress < 0.18) {
+          gapLine.style.opacity = '0';
+          gapLine.textContent = '';
+          return;
+        }
+        var slot = Math.min(
+          GAP_SIGNALS.length - 1,
+          Math.floor((progress - 0.18) / 0.2),
+        );
+        var local = segment(progress, 0.18 + slot * 0.2, 0.34 + slot * 0.2);
+        gapLine.textContent = GAP_SIGNALS[slot];
+        gapLine.style.opacity = String(local);
       }
-      var line = sceneEl.querySelector('.sf-connector-line');
-      var lineP = segment(progress, 0.2, 0.55);
-      if (line) {
-        line.style.strokeDashoffset = String(56 * (1 - lineP));
-      }
-      sceneEl.querySelectorAll('.sf-gap-item').forEach(function (item) {
-        var i = Number(item.getAttribute('data-anim') || 0);
-        var p = motionEnter(progress, 0.32 + i * 0.12);
-        item.style.opacity = String(p);
-        item.style.transform = 'translateX(' + (1 - p) * -20 + 'px)';
-      });
       return;
     }
 
     if (sceneId === 'loss') {
-      sceneEl.querySelectorAll('.sf-loss-card').forEach(function (card) {
-        var i = Number(card.getAttribute('data-anim') || 0);
-        var p = motionEnter(progress, 0.1 + i * 0.1);
-        card.style.opacity = String(p);
-        card.style.transform = 'translateY(' + (1 - p) * 14 + 'px)';
-        var fill = card.querySelector('.sf-leak-fill');
-        if (fill) {
-          var level = Number(fill.getAttribute('data-level') || 0.7);
-          fill.style.transform = 'scaleX(' + p * level + ')';
-        }
+      sceneEl.querySelectorAll('.sf-loss-signal').forEach(function (signal, i) {
+        var start = 0.14 + i * 0.16;
+        var p = motionEnter(progress, start, 0.18);
+        signal.style.opacity = String(p);
+        signal.style.transform = 'translateY(' + (1 - p) * 12 + 'px)';
       });
-      var caption = sceneEl.querySelector('.sf-loss-caption');
-      if (caption) {
-        var cP = segment(progress, 0.62, 0.88);
-        caption.style.opacity = String(cP);
-      }
       return;
     }
 
     if (sceneId === 'visible') {
-      sceneEl.querySelectorAll('.sf-chain-node, .sf-chain-link').forEach(function (node) {
-        var i = Number(node.getAttribute('data-anim') || 0);
-        var p = motionEnter(progress, 0.06 + i * 0.1);
-        node.style.opacity = String(p);
-        if (node.classList.contains('sf-chain-link')) {
-          node.style.transform = 'scaleY(' + p + ')';
-        } else {
-          node.style.transform = 'translateY(' + (1 - p) * 16 + 'px)';
+      var intro = sceneEl.querySelector('[data-anim="intro"]');
+      var chain = sceneEl.querySelector('[data-anim="chain"]');
+      var payoff = sceneEl.querySelector('[data-anim="payoff"]');
+
+      if (!chain.dataset.built) {
+        chain.innerHTML = buildChainMarkup();
+        chain.dataset.built = '1';
+      }
+
+      var payoffP = segment(progress, 0.72, 0.92);
+      if (intro) intro.style.opacity = String(1 - payoffP * 0.85);
+      if (chain) chain.style.opacity = String(1 - payoffP * 0.9);
+
+      if (payoffP < 0.05) {
+        if (chain) {
+          chain.querySelectorAll('.sf-chain-node, .sf-chain-link').forEach(function (node) {
+            var i = Number(node.getAttribute('data-anim') || 0);
+            var p = motionEnter(progress, 0.08 + i * 0.09, 0.14);
+            node.style.opacity = String(p);
+            if (node.classList.contains('sf-chain-link')) {
+              node.style.transform = 'scaleY(' + p + ')';
+            } else {
+              node.style.transform = 'translateY(' + (1 - p) * 10 + 'px)';
+            }
+          });
         }
-      });
+        if (payoff) payoff.style.opacity = '0';
+      } else if (payoff) {
+        payoff.style.opacity = String(payoffP);
+        payoff.style.transform = 'translateY(' + (1 - payoffP) * 8 + 'px)';
+      }
     }
   }
 
