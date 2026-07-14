@@ -110,7 +110,18 @@ function enrichNode(base, context, scenario) {
     node.outputs = [INSUFFICIENT_BASIS];
   }
 
-  if (base.id === 'prediction' && scenario?.prediction?.status === INSUFFICIENT_BASIS) {
+  if (base.id === 'prediction' && scenario?.outlook?.summary) {
+    const summary = scenario.outlook.summary;
+    if (summary.status === INSUFFICIENT_BASIS) {
+      node.outputs = [INSUFFICIENT_BASIS];
+    } else {
+      node.outputs = [
+        `Confidence ${scenario.outlook.confidence}`,
+        `${summary.validatedClaimsCount} validated claims`,
+        `${summary.verifiedEvidenceCount} verified evidence`,
+      ];
+    }
+  } else if (base.id === 'prediction') {
     node.outputs = [INSUFFICIENT_BASIS];
   }
 

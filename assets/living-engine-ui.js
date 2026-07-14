@@ -26,6 +26,7 @@ const DISPLAY_PHASES = [
   { id: 'reasoning', label: 'Reasoning' },
   { id: 'validation', label: 'Validation' },
   { id: 'evidence', label: 'Evidence' },
+  { id: 'outlook', label: 'Execution Outlook' },
   { id: 'decision', label: 'Decision' },
 ];
 
@@ -230,6 +231,67 @@ function buildEvidenceHtml(payload) {
     <ul class="le-list">${obligationsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>`;
 }
 
+function buildOutlookHtml(payload) {
+  const outlook = payload.outlook;
+  if (!outlook?.summary) {
+    return renderInsufficient('Execution Outlook output unavailable.');
+  }
+
+  if (outlook.status === INSUFFICIENT_BASIS) {
+    return renderInsufficient(outlook.summary.reason ?? INSUFFICIENT_BASIS);
+  }
+
+  const summary = outlook.summary;
+  const assumptions = (payload.assumptions ?? outlook.assumptions ?? []).slice(0, 6);
+  const invalidConditions = (payload.invalid_conditions ?? outlook.invalid_conditions ?? []).slice(0, 6);
+  const scenario = payload.scenario ?? outlook.scenario;
+
+  const assumptionsHtml = assumptions
+    .map(
+      (assumption) =>
+        `<li><strong>${escapeHtml(assumption.assumption_id)}</strong> · ${escapeHtml(assumption.fact_id)} — ${escapeHtml(assumption.text)}</li>`,
+    )
+    .join('');
+  const invalidHtml = invalidConditions
+    .map(
+      (condition) =>
+        `<li><strong>${escapeHtml(condition.condition_id)}</strong> — ${escapeHtml(condition.text)}</li>`,
+    )
+    .join('');
+  const constraintsHtml = (scenario?.constraints ?? [])
+    .map((constraint) => `<li>${escapeHtml(constraint.claim_id)} · ${escapeHtml(constraint.marker)}</li>`)
+    .join('');
+  const dependenciesHtml = (scenario?.dependencies ?? [])
+    .map((dependency) => `<li>${escapeHtml(dependency.claim_id)} · ${escapeHtml(dependency.type)}: ${escapeHtml(dependency.target)}</li>`)
+    .join('');
+  const evidenceHtml = (scenario?.evidence_used ?? [])
+    .map((item) => `<li>${escapeHtml(item.obligation_id)} · ${escapeHtml(item.rule_id)}</li>`)
+    .join('');
+  const reasoningHtml = (scenario?.reasoning_references ?? [])
+    .map((ref) => `<li>${escapeHtml(ref.step_id)} → ${escapeHtml(ref.claim_id)}</li>`)
+    .join('');
+
+  return `
+    <dl class="le-output-grid">
+      <dt>Status</dt><dd>${escapeHtml(summary.status)}</dd>
+      <dt>Confidence</dt><dd>${escapeHtml(outlook.confidence)}</dd>
+      <dt>Validated claims</dt><dd>${summary.validatedClaimsCount}</dd>
+      <dt>Verified evidence</dt><dd>${summary.verifiedEvidenceCount}</dd>
+    </dl>
+    <p class="le-subhead">Assumptions</p>
+    <ul class="le-list">${assumptionsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    <p class="le-subhead">Scenario constraints</p>
+    <ul class="le-list">${constraintsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    <p class="le-subhead">Scenario dependencies</p>
+    <ul class="le-list">${dependenciesHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    <p class="le-subhead">Evidence used</p>
+    <ul class="le-list">${evidenceHtml || `<li>None verified</li>`}</ul>
+    <p class="le-subhead">Reasoning references</p>
+    <ul class="le-list">${reasoningHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    <p class="le-subhead">Invalid conditions</p>
+    <ul class="le-list">${invalidHtml || `<li>NONE IDENTIFIED</li>`}</ul>`;
+}
+
 function buildDecisionHtml(payload) {
   const o = payload.outputs;
   return `
@@ -259,6 +321,8 @@ function phaseBodyHtml(phaseId, result) {
       return buildValidationHtml(payload);
     case 'evidence':
       return buildEvidenceHtml(payload);
+    case 'outlook':
+      return buildOutlookHtml(payload);
     case 'decision':
       return buildDecisionHtml(payload);
     default:

@@ -8,6 +8,7 @@ import { connectAssessment } from './assessment-connector.js';
 import { runReasoningEngine, INSUFFICIENT_BASIS } from './reasoning-engine.js';
 import { runValidation } from './validation-engine.js';
 import { runEvidence } from './evidence-engine.js';
+import { runExecutionOutlook } from './execution-outlook-engine.js';
 import { formatCurrency } from '../execution-value-engine.js';
 
 export { INSUFFICIENT_BASIS };
@@ -57,7 +58,7 @@ function buildAssessmentContext(assessment) {
   };
 }
 
-function buildOutputs(reasoning, validation, evidence, calculator, assessment) {
+function buildOutputs(reasoning, validation, evidence, outlook, calculator, assessment) {
   return {
     missionSummary: {
       headline: reasoning.mission.headline,
@@ -71,9 +72,10 @@ function buildOutputs(reasoning, validation, evidence, calculator, assessment) {
     },
     validation: validation.summary,
     evidence: evidence.summary,
+    executionOutlook: outlook.summary,
     executionScore: {
       value: INSUFFICIENT_BASIS,
-      reason: 'Execution score requires Execution Outlook component.',
+      reason: 'Execution score requires Decision component.',
     },
     executionQuality: {
       value: assessment.connected
@@ -90,10 +92,9 @@ function buildOutputs(reasoning, validation, evidence, calculator, assessment) {
       months: INSUFFICIENT_BASIS,
       reason: 'Timeline not declared in mission or organization facts.',
     },
-    executionOutlook: insufficientPhase('Execution Outlook'),
     decision: {
       outcome: INSUFFICIENT_BASIS,
-      reason: 'Decision requires Validation, Evidence, and Execution Outlook.',
+      reason: 'Decision requires Execution Outlook synthesis.',
     },
   };
 }
@@ -112,6 +113,7 @@ export function generateExecutionScenario(missionText) {
 
   const validation = runValidation(reasoning);
   const evidence = runEvidence(reasoning, validation);
+  const outlook = runExecutionOutlook(reasoning, validation, evidence);
 
   const scenario = {
     mission: reasoning.mission,
@@ -142,14 +144,14 @@ export function generateExecutionScenario(missionText) {
     graph: { nodes: [], edges: [] },
     validation,
     evidence,
-    prediction: insufficientPhase('Execution Outlook'),
+    outlook,
     executionValue: buildExecutionValueContext(calculator),
     assessmentContext: buildAssessmentContext(assessment),
     disclosure: ENGINE_DISCLOSURE,
     kind: 'ExecutionIntelligence',
   };
 
-  const outputs = buildOutputs(reasoning, validation, evidence, calculator, assessment);
+  const outputs = buildOutputs(reasoning, validation, evidence, outlook, calculator, assessment);
 
   return {
     ok: true,
@@ -157,6 +159,7 @@ export function generateExecutionScenario(missionText) {
     reasoning,
     validation,
     evidence,
+    outlook,
     scenario,
     outputs,
     calculator,
@@ -208,7 +211,14 @@ export function phasePayload(result, phaseId) {
       return { evidence: scenario.evidence, obligations: scenario.evidence.obligations };
     case 'prediction':
     case 'outlook':
-      return { outlook: scenario.prediction, executionOutlook: outputs.executionOutlook };
+      return {
+        outlook: scenario.outlook,
+        executionOutlook: outputs.executionOutlook,
+        scenario: scenario.outlook?.scenario,
+        assumptions: scenario.outlook?.assumptions,
+        confidence: scenario.outlook?.confidence,
+        invalid_conditions: scenario.outlook?.invalid_conditions,
+      };
     case 'execution-ready':
     case 'decision':
       return { outputs, decision: outputs.decision, reasoning };
