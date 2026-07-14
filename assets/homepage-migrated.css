@@ -372,8 +372,8 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  /* Optical zoom: crop exported letterboxing, enlarge in-frame text/UI ~50–70% */
-  transform: scale(1.72);
+  /* Optical zoom: crop exported letterboxing so principal content fills ~80% of frame */
+  transform: scale(2.05);
   transform-origin: center center;
   background: #0f172a;
 }
