@@ -10,6 +10,10 @@ const packageRoot = resolve(
 const dest = resolve(root, 'assets/vendor/execution-intelligence-core');
 
 if (!existsSync(packageRoot)) {
+  if (existsSync(dest)) {
+    console.log(`Using committed vendor at ${dest}`);
+    process.exit(0);
+  }
   console.error(
     'Missing @executia/execution-intelligence-core. Run npm install first.',
   );
