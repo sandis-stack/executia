@@ -5,31 +5,6 @@
   var FALLBACK_MESSAGE =
     'Story film playback is unavailable. Refresh the page or continue to the next section.';
 
-  /** Per-scene optical zoom — same 8×~10.8s timeline as exported webm; no story/timing change */
-  var READABILITY_ZOOM = [
-    { until: 10.8, scale: 3.55 },
-    { until: 21.6, scale: 3.25 },
-    { until: 30.5, scale: 3.85 },
-    { until: 41.5, scale: 3.05 },
-    { until: 52.5, scale: 4.35 },
-    { until: 63.5, scale: 3.45 },
-    { until: 74.5, scale: 3.75 },
-    { until: Infinity, scale: 3.35 },
-  ];
-
-  function zoomForTime(seconds) {
-    for (var i = 0; i < READABILITY_ZOOM.length; i++) {
-      if (seconds < READABILITY_ZOOM[i].until) return READABILITY_ZOOM[i].scale;
-    }
-    return 3.35;
-  }
-
-  function applyReadabilityZoom(video) {
-    if (!video || !Number.isFinite(video.currentTime)) return;
-    var scale = zoomForTime(video.currentTime);
-    video.style.transform = 'scale(' + scale + ')';
-  }
-
   function formatStatus(video, finished) {
     if (finished) return 'Complete';
     if (!Number.isFinite(video.duration) || video.duration <= 0) {
@@ -99,7 +74,6 @@
 
     function renderControls() {
       if (failed) return;
-      applyReadabilityZoom(video);
       updateProgress();
       statusEl.textContent = formatStatus(video, finished);
       playBtn.textContent = finished ? 'Replay' : video.paused ? 'Play' : 'Pause';
@@ -120,14 +94,9 @@
       });
     }
 
-    video.addEventListener('loadedmetadata', function () {
-      applyReadabilityZoom(video);
-      renderControls();
-    });
+    video.addEventListener('loadedmetadata', renderControls);
     video.addEventListener('timeupdate', renderControls);
-    video.addEventListener('seeked', function () {
-      applyReadabilityZoom(video);
-    });
+    video.addEventListener('seeked', renderControls);
     video.addEventListener('play', renderControls);
     video.addEventListener('pause', renderControls);
     video.addEventListener('ended', markFinished);

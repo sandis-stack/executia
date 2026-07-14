@@ -370,11 +370,8 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center center;
-  transform: scale(3.35);
-  transform-origin: center center;
-  transition: transform 180ms ease-out;
   background: #0f172a;
 }
 .hp-film-fallback {
