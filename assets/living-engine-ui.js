@@ -15,8 +15,6 @@ import {
   applyPilotHandoff,
   applyOneHandoff,
   buildRequestUrl,
-  loadPublicFunnelContext,
-  missionContext,
 } from './public-funnel.js';
 
 const PHASE_DELAY_MS = 480;
@@ -31,19 +29,9 @@ const DISPLAY_PHASES = [
   { id: 'execution-ready', label: 'Execution Ready' },
 ];
 
-const DEFAULT_DEMO_MISSION =
-  'Govern mission portfolio with visible execution checkpoints before action proceeds.';
 
-function kindBadge(kind) {
-  const normalized =
-    kind === 'Demonstration' ? 'Demo' : kind ?? 'Demo';
-  const cls =
-    normalized === 'Estimated'
-      ? 'le-kind--estimated'
-      : normalized === 'Calculated'
-        ? 'le-kind--calculated'
-        : 'le-kind--demo';
-  return `<span class="le-kind ${cls}">${normalized}</span>`;
+function kindBadge(_kind) {
+  return '';
 }
 
 function escapeHtml(text) {
@@ -58,14 +46,6 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function resolveMissionText(input) {
-  const typed = (input?.value ?? '').trim();
-  if (typed.length >= 8) return typed;
-  const contextual = missionContext(loadPublicFunnelContext());
-  if (contextual && contextual.length >= 8) return contextual;
-  return DEFAULT_DEMO_MISSION;
-}
-
 function buildAnalysisHtml(payload) {
   const lines = [
     `<p class="le-step-output">${kindBadge('Calculated')} Domain: <strong>${escapeHtml(payload.domain)}</strong></p>`,
@@ -76,7 +56,7 @@ function buildAnalysisHtml(payload) {
     );
   } else {
     lines.push(
-      `<p class="le-step-output">${kindBadge('Demo')} Funnel baseline — complete Execution Intelligence for quantified analysis</p>`,
+      `<p class="le-step-output">Complete Execution Value to quantify recoverable loss.</p>`,
     );
   }
   if (payload.assessmentContext?.connected) {
@@ -85,7 +65,7 @@ function buildAnalysisHtml(payload) {
     );
   } else {
     lines.push(
-      `<p class="le-step-output">${kindBadge('Demo')} Assessment context — complete Assessment for calibrated analysis</p>`,
+      `<p class="le-step-output">Organizational readiness informs this analysis.</p>`,
     );
   }
   return lines.join('');
@@ -144,7 +124,7 @@ function buildPredictionWhy(result) {
   } else if (calculator?.connected) {
     parts.push(`Calculator score ${calculator.executionScore}/100`);
   } else {
-    parts.push('Demonstration funnel baseline');
+    parts.push('Organization profile informs this forecast.');
   }
   return `Why this prediction: ${parts.join(' · ')}.`;
 }
@@ -176,7 +156,7 @@ function buildReadyHtml(payload) {
 
 function phaseBodyHtml(phaseId, result) {
   const payload = phasePayload(result, phaseId === 'evidence' ? 'validation' : phaseId);
-  if (!payload) return `<p class="le-step-output">${kindBadge('Demo')} Awaiting mission input</p>`;
+  if (!payload) return `<p class="le-step-output">Awaiting mission input</p>`;
 
   switch (phaseId) {
     case 'mission':
@@ -196,7 +176,7 @@ function phaseBodyHtml(phaseId, result) {
     case 'execution-ready':
       return buildReadyHtml(payload);
     default:
-      return `<p class="le-step-output">${kindBadge('Demo')} Stage output ready</p>`;
+      return `<p class="le-step-output">Stage output ready</p>`;
   }
 }
 
@@ -298,15 +278,6 @@ function persistResult(result) {
   });
 }
 
-function renderDemoState(ui, input) {
-  const demo = generateExecutionScenario(resolveMissionText(input));
-  if (!demo.ok) return null;
-  renderLifecycleBar(ui.lifecycle, DISPLAY_PHASES.length);
-  renderFlow(ui.flow, demo, DISPLAY_PHASES.length);
-  updateOneCoreCta(false, false, false);
-  return demo;
-}
-
 export function initLivingEngine() {
   const root = document.getElementById('living-engine-product');
   if (!root) return;
@@ -333,7 +304,6 @@ export function initLivingEngine() {
   }
 
   applyEngineHandoff();
-  renderDemoState(ui, input);
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();

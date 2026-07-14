@@ -52,15 +52,8 @@ function normalizeKind(kind) {
   return kind ?? 'Demo';
 }
 
-function kindBadge(kind) {
-  const label = normalizeKind(kind);
-  const cls =
-    label === 'Estimated'
-      ? 'oc-kind--estimated'
-      : label === 'Calculated'
-        ? 'oc-kind--calculated'
-        : 'oc-kind--demo';
-  return `<span class="oc-kind ${cls}">${label}</span>`;
+function kindBadge(_kind) {
+  return '';
 }
 
 function renderContextBar(host, context) {

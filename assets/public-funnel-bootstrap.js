@@ -142,30 +142,9 @@
 
   function refreshEngineHandoff() {
     var banner = document.getElementById('ev-engine-handoff');
-    var missionInput = document.getElementById('living-engine-input')
-      || document.getElementById('demo-input');
-    var ctx = loadCtx();
-    var score = (ctx.assessment && ctx.assessment.results && ctx.assessment.results.executionScore && ctx.assessment.results.executionScore.value)
-      || (ctx.calculator && ctx.calculator.results && ctx.calculator.results.executionScore && ctx.calculator.results.executionScore.value);
-    var recover = ctx.calculator && ctx.calculator.results && ctx.calculator.results.recoverableValue && ctx.calculator.results.recoverableValue.value;
-    var parts = [];
-    if (ctx.assessment && ctx.assessment.results && ctx.assessment.results.ok) parts.push('Assessment context consumed');
-    else if (ctx.calculator && ctx.calculator.results) parts.push('Calculator context');
-    if (score != null) parts.push('Execution Score ' + score + '/100');
-    if (recover != null) parts.push('Recoverable ' + fmtMoney(recover));
-    if (ctx.engine && ctx.engine.completed) {
-      var engScore = ctx.engine.outputs && ctx.engine.outputs.executionScore && ctx.engine.outputs.executionScore.value;
-      if (engScore != null) parts.push('Engine score ' + engScore + '/100');
-      else parts.push('Living Engine scenario ready');
-    }
-    if (banner && parts.length) {
-      banner.hidden = false;
-      banner.innerHTML = '<strong>Funnel context (Demo):</strong> ' + parts.join(' · ') + '.';
-    }
-    if (missionInput && !String(missionInput.value || '').trim()) {
-      var mission = (ctx.engine && ctx.engine.missionText)
-        || (recover != null ? 'Govern mission portfolio — recover ' + fmtMoney(recover) + ' execution value (demo)' : '');
-      if (mission) missionInput.value = mission;
+    if (banner) {
+      banner.hidden = true;
+      banner.innerHTML = '';
     }
   }
 
@@ -184,14 +163,10 @@
 
   function wirePilotBanner() {
     var host = document.getElementById('ev-pilot-handoff');
-    if (!host || !ctxHasAssessment()) return;
-    var ctx = loadCtx();
-    var res = ctx.assessment.results;
-    host.hidden = false;
-    host.className = 'evc-handoff oa-pilot-handoff';
-    var html = '<strong>Funnel context (Calculated):</strong> Execution Score ' + res.executionScore.value + '/100 · ' + res.pilotRecommendation.value;
-    if (ctx.engine && ctx.engine.completed) html += ' · Living Engine scenario ready';
-    host.innerHTML = html;
+    if (host) {
+      host.hidden = true;
+      host.innerHTML = '';
+    }
   }
 
   function wireOneBanner() {

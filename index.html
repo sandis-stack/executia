@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="/assets/app.css">
   <link rel="stylesheet" href="/assets/homepage-migrated.css">
   <link rel="stylesheet" href="/assets/execution-value-calculator.css">
-  <link rel="stylesheet" href="/assets/organization-assessment.css">
   <link rel="stylesheet" href="/assets/living-engine.css">
   <link rel="stylesheet" href="/assets/one-core.css">
   <link rel="stylesheet" href="/assets/economy.css">
@@ -121,23 +120,23 @@
         <div class="evc-panel">
           <div id="ev-calculator-results" class="evc-results" aria-live="polite" aria-relevant="additions text">
             <div class="evc-metric" data-metric="estimatedExecutionLoss">
-              <span class="evc-metric-name">Estimated Execution Loss</span>
-              <span class="evc-metric-kind">Estimated</span>
+              <span class="evc-metric-name">Execution Loss</span>
+              <span class="evc-metric-kind"></span>
               <span class="evc-metric-value loss">—</span>
             </div>
             <div class="evc-metric" data-metric="recoverableValue">
               <span class="evc-metric-name">Recoverable Value</span>
-              <span class="evc-metric-kind">Estimated</span>
+              <span class="evc-metric-kind"></span>
               <span class="evc-metric-value gain">—</span>
             </div>
             <div class="evc-metric" data-metric="enterpriseValueCreated">
               <span class="evc-metric-name">Enterprise Value Created</span>
-              <span class="evc-metric-kind">Estimated</span>
+              <span class="evc-metric-kind"></span>
               <span class="evc-metric-value gain">—</span>
             </div>
             <div class="evc-metric" data-metric="executionScore">
               <span class="evc-metric-name">Execution Score</span>
-              <span class="evc-metric-kind">Calculated</span>
+              <span class="evc-metric-kind"></span>
               <span class="evc-metric-value">—</span>
             </div>
           </div>
@@ -200,7 +199,7 @@
       <h2>How does it work?</h2>
 
       <div id="one-core-product">
-        <div class="oc-context-bar" hidden aria-label="Funnel context bound to One Core"></div>
+        <div class="oc-context-bar" hidden aria-label="Mission context bound to One Core"></div>
         <div class="oc-flow-rail" id="oc-flow-rail" aria-label="One Core execution flow"></div>
         <div class="oc-shell">
           <div class="oc-map-canvas" id="oc-map-canvas"></div>
@@ -258,121 +257,6 @@
     </div>
   </section>
 
-  <!-- Appendix: Execution Standard — credibility, not journey -->
-  <section class="hp-section soft hp-journey-appendix" id="execution-standard" aria-label="Execution Standard">
-    <div class="wrap-home">
-      <span class="kicker">CREDIBILITY</span>
-      <h2>One standard. Governed before action.</h2>
-      <div class="system-flow">
-        <div class="flow-step">Request</div>
-        <div class="flow-step">Validation</div>
-        <div class="flow-step">Decision</div>
-        <div class="flow-step">Registry</div>
-        <div class="flow-step">Ledger</div>
-        <div class="flow-step">Audit</div>
-      </div>
-      <div class="actions" style="margin-top:1rem">
-        <a class="pill-btn" href="/standard">Read the standard</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Appendix: Assessment — supports Pilot, not journey -->
-  <section class="hp-section hp-journey-appendix" id="organization-assessment" aria-label="Assessment">
-    <div class="wrap-home">
-      <span class="kicker">ASSESSMENT</span>
-
-      <div id="organization-assessment-product">
-        <div id="oa-calculator-gate" class="oa-gate" hidden></div>
-
-        <div id="oa-assessment-workspace" class="oa-shell" hidden>
-          <div class="oa-panel">
-            <ul id="oa-qualification-focus" class="oa-focus-list" aria-label="Qualification focus"></ul>
-            <form id="oa-assessment-form" class="oa-form-grid" novalidate>
-              <div class="oa-field">
-                <label for="oa-organization">Organization</label>
-                <input class="input" id="oa-organization" name="organization" required placeholder="Company or institution" autocomplete="organization">
-              </div>
-              <div class="oa-field">
-                <label for="oa-contact">Contact person</label>
-                <input class="input" id="oa-contact" name="contact" required placeholder="Executive sponsor" autocomplete="name">
-              </div>
-              <div class="oa-field">
-                <label for="oa-email">Email</label>
-                <input class="input" id="oa-email" name="email" type="email" placeholder="name@organization.com" autocomplete="email">
-              </div>
-              <div class="oa-field">
-                <label for="oa-domain">Execution domain</label>
-                <select class="input" id="oa-domain" name="executionDomain"></select>
-              </div>
-              <div class="oa-field">
-                <label for="oa-outcome">Governance outcome</label>
-                <textarea class="input" id="oa-outcome" name="governanceOutcome" rows="3" style="min-height:88px;padding:12px 16px"></textarea>
-              </div>
-              <fieldset class="oa-field">
-                <legend>Governance self-assessment (1–5)</legend>
-                <div id="oa-sliders"></div>
-              </fieldset>
-            </form>
-          </div>
-
-          <div class="oa-panel oa-panel--results">
-            <div id="oa-assessment-flow" class="oa-flow" aria-live="polite" aria-relevant="additions text">
-              <div class="oa-flow-step" data-oa-step="currentState">
-                <div class="oa-flow-step-head">
-                  <span class="oa-flow-step-label">Current State</span>
-                  <span class="oa-flow-step-kind oa-metric-kind">Calculated</span>
-                </div>
-                <p class="oa-flow-step-value">—</p>
-                <p class="oa-flow-step-detail"></p>
-              </div>
-              <div class="oa-flow-arrow" aria-hidden="true">↓</div>
-              <div class="oa-flow-step" data-oa-step="executionScore">
-                <div class="oa-flow-step-head">
-                  <span class="oa-flow-step-label">Execution Score</span>
-                  <span class="oa-flow-step-kind oa-metric-kind">Calculated</span>
-                </div>
-                <p class="oa-flow-step-value">—</p>
-                <div class="oa-score-bar" aria-hidden="true"><span class="oa-score-bar-fill"></span></div>
-              </div>
-              <div class="oa-flow-arrow" aria-hidden="true">↓</div>
-              <div class="oa-flow-step" data-oa-step="estimatedLoss">
-                <div class="oa-flow-step-head">
-                  <span class="oa-flow-step-label">Estimated Loss</span>
-                  <span class="oa-flow-step-kind oa-metric-kind">Estimated</span>
-                </div>
-                <p class="oa-flow-step-value oa-flow-step-value--loss">—</p>
-              </div>
-              <div class="oa-flow-arrow" aria-hidden="true">↓</div>
-              <div class="oa-flow-step" data-oa-step="improvementOpportunity">
-                <div class="oa-flow-step-head">
-                  <span class="oa-flow-step-label">Improvement Opportunity</span>
-                  <span class="oa-flow-step-kind oa-metric-kind">Estimated</span>
-                </div>
-                <p class="oa-flow-step-value oa-flow-step-value--gain">—</p>
-                <div id="oa-gap-chips" class="oa-chip-row"></div>
-              </div>
-              <div class="oa-flow-arrow" aria-hidden="true">↓</div>
-              <div class="oa-flow-step oa-flow-step--next" data-oa-step="recommendedNextStep">
-                <div class="oa-flow-step-head">
-                  <span class="oa-flow-step-label">Recommended Next Step</span>
-                  <span class="oa-flow-step-kind oa-metric-kind">Calculated</span>
-                </div>
-                <p class="oa-flow-step-value">—</p>
-                <span class="oa-readiness-badge" hidden></span>
-              </div>
-            </div>
-            <div id="oa-assessment-actions" class="oa-actions">
-              <a class="pill-btn primary oa-cta-primary" id="oa-cta-living-engine" href="#living-engine" aria-disabled="true">Experience the Living Engine</a>
-            </div>
-            <p id="oa-cta-engine-hint" class="oa-cta-hint" role="status"></p>
-            <p id="oa-assessment-live" class="oa-live"></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
 </main>
 <div data-platform-footer></div>
 <script src="/assets/platform-brand.js"></script>
@@ -380,7 +264,6 @@
 <script type="module" src="/assets/homepage-hero.js"></script>
 <script src="/assets/homepage-story-film.js" defer></script>
 <script type="module" src="/assets/execution-value-calculator.js"></script>
-<script type="module" src="/assets/organization-assessment.js"></script>
 <script type="module" src="/assets/living-engine-ui.js"></script>
 <script type="module" src="/assets/one-core-ui.js"></script>
 <script type="module" src="/assets/economy-ui.js"></script>

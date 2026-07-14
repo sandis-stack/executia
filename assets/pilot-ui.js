@@ -142,7 +142,6 @@ function renderJourney(root, ctx) {
       <div class="pi-flow-step${active ? ' pi-flow-step--active' : ''}">
         <div class="pi-flow-step-head">
           <span class="pi-flow-step-label">${step.label}</span>
-          <span class="pi-flow-step-kind ${kindClass(kind)}">${kind}</span>
         </div>
         <p class="pi-flow-step-value">${detail}</p>
       </div>
@@ -177,7 +176,7 @@ function buildDeliverables(ctx) {
       kind: score != null ? (assessment?.ok ? 'Calculated' : 'Estimated') : 'Demo',
     },
     {
-      title: 'Estimated Value Opportunity',
+      title: 'Value Opportunity',
       body: recover != null
         ? `${formatCurrency(recover)} recoverable`
         : 'From Execution Value — quantify loss before Assessment.',
@@ -210,7 +209,6 @@ function renderDeliverables(root, ctx) {
     <li class="pi-deliverable">
       <div class="pi-deliverable-head">
         <h4>${item.title}</h4>
-        <span class="pi-flow-step-kind ${kindClass(item.kind)}">${item.kind}</span>
       </div>
       <p>${item.body}</p>
     </li>

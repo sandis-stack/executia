@@ -111,6 +111,7 @@ function renderJourney(root, steps) {
   panel.appendChild(el('p', 'hp-monitor-label', 'Your journey'));
 
   const meta = el('div', 'hp-monitor-meta');
+  const stateText = currentStateText(steps);
   meta.innerHTML =
     '<div><p class="sub">Current step</p>' +
     `<p class="hp-monitor-state">${escapeHtml(stateText)}</p></div>`;

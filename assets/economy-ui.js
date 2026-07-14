@@ -51,15 +51,8 @@ function normalizeKind(kind) {
   return kind ?? 'Demo';
 }
 
-function kindBadge(kind) {
-  const label = normalizeKind(kind);
-  const cls =
-    label === 'Estimated'
-      ? 'ee-kind--estimated'
-      : label === 'Calculated'
-        ? 'ee-kind--calculated'
-        : 'ee-kind--demo';
-  return `<span class="ee-kind ${cls}">${label}</span>`;
+function kindBadge(_kind) {
+  return '';
 }
 
 function valueCreated(stage, context) {

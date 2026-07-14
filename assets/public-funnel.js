@@ -267,68 +267,21 @@ export function buildOneUrl() {
   return `https://one.executia.io/?${params.toString()}`;
 }
 
-export function applyEngineHandoff(ctx = loadPublicFunnelContext()) {
+export function applyEngineHandoff(_ctx = loadPublicFunnelContext()) {
   const banner = document.getElementById('ev-engine-handoff');
-  const missionInput = document.getElementById('living-engine-input')
-    ?? document.getElementById('demo-input');
-  if (!banner && !missionInput) return;
-
-  const score = refinedExecutionScore(ctx);
-  const recover = recoverableValue(ctx);
-  const priorities = priorityAreas(ctx);
-  const parts = [];
-
-  if (score != null) parts.push(`Execution Score ${score}/100`);
-  if (recover != null) parts.push(`Recoverable ${formatCurrency(recover)}`);
-  if (priorities.length) parts.push(`Priority: ${priorities[0]}`);
-
-  if (ctx.assessment?.results?.ok) {
-    parts.unshift('Assessment context consumed');
-  } else if (ctx.calculator?.results) {
-    parts.unshift('Calculator context');
-  }
-
-  if (ctx.engine?.completed) {
-    const summary = engineScenarioSummary(ctx);
-    if (summary?.score != null) parts.push(`Engine score ${summary.score}/100`);
-  }
-
-  if (banner && parts.length) {
-    banner.hidden = false;
-    banner.innerHTML = `<strong>Funnel context (Demo):</strong> ${parts.join(' · ')}.`;
-  }
-
-  if (missionInput && !missionInput.value?.trim()) {
-    const suggested = missionContext(ctx);
-    if (suggested) missionInput.value = suggested;
-    else if (priorities.length) {
-      missionInput.placeholder = `e.g. Address ${priorities[0]} across the organization`;
-    }
+  if (banner) {
+    banner.hidden = true;
+    banner.innerHTML = '';
   }
 }
 
-export function applyPilotHandoff(ctx = loadPublicFunnelContext()) {
+export function applyPilotHandoff(_ctx = loadPublicFunnelContext()) {
   const host = document.getElementById('ev-pilot-handoff');
   const cta = document.getElementById('ev-cta-pilot-request');
-  if (!ctx.assessment?.results?.ok) {
-    if (host) host.hidden = true;
-    return;
-  }
-
-  const res = ctx.assessment.results;
   if (host) {
-    host.hidden = false;
-    host.className = 'evc-handoff oa-pilot-handoff';
-    let html =
-      `<strong>Funnel context (Calculated):</strong> Execution Score ${res.executionScore.value}/100 · ` +
-      `${res.pilotRecommendation.value}`;
-    if (ctx.engine?.completed) {
-      const summary = engineScenarioSummary(ctx);
-      html += ` · Living Engine: ${summary?.mission?.slice(0, 48) ?? 'scenario ready'}…`;
-    }
-    host.innerHTML = html;
+    host.hidden = true;
+    host.innerHTML = '';
   }
-
   if (cta) {
     cta.href = buildRequestUrl();
   }

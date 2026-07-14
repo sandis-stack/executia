@@ -4,20 +4,19 @@ import {
   DEMO_DISCLOSURE,
   calculateExecutionValue,
   persistExecutionValue,
-  loadExecutionValue,
   formatCurrency,
 } from './execution-value-engine.js';
 import { applyEngineHandoff, applyPilotHandoff, notifyFunnelUpdate } from './public-funnel.js';
 
 const DEFAULTS = {
-  industry: 'technology',
-  annualRevenue: 120_000_000,
-  employees: 850,
-  countries: 3,
-  activeProjects: 24,
-  averageProjectValue: 2_500_000,
+  industry: '',
+  annualRevenue: '',
+  employees: '',
+  countries: '',
+  activeProjects: '',
+  averageProjectValue: '',
   ebitMargin: '',
-  majorRisks: ['project-delivery', 'multi-site'],
+  majorRisks: [],
 };
 
 const REQUIRED_FIELDS = [
@@ -112,11 +111,10 @@ function validateInputs(raw) {
   return { ok: missing.length === 0, missing };
 }
 
-function applyKindClass(kindEl, kind) {
+function applyKindClass(kindEl) {
   if (!kindEl) return;
-  const slug = String(kind ?? 'Demo').toLowerCase();
-  kindEl.className = `evc-metric-kind evc-kind--${slug}`;
-  kindEl.textContent = kind ?? 'Demo';
+  kindEl.className = 'evc-metric-kind';
+  kindEl.textContent = '';
 }
 
 function renderMetric(container, key, metric, className = '') {
@@ -124,7 +122,7 @@ function renderMetric(container, key, metric, className = '') {
   if (!node) return;
   const valueEl = node.querySelector('.evc-metric-value');
   const kindEl = node.querySelector('.evc-metric-kind');
-  applyKindClass(kindEl, metric.kind);
+  applyKindClass(kindEl);
 
   if (Array.isArray(metric.value)) {
     valueEl.innerHTML = '';
@@ -227,14 +225,7 @@ function updateAssessmentCta(ui, validation, hasResults) {
 function renderResults(results, ui) {
   renderMetric(ui.results, 'estimatedExecutionLoss', results.estimatedExecutionLoss, 'loss');
   renderMetric(ui.results, 'recoverableValue', results.recoverableValue, 'gain');
-  renderMetric(ui.results, 'enterpriseValueCreated', results.enterpriseValueCreated, 'gain');
   renderMetric(ui.results, 'executionScore', results.executionScore);
-  renderMetric(ui.results, 'executionRisk', results.executionRisk);
-  renderMetric(ui.results, 'executionQuality', results.executionQuality);
-  renderMetric(ui.results, 'estimatedRoi', results.estimatedRoi);
-  renderMetric(ui.results, 'estimatedPayback', results.estimatedPayback);
-  renderMetric(ui.results, 'priorityImprovementAreas', results.priorityImprovementAreas);
-  renderMetric(ui.results, 'confidenceLevel', results.confidenceLevel);
   renderChart(results, ui.chart);
 
   ui.live.textContent = '';
@@ -246,6 +237,12 @@ function renderResults(results, ui) {
 }
 
 function buildIndustryOptions(select) {
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = 'Select industry';
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  select.appendChild(placeholder);
   INDUSTRIES.forEach((industry) => {
     const option = document.createElement('option');
     option.value = industry.id;
@@ -270,17 +267,8 @@ function initCalculator(root) {
   buildIndustryOptions(form.querySelector('#ev-industry'));
   buildRiskOptions(form.querySelector('#ev-risks'));
 
-  Object.entries(DEFAULTS).forEach(([key, value]) => {
-    if (key === 'majorRisks') {
-      value.forEach((id) => {
-        const input = form.querySelector(`[name="risk-${id}"]`);
-        if (input) input.checked = true;
-      });
-      return;
-    }
-    const field = form.elements.namedItem(key);
-    if (field) field.value = value;
-  });
+  renderPlaceholderResults(ui);
+  updateAssessmentCta(ui, validateInputs(readForm(form)), false);
 
   const recompute = debounce(() => {
     const payload = readForm(form);
@@ -306,32 +294,9 @@ function initCalculator(root) {
       if (cta.classList.contains('is-disabled')) event.preventDefault();
     });
   }
-
-  recompute();
-
-  const stored = loadExecutionValue();
-  if (stored?.inputs) {
-    Object.entries(stored.inputs).forEach(([key, value]) => {
-      if (key === 'majorRisks') {
-        MAJOR_RISK_OPTIONS.forEach((risk) => {
-          const input = form.querySelector(`[name="risk-${risk.id}"]`);
-          if (input) input.checked = value.includes(risk.id);
-        });
-        return;
-      }
-      const field = form.elements.namedItem(key);
-      if (field && value != null) field.value = value;
-    });
-    recompute();
-  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('execution-value-calculator');
   if (root) initCalculator(root);
-  const stored = loadExecutionValue();
-  if (stored?.results) {
-    applyEngineHandoff();
-    applyPilotHandoff();
-  }
 });
