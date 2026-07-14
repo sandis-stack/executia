@@ -363,7 +363,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background: #0f172a;
+  background: #fff;
   overflow: hidden;
 }
 .hp-film-video {
@@ -452,106 +452,111 @@
 .hp-film-icon-btn:hover { background: #f8fafc; color: #1e293b; }
 .hp-film-icon-btn[hidden] { display: none !important; }
 
-/* Story film scenes — LOCK candidate v1 */
-.sf-idea {
-  margin: 0 0 1rem;
-  max-width: 36rem;
-  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: #0f172a;
-}
-.sf-line {
-  margin: 0;
-  font-size: clamp(1.2rem, 2.4vw, 1.65rem);
-  font-weight: 600;
-  line-height: 1.2;
-  color: #334155;
-  opacity: 0;
-}
-.sf-scene-healthy,
-.sf-scene-hidden,
-.sf-scene-loss,
-.sf-scene-visible { background: #fff; }
-
-.sf-green-row {
-  display: flex;
-  justify-content: center;
-  gap: 0.65rem;
-  width: min(100%, 18rem);
-  margin: 0.5rem 0 0.75rem;
-}
-.sf-green-bar {
-  display: block;
-  flex: 1;
-  height: 0.55rem;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #34d399, #10b981);
-  opacity: 0;
-  transform: scaleX(0.2);
-  transform-origin: left center;
-}
-
-.sf-gap-line {
-  min-height: 2rem;
-  font-size: clamp(1.35rem, 2.8vw, 1.9rem);
-  font-weight: 700;
-  color: #b45309;
-}
-
-.sf-loss-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  width: min(100%, 20rem);
-}
-.sf-loss-signal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 3.25rem;
-  border-radius: 0.65rem;
-  border: 2px solid #fecaca;
-  background: #fff7f7;
-  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
-  font-weight: 700;
-  color: #b91c1c;
-  opacity: 0;
-}
-
-.sf-visible-chain {
+/* Story film — continuous execution story */
+.sf-continuous {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.15rem;
-  margin-top: 0.35rem;
+  justify-content: center;
+  padding: 1.5rem 1.25rem 2.5rem;
+  background: #fff;
 }
-.sf-chain-node {
-  min-width: 10rem;
-  padding: 0.45rem 0.9rem;
-  border-radius: 0.45rem;
-  border: 2px solid #bae6fd;
-  background: #f0f9ff;
+.sf-layer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+  width: min(100%, 42rem);
+  opacity: 0;
+  pointer-events: none;
+}
+.sf-layer-healthy {
+  top: 28%;
+  opacity: 1;
+}
+.sf-layer-gaps { top: 38%; }
+.sf-layer-effects {
+  top: 48%;
+  max-width: 28rem;
+}
+.sf-layer-chain {
+  top: 32%;
+  width: min(100%, 46rem);
+}
+.sf-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 5.5rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 0.6rem;
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.15;
+  opacity: 0;
+}
+.sf-pill span { display: block; }
+.sf-pill-green {
+  border: 2px solid #6ee7b7;
+  background: #ecfdf5;
+  color: #047857;
+}
+.sf-pill-green strong {
   font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #059669;
+}
+.sf-pill-gap {
+  border: 2px solid #fcd34d;
+  background: #fffbeb;
+  color: #b45309;
+}
+.sf-pill-loss {
+  border: 2px solid #fca5a5;
+  background: #fef2f2;
+  color: #b91c1c;
+  min-width: 4.75rem;
+}
+.sf-chain-track {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.25rem;
+}
+.sf-chain-step {
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.5rem;
+  border: 2px solid #7dd3fc;
+  background: #f0f9ff;
+  font-size: clamp(0.9rem, 1.7vw, 1.05rem);
   font-weight: 700;
   color: #124155;
   opacity: 0;
 }
-.sf-chain-link {
-  display: block;
-  width: 2px;
-  height: 0.7rem;
-  background: #94a3b8;
+.sf-chain-arrow {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 700;
+  color: #64748b;
   opacity: 0;
-  transform: scaleY(0);
-  transform-origin: top center;
 }
 .sf-payoff {
-  margin-top: 0.85rem;
-  max-width: 34rem;
-  font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  max-width: 36rem;
+  padding: 0 1rem;
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
   font-weight: 600;
+  line-height: 1.2;
   color: #124155;
   text-align: center;
   opacity: 0;
