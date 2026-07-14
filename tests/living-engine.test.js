@@ -43,9 +43,13 @@ test('generateExecutionScenario produces reasoning chain outputs', () => {
   assert.ok(result.outputs.validation.claimsValidated >= 1);
   assert.ok(result.outputs.validation.rulesApplied >= 1);
   assert.ok(result.validation.findings.length >= 1);
+  assert.ok(result.outputs.evidence.obligationsCount >= 1);
+  assert.equal(result.outputs.evidence.obligationsCount, result.validation.findings.length);
+  assert.ok(result.evidence.obligations.length >= 1);
   assert.equal(LIFECYCLE_PHASES.length, 8);
   assert.ok(phasePayload(result, 'reasoning').claims.length >= 1);
   assert.ok(phasePayload(result, 'validation').findings.length >= 1);
+  assert.ok(phasePayload(result, 'evidence').obligations.length >= 1);
 });
 
 test('engine consumes calculator context in reasoning facts', () => {

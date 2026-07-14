@@ -180,6 +180,56 @@ function buildValidationHtml(payload) {
     <ul class="le-list">${findingsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>`;
 }
 
+function buildEvidenceHtml(payload) {
+  const evidence = payload.evidence;
+  if (!evidence?.summary) {
+    return renderInsufficient('Evidence output unavailable.');
+  }
+
+  const summary = evidence.summary;
+  const obligations = (payload.obligations ?? evidence.obligations ?? []).slice(0, 8);
+
+  const statusLines = Object.entries(summary.evidenceStatusDistribution ?? {})
+    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
+    .join('');
+  const verificationLines = Object.entries(summary.verificationDistribution ?? {})
+    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
+    .join('');
+  const resultLines = Object.entries(summary.resultDistribution ?? {})
+    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
+    .join('');
+  const obligationsHtml = obligations
+    .map(
+      (obligation) =>
+        `<li><strong>${escapeHtml(obligation.obligation_id)}</strong> ← ${escapeHtml(obligation.finding_id)} · ${escapeHtml(obligation.rule_id)} · ${escapeHtml(obligation.evidence_status)} · ${escapeHtml(obligation.verification)} · ${escapeHtml(obligation.evidence_result)} — ${escapeHtml(obligation.explanation)}</li>`,
+    )
+    .join('');
+
+  const satisfiedHtml = summary.satisfiedObligations?.length
+    ? `<p class="le-subhead">Satisfied obligations</p><ul class="le-list">${summary.satisfiedObligations.map((id) => `<li>${escapeHtml(id)}</li>`).join('')}</ul>`
+    : '';
+  const unsatisfiedHtml = summary.unsatisfiedObligations?.length
+    ? `<p class="le-subhead">Unsatisfied obligations</p><ul class="le-list">${summary.unsatisfiedObligations.map((id) => `<li>${escapeHtml(id)}</li>`).join('')}</ul>`
+    : '';
+
+  return `
+    <dl class="le-output-grid">
+      <dt>Evidence obligations</dt><dd>${summary.obligationsCount}</dd>
+      <dt>Satisfied</dt><dd>${summary.satisfiedObligations?.length ?? 0}</dd>
+      <dt>Unsatisfied</dt><dd>${summary.unsatisfiedObligations?.length ?? 0}</dd>
+    </dl>
+    <p class="le-subhead">Evidence status</p>
+    <ul class="le-list">${statusLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    <p class="le-subhead">Verification</p>
+    <ul class="le-list">${verificationLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    <p class="le-subhead">Evidence result</p>
+    <ul class="le-list">${resultLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    ${satisfiedHtml}
+    ${unsatisfiedHtml}
+    <p class="le-subhead">Obligations</p>
+    <ul class="le-list">${obligationsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>`;
+}
+
 function buildDecisionHtml(payload) {
   const o = payload.outputs;
   return `
@@ -208,7 +258,7 @@ function phaseBodyHtml(phaseId, result) {
     case 'validation':
       return buildValidationHtml(payload);
     case 'evidence':
-      return renderInsufficient(payload.evidence?.message);
+      return buildEvidenceHtml(payload);
     case 'decision':
       return buildDecisionHtml(payload);
     default:

@@ -96,7 +96,17 @@ function enrichNode(base, context, scenario) {
     node.outputs = [INSUFFICIENT_BASIS];
   }
 
-  if (base.id === 'evidence' && scenario?.evidence?.status === INSUFFICIENT_BASIS) {
+  if (base.id === 'evidence' && scenario?.evidence?.summary) {
+    const summary = scenario.evidence.summary;
+    node.outputs = [
+      `${summary.obligationsCount} obligations`,
+      `${summary.satisfiedObligations.length} satisfied`,
+      `${summary.unsatisfiedObligations.length} unsatisfied`,
+    ];
+    if (summary.insufficientBasisObligations.length) {
+      node.outputs.push(`${summary.insufficientBasisObligations.length} insufficient basis`);
+    }
+  } else if (base.id === 'evidence') {
     node.outputs = [INSUFFICIENT_BASIS];
   }
 
