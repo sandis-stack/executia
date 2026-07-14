@@ -9,6 +9,7 @@ import { runReasoningEngine, INSUFFICIENT_BASIS } from './reasoning-engine.js';
 import { runValidation } from './validation-engine.js';
 import { runEvidence } from './evidence-engine.js';
 import { runExecutionOutlook } from './execution-outlook-engine.js';
+import { runDecision } from './decision-engine.js';
 import { formatCurrency } from '../execution-value-engine.js';
 
 export { INSUFFICIENT_BASIS };
@@ -58,7 +59,72 @@ function buildAssessmentContext(assessment) {
   };
 }
 
-function buildOutputs(reasoning, validation, evidence, outlook, calculator, assessment) {
+function sanitizeInternalIds(text) {
+  return String(text ?? '')
+    .replace(/\b(claim|finding|obligation|assumption|action|because|invalid|reeval)-[a-z0-9-]+\b/gi, '')
+    .replace(/\bES-[A-Z0-9-]+\b/g, '')
+    .replace(/\boutlook-scenario-\d+\b/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+function publicizeActionText(text) {
+  const raw = String(text ?? '');
+  if (/Proceed under the READY execution outlook/i.test(raw)) {
+    return 'Proceed under the stated execution assumptions.';
+  }
+  if (/Provide proof for obligation/i.test(raw)) {
+    const proof = raw.split(':').slice(1).join(':').trim();
+    return proof ? `Provide proof: ${sanitizeInternalIds(proof)}` : 'Provide required proof before proceeding.';
+  }
+  if (/Resolve finding/i.test(raw)) {
+    return 'Resolve the open validation issue before proceeding.';
+  }
+  if (/Route to executive sponsor/i.test(raw)) {
+    return 'Obtain executive sponsor or governing authority approval.';
+  }
+  if (/Resolve blocking validation findings/i.test(raw)) {
+    return 'Resolve blocking validation issues before re-evaluation.';
+  }
+  return sanitizeInternalIds(raw);
+}
+
+function publicizeConditionText(text) {
+  const raw = String(text ?? '');
+  if (/Outlook invalid if/i.test(raw)) {
+    return sanitizeInternalIds(raw.replace(/remains INSUFFICIENT BASIS/i, 'remains unresolved'));
+  }
+  if (/must change from/i.test(raw) || /must reach VERIFIED/i.test(raw)) {
+    return 'Complete the open requirement before requesting a new decision.';
+  }
+  if (/Execution outlook must reach READY/i.test(raw)) {
+    return 'Execution readiness must be established before re-evaluation.';
+  }
+  return sanitizeInternalIds(raw);
+}
+
+export function buildPublicDecisionSummary(decision) {
+  if (!decision?.summary) {
+    return {
+      decision: INSUFFICIENT_BASIS,
+      reason: 'A governed decision could not be formed from the available inputs.',
+      required_actions: [],
+      re_evaluation_conditions: [],
+    };
+  }
+
+  return {
+    decision: decision.decision,
+    reason: sanitizeInternalIds(decision.summary.reason),
+    required_actions: (decision.required_actions ?? []).map((action) => publicizeActionText(action.text)),
+    re_evaluation_conditions: (decision.re_evaluation_conditions ?? []).map((condition) =>
+      publicizeConditionText(condition.text),
+    ),
+  };
+}
+
+function buildOutputs(reasoning, validation, evidence, outlook, decision, calculator, assessment) {
+  const publicDecision = buildPublicDecisionSummary(decision);
   return {
     missionSummary: {
       headline: reasoning.mission.headline,
@@ -93,9 +159,12 @@ function buildOutputs(reasoning, validation, evidence, outlook, calculator, asse
       reason: 'Timeline not declared in mission or organization facts.',
     },
     decision: {
-      outcome: INSUFFICIENT_BASIS,
-      reason: 'Decision requires Execution Outlook synthesis.',
+      outcome: publicDecision.decision,
+      reason: publicDecision.reason,
+      required_actions: publicDecision.required_actions,
+      re_evaluation_conditions: publicDecision.re_evaluation_conditions,
     },
+    decisionSummary: publicDecision,
   };
 }
 
@@ -114,6 +183,7 @@ export function generateExecutionScenario(missionText) {
   const validation = runValidation(reasoning);
   const evidence = runEvidence(reasoning, validation);
   const outlook = runExecutionOutlook(reasoning, validation, evidence);
+  const decision = runDecision(reasoning, validation, evidence, outlook);
 
   const scenario = {
     mission: reasoning.mission,
@@ -145,13 +215,14 @@ export function generateExecutionScenario(missionText) {
     validation,
     evidence,
     outlook,
+    decision,
     executionValue: buildExecutionValueContext(calculator),
     assessmentContext: buildAssessmentContext(assessment),
     disclosure: ENGINE_DISCLOSURE,
     kind: 'ExecutionIntelligence',
   };
 
-  const outputs = buildOutputs(reasoning, validation, evidence, outlook, calculator, assessment);
+  const outputs = buildOutputs(reasoning, validation, evidence, outlook, decision, calculator, assessment);
 
   return {
     ok: true,
@@ -160,6 +231,7 @@ export function generateExecutionScenario(missionText) {
     validation,
     evidence,
     outlook,
+    decisionRecord: decision,
     scenario,
     outputs,
     calculator,
@@ -221,7 +293,7 @@ export function phasePayload(result, phaseId) {
       };
     case 'execution-ready':
     case 'decision':
-      return { outputs, decision: outputs.decision, reasoning };
+      return { decisionSummary: outputs.decisionSummary ?? outputs.decision };
     default:
       return null;
   }

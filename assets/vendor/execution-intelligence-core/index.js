@@ -4,6 +4,7 @@
  */
 
 export { INSUFFICIENT_BASIS } from './constants.js';
+export { DECISION_OUTCOMES } from './decision-engine.js';
 export * from './domain-models.js';
 export { runReasoningEngine } from './reasoning-engine.js';
 export { runValidation } from './validation-engine.js';

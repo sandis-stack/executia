@@ -8,7 +8,6 @@ import {
   INSUFFICIENT_BASIS,
 } from './living-engine/orchestrator.js';
 import { ENGINE_DISCLOSURE } from './living-engine/mission-parser.js';
-import { formatCurrency } from './execution-value-engine.js';
 import {
   persistEngineRun,
   applyEngineHandoff,
@@ -30,6 +29,14 @@ const DISPLAY_PHASES = [
   { id: 'decision', label: 'Decision' },
 ];
 
+const DECISION_LABELS = {
+  PROCEED: 'Proceed',
+  HOLD: 'Hold',
+  REJECT: 'Reject',
+  ESCALATE: 'Escalate',
+  [INSUFFICIENT_BASIS]: 'Insufficient basis',
+};
+
 function escapeHtml(text) {
   return String(text ?? '')
     .replace(/&/g, '&amp;')
@@ -42,266 +49,49 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function renderInsufficient(message) {
-  return `<p class="le-step-output le-insufficient">${escapeHtml(message || INSUFFICIENT_BASIS)}</p>`;
-}
-
 function buildMissionHtml(payload) {
   return `
     <p class="le-mission-headline">${escapeHtml(payload.mission.headline)}</p>
     <p class="le-step-output">${escapeHtml(payload.mission.statement)}</p>`;
 }
 
-function buildIntentHtml(payload) {
-  const objectives = (payload.objectives ?? [])
-    .slice(0, 4)
-    .map((objective) => `<li>${escapeHtml(objective.text)}</li>`)
-    .join('');
-  const constraints = (payload.constraints ?? [])
-    .map((constraint) => `<li>${escapeHtml(constraint.marker)} — cited from mission</li>`)
-    .join('');
-  const geography = (payload.geography ?? [])
-    .map((geo) => `<li>${escapeHtml(geo.place)}</li>`)
-    .join('');
-
-  const parts = [`<ul class="le-list">${objectives}</ul>`];
-  if (constraints) {
-    parts.push('<p class="le-subhead">Constraints detected</p>', `<ul class="le-list">${constraints}</ul>`);
-  }
-  if (geography.length) {
-    parts.push('<p class="le-subhead">Geography mentioned</p>', `<ul class="le-list">${geography}</ul>`);
-  }
-  if (!constraints.length) {
-    parts.push('<p class="le-step-output">No explicit constraints stated in mission.</p>');
-  }
-  return parts.join('');
-}
-
-function buildContextHtml(payload) {
-  const lines = [];
-  const context = payload.executionContext;
-  if (context) {
-    lines.push(
-      `<p class="le-step-output">Context completeness: <strong>${escapeHtml(context.completeness)}</strong></p>`,
-    );
-    if (context.orgFactsPresent?.length) {
-      lines.push(`<p class="le-step-output">Declared: ${escapeHtml(context.orgFactsPresent.join(', '))}</p>`);
-    }
-    if (context.orgFactsMissing?.length) {
-      lines.push(`<p class="le-step-output">${escapeHtml(INSUFFICIENT_BASIS)} — missing: ${escapeHtml(context.orgFactsMissing.join(', '))}</p>`);
-    }
-  }
-  if (payload.executionValue?.connected) {
-    lines.push(
-      `<p class="le-step-output">Recoverable value: ${formatCurrency(payload.executionValue.recoverableValue)}</p>`,
-    );
-  } else {
-    lines.push(`<p class="le-step-output">${escapeHtml(INSUFFICIENT_BASIS)} — organization profile not bound.</p>`);
-  }
-  if (payload.assessmentContext?.connected) {
-    lines.push(
-      `<p class="le-step-output">${escapeHtml(payload.assessmentContext.organization)} · Execution domain bound</p>`,
-    );
-  }
-  return lines.join('');
-}
-
-function buildReasoningHtml(payload) {
-  const claims = (payload.claims ?? [])
-    .slice(0, 6)
-    .map(
-      (claim) =>
-        `<li><strong>${escapeHtml(claim.id)}</strong> — ${escapeHtml(claim.statement)} <span class="le-confidence">(${escapeHtml(claim.confidence)})</span></li>`,
-    )
-    .join('');
-  const chain = (payload.chain ?? [])
-    .slice(0, 4)
-    .map(
-      (step) =>
-        `<li>${escapeHtml(step.step_id)}: ${escapeHtml(step.inference)} <span class="le-premises">[${escapeHtml(step.premises.join(', '))}]</span></li>`,
-    )
-    .join('');
-  const stakeholders = (payload.stakeholders ?? [])
-    .map((stakeholder) => `<li>${escapeHtml(stakeholder.role)}</li>`)
-    .join('');
-  const dependencies = (payload.dependencies ?? [])
-    .map((dependency) => `<li>${escapeHtml(dependency.type)}: ${escapeHtml(dependency.target)}</li>`)
-    .join('');
-  const insufficient = (payload.insufficientAreas ?? [])
-    .map((area) => `<li>${escapeHtml(area.area)} — ${escapeHtml(area.status)}</li>`)
-    .join('');
-
-  return `
-    <p class="le-subhead">Claims</p>
-    <ul class="le-list">${claims || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    <p class="le-subhead">Reasoning chain</p>
-    <ul class="le-list">${chain || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    ${stakeholders ? `<p class="le-subhead">Stakeholders (from mission)</p><ul class="le-list">${stakeholders}</ul>` : `<p class="le-step-output">${escapeHtml(INSUFFICIENT_BASIS)} — stakeholders not named in mission.</p>`}
-    ${dependencies ? `<p class="le-subhead">Dependencies (from mission)</p><ul class="le-list">${dependencies}</ul>` : `<p class="le-step-output">${escapeHtml(INSUFFICIENT_BASIS)} — dependencies not stated in mission.</p>`}
-    ${insufficient ? `<p class="le-subhead">Insufficient basis</p><ul class="le-list">${insufficient}</ul>` : ''}`;
-}
-
-function buildValidationHtml(payload) {
-  const validation = payload.validation;
-  if (!validation?.summary) {
-    return renderInsufficient('Validation output unavailable.');
-  }
-
-  const summary = validation.summary;
-  const findings = (payload.findings ?? validation.findings ?? []).slice(0, 8);
-
-  const severityLines = Object.entries(summary.severityDistribution ?? {})
-    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
-    .join('');
-  const statusLines = Object.entries(summary.statusDistribution ?? {})
-    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
-    .join('');
-  const findingsHtml = findings
-    .map(
-      (finding) =>
-        `<li><strong>${escapeHtml(finding.rule_id)}</strong> → ${escapeHtml(finding.claim_id)} · ${escapeHtml(finding.execution_status)} · ${escapeHtml(finding.severity)} — ${escapeHtml(finding.explanation)}</li>`,
-    )
-    .join('');
-  const blockedHtml = summary.blockedClaims?.length
-    ? `<p class="le-subhead">Blocked claims</p><ul class="le-list">${summary.blockedClaims.map((claimId) => `<li>${escapeHtml(claimId)}</li>`).join('')}</ul>`
-    : '';
-
-  return `
-    <dl class="le-output-grid">
-      <dt>Claims validated</dt><dd>${summary.claimsValidated}</dd>
-      <dt>Rules applied</dt><dd>${summary.rulesApplied}</dd>
-      <dt>Findings</dt><dd>${summary.findingsCount}</dd>
-    </dl>
-    <p class="le-subhead">Severity distribution</p>
-    <ul class="le-list">${severityLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    <p class="le-subhead">Execution status</p>
-    <ul class="le-list">${statusLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    ${blockedHtml}
-    <p class="le-subhead">Findings</p>
-    <ul class="le-list">${findingsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>`;
-}
-
-function buildEvidenceHtml(payload) {
-  const evidence = payload.evidence;
-  if (!evidence?.summary) {
-    return renderInsufficient('Evidence output unavailable.');
-  }
-
-  const summary = evidence.summary;
-  const obligations = (payload.obligations ?? evidence.obligations ?? []).slice(0, 8);
-
-  const statusLines = Object.entries(summary.evidenceStatusDistribution ?? {})
-    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
-    .join('');
-  const verificationLines = Object.entries(summary.verificationDistribution ?? {})
-    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
-    .join('');
-  const resultLines = Object.entries(summary.resultDistribution ?? {})
-    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
-    .join('');
-  const obligationsHtml = obligations
-    .map(
-      (obligation) =>
-        `<li><strong>${escapeHtml(obligation.obligation_id)}</strong> ← ${escapeHtml(obligation.finding_id)} · ${escapeHtml(obligation.rule_id)} · ${escapeHtml(obligation.evidence_status)} · ${escapeHtml(obligation.verification)} · ${escapeHtml(obligation.evidence_result)} — ${escapeHtml(obligation.explanation)}</li>`,
-    )
-    .join('');
-
-  const satisfiedHtml = summary.satisfiedObligations?.length
-    ? `<p class="le-subhead">Satisfied obligations</p><ul class="le-list">${summary.satisfiedObligations.map((id) => `<li>${escapeHtml(id)}</li>`).join('')}</ul>`
-    : '';
-  const unsatisfiedHtml = summary.unsatisfiedObligations?.length
-    ? `<p class="le-subhead">Unsatisfied obligations</p><ul class="le-list">${summary.unsatisfiedObligations.map((id) => `<li>${escapeHtml(id)}</li>`).join('')}</ul>`
-    : '';
-
-  return `
-    <dl class="le-output-grid">
-      <dt>Evidence obligations</dt><dd>${summary.obligationsCount}</dd>
-      <dt>Satisfied</dt><dd>${summary.satisfiedObligations?.length ?? 0}</dd>
-      <dt>Unsatisfied</dt><dd>${summary.unsatisfiedObligations?.length ?? 0}</dd>
-    </dl>
-    <p class="le-subhead">Evidence status</p>
-    <ul class="le-list">${statusLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    <p class="le-subhead">Verification</p>
-    <ul class="le-list">${verificationLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    <p class="le-subhead">Evidence result</p>
-    <ul class="le-list">${resultLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    ${satisfiedHtml}
-    ${unsatisfiedHtml}
-    <p class="le-subhead">Obligations</p>
-    <ul class="le-list">${obligationsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>`;
-}
-
-function buildOutlookHtml(payload) {
-  const outlook = payload.outlook;
-  if (!outlook?.summary) {
-    return renderInsufficient('Execution Outlook output unavailable.');
-  }
-
-  if (outlook.status === INSUFFICIENT_BASIS) {
-    return renderInsufficient(outlook.summary.reason ?? INSUFFICIENT_BASIS);
-  }
-
-  const summary = outlook.summary;
-  const assumptions = (payload.assumptions ?? outlook.assumptions ?? []).slice(0, 6);
-  const invalidConditions = (payload.invalid_conditions ?? outlook.invalid_conditions ?? []).slice(0, 6);
-  const scenario = payload.scenario ?? outlook.scenario;
-
-  const assumptionsHtml = assumptions
-    .map(
-      (assumption) =>
-        `<li><strong>${escapeHtml(assumption.assumption_id)}</strong> · ${escapeHtml(assumption.fact_id)} — ${escapeHtml(assumption.text)}</li>`,
-    )
-    .join('');
-  const invalidHtml = invalidConditions
-    .map(
-      (condition) =>
-        `<li><strong>${escapeHtml(condition.condition_id)}</strong> — ${escapeHtml(condition.text)}</li>`,
-    )
-    .join('');
-  const constraintsHtml = (scenario?.constraints ?? [])
-    .map((constraint) => `<li>${escapeHtml(constraint.claim_id)} · ${escapeHtml(constraint.marker)}</li>`)
-    .join('');
-  const dependenciesHtml = (scenario?.dependencies ?? [])
-    .map((dependency) => `<li>${escapeHtml(dependency.claim_id)} · ${escapeHtml(dependency.type)}: ${escapeHtml(dependency.target)}</li>`)
-    .join('');
-  const evidenceHtml = (scenario?.evidence_used ?? [])
-    .map((item) => `<li>${escapeHtml(item.obligation_id)} · ${escapeHtml(item.rule_id)}</li>`)
-    .join('');
-  const reasoningHtml = (scenario?.reasoning_references ?? [])
-    .map((ref) => `<li>${escapeHtml(ref.step_id)} → ${escapeHtml(ref.claim_id)}</li>`)
-    .join('');
-
-  return `
-    <dl class="le-output-grid">
-      <dt>Status</dt><dd>${escapeHtml(summary.status)}</dd>
-      <dt>Confidence</dt><dd>${escapeHtml(outlook.confidence)}</dd>
-      <dt>Validated claims</dt><dd>${summary.validatedClaimsCount}</dd>
-      <dt>Verified evidence</dt><dd>${summary.verifiedEvidenceCount}</dd>
-    </dl>
-    <p class="le-subhead">Assumptions</p>
-    <ul class="le-list">${assumptionsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    <p class="le-subhead">Scenario constraints</p>
-    <ul class="le-list">${constraintsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    <p class="le-subhead">Scenario dependencies</p>
-    <ul class="le-list">${dependenciesHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    <p class="le-subhead">Evidence used</p>
-    <ul class="le-list">${evidenceHtml || `<li>None verified</li>`}</ul>
-    <p class="le-subhead">Reasoning references</p>
-    <ul class="le-list">${reasoningHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
-    <p class="le-subhead">Invalid conditions</p>
-    <ul class="le-list">${invalidHtml || `<li>NONE IDENTIFIED</li>`}</ul>`;
+function buildProgressHtml() {
+  return `<p class="le-step-output le-progress">Review complete.</p>`;
 }
 
 function buildDecisionHtml(payload) {
-  const o = payload.outputs;
+  const summary = payload.decisionSummary ?? payload;
+  const decisionKey = summary.decision ?? summary.outcome ?? INSUFFICIENT_BASIS;
+  const label = DECISION_LABELS[decisionKey] ?? decisionKey;
+  const reason =
+    summary.reason ??
+    'A governed decision could not be formed from the available inputs.';
+
+  const actions = (summary.required_actions ?? [])
+    .filter(Boolean)
+    .map((text) => `<li>${escapeHtml(text)}</li>`)
+    .join('');
+  const conditions = (summary.re_evaluation_conditions ?? [])
+    .filter(Boolean)
+    .map((text) => `<li>${escapeHtml(text)}</li>`)
+    .join('');
+
   return `
-    <dl class="le-output-grid">
-      <dt>Reasoning status</dt><dd>${escapeHtml(o.reasoning?.status ?? INSUFFICIENT_BASIS)}</dd>
-      <dt>Claims</dt><dd>${o.reasoning?.claimCount ?? 0}</dd>
-      <dt>Chain steps</dt><dd>${o.reasoning?.chainLength ?? 0}</dd>
-      <dt>Decision</dt><dd>${escapeHtml(o.decision?.outcome ?? INSUFFICIENT_BASIS)}</dd>
+    <dl class="le-output-grid le-decision-summary">
+      <dt>Decision</dt><dd>${escapeHtml(label)}</dd>
     </dl>
-    <p class="le-step-output">${escapeHtml(o.decision?.reason ?? 'Decision chain not yet available.')}</p>`;
+    <p class="le-subhead">Reason</p>
+    <p class="le-step-output">${escapeHtml(reason)}</p>
+    ${
+      actions
+        ? `<p class="le-subhead">Required actions</p><ul class="le-list">${actions}</ul>`
+        : ''
+    }
+    ${
+      conditions
+        ? `<p class="le-subhead">Re-evaluation conditions</p><ul class="le-list">${conditions}</ul>`
+        : ''
+    }`;
 }
 
 function phaseBodyHtml(phaseId, result) {
@@ -311,22 +101,10 @@ function phaseBodyHtml(phaseId, result) {
   switch (phaseId) {
     case 'mission':
       return buildMissionHtml(payload);
-    case 'intent':
-      return buildIntentHtml(payload);
-    case 'context':
-      return buildContextHtml(payload);
-    case 'reasoning':
-      return buildReasoningHtml(payload);
-    case 'validation':
-      return buildValidationHtml(payload);
-    case 'evidence':
-      return buildEvidenceHtml(payload);
-    case 'outlook':
-      return buildOutlookHtml(payload);
     case 'decision':
       return buildDecisionHtml(payload);
     default:
-      return `<p class="le-step-output">Stage output ready</p>`;
+      return buildProgressHtml();
   }
 }
 
@@ -369,11 +147,11 @@ function updateOneCoreCta(flowComplete, userRan) {
   if (userRan && flowComplete) {
     cta.classList.remove('is-disabled');
     cta.setAttribute('aria-disabled', 'false');
-    hint.textContent = 'Reasoning complete — continue when ready.';
+    hint.textContent = 'Decision complete — continue when ready.';
   } else {
     cta.classList.add('is-disabled');
     cta.setAttribute('aria-disabled', 'true');
-    hint.textContent = 'Complete the reasoning chain to continue.';
+    hint.textContent = 'Complete the execution review to continue.';
   }
 }
 
@@ -458,8 +236,9 @@ export function initLivingEngine() {
     await runProgressiveReveal(result, ui);
     updateOneCoreCta(true, true);
 
+    const decisionLabel = DECISION_LABELS[result.decision] ?? result.decision;
     if (message) {
-      message.textContent = `Reasoning complete — ${result.reasoning.claims.length} claims, ${result.reasoning.chain.length} chain steps.`;
+      message.textContent = `Decision ready — ${decisionLabel}.`;
       message.className = 'le-message le-live le-message--success';
     }
     if (submitBtn) submitBtn.disabled = false;

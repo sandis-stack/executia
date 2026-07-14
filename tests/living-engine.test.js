@@ -54,6 +54,26 @@ test('generateExecutionScenario produces reasoning chain outputs', () => {
   assert.ok(phasePayload(result, 'outlook').outlook);
 });
 
+test('generateExecutionScenario runs full intelligence pipeline through Decision', () => {
+  const result = generateExecutionScenario(
+    'Executive sponsor requires governed expansion into Germany after legal entity setup.',
+  );
+  assert.equal(result.ok, true);
+  assert.ok(['PROCEED', 'HOLD', 'REJECT', 'ESCALATE'].includes(result.decision));
+  assert.ok(result.outputs.decisionSummary);
+  assert.equal(result.outputs.decision.outcome, result.decision);
+  assert.ok(result.outputs.decision.reason);
+  assert.ok(Array.isArray(result.outputs.decision.required_actions));
+  assert.ok(Array.isArray(result.outputs.decision.re_evaluation_conditions));
+  const publicSummary = phasePayload(result, 'decision').decisionSummary;
+  assert.ok(publicSummary.reason);
+  assert.equal(publicSummary.decision, result.decision);
+  assert.equal(JSON.stringify(publicSummary).includes('finding-'), false);
+  assert.equal(JSON.stringify(publicSummary).includes('claim-'), false);
+  assert.equal(JSON.stringify(publicSummary).includes('obligation-'), false);
+  assert.equal(JSON.stringify(publicSummary).includes('ES-'), false);
+});
+
 test('engine consumes calculator context in reasoning facts', () => {
   const calculatorPayload = {
     inputs: {
