@@ -372,9 +372,9 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  /* Optical zoom: crop exported letterboxing so principal content fills ~80% of frame */
-  transform: scale(2.75);
+  transform: scale(3.35);
   transform-origin: center center;
+  transition: transform 180ms ease-out;
   background: #0f172a;
 }
 .hp-film-fallback {
