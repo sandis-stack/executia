@@ -6,7 +6,7 @@ export function connectPilot(scenario, assessment, calculator) {
     : 'Exploratory';
   const recommendation = assessment?.connected
     ? assessment.pilotRecommendation
-    : 'Complete Organization Assessment before requesting a governed pilot.';
+    : 'Complete Assessment before beginning Pilot.';
 
   const actions = [
     { step: 1, action: 'Review generated execution plan and evidence requirements', kind: 'Calculated' },

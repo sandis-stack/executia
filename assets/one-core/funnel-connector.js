@@ -56,7 +56,8 @@ function enrichNode(base, context, scenario) {
     node.outputs = [`Mission: ${context.mission.slice(0, 80)}`];
     node.kind = 'Calculated';
   } else if (base.id === 'mission') {
-    node.missionText = 'Complete Living Engine to bind your mission';
+    node.missionText =
+      'Your governing objective binds here after Living Engine — every object in ONE derives from Mission.';
     node.kind = 'Demo';
   }
 

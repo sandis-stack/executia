@@ -20,6 +20,44 @@
   max-width: 760px;
 }
 
+.oc-living-line {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--hp-panel, #124155);
+  letter-spacing: 0.01em;
+}
+
+.oc-flow-rail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.35rem;
+  margin-bottom: 1rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid var(--line);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.oc-flow-rail-step--active {
+  color: var(--hp-panel, #124155);
+  background: rgba(18, 65, 85, 0.08);
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+}
+
+.oc-flow-rail-arrow {
+  color: #94a3b8;
+  font-size: 11px;
+  line-height: 1;
+}
+
 .oc-context-bar {
   display: flex;
   flex-wrap: wrap;
@@ -133,11 +171,21 @@
 }
 
 .oc-node--mission {
-  max-width: 11rem;
-  padding: 0.65rem 1rem;
+  max-width: 12rem;
+  padding: 0.75rem 1.1rem;
   border-radius: 1rem;
-  border-color: rgba(94, 234, 212, 0.45);
-  background: rgba(45, 212, 191, 0.12);
+  border-color: rgba(94, 234, 212, 0.55);
+  background: rgba(45, 212, 191, 0.16);
+  z-index: 2;
+}
+
+.oc-node--mission.oc-node--alive {
+  animation: oc-mission-breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes oc-mission-breathe {
+  0%, 100% { box-shadow: 0 0 16px rgba(94, 234, 212, 0.15); }
+  50% { box-shadow: 0 0 28px rgba(94, 234, 212, 0.28); }
 }
 
 .oc-node--mission.oc-node--active {
@@ -193,9 +241,22 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-  background: rgba(18, 65, 85, 0.08);
-  color: var(--hp-panel, #124155);
+  border-radius: 999px;
+}
+
+.oc-kind--estimated {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.oc-kind--calculated {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.oc-kind--demo {
+  background: #e2e8f0;
+  color: #475569;
 }
 
 .oc-detail-grid {
@@ -219,6 +280,14 @@
   color: #334155;
 }
 
+.oc-detail-fallback {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #475569;
+  font-style: normal;
+}
+
 .oc-detail-grid ul {
   margin: 0;
   padding-left: 1.1rem;
@@ -226,7 +295,33 @@
 
 .oc-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.75rem;
   margin-top: 1.25rem;
+}
+
+.oc-cta-primary {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.oc-cta-primary.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.oc-cta-secondary {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.oc-cta-hint {
+  margin: 0.65rem 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #64748b;
+  text-align: center;
 }

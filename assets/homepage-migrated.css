@@ -59,6 +59,13 @@
   line-height: 1.14;
   letter-spacing: -0.01em;
 }
+.hp-hero-ceo-line {
+  margin: 0.75rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgba(186, 230, 253, 0.92);
+}
 .hp-hero-body {
   margin-top: 0.75rem;
   color: var(--hp-text-muted);
@@ -199,10 +206,15 @@
   text-transform: uppercase;
   color: rgba(186,230,253,0.57);
 }
-.hp-monitor-meta .state {
+.hp-monitor-meta .state,
+.hp-monitor-state {
   margin-top: 0.5rem;
   font-size: 1.125rem;
   font-weight: 600;
+  color: #fff;
+  background: transparent;
+  border: none;
+  padding: 0;
   transition: color 0.5s;
 }
 .hp-phase-badge {
@@ -212,6 +224,9 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--hp-accent);
+  background: rgba(186, 230, 253, 0.12);
+  border: 1px solid rgba(186, 230, 253, 0.2);
   transition: all 0.5s;
 }
 .hp-leak-list { list-style: none; margin: 1.5rem 0 0; padding: 0; }
@@ -469,3 +484,47 @@
   padding: 0.875rem 2rem;
 }
 .hp-pilot-cta .hp-btn-secondary:hover { background: #f8fafc; }
+
+.hp-section-bridge {
+  margin: 1.25rem auto 0;
+  max-width: 560px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #64748b;
+}
+.hp-section-bridge a {
+  font-weight: 600;
+  color: var(--hp-panel, #124155);
+  text-decoration: none;
+}
+.hp-section-bridge a:hover {
+  text-decoration: underline;
+}
+
+.hp-story-head {
+  max-width: 760px;
+  margin: 0 0 1rem;
+  font-size: clamp(26px, 2.7vw, 34px);
+  line-height: 1.14;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.hp-journey-appendix {
+  border-top: 1px solid var(--line);
+  padding-top: 3rem;
+  opacity: 0.92;
+}
+
+.hp-journey-appendix h2 {
+  font-size: clamp(22px, 2.2vw, 28px);
+}
+
+.hp-appendix-note {
+  margin: 1.25rem 0 0;
+  max-width: 520px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #64748b;
+}

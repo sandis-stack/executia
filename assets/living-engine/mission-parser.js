@@ -11,8 +11,7 @@ const DOMAIN_PATTERNS = [
   { id: 'delivery', match: /\b(delay|project|portfolio|timeline|slippage)\b/i, label: 'Project delivery improvement' },
 ];
 
-export const ENGINE_DISCLOSURE =
-  'Demonstration execution scenario. Generated from mission text and funnel context — not verified organizational outcomes.';
+export const ENGINE_DISCLOSURE = 'Demonstration scenario — not verified outcomes.';
 
 /**
  * @param {string} rawText

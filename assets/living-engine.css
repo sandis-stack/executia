@@ -1,5 +1,13 @@
 /* Living Execution Engine — Deep Ocean product UI */
 
+.le-section-line {
+  margin: 0.35rem 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--hp-panel, #124155);
+  letter-spacing: 0.01em;
+}
+
 #living-engine .engine-card {
   background: linear-gradient(168deg, var(--hp-panel, #124155) 0%, rgba(10, 46, 63, 0.96) 55%, var(--hp-bg, #0A2E3F) 100%);
   border-color: rgba(186, 230, 253, 0.18);
@@ -13,6 +21,14 @@
 
 #living-engine .engine-top .lead {
   color: var(--hp-text-muted, rgba(186, 230, 253, 0.8));
+}
+
+.le-think-line {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--hp-on-track-text, #5EEAD4);
+  letter-spacing: 0.01em;
 }
 
 #living-engine .evc-handoff {
@@ -52,11 +68,78 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.35rem 0.5rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   padding: 0.75rem 1rem;
   border-radius: var(--radius);
   background: rgba(10, 46, 63, 0.45);
   border: 1px solid rgba(186, 230, 253, 0.12);
+}
+
+.le-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.le-flow-step {
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(186, 230, 253, 0.12);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.le-flow-step--active {
+  border-color: var(--hp-accent, #BAE6FD);
+  background: rgba(186, 230, 253, 0.08);
+}
+
+.le-flow-step--done {
+  border-color: rgba(94, 234, 212, 0.35);
+}
+
+.le-flow-step-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.le-flow-step-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hp-accent, #BAE6FD);
+}
+
+.le-flow-step-body {
+  margin-top: 0.45rem;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.le-step-output {
+  margin: 0.25rem 0 0;
+}
+
+.le-flow-arrow {
+  text-align: center;
+  color: rgba(186, 230, 253, 0.35);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.2rem 0;
+}
+
+.le-prediction-why {
+  margin: 0.45rem 0 0;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius);
+  background: rgba(10, 46, 63, 0.55);
+  border: 1px solid rgba(186, 230, 253, 0.1);
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(186, 230, 253, 0.75);
 }
 
 .le-step {
@@ -153,15 +236,28 @@
 .le-kind {
   display: inline-block;
   margin-left: 0.25rem;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: rgba(186, 230, 253, 0.12);
-  color: var(--hp-accent);
   vertical-align: middle;
+}
+
+.le-kind--estimated {
+  background: rgba(251, 191, 36, 0.18);
+  color: #fde68a;
+}
+
+.le-kind--calculated {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+.le-kind--demo {
+  background: rgba(148, 163, 184, 0.2);
+  color: #cbd5e1;
 }
 
 .le-graph {
@@ -225,15 +321,53 @@
 
 .le-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 0.75rem;
   margin-top: 1.25rem;
+}
+
+.le-cta-primary {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.le-cta-primary.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.le-cta-secondary {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.le-cta-hint {
+  margin: 0.65rem 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(186, 230, 253, 0.65);
+  text-align: center;
 }
 
 .le-message {
   margin-top: 1rem;
   font-size: 13px;
   color: var(--hp-text-muted);
+}
+
+.le-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .le-message--error {

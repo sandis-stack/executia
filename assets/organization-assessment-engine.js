@@ -8,9 +8,7 @@ import { formatCurrency } from './execution-value-engine.js';
 
 export const ASSESSMENT_STORAGE_KEY = 'executia.organizationAssessment.v1';
 
-export const ASSESSMENT_DISCLOSURE =
-  'Assessment outputs combine calculator demonstration values with self-assessment responses. ' +
-  'Estimated and Calculated labels indicate confidence — not verified institutional outcomes.';
+export const ASSESSMENT_DISCLOSURE = 'Combines Execution Value with self-assessment. Not verified outcomes.';
 
 /** Merged from executia-layer GOVERNANCE_ASSESSMENT qualification focus */
 export const QUALIFICATION_FOCUS = [
@@ -205,7 +203,7 @@ export function calculateOrganizationAssessment(calculatorPayload, rawAssessment
     return {
       ok: false,
       error: 'CALCULATOR_REQUIRED',
-      message: 'Complete the Execution Value Calculator before running Organization Assessment.',
+      message: 'Complete Execution Intelligence before running Assessment.',
     };
   }
 

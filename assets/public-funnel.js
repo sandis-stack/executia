@@ -130,7 +130,7 @@ export function buildFunnelJourney(ctx = loadPublicFunnelContext()) {
       complete: Boolean(engine?.missionText),
       detail: engine?.missionText
         ? engine.missionText.slice(0, 56)
-        : 'Enter your business objective',
+        : 'No mission yet',
       kind: engine?.missionText ? 'Calculated' : 'Demo',
       href: '#living-engine',
     },
@@ -162,7 +162,7 @@ export function buildFunnelJourney(ctx = loadPublicFunnelContext()) {
         ? (engineSummary?.readiness != null
           ? `Readiness ${engineSummary.readiness}%`
           : 'Execution scenario ready')
-        : 'Not built',
+        : 'Ready after assessment',
       kind: engine?.completed ? 'Demonstration' : 'Demo',
       href: '#living-engine',
     },
@@ -178,11 +178,11 @@ export function buildFunnelJourney(ctx = loadPublicFunnelContext()) {
     },
     {
       id: 'one',
-      label: 'ONE Ready',
+      label: 'One Core',
       complete: Boolean(assessment?.ok),
       detail: assessment?.ok && refinedScore != null
         ? `Score ${refinedScore}/100 · context preserved`
-        : 'Complete assessment',
+        : 'Complete Assessment',
       kind: assessment?.ok ? 'Calculated' : 'Demo',
       href: '#one-core',
     },

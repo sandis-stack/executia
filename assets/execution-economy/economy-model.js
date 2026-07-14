@@ -80,7 +80,7 @@ export const BASE_STAGE_DEFINITIONS = {
   },
   'execution-value': {
     id: 'execution-value',
-    label: 'Execution Value',
+    label: 'Execution Intelligence',
     purpose: 'Measurable loss, recoverable value, and ROI potential.',
     inputs: ['Execution Score', 'Organization scale'],
     outputs: ['Execution loss estimate', 'Recoverable value'],
@@ -93,7 +93,7 @@ export const BASE_STAGE_DEFINITIONS = {
     id: 'capital',
     label: 'Capital',
     purpose: 'Accumulated execution credibility becomes organizational capital.',
-    inputs: ['Execution Value', 'Verified outcomes'],
+    inputs: ['Execution Intelligence', 'Verified outcomes'],
     outputs: ['Execution Capital', 'Investment capacity'],
     businessValue: 'Capital constrains and enables future decisions.',
     enterpriseImpact: 'Stronger negotiating position for growth initiatives.',

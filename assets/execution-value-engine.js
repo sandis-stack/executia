@@ -3,8 +3,7 @@
  * All monetary outputs use demonstration assumptions unless verified in Assessment.
  */
 
-export const DEMO_DISCLOSURE =
-  'Estimated demonstration values. Not verified outcomes. Assessment required for organization-specific baseline.';
+export const DEMO_DISCLOSURE = 'Estimated values. Refined by Assessment and Pilot.';
 
 export const STORAGE_KEY = 'executia.executionValue.v1';
 
