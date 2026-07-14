@@ -3,12 +3,15 @@
 
   var STORY_TOTAL_MS = 10000;
 
-  var FRAMES = [
-    { start: 0, end: 0.2, text: 'Everything looks under control.' },
-    { start: 0.2, end: 0.4, text: 'Execution failures stay invisible.' },
-    { start: 0.4, end: 0.6, text: 'Invisible execution becomes visible loss.' },
-    { start: 0.6, end: 0.8, text: 'EXECUTIA makes execution visible before failure.' },
-    { start: 0.8, end: 1, text: 'How much is invisible execution costing your organization?' },
+  var BEATS = [
+    { start: 0, end: 0.2, text: 'Projects are delayed.', visual: 'delay' },
+    { start: 0.2, end: 0.4, text: 'Decisions take too long.', visual: 'decisions' },
+    { start: 0.4, end: 0.5, text: 'Work is repeated.', visual: 'repeat' },
+    { start: 0.5, end: 0.6, text: 'No one owns the outcome.', visual: 'owner' },
+    { start: 0.6, end: 0.7, text: 'These are not separate problems.', visual: 'converge' },
+    { start: 0.7, end: 0.8, text: 'They are symptoms of invisible execution.', visual: 'invisible' },
+    { start: 0.8, end: 0.9, text: 'EXECUTIA makes execution visible before failure.', visual: 'executia' },
+    { start: 0.9, end: 1, text: 'How much is invisible execution costing your organization?', visual: 'question' },
   ];
 
   function clamp01(value) {
@@ -20,136 +23,109 @@
   }
 
   function enter(progress, start, span) {
-    return segment(progress, start, start + (span || 0.12));
+    return segment(progress, start, start + (span || 0.1));
   }
 
-  function frameAt(progress) {
-    for (var i = 0; i < FRAMES.length; i += 1) {
-      if (progress < FRAMES[i].end || i === FRAMES.length - 1) return i;
+  function beatAt(progress) {
+    for (var i = 0; i < BEATS.length; i += 1) {
+      if (progress < BEATS[i].end || i === BEATS.length - 1) return i;
     }
-    return FRAMES.length - 1;
+    return BEATS.length - 1;
   }
 
   var STORY_HTML =
     '<div class="sf-continuous" data-story-root>' +
-    '<div class="sf-org" aria-hidden="true">Organization</div>' +
-    '<div class="sf-layer sf-layer-healthy">' +
-    '<div class="sf-pill sf-pill-green" data-i="0"><span>Project</span></div>' +
-    '<div class="sf-pill sf-pill-green" data-i="1"><span>Budget</span></div>' +
-    '<div class="sf-pill sf-pill-green" data-i="2"><span>Timeline</span></div>' +
+    '<div class="sf-visual" aria-hidden="true">' +
+    '<div class="sf-v sf-v-delay" data-visual="delay">' +
+    '<div class="sf-delay-track"><span class="sf-delay-fill"></span><span class="sf-delay-stop"></span></div>' +
     '</div>' +
-    '<div class="sf-surface" aria-hidden="true"></div>' +
-    '<div class="sf-layer sf-layer-gaps">' +
-    '<div class="sf-pill sf-pill-gap" data-i="0"><span>Missing approval</span></div>' +
-    '<div class="sf-pill sf-pill-gap" data-i="1"><span>Unknown owner</span></div>' +
-    '<div class="sf-pill sf-pill-gap" data-i="2"><span>Broken handoff</span></div>' +
+    '<div class="sf-v sf-v-decisions" data-visual="decisions">' +
+    '<div class="sf-decision-line"><span class="sf-dot"></span><span class="sf-line"></span><span class="sf-dot"></span></div>' +
     '</div>' +
-    '<div class="sf-layer sf-layer-effects">' +
-    '<div class="sf-pill sf-pill-loss" data-i="0"><span>Delay</span></div>' +
-    '<div class="sf-pill sf-pill-loss" data-i="1"><span>Rework</span></div>' +
-    '<div class="sf-pill sf-pill-loss" data-i="2"><span>Cost</span></div>' +
-    '<div class="sf-pill sf-pill-loss" data-i="3"><span>Risk</span></div>' +
+    '<div class="sf-v sf-v-repeat" data-visual="repeat">' +
+    '<div class="sf-repeat-ring"></div>' +
     '</div>' +
-    '<div class="sf-layer sf-layer-chain">' +
-    '<div class="sf-chain-vertical">' +
-    ['Mission', 'Decision', 'Execution', 'Evidence', 'Outcome']
-      .map(function (node, i) {
-        return (
-          (i > 0 ? '<span class="sf-chain-down" data-i="' + i + '" aria-hidden="true">↓</span>' : '') +
-          '<div class="sf-chain-step" data-i="' + i + '"><span>' + node + '</span></div>'
-        );
-      })
-      .join('') +
-    '</div></div>' +
+    '<div class="sf-v sf-v-owner" data-visual="owner">' +
+    '<div class="sf-owner-ring"></div>' +
+    '</div>' +
+    '<div class="sf-v sf-v-converge" data-visual="converge">' +
+    '<div class="sf-converge-lines"><span></span><span></span><span></span></div>' +
+    '<div class="sf-converge-core"></div>' +
+    '</div>' +
+    '<div class="sf-v sf-v-invisible" data-visual="invisible">' +
+    '<div class="sf-invisible-shape"></div>' +
+    '</div>' +
+    '<div class="sf-v sf-v-executia" data-visual="executia">' +
+    '<div class="sf-visible-path"><span></span><span></span><span></span></div>' +
+    '</div>' +
+    '<div class="sf-v sf-v-question" data-visual="question">' +
+    '<div class="sf-question-arrow">↓</div>' +
+    '</div>' +
+    '</div>' +
     '<p class="sf-narrative"></p>' +
     '</div>';
 
   function applyProgress(root, progress) {
-    var org = root.querySelector('.sf-org');
-    var healthy = root.querySelector('.sf-layer-healthy');
-    var surface = root.querySelector('.sf-surface');
-    var gaps = root.querySelector('.sf-layer-gaps');
-    var effects = root.querySelector('.sf-layer-effects');
-    var chain = root.querySelector('.sf-layer-chain');
     var narrative = root.querySelector('.sf-narrative');
-    var frameIndex = frameAt(progress);
-    var frame = FRAMES[frameIndex];
-    var frameLocal = segment(progress, frame.start, frame.end);
-    var frameBlend = segment(progress, frame.start, frame.start + 0.04);
+    var visuals = root.querySelectorAll('.sf-v');
+    var beatIndex = beatAt(progress);
+    var beat = BEATS[beatIndex];
+    var beatLocal = segment(progress, beat.start, beat.end);
+    var beatBlend = segment(progress, beat.start, beat.start + 0.035);
 
     if (narrative) {
-      narrative.textContent = frame.text;
-      narrative.style.opacity = String(0.35 + frameBlend * 0.65);
-      narrative.classList.toggle('sf-narrative-question', frameIndex === 4);
+      narrative.textContent = beat.text;
+      narrative.style.opacity = String(0.4 + beatBlend * 0.6);
+      narrative.classList.toggle('sf-narrative-solution', beatIndex >= 6);
+      narrative.classList.toggle('sf-narrative-question', beatIndex === 7);
     }
 
-    var orgOpacity = frameIndex === 4 ? Math.max(0, 1 - frameLocal * 2.5) : 1;
-    if (org) org.style.opacity = String(orgOpacity);
+    visuals.forEach(function (layer) {
+      var key = layer.getAttribute('data-visual');
+      var active = key === beat.visual;
+      var prevBeat = beatIndex > 0 ? BEATS[beatIndex - 1] : null;
+      var carry = prevBeat && prevBeat.visual === key && beatLocal < 0.12;
+      var opacity = active ? 0.25 + beatBlend * 0.75 : carry ? Math.max(0, 0.35 * (1 - beatLocal * 8)) : 0;
+      layer.style.opacity = String(opacity);
 
-    var healthyP =
-      frameIndex === 0
-        ? enter(progress, 0.02, 0.14)
-        : frameIndex === 1
-          ? 1
-          : frameIndex === 2
-            ? Math.max(0, 1 - frameLocal * 2.2)
-            : 0;
+      if (key === 'delay' && active) {
+        var fill = layer.querySelector('.sf-delay-fill');
+        var stop = layer.querySelector('.sf-delay-stop');
+        var p = enter(beatLocal, 0.05, 0.35);
+        if (fill) fill.style.width = 38 + p * 8 + '%';
+        if (stop) stop.style.opacity = String(0.5 + p * 0.5);
+      }
 
-    if (healthy) {
-      healthy.style.opacity = String(healthyP);
-      healthy.querySelectorAll('.sf-pill-green').forEach(function (pill, i) {
-        var p = frameIndex === 0 ? enter(progress, 0.04 + i * 0.05, 0.1) : healthyP;
-        pill.style.opacity = String(p);
-        pill.style.transform = 'translateY(' + (1 - p) * 12 + 'px)';
-      });
-    }
+      if (key === 'decisions' && active) {
+        var line = layer.querySelector('.sf-line');
+        if (line) line.style.transform = 'scaleX(' + (0.35 + beatLocal * 0.45) + ')';
+      }
 
-    var surfaceP = frameIndex === 1 ? enter(frameLocal, 0.05, 0.2) : frameIndex === 2 ? 1 - frameLocal : 0;
-    if (surface) surface.style.opacity = String(Math.max(0, surfaceP));
+      if (key === 'repeat' && active) {
+        var ring = layer.querySelector('.sf-repeat-ring');
+        if (ring) ring.style.transform = 'rotate(' + beatLocal * 180 + 'deg)';
+      }
 
-    var gapsP =
-      frameIndex === 1
-        ? enter(frameLocal, 0.08, 0.22)
-        : frameIndex === 2
-          ? Math.max(0, 1 - frameLocal * 2)
-          : 0;
+      if (key === 'converge' && active) {
+        var core = layer.querySelector('.sf-converge-core');
+        if (core) core.style.opacity = String(enter(beatLocal, 0.35, 0.25));
+      }
 
-    if (gaps) {
-      gaps.style.opacity = String(gapsP);
-      gaps.querySelectorAll('.sf-pill-gap').forEach(function (pill, i) {
-        var p = frameIndex === 1 ? enter(gapsP, 0.1 + i * 0.2, 0.25) : gapsP;
-        pill.style.opacity = String(p);
-        pill.style.transform = 'translateY(' + (1 - p) * 10 + 'px)';
-      });
-    }
+      if (key === 'invisible' && active) {
+        var shape = layer.querySelector('.sf-invisible-shape');
+        if (shape) shape.style.opacity = String(0.35 + beatLocal * 0.65);
+      }
 
-    var effectsP =
-      frameIndex === 2
-        ? enter(frameLocal, 0.06, 0.18)
-        : frameIndex === 3
-          ? Math.max(0, 1 - frameLocal * 2.5)
-          : 0;
+      if (key === 'executia' && active) {
+        var path = layer.querySelector('.sf-visible-path');
+        if (path) path.style.opacity = String(enter(beatLocal, 0.1, 0.3));
+      }
 
-    if (effects) {
-      effects.style.opacity = String(effectsP);
-      effects.querySelectorAll('.sf-pill-loss').forEach(function (pill, i) {
-        var p = frameIndex === 2 ? enter(effectsP, 0.08 + i * 0.16, 0.2) : effectsP;
-        pill.style.opacity = String(p);
-        pill.style.transform = 'scale(' + (0.9 + p * 0.1) + ')';
-      });
-    }
-
-    var chainP = frameIndex === 3 ? enter(frameLocal, 0.08, 0.2) : frameIndex === 4 ? Math.max(0, 1 - frameLocal * 2.5) : 0;
-
-    if (chain) {
-      chain.style.opacity = String(chainP);
-      chain.querySelectorAll('.sf-chain-step, .sf-chain-down').forEach(function (el) {
-        var i = Number(el.getAttribute('data-i') || 0);
-        var p = frameIndex === 3 ? enter(chainP, 0.06 + i * 0.14, 0.18) : chainP;
-        el.style.opacity = String(p);
-        el.style.transform = 'translateY(' + (1 - p) * 8 + 'px)';
-      });
-    }
+      if (key === 'question' && active) {
+        var arrow = layer.querySelector('.sf-question-arrow');
+        if (arrow) arrow.style.opacity = String(enter(beatLocal, 0.05, 0.2));
+      }
+    });
   }
 
   function scrollToCalculator() {
