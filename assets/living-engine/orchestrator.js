@@ -6,6 +6,7 @@ import { parseMission, ENGINE_DISCLOSURE } from './mission-parser.js';
 import { connectCalculator } from './calculator-connector.js';
 import { connectAssessment } from './assessment-connector.js';
 import { runReasoningEngine, INSUFFICIENT_BASIS } from './reasoning-engine.js';
+import { runValidation } from './validation-engine.js';
 import { formatCurrency } from '../execution-value-engine.js';
 
 export { INSUFFICIENT_BASIS };
@@ -55,7 +56,7 @@ function buildAssessmentContext(assessment) {
   };
 }
 
-function buildOutputs(reasoning, calculator, assessment) {
+function buildOutputs(reasoning, validation, calculator, assessment) {
   return {
     missionSummary: {
       headline: reasoning.mission.headline,
@@ -67,9 +68,10 @@ function buildOutputs(reasoning, calculator, assessment) {
       insufficientAreas: reasoning.insufficientAreas,
       status: reasoning.status,
     },
+    validation: validation.summary,
     executionScore: {
       value: INSUFFICIENT_BASIS,
-      reason: 'Execution score requires Validation and Execution Outlook components.',
+      reason: 'Execution score requires Execution Outlook component.',
     },
     executionQuality: {
       value: assessment.connected
@@ -86,7 +88,6 @@ function buildOutputs(reasoning, calculator, assessment) {
       months: INSUFFICIENT_BASIS,
       reason: 'Timeline not declared in mission or organization facts.',
     },
-    validation: insufficientPhase('Validation'),
     evidence: insufficientPhase('Evidence'),
     executionOutlook: insufficientPhase('Execution Outlook'),
     decision: {
@@ -107,6 +108,8 @@ export function generateExecutionScenario(missionText) {
   const assessment = connectAssessment();
   const reasoning = runReasoningEngine(missionText, { calculator, assessment });
   if (!reasoning.ok) return reasoning;
+
+  const validation = runValidation(reasoning);
 
   const scenario = {
     mission: reasoning.mission,
@@ -135,7 +138,7 @@ export function generateExecutionScenario(missionText) {
     timeline: { value: INSUFFICIENT_BASIS },
     budget: { total: INSUFFICIENT_BASIS },
     graph: { nodes: [], edges: [] },
-    validation: insufficientPhase('Validation'),
+    validation,
     evidence: insufficientPhase('Evidence'),
     prediction: insufficientPhase('Execution Outlook'),
     executionValue: buildExecutionValueContext(calculator),
@@ -144,12 +147,13 @@ export function generateExecutionScenario(missionText) {
     kind: 'ExecutionIntelligence',
   };
 
-  const outputs = buildOutputs(reasoning, calculator, assessment);
+  const outputs = buildOutputs(reasoning, validation, calculator, assessment);
 
   return {
     ok: true,
     missionText: reasoning.mission.statement,
     reasoning,
+    validation,
     scenario,
     outputs,
     calculator,
@@ -196,7 +200,7 @@ export function phasePayload(result, phaseId) {
         insufficientAreas: scenario.insufficientAreas,
       };
     case 'validation':
-      return { validation: scenario.validation };
+      return { validation: scenario.validation, findings: scenario.validation.findings };
     case 'evidence':
       return { evidence: scenario.evidence };
     case 'prediction':

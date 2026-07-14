@@ -140,6 +140,46 @@ function buildReasoningHtml(payload) {
     ${insufficient ? `<p class="le-subhead">Insufficient basis</p><ul class="le-list">${insufficient}</ul>` : ''}`;
 }
 
+function buildValidationHtml(payload) {
+  const validation = payload.validation;
+  if (!validation?.summary) {
+    return renderInsufficient('Validation output unavailable.');
+  }
+
+  const summary = validation.summary;
+  const findings = (payload.findings ?? validation.findings ?? []).slice(0, 8);
+
+  const severityLines = Object.entries(summary.severityDistribution ?? {})
+    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
+    .join('');
+  const statusLines = Object.entries(summary.statusDistribution ?? {})
+    .map(([key, count]) => `<li>${escapeHtml(key)}: ${count}</li>`)
+    .join('');
+  const findingsHtml = findings
+    .map(
+      (finding) =>
+        `<li><strong>${escapeHtml(finding.rule_id)}</strong> → ${escapeHtml(finding.claim_id)} · ${escapeHtml(finding.execution_status)} · ${escapeHtml(finding.severity)} — ${escapeHtml(finding.explanation)}</li>`,
+    )
+    .join('');
+  const blockedHtml = summary.blockedClaims?.length
+    ? `<p class="le-subhead">Blocked claims</p><ul class="le-list">${summary.blockedClaims.map((claimId) => `<li>${escapeHtml(claimId)}</li>`).join('')}</ul>`
+    : '';
+
+  return `
+    <dl class="le-output-grid">
+      <dt>Claims validated</dt><dd>${summary.claimsValidated}</dd>
+      <dt>Rules applied</dt><dd>${summary.rulesApplied}</dd>
+      <dt>Findings</dt><dd>${summary.findingsCount}</dd>
+    </dl>
+    <p class="le-subhead">Severity distribution</p>
+    <ul class="le-list">${severityLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    <p class="le-subhead">Execution status</p>
+    <ul class="le-list">${statusLines || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    ${blockedHtml}
+    <p class="le-subhead">Findings</p>
+    <ul class="le-list">${findingsHtml || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>`;
+}
+
 function buildDecisionHtml(payload) {
   const o = payload.outputs;
   return `
@@ -166,7 +206,7 @@ function phaseBodyHtml(phaseId, result) {
     case 'reasoning':
       return buildReasoningHtml(payload);
     case 'validation':
-      return renderInsufficient(payload.validation?.message);
+      return buildValidationHtml(payload);
     case 'evidence':
       return renderInsufficient(payload.evidence?.message);
     case 'decision':

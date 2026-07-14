@@ -82,7 +82,17 @@ function enrichNode(base, context, scenario) {
     node.outputs = [INSUFFICIENT_BASIS];
   }
 
-  if (base.id === 'validation' && scenario?.validation?.status === INSUFFICIENT_BASIS) {
+  if (base.id === 'validation' && scenario?.validation?.summary) {
+    const summary = scenario.validation.summary;
+    node.outputs = [
+      `${summary.claimsValidated} claims validated`,
+      `${summary.rulesApplied} rules applied`,
+      `${summary.findingsCount} findings`,
+    ];
+    if (summary.blocked) {
+      node.outputs.push(`${summary.blockedClaims.length} blocked claim(s)`);
+    }
+  } else if (base.id === 'validation') {
     node.outputs = [INSUFFICIENT_BASIS];
   }
 

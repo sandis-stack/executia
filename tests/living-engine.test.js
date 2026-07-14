@@ -40,9 +40,12 @@ test('generateExecutionScenario produces reasoning chain outputs', () => {
   assert.equal(result.outputs.executionScore.value, INSUFFICIENT_BASIS);
   assert.equal(result.outputs.estimatedBudget.total, INSUFFICIENT_BASIS);
   assert.equal(result.outputs.estimatedTimeline.months, INSUFFICIENT_BASIS);
-  assert.equal(result.outputs.validation.status, INSUFFICIENT_BASIS);
+  assert.ok(result.outputs.validation.claimsValidated >= 1);
+  assert.ok(result.outputs.validation.rulesApplied >= 1);
+  assert.ok(result.validation.findings.length >= 1);
   assert.equal(LIFECYCLE_PHASES.length, 8);
   assert.ok(phasePayload(result, 'reasoning').claims.length >= 1);
+  assert.ok(phasePayload(result, 'validation').findings.length >= 1);
 });
 
 test('engine consumes calculator context in reasoning facts', () => {
