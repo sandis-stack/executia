@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@executia/execution-intelligence-core": "file:../executia-layer/packages/execution-intelligence-core"
+  },
   "engines": { "node": ">=18" },
   "scripts": {
+    "postinstall": "node scripts/sync-execution-intelligence-core.mjs",
+    "sync:intelligence-core": "node scripts/sync-execution-intelligence-core.mjs",
     "test": "node --test tests/**/*.test.js"
   }
 }
