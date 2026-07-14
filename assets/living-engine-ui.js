@@ -5,7 +5,7 @@
 import {
   generateExecutionScenario,
   phasePayload,
-  formatBudget,
+  INSUFFICIENT_BASIS,
 } from './living-engine/orchestrator.js';
 import { ENGINE_DISCLOSURE } from './living-engine/mission-parser.js';
 import { formatCurrency } from './execution-value-engine.js';
@@ -21,18 +21,13 @@ const PHASE_DELAY_MS = 480;
 
 const DISPLAY_PHASES = [
   { id: 'mission', label: 'Mission' },
-  { id: 'analysis', label: 'Analysis' },
-  { id: 'planning', label: 'Planning' },
+  { id: 'intent', label: 'Intent' },
+  { id: 'context', label: 'Execution Context' },
+  { id: 'reasoning', label: 'Reasoning' },
   { id: 'validation', label: 'Validation' },
   { id: 'evidence', label: 'Evidence' },
-  { id: 'prediction', label: 'Prediction' },
-  { id: 'execution-ready', label: 'Execution Ready' },
+  { id: 'decision', label: 'Decision' },
 ];
-
-
-function kindBadge(_kind) {
-  return '';
-}
 
 function escapeHtml(text) {
   return String(text ?? '')
@@ -46,160 +41,138 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function buildAnalysisHtml(payload) {
-  const lines = [
-    `<p class="le-step-output">${kindBadge('Calculated')} Domain: <strong>${escapeHtml(payload.domain)}</strong></p>`,
-  ];
+function renderInsufficient(message) {
+  return `<p class="le-step-output le-insufficient">${escapeHtml(message || INSUFFICIENT_BASIS)}</p>`;
+}
+
+function buildMissionHtml(payload) {
+  return `
+    <p class="le-mission-headline">${escapeHtml(payload.mission.headline)}</p>
+    <p class="le-step-output">${escapeHtml(payload.mission.statement)}</p>`;
+}
+
+function buildIntentHtml(payload) {
+  const objectives = (payload.objectives ?? [])
+    .slice(0, 4)
+    .map((objective) => `<li>${escapeHtml(objective.text)}</li>`)
+    .join('');
+  const constraints = (payload.constraints ?? [])
+    .map((constraint) => `<li>${escapeHtml(constraint.marker)} — cited from mission</li>`)
+    .join('');
+  const geography = (payload.geography ?? [])
+    .map((geo) => `<li>${escapeHtml(geo.place)}</li>`)
+    .join('');
+
+  const parts = [`<ul class="le-list">${objectives}</ul>`];
+  if (constraints) {
+    parts.push('<p class="le-subhead">Constraints detected</p>', `<ul class="le-list">${constraints}</ul>`);
+  }
+  if (geography.length) {
+    parts.push('<p class="le-subhead">Geography mentioned</p>', `<ul class="le-list">${geography}</ul>`);
+  }
+  if (!constraints.length) {
+    parts.push('<p class="le-step-output">No explicit constraints stated in mission.</p>');
+  }
+  return parts.join('');
+}
+
+function buildContextHtml(payload) {
+  const lines = [];
+  const context = payload.executionContext;
+  if (context) {
+    lines.push(
+      `<p class="le-step-output">Context completeness: <strong>${escapeHtml(context.completeness)}</strong></p>`,
+    );
+    if (context.orgFactsPresent?.length) {
+      lines.push(`<p class="le-step-output">Declared: ${escapeHtml(context.orgFactsPresent.join(', '))}</p>`);
+    }
+    if (context.orgFactsMissing?.length) {
+      lines.push(`<p class="le-step-output">${escapeHtml(INSUFFICIENT_BASIS)} — missing: ${escapeHtml(context.orgFactsMissing.join(', '))}</p>`);
+    }
+  }
   if (payload.executionValue?.connected) {
     lines.push(
-      `<p class="le-step-output">${kindBadge(payload.executionValue.kind)} Recoverable ${formatCurrency(payload.executionValue.recoverableValue)} from Execution Intelligence</p>`,
+      `<p class="le-step-output">Recoverable value: ${formatCurrency(payload.executionValue.recoverableValue)}</p>`,
     );
   } else {
-    lines.push(
-      `<p class="le-step-output">Complete Execution Value to quantify recoverable loss.</p>`,
-    );
+    lines.push(`<p class="le-step-output">${escapeHtml(INSUFFICIENT_BASIS)} — organization profile not bound.</p>`);
   }
   if (payload.assessmentContext?.connected) {
     lines.push(
-      `<p class="le-step-output">${kindBadge(payload.assessmentContext.kind)} ${escapeHtml(payload.assessmentContext.organization)} · Score ${payload.assessmentContext.executionScore}/100</p>`,
-    );
-  } else {
-    lines.push(
-      `<p class="le-step-output">Organizational readiness informs this analysis.</p>`,
+      `<p class="le-step-output">${escapeHtml(payload.assessmentContext.organization)} · Execution domain bound</p>`,
     );
   }
   return lines.join('');
 }
 
-function buildPlanningHtml(payload) {
-  const objList = payload.objectives
-    .slice(0, 3)
-    .map((o) => `<li>${escapeHtml(o.text.slice(0, 64))} ${kindBadge(o.kind)}</li>`)
-    .join('');
-  const projList = payload.projects
-    .slice(0, 3)
-    .map((p) => `<li>${escapeHtml(p.name)} ${kindBadge(p.kind)}</li>`)
-    .join('');
-  return `
-    <ul class="le-list">${objList}</ul>
-    <p class="le-step-output">${kindBadge(payload.timeline.kind)} ${payload.timeline.months} months · ${kindBadge(payload.budget.kind)} ${formatBudget(payload.budget)}</p>
-    <p class="le-subhead">Projects</p>
-    <ul class="le-list">${projList}</ul>`;
-}
-
-function buildValidationHtml(payload) {
-  const checks = payload.validation.checks
-    .slice(0, 4)
+function buildReasoningHtml(payload) {
+  const claims = (payload.claims ?? [])
+    .slice(0, 6)
     .map(
-      (c) =>
-        `<li><span class="le-check le-check--${c.status.toLowerCase()}">${c.status}</span> ${escapeHtml(c.rule)} ${kindBadge(c.kind)}</li>`,
+      (claim) =>
+        `<li><strong>${escapeHtml(claim.id)}</strong> — ${escapeHtml(claim.statement)} <span class="le-confidence">(${escapeHtml(claim.confidence)})</span></li>`,
     )
     .join('');
-  return `
-    <p class="le-step-output">${kindBadge(payload.validation.kind)} ${escapeHtml(payload.validation.summary)} · ${payload.validation.passRate}% pass</p>
-    <ul class="le-list">${checks}</ul>`;
-}
-
-function buildEvidenceHtml(evidence) {
-  const items = (evidence.items ?? [])
+  const chain = (payload.chain ?? [])
     .slice(0, 4)
-    .map((item) => `<li>${escapeHtml(item.name ?? item.label ?? 'Evidence requirement')} ${kindBadge(evidence.kind)}</li>`)
-    .join('');
-  return `
-    <p class="le-step-output">${kindBadge(evidence.kind)} ${escapeHtml(evidence.summary)}</p>
-    <ul class="le-list">${items || `<li>Governed proof requirements mapped ${kindBadge('Estimated')}</li>`}</ul>`;
-}
-
-function buildPredictionWhy(result) {
-  const { scenario, calculator, assessment } = result;
-  const highRisks = scenario.risks.filter(
-    (r) => r.severity === 'High' || r.severity === 'Critical',
-  ).length;
-  const parts = [
-    `${highRisks} high-risk item${highRisks === 1 ? '' : 's'} in plan`,
-    `${scenario.validation.passRate}% validation pass rate`,
-  ];
-  if (assessment?.connected) {
-    parts.push(`Assessment score ${assessment.executionScore}/100`);
-  } else if (calculator?.connected) {
-    parts.push(`Calculator score ${calculator.executionScore}/100`);
-  } else {
-    parts.push('Organization profile informs this forecast.');
-  }
-  return `Why this prediction: ${parts.join(' · ')}.`;
-}
-
-function buildPredictionHtml(prediction, result) {
-  const items = prediction.predictions
     .map(
-      (p) =>
-        `<li>${escapeHtml(p.text)} — ${p.likelihood} ${kindBadge(p.kind)}</li>`,
+      (step) =>
+        `<li>${escapeHtml(step.step_id)}: ${escapeHtml(step.inference)} <span class="le-premises">[${escapeHtml(step.premises.join(', '))}]</span></li>`,
     )
     .join('');
+  const stakeholders = (payload.stakeholders ?? [])
+    .map((stakeholder) => `<li>${escapeHtml(stakeholder.role)}</li>`)
+    .join('');
+  const dependencies = (payload.dependencies ?? [])
+    .map((dependency) => `<li>${escapeHtml(dependency.type)}: ${escapeHtml(dependency.target)}</li>`)
+    .join('');
+  const insufficient = (payload.insufficientAreas ?? [])
+    .map((area) => `<li>${escapeHtml(area.area)} — ${escapeHtml(area.status)}</li>`)
+    .join('');
+
   return `
-    <p class="le-step-output le-readiness">${kindBadge(prediction.kind)} Readiness <strong>${prediction.executionReadiness}%</strong></p>
-    <p class="le-prediction-why">${escapeHtml(buildPredictionWhy(result))}</p>
-    <ul class="le-list">${items}</ul>`;
+    <p class="le-subhead">Claims</p>
+    <ul class="le-list">${claims || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    <p class="le-subhead">Reasoning chain</p>
+    <ul class="le-list">${chain || `<li>${escapeHtml(INSUFFICIENT_BASIS)}</li>`}</ul>
+    ${stakeholders ? `<p class="le-subhead">Stakeholders (from mission)</p><ul class="le-list">${stakeholders}</ul>` : `<p class="le-step-output">${escapeHtml(INSUFFICIENT_BASIS)} — stakeholders not named in mission.</p>`}
+    ${dependencies ? `<p class="le-subhead">Dependencies (from mission)</p><ul class="le-list">${dependencies}</ul>` : `<p class="le-step-output">${escapeHtml(INSUFFICIENT_BASIS)} — dependencies not stated in mission.</p>`}
+    ${insufficient ? `<p class="le-subhead">Insufficient basis</p><ul class="le-list">${insufficient}</ul>` : ''}`;
 }
 
-function buildReadyHtml(payload) {
+function buildDecisionHtml(payload) {
   const o = payload.outputs;
   return `
     <dl class="le-output-grid">
-      <dt>Score</dt><dd>${o.executionScore.value}/100 ${kindBadge(o.executionScore.kind)}</dd>
-      <dt>Quality</dt><dd>${escapeHtml(o.executionQuality.value)} ${kindBadge(o.executionQuality.kind)}</dd>
-      <dt>Budget</dt><dd>${formatBudget(o.estimatedBudget)} ${kindBadge(o.estimatedBudget.kind)}</dd>
-      <dt>Timeline</dt><dd>${o.estimatedTimeline.months} months ${kindBadge(o.estimatedTimeline.kind)}</dd>
+      <dt>Reasoning status</dt><dd>${escapeHtml(o.reasoning?.status ?? INSUFFICIENT_BASIS)}</dd>
+      <dt>Claims</dt><dd>${o.reasoning?.claimCount ?? 0}</dd>
+      <dt>Chain steps</dt><dd>${o.reasoning?.chainLength ?? 0}</dd>
+      <dt>Decision</dt><dd>${escapeHtml(o.decision?.outcome ?? INSUFFICIENT_BASIS)}</dd>
     </dl>
-    <p class="le-step-output">${kindBadge(o.recommendedNextActions.kind)} ${escapeHtml(o.recommendedNextActions.recommendation)}</p>`;
+    <p class="le-step-output">${escapeHtml(o.decision?.reason ?? 'Decision chain not yet available.')}</p>`;
 }
 
 function phaseBodyHtml(phaseId, result) {
-  const payload = phasePayload(result, phaseId === 'evidence' ? 'validation' : phaseId);
+  const payload = phasePayload(result, phaseId);
   if (!payload) return `<p class="le-step-output">Awaiting mission input</p>`;
 
   switch (phaseId) {
     case 'mission':
-      return `
-        <p class="le-mission-headline">${escapeHtml(payload.mission.headline)}</p>
-        <p class="le-step-output">${kindBadge('Calculated')} ${escapeHtml(payload.mission.domainLabel ?? 'Governed execution initiative')}</p>`;
-    case 'analysis':
-      return buildAnalysisHtml(payload);
-    case 'planning':
-      return buildPlanningHtml(payload);
+      return buildMissionHtml(payload);
+    case 'intent':
+      return buildIntentHtml(payload);
+    case 'context':
+      return buildContextHtml(payload);
+    case 'reasoning':
+      return buildReasoningHtml(payload);
     case 'validation':
-      return buildValidationHtml(payload);
+      return renderInsufficient(payload.validation?.message);
     case 'evidence':
-      return buildEvidenceHtml(payload.evidence);
-    case 'prediction':
-      return buildPredictionHtml(payload.prediction, result);
-    case 'execution-ready':
-      return buildReadyHtml(payload);
+      return renderInsufficient(payload.evidence?.message);
+    case 'decision':
+      return buildDecisionHtml(payload);
     default:
       return `<p class="le-step-output">Stage output ready</p>`;
-  }
-}
-
-function phaseKind(phaseId, result) {
-  const payload = phasePayload(result, phaseId === 'evidence' ? 'validation' : phaseId);
-  if (!payload) return 'Demo';
-  switch (phaseId) {
-    case 'mission':
-      return 'Calculated';
-    case 'analysis':
-      return payload.assessmentContext?.connected ? 'Calculated' : 'Estimated';
-    case 'planning':
-      return 'Estimated';
-    case 'validation':
-      return payload.validation?.kind ?? 'Calculated';
-    case 'evidence':
-      return payload.evidence?.kind ?? 'Estimated';
-    case 'prediction':
-      return payload.prediction?.kind ?? 'Estimated';
-    case 'execution-ready':
-      return result.outputs?.executionScore?.kind ?? 'Calculated';
-    default:
-      return 'Demo';
   }
 }
 
@@ -223,12 +196,10 @@ function renderFlow(flowRoot, result, activeIndex) {
         : i === activeIndex
           ? 'active'
           : 'ready';
-    const kind = phaseKind(phase.id, result);
     return `
       <div class="le-flow-step le-flow-step--${state}" data-le-phase="${phase.id}">
         <div class="le-flow-step-head">
           <span class="le-flow-step-label">${phase.label}</span>
-          ${kindBadge(kind)}
         </div>
         <div class="le-flow-step-body">${phaseBodyHtml(phase.id, result)}</div>
       </div>
@@ -236,7 +207,7 @@ function renderFlow(flowRoot, result, activeIndex) {
   }).join('');
 }
 
-function updateOneCoreCta(flowComplete, userRan, predictionReady) {
+function updateOneCoreCta(flowComplete, userRan) {
   const cta = document.getElementById('le-cta-one-core');
   const hint = document.getElementById('le-cta-one-hint');
   if (!cta || !hint) return;
@@ -244,13 +215,11 @@ function updateOneCoreCta(flowComplete, userRan, predictionReady) {
   if (userRan && flowComplete) {
     cta.classList.remove('is-disabled');
     cta.setAttribute('aria-disabled', 'false');
-    hint.textContent = predictionReady
-      ? 'Continue to One Core.'
-      : 'Review readiness, then continue.';
+    hint.textContent = 'Reasoning complete — continue when ready.';
   } else {
     cta.classList.add('is-disabled');
     cta.setAttribute('aria-disabled', 'true');
-    hint.textContent = 'Reach Execution Ready to continue.';
+    hint.textContent = 'Complete the reasoning chain to continue.';
   }
 }
 
@@ -271,10 +240,11 @@ function persistResult(result) {
     completed: true,
     missionText: result.missionText,
     decision: result.decision,
-    executionScore: result.executionScore.value,
-    executionReadiness: result.scenario.prediction.executionReadiness,
+    executionScore: result.executionScore?.value,
+    executionReadiness: INSUFFICIENT_BASIS,
     scenario: result.scenario,
     outputs: result.outputs,
+    reasoning: result.reasoning,
   });
 }
 
@@ -328,18 +298,14 @@ export function initLivingEngine() {
     applyPilotHandoff();
     applyOneHandoff();
 
-    const pilotCta = root.querySelector('#le-cta-pilot');
+    const pilotCta = root.querySelector('#le-cta-pilot-request');
     if (pilotCta) pilotCta.href = buildRequestUrl();
 
     await runProgressiveReveal(result, ui);
-
-    const predictionReady = Boolean(result.scenario.prediction.executionReady);
-    updateOneCoreCta(true, true, predictionReady);
+    updateOneCoreCta(true, true);
 
     if (message) {
-      message.textContent = predictionReady
-        ? 'Execution Ready — scenario complete.'
-        : 'Execution Ready — scenario built.';
+      message.textContent = `Reasoning complete — ${result.reasoning.claims.length} claims, ${result.reasoning.chain.length} chain steps.`;
       message.className = 'le-message le-live le-message--success';
     }
     if (submitBtn) submitBtn.disabled = false;
