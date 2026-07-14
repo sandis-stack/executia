@@ -92,13 +92,25 @@ function publicizeActionText(text) {
 function publicizeConditionText(text) {
   const raw = String(text ?? '');
   if (/Outlook invalid if/i.test(raw)) {
-    return sanitizeInternalIds(raw.replace(/remains INSUFFICIENT BASIS/i, 'remains unresolved'));
+    if (/remains INSUFFICIENT BASIS/i.test(raw) || /remains unresolved/i.test(raw)) {
+      return 'Re-evaluate if unresolved execution areas remain open.';
+    }
+    if (/outcome changes under/i.test(raw)) {
+      return 'Re-evaluate if validated assumptions change.';
+    }
+    if (/premise facts for/i.test(raw) && /are withdrawn/i.test(raw)) {
+      return 'Re-evaluate if supporting facts are withdrawn.';
+    }
+    return 'Re-evaluate if execution assumptions change.';
   }
   if (/must change from/i.test(raw) || /must reach VERIFIED/i.test(raw)) {
     return 'Complete the open requirement before requesting a new decision.';
   }
   if (/Execution outlook must reach READY/i.test(raw)) {
     return 'Execution readiness must be established before re-evaluation.';
+  }
+  if (raw === 'NONE IDENTIFIED') {
+    return 'No re-evaluation triggers identified.';
   }
   return sanitizeInternalIds(raw);
 }

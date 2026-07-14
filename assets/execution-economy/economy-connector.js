@@ -53,6 +53,14 @@ export function buildEconomyContext(ctx = loadPublicFunnelContext()) {
   };
 }
 
+function formatEvidenceSummary(summary) {
+  if (!summary) return WAITING_INDICATOR;
+  if (typeof summary === 'string') return summary;
+  const total = summary.obligationsCount ?? 0;
+  const satisfied = summary.satisfiedObligations?.length ?? 0;
+  return `${satisfied} of ${total} evidence obligations satisfied`;
+}
+
 function indicator(stageId, context) {
   const { scenario, engineSummary } = context;
 
@@ -62,7 +70,7 @@ function indicator(stageId, context) {
         ? context.mission.slice(0, 56)
         : WAITING_INDICATOR;
     case 'evidence':
-      return scenario?.evidence?.summary ?? WAITING_INDICATOR;
+      return formatEvidenceSummary(scenario?.evidence?.summary);
     case 'knowledge':
       return scenario?.graph
         ? `${scenario.graph.nodes.length} nodes · ${scenario.graph.edges.length} relationships`
@@ -142,8 +150,8 @@ function enrichStage(base, context) {
   if (base.id === 'execution-score' && context.executionScore != null) {
     stage.outputs = [`Score ${context.executionScore}/100`];
   }
-  if (base.id === 'evidence' && context.scenario?.evidence?.items?.length) {
-    stage.outputs = [context.scenario.evidence.summary];
+  if (base.id === 'evidence' && context.scenario?.evidence?.summary) {
+    stage.outputs = [formatEvidenceSummary(context.scenario.evidence.summary)];
   }
   if (base.id === 'new-opportunities' && context.priorityAreas?.length) {
     stage.inputs = [...stage.inputs, ...context.priorityAreas.slice(0, 2)];

@@ -72,6 +72,12 @@ test('generateExecutionScenario runs full intelligence pipeline through Decision
   assert.equal(JSON.stringify(publicSummary).includes('claim-'), false);
   assert.equal(JSON.stringify(publicSummary).includes('obligation-'), false);
   assert.equal(JSON.stringify(publicSummary).includes('ES-'), false);
+  publicSummary.re_evaluation_conditions.forEach((condition) => {
+    assert.equal(typeof condition, 'string');
+    assert.match(condition, /[A-Za-z]/);
+    assert.equal(condition.includes(' for .'), false);
+    assert.equal(condition.includes('under .'), false);
+  });
 });
 
 test('engine consumes calculator context in reasoning facts', () => {

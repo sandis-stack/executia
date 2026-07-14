@@ -55,11 +55,24 @@ function kindBadge(_kind) {
   return '';
 }
 
+function indicatorText(value) {
+  if (value == null) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'object') {
+    const total = value.obligationsCount;
+    const satisfied = value.satisfiedObligations?.length;
+    if (total != null && satisfied != null) {
+      return `${satisfied} of ${total} evidence obligations satisfied`;
+    }
+  }
+  return String(value);
+}
+
 function valueCreated(stage, context) {
   const id = stage.id;
 
   if (stage.live && stage.indicator && stage.indicator !== WAITING_INDICATOR) {
-    return { text: stage.indicator, kind: normalizeKind(stage.kind) };
+    return { text: indicatorText(stage.indicator), kind: normalizeKind(stage.kind) };
   }
 
   if (id === 'trust' && context.executionScore != null) {

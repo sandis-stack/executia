@@ -87,6 +87,11 @@ test('context binding receives funnel values without duplicate calculation', () 
   assert.match(score.indicator, /\/100/);
   assert.equal(value.live, true);
   assert.match(value.indicator, /Recoverable/);
+
+  const evidence = flow.stages.find((s) => s.id === 'evidence');
+  assert.equal(evidence.live, true);
+  assert.equal(typeof evidence.indicator, 'string');
+  assert.match(evidence.indicator, /evidence obligations satisfied/);
 });
 
 test('stages without funnel data show waiting indicator', () => {
