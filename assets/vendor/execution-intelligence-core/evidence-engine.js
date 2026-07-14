@@ -12,7 +12,7 @@ import { obligationForRule } from './evidence-catalog.js';
 
 /** @typedef {'REQUIRED'|'OPTIONAL'|'NOT REQUIRED'} EvidenceStatus */
 /** @typedef {'VERIFIED'|'MISSING'|'NOT VERIFIABLE'} Verification */
-/** @typedef {'SATISFIED'|'UNSATISFIED'|'INSUFFICIENT BASIS'} EvidenceResult */
+/** @typedef {'SATISFIED'|'UNSATISFIED'|'INSUFFICIENT BASIS'|'NOT APPLICABLE'} EvidenceResult */
 
 /**
  * @param {object} finding
@@ -60,7 +60,7 @@ function resolveVerificationAndResult(evidenceStatus, finding, proofArtifacts) {
   if (evidenceStatus === 'NOT REQUIRED') {
     return {
       verification: 'NOT VERIFIABLE',
-      evidence_result: 'SATISFIED',
+      evidence_result: 'NOT APPLICABLE',
       explanation: 'Informational finding — no proof obligation applies under the Execution Standard.',
       proof_artifact_refs: [],
     };

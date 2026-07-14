@@ -8,13 +8,14 @@
 
 import { INSUFFICIENT_BASIS } from './constants.js';
 
-/** @typedef {'PROCEED'|'HOLD'|'REJECT'|'ESCALATE'} DecisionOutcome */
+/** @typedef {'PROCEED'|'HOLD'|'REJECT'|'ESCALATE'|'INSUFFICIENT BASIS'} DecisionOutcome */
 
 export const DECISION_OUTCOMES = {
   PROCEED: 'PROCEED',
   HOLD: 'HOLD',
   REJECT: 'REJECT',
   ESCALATE: 'ESCALATE',
+  INSUFFICIENT_BASIS: INSUFFICIENT_BASIS,
 };
 
 const BLOCKING_STATUSES = new Set(['INVALID', 'NOT EVALUABLE']);
@@ -60,17 +61,49 @@ function isRequiredEvidenceSatisfied(obligation) {
   return obligation.verification === 'VERIFIED' && obligation.evidence_result === 'SATISFIED';
 }
 
+function hasOrganizationProfile(reasoning) {
+  return !(reasoning?.insufficientAreas ?? []).some(
+    (area) => area.area === 'organization_profile' && area.status === INSUFFICIENT_BASIS,
+  );
+}
+
+function hasFalseVerifiedEvidence(evidence) {
+  return (evidence?.obligations ?? []).some(
+    (obligation) =>
+      obligation.verification === 'NOT VERIFIABLE' && obligation.evidence_result === 'SATISFIED',
+  );
+}
+
 /**
+ * @param {object} reasoning
  * @param {object} validation
  * @param {object} evidence
  * @param {object} outlook
  * @returns {{ outcome: DecisionOutcome, reason: string, decidingFindings: object[], decidingObligations: object[] }}
  */
-function resolveOutcome(validation, evidence, outlook) {
+function resolveOutcome(reasoning, validation, evidence, outlook) {
   const findings = validation?.findings ?? [];
   const blocked = blockingFindings(findings);
   const required = requiredObligations(evidence);
   const findingById = Object.fromEntries(findings.map((finding) => [finding.finding_id, finding]));
+
+  if (!hasOrganizationProfile(reasoning)) {
+    return {
+      outcome: DECISION_OUTCOMES.INSUFFICIENT_BASIS,
+      reason: 'Required organization information is not available to support an execution decision.',
+      decidingFindings: [],
+      decidingObligations: [],
+    };
+  }
+
+  if (hasFalseVerifiedEvidence(evidence)) {
+    return {
+      outcome: DECISION_OUTCOMES.INSUFFICIENT_BASIS,
+      reason: 'Required evidence cannot be verified from the available information.',
+      decidingFindings: [],
+      decidingObligations: required,
+    };
+  }
 
   for (const finding of blocked) {
     if (
@@ -141,38 +174,59 @@ function resolveOutcome(validation, evidence, outlook) {
     };
   }
 
+  const requiredReady = required.every(isRequiredEvidenceSatisfied);
   const proceedGate =
-    !validation?.summary?.blocked
-    && required.every(isRequiredEvidenceSatisfied)
+    hasOrganizationProfile(reasoning)
+    && !hasFalseVerifiedEvidence(evidence)
+    && !validation?.summary?.blocked
+    && requiredReady
     && outlook?.status === 'READY';
 
   if (proceedGate) {
     return {
       outcome: DECISION_OUTCOMES.PROCEED,
-      reason: 'No blocking findings; required evidence verified; execution outlook READY.',
+      reason:
+        'Current execution can continue because no execution blockers were identified from the available verified information.',
       decidingFindings: [],
       decidingObligations: required.filter(isRequiredEvidenceSatisfied),
     };
   }
 
-  if (required.some((obligation) => obligation.verification === 'MISSING' || obligation.evidence_result === 'UNSATISFIED')) {
+  if (
+    required.some(
+      (obligation) =>
+        obligation.verification === 'MISSING'
+        || obligation.evidence_result === 'UNSATISFIED'
+        || obligation.evidence_result === INSUFFICIENT_BASIS,
+    )
+  ) {
     const decidingObligations = required.filter(
-      (obligation) => obligation.verification === 'MISSING' || obligation.evidence_result === 'UNSATISFIED',
+      (obligation) =>
+        obligation.verification === 'MISSING'
+        || obligation.evidence_result === 'UNSATISFIED'
+        || obligation.evidence_result === INSUFFICIENT_BASIS,
     );
     return {
       outcome: DECISION_OUTCOMES.HOLD,
-      reason: 'Additional evidence is required before execution may proceed.',
+      reason: 'Execution cannot continue because required evidence is missing.',
       decidingFindings: blocked,
       decidingObligations,
     };
   }
 
-  if (validation?.summary?.blocked || outlook?.status !== 'READY') {
+  if (validation?.summary?.blocked) {
     return {
       outcome: DECISION_OUTCOMES.HOLD,
-      reason: outlook?.status !== 'READY'
-        ? outlook?.summary?.reason ?? 'Execution outlook is not READY.'
-        : 'Validation findings require resolution before execution may proceed.',
+      reason: 'Execution cannot continue because open validation issues must be resolved first.',
+      decidingFindings: blocked,
+      decidingObligations: required,
+    };
+  }
+
+  if (outlook?.status !== 'READY') {
+    return {
+      outcome: DECISION_OUTCOMES.HOLD,
+      reason: 'Execution cannot continue because execution readiness is not established.',
       decidingFindings: blocked,
       decidingObligations: required,
     };
@@ -180,7 +234,7 @@ function resolveOutcome(validation, evidence, outlook) {
 
   return {
     outcome: DECISION_OUTCOMES.HOLD,
-    reason: 'Execution decision requires additional resolution.',
+    reason: 'Execution cannot continue because additional resolution is required before proceeding.',
     decidingFindings: blocked,
     decidingObligations: required,
   };
@@ -199,7 +253,7 @@ function buildRequiredActions(outcome, decidingFindings, decidingObligations, ou
     return [
       {
         action_id: 'action-proceed-001',
-        text: 'Proceed under the READY execution outlook scenario and stated assumptions.',
+        text: 'Proceed under the stated execution assumptions.',
         references: outlook?.scenario?.scenario_id ? [outlook.scenario.scenario_id] : [],
       },
     ];
@@ -352,7 +406,7 @@ function buildBecause(outcome, reason, decidingFindings, decidingObligations, ou
  * @returns {object}
  */
 export function runDecision(reasoning, validation, evidence, outlook) {
-  const resolved = resolveOutcome(validation, evidence, outlook);
+  const resolved = resolveOutcome(reasoning, validation, evidence, outlook);
   const outlookId = outlook?.scenario?.scenario_id ?? null;
 
   const supportingFindings = [

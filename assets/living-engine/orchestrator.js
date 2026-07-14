@@ -125,14 +125,48 @@ export function buildPublicDecisionSummary(decision) {
     };
   }
 
+  const executiveReason = publicizeReasonText(decision.summary.reason, decision.decision);
+
   return {
     decision: decision.decision,
-    reason: sanitizeInternalIds(decision.summary.reason),
+    reason: executiveReason,
     required_actions: (decision.required_actions ?? []).map((action) => publicizeActionText(action.text)),
     re_evaluation_conditions: (decision.re_evaluation_conditions ?? []).map((condition) =>
       publicizeConditionText(condition.text),
     ),
   };
+}
+
+function publicizeReasonText(text, outcome) {
+  const raw = sanitizeInternalIds(text);
+  if (/execution outlook|outlook confidence|READY execution/i.test(raw)) {
+    if (outcome === 'PROCEED') {
+      return 'Current execution can continue because no execution blockers were identified from the available verified information.';
+    }
+    return 'Execution cannot continue because execution readiness is not established.';
+  }
+  if (/Mandatory Execution Standard rule/i.test(raw)) {
+    return 'Execution cannot continue because a mandatory execution requirement was not met.';
+  }
+  if (/Governance approval required/i.test(raw)) {
+    return 'Execution requires executive or governing authority approval before it can continue.';
+  }
+  if (/Accountable executive authority cannot be established/i.test(raw)) {
+    return 'Execution cannot continue because accountable executive authority is not established.';
+  }
+  if (/Unresolved critical validation conflicts/i.test(raw)) {
+    return 'Execution cannot continue because critical validation issues require executive review.';
+  }
+  if (/Required evidence cannot be satisfied for a not-evaluable finding/i.test(raw)) {
+    return 'Execution cannot continue because required evidence cannot be satisfied from the available information.';
+  }
+  if (/open validation issues must be resolved/i.test(raw)) {
+    return 'Execution cannot continue because open validation issues must be resolved first.';
+  }
+  if (/additional resolution is required/i.test(raw)) {
+    return 'Execution cannot continue because additional resolution is required before proceeding.';
+  }
+  return raw;
 }
 
 function buildOutputs(reasoning, validation, evidence, outlook, decision, calculator, assessment) {

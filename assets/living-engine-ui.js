@@ -16,18 +16,7 @@ import {
   buildRequestUrl,
 } from './public-funnel.js';
 
-const PHASE_DELAY_MS = 480;
-
-const DISPLAY_PHASES = [
-  { id: 'mission', label: 'Mission' },
-  { id: 'intent', label: 'Intent' },
-  { id: 'context', label: 'Execution Context' },
-  { id: 'reasoning', label: 'Reasoning' },
-  { id: 'validation', label: 'Validation' },
-  { id: 'evidence', label: 'Evidence' },
-  { id: 'outlook', label: 'Execution Outlook' },
-  { id: 'decision', label: 'Decision' },
-];
+const REVIEW_DELAY_MS = 1920;
 
 const DECISION_LABELS = {
   PROCEED: 'Proceed',
@@ -53,10 +42,6 @@ function buildMissionHtml(payload) {
   return `
     <p class="le-mission-headline">${escapeHtml(payload.mission.headline)}</p>
     <p class="le-step-output">${escapeHtml(payload.mission.statement)}</p>`;
-}
-
-function buildProgressHtml() {
-  return `<p class="le-step-output le-progress">Review complete.</p>`;
 }
 
 function buildDecisionHtml(payload) {
@@ -94,49 +79,38 @@ function buildDecisionHtml(payload) {
     }`;
 }
 
-function phaseBodyHtml(phaseId, result) {
-  const payload = phasePayload(result, phaseId);
-  if (!payload) return `<p class="le-step-output">Awaiting mission input</p>`;
-
-  switch (phaseId) {
-    case 'mission':
-      return buildMissionHtml(payload);
-    case 'decision':
-      return buildDecisionHtml(payload);
-    default:
-      return buildProgressHtml();
-  }
+function renderLifecycleBar(root, complete) {
+  if (!root) return;
+  root.innerHTML = complete
+    ? `<div class="le-step le-step--done"><span class="le-step-label">Decision ready</span></div>`
+    : `<div class="le-step le-step--active"><span class="le-step-label">Reviewing execution…</span></div>`;
 }
 
-function renderLifecycleBar(root, activeIndex) {
-  root.innerHTML = DISPLAY_PHASES.map((phase, i) => {
-    let state = 'pending';
-    if (i < activeIndex) state = 'done';
-    else if (i === activeIndex) state = 'active';
-    else if (activeIndex >= DISPLAY_PHASES.length) state = 'done';
-    return `<div class="le-step le-step--${state}" data-phase="${phase.id}"><span class="le-step-label">${phase.label}</span></div>`;
-  }).join('<span class="le-step-arrow" aria-hidden="true">↓</span>');
-}
-
-function renderFlow(flowRoot, result, activeIndex) {
+function renderExecutiveFlow(flowRoot, result, reviewing) {
   if (!flowRoot || !result?.ok) return;
 
-  flowRoot.innerHTML = DISPLAY_PHASES.map((phase, i) => {
-    const state =
-      activeIndex >= DISPLAY_PHASES.length || i < activeIndex
-        ? 'done'
-        : i === activeIndex
-          ? 'active'
-          : 'ready';
-    return `
-      <div class="le-flow-step le-flow-step--${state}" data-le-phase="${phase.id}">
-        <div class="le-flow-step-head">
-          <span class="le-flow-step-label">${phase.label}</span>
+  const missionPayload = phasePayload(result, 'mission');
+  const missionHtml = buildMissionHtml(missionPayload);
+
+  if (reviewing) {
+    flowRoot.innerHTML = `
+      <div class="le-flow-step le-flow-step--active" data-le-phase="review">
+        <div class="le-flow-step-body">
+          ${missionHtml}
+          <p class="le-step-output le-progress">Reviewing execution…</p>
         </div>
-        <div class="le-flow-step-body">${phaseBodyHtml(phase.id, result)}</div>
+      </div>`;
+    return;
+  }
+
+  const decisionHtml = buildDecisionHtml(phasePayload(result, 'decision'));
+  flowRoot.innerHTML = `
+    <div class="le-flow-step le-flow-step--done" data-le-phase="decision">
+      <div class="le-flow-step-body">
+        ${missionHtml}
+        ${decisionHtml}
       </div>
-      ${i < DISPLAY_PHASES.length - 1 ? '<div class="le-flow-arrow" aria-hidden="true">↓</div>' : ''}`;
-  }).join('');
+    </div>`;
 }
 
 function updateOneCoreCta(flowComplete, userRan) {
@@ -156,15 +130,11 @@ function updateOneCoreCta(flowComplete, userRan) {
 }
 
 async function runProgressiveReveal(result, ui) {
-  for (let i = 0; i < DISPLAY_PHASES.length; i += 1) {
-    renderLifecycleBar(ui.lifecycle, i);
-    renderFlow(ui.flow, result, i);
-    if (i < DISPLAY_PHASES.length - 1) {
-      await sleep(PHASE_DELAY_MS);
-    }
-  }
-  renderLifecycleBar(ui.lifecycle, DISPLAY_PHASES.length);
-  renderFlow(ui.flow, result, DISPLAY_PHASES.length);
+  renderLifecycleBar(ui.lifecycle, false);
+  renderExecutiveFlow(ui.flow, result, true);
+  await sleep(REVIEW_DELAY_MS);
+  renderLifecycleBar(ui.lifecycle, true);
+  renderExecutiveFlow(ui.flow, result, false);
 }
 
 function persistResult(result) {

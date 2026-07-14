@@ -54,12 +54,20 @@ test('generateExecutionScenario produces reasoning chain outputs', () => {
   assert.ok(phasePayload(result, 'outlook').outlook);
 });
 
+test('generateExecutionScenario returns INSUFFICIENT BASIS without organization profile', () => {
+  const result = generateExecutionScenario('Approve spend.');
+  assert.equal(result.ok, true);
+  assert.equal(result.decision, INSUFFICIENT_BASIS);
+  assert.match(result.outputs.decisionSummary.reason, /organization information|cannot be formed/i);
+  assert.equal(JSON.stringify(result.outputs.decisionSummary).includes('PROCEED'), false);
+});
+
 test('generateExecutionScenario runs full intelligence pipeline through Decision', () => {
   const result = generateExecutionScenario(
     'Executive sponsor requires governed expansion into Germany after legal entity setup.',
   );
   assert.equal(result.ok, true);
-  assert.ok(['PROCEED', 'HOLD', 'REJECT', 'ESCALATE'].includes(result.decision));
+  assert.ok(['PROCEED', 'HOLD', 'REJECT', 'ESCALATE', INSUFFICIENT_BASIS].includes(result.decision));
   assert.ok(result.outputs.decisionSummary);
   assert.equal(result.outputs.decision.outcome, result.decision);
   assert.ok(result.outputs.decision.reason);
