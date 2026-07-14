@@ -373,7 +373,7 @@
   object-fit: cover;
   object-position: center center;
   /* Optical zoom: crop exported letterboxing so principal content fills ~80% of frame */
-  transform: scale(2.05);
+  transform: scale(2.75);
   transform-origin: center center;
   background: #0f172a;
 }
