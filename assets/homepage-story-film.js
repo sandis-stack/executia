@@ -239,7 +239,6 @@
   }
 
   function scrollToCalculator() {
-    if (document.body.getAttribute('data-journey') === 'executive') return;
     var target = document.getElementById('execution-value');
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -257,9 +256,7 @@
     var playBtn = player.querySelector('[data-action="play"]');
     var replayBtn = player.querySelector('[data-action="replay"]');
 
-    if (!stage.querySelector('[data-story-root]')) {
-      stage.insertAdjacentHTML('beforeend', STORY_HTML);
-    }
+    stage.insertAdjacentHTML('beforeend', STORY_HTML);
     var root = stage.querySelector('[data-story-root]');
     var networkCanvas = root.querySelector('.sf-network');
     var network = mountNetwork(networkCanvas);

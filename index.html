@@ -12,54 +12,70 @@
   <meta property="og:url" content="https://executia.io/">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="/assets/app.css" as="style">
-  <link rel="preload" href="/assets/homepage-migrated.css" as="style">
-  <link rel="preload" href="/assets/executive-journey.css" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
   <link rel="stylesheet" href="/assets/homepage-migrated.css">
+  <link rel="stylesheet" href="/assets/execution-value-calculator.css">
+  <link rel="stylesheet" href="/assets/pilot.css">
   <link rel="stylesheet" href="/assets/institutional-readiness.css">
   <link rel="stylesheet" href="/assets/executive-architecture.css">
-  <link rel="stylesheet" href="/assets/executive-journey.css">
 </head>
-<body data-page="entry" data-journey="executive">
-<div data-platform-header>
-<header class="site-header">
-  <div class="wrap header-inner">
-    <a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><span class="brand-main">EXECUTIA™</span></a>
-    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav class="nav" aria-label="Primary">
-      <a data-nav="entry" href="/" class="active">ENTRY</a>
-      <a data-nav="engine" href="/engine">ENGINE</a>
-      <a data-nav="pilot" href="/pilot">PILOT</a>
-      <a data-nav="one" href="/one">ONE</a>
-    </nav>
-    <div class="header-cta"><a class="pill-btn" href="/request">Request Pilot</a></div>
-  </div>
-</header>
-</div>
-<div class="ej-chrome ej-chrome--entry"><div class="wrap" data-ej-chrome data-ej-static="true">
-  <nav class="ej-breadcrumb" aria-label="Executive journey">
-    <a class="ej-breadcrumb-step ej-breadcrumb-step--active" href="/">ENTRY</a><span class="ej-breadcrumb-sep" aria-hidden="true">→</span>
-    <a class="ej-breadcrumb-step" href="/engine">ENGINE</a><span class="ej-breadcrumb-sep" aria-hidden="true">→</span>
-    <a class="ej-breadcrumb-step" href="/one">ONE</a><span class="ej-breadcrumb-sep" aria-hidden="true">→</span>
-    <a class="ej-breadcrumb-step" href="/proof">PROOF</a><span class="ej-breadcrumb-sep" aria-hidden="true">→</span>
-    <a class="ej-breadcrumb-step" href="/pilot">PILOT</a>
-  </nav>
-</div></div>
+<body data-page="entry">
+<div data-platform-header></div>
 <main class="main">
 
-  <!-- Hero — executive landing -->
+  <!-- 1 Hero — Why should I care? -->
   <section class="hp-hero" id="hero" aria-label="Hero">
     <div class="hp-hero-glow" aria-hidden></div>
     <div class="wrap-home hp-hero-inner">
-      <div class="hp-hero-copy hp-hero-copy--entry">
-          <h1>Every organization loses value through poor execution.</h1>
+      <div class="hp-hero-grid">
+        <div class="hp-hero-copy">
+          <h1>A New Standard for Organizational Execution</h1>
           <p class="hp-hero-lead">EXECUTIA governs execution before work becomes reality.</p>
-          <div class="hp-hero-actions">
-            <a class="hp-btn-primary" href="/engine">Validate an execution</a>
-            <a class="hp-btn-secondary" href="/pilot">Request Institutional Pilot</a>
+          <dl class="hp-exec-brief">
+            <div class="hp-exec-brief-row">
+              <dt>What</dt>
+              <dd>An execution governance platform for mission-critical organizations.</dd>
+            </div>
+            <div class="hp-exec-brief-row">
+              <dt>Why</dt>
+              <dd>Execution becomes invisible across teams, systems, and approvals.</dd>
+            </div>
+            <div class="hp-exec-brief-row">
+              <dt>Why it matters</dt>
+              <dd>Value is lost before failure is detected or audited.</dd>
+            </div>
+          </dl>
+          <div class="hp-exec-path" aria-label="Executive pilot path">
+            <p class="hp-exec-path-label">Executive path</p>
+            <ol class="hp-exec-path-steps">
+              <li><span class="sys-state">Understand</span></li>
+              <li aria-hidden="true"><span class="hp-exec-path-sep"></span></li>
+              <li><span class="sys-state">Validate</span></li>
+              <li aria-hidden="true"><span class="hp-exec-path-sep"></span></li>
+              <li><span class="sys-state">Review proof</span></li>
+              <li aria-hidden="true"><span class="hp-exec-path-sep"></span></li>
+              <li><span class="sys-state">Request pilot</span></li>
+            </ol>
           </div>
+          <div class="hp-hero-actions">
+            <a class="hp-btn-primary" href="#architecture">See how it works</a>
+          </div>
+        </div>
+        <div class="hp-monitor-wrap">
+          <div id="hp-funnel-journey" class="hp-funnel-journey">
+            <div class="hp-monitor-glow" aria-hidden="true"></div>
+            <div class="hp-monitor-panel">
+              <p class="hp-monitor-label">Your journey</p>
+              <div class="hp-monitor-meta">
+                <div>
+                  <p class="sub">Current step</p>
+                  <p class="hp-monitor-state">Waiting for your first mission</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -115,6 +131,9 @@
           </div>
         </div>
       </div>
+      <div class="hp-section-cta">
+        <a class="pill-btn primary" href="#trust">Continue to trust</a>
+      </div>
     </div>
   </section>
 
@@ -143,6 +162,9 @@
           <h3>Regulated environments</h3>
           <p>Designed to support government, infrastructure, and enterprise control requirements. Certification claims are published only when formally achieved.</p>
         </article>
+      </div>
+      <div class="hp-section-cta">
+        <a class="pill-btn primary" href="#use-cases">Review institutional use cases</a>
       </div>
     </div>
   </section>
@@ -183,6 +205,9 @@
           <p class="hp-use-line"><em>Outcome</em> Executive visibility before value is lost.</p>
         </article>
       </div>
+      <div class="hp-section-cta">
+        <a class="pill-btn primary" href="#comparison">Compare approaches</a>
+      </div>
     </div>
   </section>
 
@@ -207,6 +232,9 @@
             <tr><td>Reconstructed accountability</td><td>Assigned ownership at execution time</td></tr>
           </tbody>
         </table>
+      </div>
+      <div class="hp-section-cta">
+        <a class="pill-btn primary" href="#execution-value">Quantify execution loss</a>
       </div>
     </div>
   </section>
@@ -298,9 +326,46 @@
             </div>
           </div>
 
+          <div class="evc-actions">
+            <a class="pill-btn primary evc-cta-primary" id="ev-cta-assessment" href="#pilot" aria-disabled="true">See what happens next</a>
+          </div>
           <p id="ev-cta-assessment-hint" class="evc-cta-hint" role="status"></p>
           <p id="ev-calculator-live" class="evc-live" hidden></p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 Pilot -->
+  <section class="hp-pilot-cta" id="pilot" aria-label="Pilot">
+    <div class="wrap-home">
+      <span class="kicker">THE DECISION</span>
+      <h2>What is the pilot path?</h2>
+
+      <ol class="hp-pilot-path" aria-label="Executive pilot journey">
+        <li><span class="sys-state">Understand</span></li>
+        <li aria-hidden="true"><span class="hp-pilot-path-sep"></span></li>
+        <li><span class="sys-state">Validate</span></li>
+        <li aria-hidden="true"><span class="hp-pilot-path-sep"></span></li>
+        <li><span class="sys-state">Review proof</span></li>
+        <li aria-hidden="true"><span class="hp-pilot-path-sep"></span></li>
+        <li><span class="sys-state">Request pilot</span></li>
+      </ol>
+
+      <div id="pilot-product">
+        <div class="pi-shell">
+          <div class="pi-journey-col">
+            <div class="pi-flow" id="pi-journey" aria-label="Pilot journey"></div>
+          </div>
+          <div class="pi-deliverables-col">
+            <ul class="pi-deliverable-list" id="pi-deliverable-list"></ul>
+          </div>
+        </div>
+        <div id="ev-pilot-handoff" class="pi-handoff" hidden></div>
+        <div class="pi-actions">
+          <a class="pill-btn primary pi-cta-primary" id="ev-cta-pilot-request" href="/request" data-funnel-request>Request Pilot</a>
+        </div>
+        <p id="pi-cta-hint" class="pi-cta-hint" role="status"></p>
       </div>
     </div>
   </section>
@@ -309,8 +374,11 @@
 <div data-platform-footer></div>
 <script src="/assets/platform-brand.js"></script>
 <script src="/assets/platform-nav.js"></script>
+<script type="module" src="/assets/homepage-hero.js"></script>
 <script src="/assets/homepage-story-film.js" defer></script>
-<script src="/assets/entry-deferred.js" defer></script>
+<script type="module" src="/assets/execution-value-calculator.js"></script>
+<script type="module" src="/assets/pilot-ui.js"></script>
+<script src="/assets/public-funnel-bootstrap.js"></script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>
