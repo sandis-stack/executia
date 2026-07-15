@@ -99,6 +99,16 @@ function currentStateText(steps) {
   return active.detail?.trim() || active.label;
 }
 
+function kindLabel(kind) {
+  const map = {
+    Estimated: 'VERIFIED',
+    Calculated: 'VERIFIED',
+    Demonstration: 'READY',
+    Pending: 'PENDING',
+  };
+  return map[kind] || String(kind || '').toUpperCase();
+}
+
 function renderJourney(root, steps) {
   root.innerHTML = '';
   root.setAttribute('aria-label', 'Live execution journey');
@@ -129,6 +139,7 @@ function renderJourney(root, steps) {
     item.innerHTML =
       '<div class="hp-journey-main">' +
       `<a class="hp-journey-label" href="${step.href}">${escapeHtml(step.label)}</a>` +
+      `<span class="sys-state">${escapeHtml(kindLabel(step.kind))}</span>` +
       '</div>' +
       `<p class="hp-journey-detail">${escapeHtml(step.detail)}</p>`;
     list.appendChild(item);
@@ -139,7 +150,8 @@ function renderJourney(root, steps) {
     const ready = el('div', 'hp-ready-banner');
     ready.style.display = 'block';
     ready.style.backgroundColor = 'var(--hp-on-track-bg)';
-    ready.innerHTML = '<p style="color:var(--hp-on-track-text)">Ready for Executive Assessment</p>';
+    ready.innerHTML =
+      '<p style="color:var(--hp-on-track-text)"><span class="sys-state">APPROVED</span> Ready for Executive Assessment</p>';
     panel.appendChild(ready);
   }
 }

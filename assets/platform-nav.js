@@ -8,7 +8,6 @@
     { id: 'engine', label: 'ENGINE', href: '/engine' },
     { id: 'pilot', label: 'PILOT', href: '/pilot' },
     { id: 'one', label: 'ONE', href: '/one' },
-    { id: 'docs', label: 'Docs', href: '/docs' },
   ];
 
   const PAGE_ACTIVE = {
@@ -16,7 +15,6 @@
     engine: 'engine',
     pilot: 'pilot',
     one: 'one',
-    docs: 'docs',
   };
 
   function resolveActiveId(page) {

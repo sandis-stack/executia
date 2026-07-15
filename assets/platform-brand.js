@@ -25,9 +25,11 @@
       '<a href="/one">ONE</a>' +
       '</div>' +
       '<div class="footer-col"><h4>Resources</h4>' +
+      '<a href="/#architecture">Architecture</a>' +
+      '<a href="/standard">Governance</a>' +
+      '<a href="/pilot">Pilot Process</a>' +
+      '<a href="/support">Support</a>' +
       '<a href="/docs">Documentation</a>' +
-      '<a href="/standard">Standard</a>' +
-      '<a href="/institutional">Institutional</a>' +
       '</div>' +
       '<div class="footer-col"><h4>Company</h4>' +
       '<a href="/support">Support</a>' +
