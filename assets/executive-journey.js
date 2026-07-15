@@ -19,10 +19,19 @@
     timestamp: '2026-07-15T06:42:18Z',
     timestampDisplay: '15 Jul 2026, 06:42 UTC',
     status: {
-      executionStateEntry: 'Pending validation',
       executionState: 'Verified',
       evidence: 'Available',
       decision: 'Governed',
+    },
+    statusOne: {
+      executionState: 'In execution',
+      evidence: 'Available',
+      decision: 'Governed',
+    },
+    statusProof: {
+      executionState: 'Verified',
+      evidence: 'Immutable',
+      decision: 'Recorded',
     },
     validations: [
       { id: 'authority', label: 'Authority', result: 'Confirmed', detail: 'Procurement officer holds delegated authority for this threshold.' },
@@ -40,12 +49,10 @@
     },
     proofRecords: [
       { label: 'Mission ID', value: 'MSN-INFRA-2026-0047' },
-      { label: 'Execution ID', value: 'EXE-PROC-250K-20260715' },
       { label: 'Decision', value: 'PROCEED' },
       { label: 'Evidence', value: 'Budget certificate · Authority confirmation · Policy review' },
-      { label: 'Outcome', value: 'Procurement authorized under governed execution record.' },
-      { label: 'Verification status', value: 'Verified' },
       { label: 'Timestamp', value: '15 Jul 2026, 06:42 UTC' },
+      { label: 'Verification', value: 'Verified' },
     ],
   };
 
@@ -58,11 +65,10 @@
   ];
 
   var NEXT = {
-    entry: { label: 'Validate this execution', href: '/engine' },
     engine: { label: 'View executive workspace', href: '/one' },
     one: { label: 'View public proof', href: '/proof' },
     proof: { label: 'Request Institutional Pilot', href: '/pilot' },
-    pilot: { label: 'Request Institutional Pilot', href: '/request' },
+    pilot: { label: 'Request Pilot', href: '/request' },
   };
 
   function escapeHtml(value) {
@@ -99,24 +105,32 @@
   }
 
   function renderStatus(pageId) {
-    var state =
-      pageId === 'entry'
-        ? SCENARIO.status.executionStateEntry
-        : SCENARIO.status.executionState;
+    var status = SCENARIO.status;
+    if (pageId === 'one') status = SCENARIO.statusOne;
+    if (pageId === 'proof') status = SCENARIO.statusProof;
     return (
-      renderDemonstrationBanner() +
-      '<div class="ej-status" aria-label="Demonstration scenario status">' +
+      '<div class="ej-status" aria-label="Execution status">' +
       '<div class="ej-status-item"><span class="ej-status-label">Execution State</span><strong data-ej-status="executionState">' +
-      escapeHtml(state) +
+      escapeHtml(status.executionState) +
       '</strong></div>' +
       '<div class="ej-status-item"><span class="ej-status-label">Evidence</span><strong data-ej-status="evidence">' +
-      escapeHtml(SCENARIO.status.evidence) +
+      escapeHtml(status.evidence) +
       '</strong></div>' +
       '<div class="ej-status-item"><span class="ej-status-label">Decision</span><strong data-ej-status="decision">' +
-      escapeHtml(SCENARIO.status.decision) +
+      escapeHtml(status.decision) +
       '</strong></div>' +
       '</div>'
     );
+  }
+
+  function renderChromeExtras(pageId) {
+    if (pageId === 'engine') {
+      return renderDemonstrationBanner() + renderStatus(pageId);
+    }
+    if (pageId === 'one' || pageId === 'proof') {
+      return renderStatus(pageId);
+    }
+    return '';
   }
 
   function renderProcurementCard(extraClass) {
@@ -164,27 +178,6 @@
     );
   }
 
-  function renderEntry() {
-    return (
-      '<section class="ej-page ej-page-entry" aria-labelledby="ej-entry-heading">' +
-      '<div class="wrap">' +
-      '<span class="kicker">ENTRY — RECOGNITION</span>' +
-      '<h1 id="ej-entry-heading">A procurement appears compliant.</h1>' +
-      '<p class="lead">A €250,000 critical infrastructure procurement reaches the executive desk with complete documentation. The question is not whether it looks correct — it is whether it can actually be executed.</p>' +
-      renderProcurementCard('ej-procurement--problem') +
-      '<div class="ej-question">' +
-      '<p class="ej-question-label">Executive question</p>' +
-      '<p class="ej-question-text">' +
-      escapeHtml(SCENARIO.question) +
-      '</p>' +
-      '<p class="ej-question-note">' +
-      escapeHtml(SCENARIO.compliantLabel) +
-      ' on paper. Execution risk remains invisible until validation.</p>' +
-      '</div>' +
-      '</div></section>'
-    );
-  }
-
   function renderEngine() {
     var checks = SCENARIO.validations
       .map(function (item) {
@@ -211,9 +204,18 @@
       '<section class="ej-page ej-page-engine" aria-labelledby="ej-engine-heading">' +
       '<div class="wrap">' +
       '<span class="kicker">ENGINE — VALIDATION</span>' +
-      '<h1 id="ej-engine-heading">Validate execution before commitment.</h1>' +
-      '<p class="lead">The same procurement is evaluated against authority, budget, approvals, policy, and evidence — before any action proceeds.</p>' +
-      renderProcurementCard() +
+      '<h1 id="ej-engine-heading">A procurement appears compliant.</h1>' +
+      '<p class="lead">A €250,000 critical infrastructure procurement reaches the executive desk with complete documentation. The question is not whether it looks correct — it is whether it can actually be executed.</p>' +
+      renderProcurementCard('ej-procurement--problem') +
+      '<div class="ej-question">' +
+      '<p class="ej-question-label">Executive question</p>' +
+      '<p class="ej-question-text">' +
+      escapeHtml(SCENARIO.question) +
+      '</p>' +
+      '<p class="ej-question-note">' +
+      escapeHtml(SCENARIO.compliantLabel) +
+      ' on paper. Execution risk remains invisible until validation.</p>' +
+      '</div>' +
       '<div class="ej-validation">' +
       '<h2>Validation gates</h2>' +
       '<table class="ej-validation-table"><thead><tr><th scope="col">Gate</th><th scope="col">Result</th><th scope="col">Basis</th></tr></thead><tbody>' +
@@ -257,9 +259,8 @@
       '<div class="wrap">' +
       '<span class="kicker">ONE — OPERATION</span>' +
       '<h1 id="ej-one-heading">Executive workspace</h1>' +
-      '<p class="lead">The same execution — operational view. Mission, decision, execution, evidence, and outcome in one governed record.</p>' +
-      renderProcurementCard('ej-procurement--compact') +
-      '<div class="ej-workspace">' +
+      '<p class="lead">Operational view of the validated execution — mission through outcome.</p>' +
+      '<div class="ej-workspace ej-workspace--flow">' +
       rows +
       '</div>' +
       '</div></section>'
@@ -288,7 +289,7 @@
       '<div class="ej-proof-panel">' +
       rows +
       '</div>' +
-      '<p class="ej-proof-footnote">Demonstration scenario record. Deterministic validation outcome — not a live production execution.</p>' +
+      '<p class="ej-proof-footnote">Completed execution evidence. Demonstration scenario record.</p>' +
       '</div></section>'
     );
   }
@@ -299,14 +300,22 @@
       '<div class="wrap">' +
       '<span class="kicker">PILOT — ADOPTION</span>' +
       '<h1 id="ej-pilot-heading">Request an institutional pilot</h1>' +
-      '<p class="lead">Apply governed execution to your organization. Start with the same discipline: validate before commitment, record evidence at execution time.</p>' +
-      renderProcurementCard('ej-procurement--compact') +
+      '<p class="lead">Move from understanding to governed adoption with a structured institutional pilot.</p>' +
       '<div class="ej-pilot-value">' +
-      '<h2>What the pilot delivers</h2>' +
+      '<h2>Pilot process</h2>' +
+      '<ol class="ej-pilot-list ej-pilot-process">' +
+      '<li>Executive assessment and scope definition</li>' +
+      '<li>Live scenario validation in ENGINE</li>' +
+      '<li>Evidence review and board briefing</li>' +
+      '<li>Pilot agreement and deployment planning</li>' +
+      '</ol>' +
+      '<h2>Expected timeline</h2>' +
+      '<p class="ej-pilot-timeline">4–6 weeks from request to governed pilot launch.</p>' +
+      '<h2>What you receive</h2>' +
       '<ul class="ej-pilot-list">' +
-      '<li>Executive assessment against your mission-critical execution gaps</li>' +
-      '<li>Governed validation for one live procurement or operational decision</li>' +
-      '<li>Evidence record your board and auditors can verify</li>' +
+      '<li>Executive Summary and Execution Score</li>' +
+      '<li>Validated pilot scope with evidence record</li>' +
+      '<li>Improvement roadmap for mission-critical execution</li>' +
       '<li>Path to operational deployment in EXECUTIA ONE</li>' +
       '</ul>' +
       '</div>' +
@@ -314,46 +323,17 @@
     );
   }
 
-  function renderHeroScenario() {
-    return (
-      '<div class="ej-hero-scenario">' +
-      '<p class="ej-hero-scenario-label">Current execution</p>' +
-      '<p class="ej-hero-scenario-title">' +
-      escapeHtml(SCENARIO.title) +
-      '</p>' +
-      '<p class="ej-hero-scenario-amount">' +
-      escapeHtml(SCENARIO.amount) +
-      '</p>' +
-      '<p class="ej-hero-scenario-org">' +
-      escapeHtml(SCENARIO.organization) +
-      '</p>' +
-      '<dl class="ej-hero-scenario-ids">' +
-      '<div><dt>Mission</dt><dd><code>' +
-      escapeHtml(SCENARIO.missionId) +
-      '</code></dd></div>' +
-      '<div><dt>Status</dt><dd>' +
-      escapeHtml(SCENARIO.compliantLabel) +
-      '</dd></div>' +
-      '</dl>' +
-      '<p class="ej-hero-scenario-question">' +
-      escapeHtml(SCENARIO.question) +
-      '</p>' +
-      '</div>'
-    );
-  }
-
   function mountChrome(pageId) {
     var chrome = document.querySelector('[data-ej-chrome]');
     if (!chrome || chrome.getAttribute('data-ej-static') === 'true') return;
-    chrome.innerHTML = renderBreadcrumb(pageId) + renderStatus(pageId);
+    chrome.innerHTML = renderBreadcrumb(pageId) + renderChromeExtras(pageId);
   }
 
   function mountPageContent(pageId) {
     var mount = document.querySelector('[data-ej-content]');
     if (!mount || mount.getAttribute('data-ej-static') === 'true') return;
     var html = '';
-    if (pageId === 'entry') html = renderEntry();
-    else if (pageId === 'engine') html = renderEngine();
+    if (pageId === 'engine') html = renderEngine();
     else if (pageId === 'one') html = renderOne();
     else if (pageId === 'proof') html = renderProof();
     else if (pageId === 'pilot') html = renderPilot();
@@ -379,14 +359,13 @@
       mountChrome(pageId);
       mountPageContent(pageId);
       mountNextCta(pageId);
-      if (pageId === 'entry') mountHeroScenario();
     },
   };
 
   document.addEventListener('DOMContentLoaded', function () {
     var pageId = document.body.getAttribute('data-page');
     if (!pageId || !window.EXECUTIA_JOURNEY) return;
-    if (['entry', 'engine', 'one', 'proof', 'pilot'].indexOf(pageId) === -1) return;
+    if (['engine', 'one', 'proof', 'pilot'].indexOf(pageId) === -1) return;
     window.EXECUTIA_JOURNEY.mount(pageId);
   });
 })();

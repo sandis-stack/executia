@@ -6,6 +6,30 @@
   min-height: 6.75rem;
 }
 
+.ej-chrome--entry {
+  min-height: 2.75rem;
+}
+
+.ej-chrome--entry .wrap {
+  min-height: 2.75rem;
+}
+
+.hp-hero-copy--entry {
+  max-width: 36rem;
+}
+
+.ej-pilot-timeline {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #475569;
+}
+
+.ej-pilot-process {
+  list-style: decimal;
+  padding-left: 1.15rem;
+}
+
 .ej-chrome .wrap {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;

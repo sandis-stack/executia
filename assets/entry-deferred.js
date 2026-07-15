@@ -11,30 +11,6 @@
       js: '/assets/execution-value-calculator.js',
       module: true,
     },
-    {
-      sel: '#living-engine',
-      css: '/assets/living-engine.css',
-      js: '/assets/living-engine-ui.js',
-      module: true,
-    },
-    {
-      sel: '#one-core',
-      css: '/assets/one-core.css',
-      js: '/assets/one-core-ui.js',
-      module: true,
-    },
-    {
-      sel: '#execution-economy',
-      css: '/assets/economy.css',
-      js: '/assets/economy-ui.js',
-      module: true,
-    },
-    {
-      sel: '#pilot',
-      css: '/assets/pilot.css',
-      js: '/assets/pilot-ui.js',
-      module: true,
-    },
   ];
 
   var loaded = {};
