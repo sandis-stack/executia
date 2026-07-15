@@ -69,7 +69,7 @@
     mount: function (pageId) {
       const activeId = resolveActiveId(pageId);
       const mount = document.querySelector('[data-platform-header]');
-      if (mount) {
+      if (mount && !mount.querySelector('.site-header')) {
         mount.outerHTML = window.EXECUTIA_PLATFORM.renderHeader(activeId);
       }
       const footerMount = document.querySelector('[data-engine-footer]');

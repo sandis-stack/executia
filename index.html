@@ -11,24 +11,74 @@
   <meta property="og:url" content="https://executia.io/">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="/assets/app.css" as="style">
+  <link rel="preload" href="/assets/homepage-migrated.css" as="style">
+  <link rel="preload" href="/assets/executive-journey.css" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
   <link rel="stylesheet" href="/assets/homepage-migrated.css">
-  <link rel="stylesheet" href="/assets/execution-value-calculator.css">
-  <link rel="stylesheet" href="/assets/living-engine.css">
-  <link rel="stylesheet" href="/assets/one-core.css">
-  <link rel="stylesheet" href="/assets/economy.css">
-  <link rel="stylesheet" href="/assets/pilot.css">
   <link rel="stylesheet" href="/assets/institutional-readiness.css">
   <link rel="stylesheet" href="/assets/executive-architecture.css">
   <link rel="stylesheet" href="/assets/executive-journey.css">
 </head>
 <body data-page="entry" data-journey="executive">
-<div data-platform-header></div>
-<div class="ej-chrome"><div class="wrap" data-ej-chrome></div></div>
+<div data-platform-header>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><span class="brand-main">EXECUTIA™</span></a>
+    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" aria-label="Primary">
+      <a data-nav="entry" href="/" class="active">ENTRY</a>
+      <a data-nav="engine" href="/engine">ENGINE</a>
+      <a data-nav="pilot" href="/pilot">PILOT</a>
+      <a data-nav="one" href="/one">ONE</a>
+    </nav>
+    <div class="header-cta"><a class="pill-btn" href="/request">Request Pilot</a></div>
+  </div>
+</header>
+</div>
+<div class="ej-chrome"><div class="wrap" data-ej-chrome data-ej-static="true">
+  <nav class="ej-breadcrumb" aria-label="Executive journey">
+    <a class="ej-breadcrumb-step ej-breadcrumb-step--active" href="/">ENTRY</a><span class="ej-breadcrumb-sep" aria-hidden="true">→</span>
+    <a class="ej-breadcrumb-step" href="/engine">ENGINE</a><span class="ej-breadcrumb-sep" aria-hidden="true">→</span>
+    <a class="ej-breadcrumb-step" href="/one">ONE</a><span class="ej-breadcrumb-sep" aria-hidden="true">→</span>
+    <a class="ej-breadcrumb-step" href="/proof">PROOF</a><span class="ej-breadcrumb-sep" aria-hidden="true">→</span>
+    <a class="ej-breadcrumb-step" href="/pilot">PILOT</a>
+  </nav>
+  <p class="ej-demo-banner" role="note">DEMONSTRATION SCENARIO</p>
+  <div class="ej-status" aria-label="Demonstration scenario status">
+    <div class="ej-status-item"><span class="ej-status-label">Execution State</span><strong data-ej-status="executionState">Pending validation</strong></div>
+    <div class="ej-status-item"><span class="ej-status-label">Evidence</span><strong data-ej-status="evidence">Available</strong></div>
+    <div class="ej-status-item"><span class="ej-status-label">Decision</span><strong data-ej-status="decision">Governed</strong></div>
+  </div>
+</div></div>
 <main class="main">
 
-  <div data-ej-content></div>
+  <div data-ej-content data-ej-static="true">
+  <section class="ej-page ej-page-entry" aria-labelledby="ej-entry-heading">
+    <div class="wrap">
+      <span class="kicker">ENTRY — RECOGNITION</span>
+      <h1 id="ej-entry-heading">A procurement appears compliant.</h1>
+      <p class="lead">A €250,000 critical infrastructure procurement reaches the executive desk with complete documentation. The question is not whether it looks correct — it is whether it can actually be executed.</p>
+      <article class="ej-procurement ej-procurement--problem">
+        <p class="ej-procurement-kicker">Executive scenario</p>
+        <h2 class="ej-procurement-title">Critical infrastructure procurement</h2>
+        <dl class="ej-procurement-meta">
+          <div><dt>Organization</dt><dd>National Infrastructure Authority</dd></div>
+          <div><dt>Amount</dt><dd>€250,000</dd></div>
+          <div><dt>Mission ID</dt><dd><code>MSN-INFRA-2026-0047</code></dd></div>
+          <div><dt>Execution ID</dt><dd><code>EXE-PROC-250K-20260715</code></dd></div>
+        </dl>
+        <p class="ej-procurement-summary">Network resilience equipment — Phase 2 procurement</p>
+      </article>
+      <div class="ej-question">
+        <p class="ej-question-label">Executive question</p>
+        <p class="ej-question-text">Is it actually executable?</p>
+        <p class="ej-question-note">Appears compliant on paper. Execution risk remains invisible until validation.</p>
+      </div>
+    </div>
+  </section>
+  </div>
 
   <!-- 1 Hero — Why should I care? -->
   <section class="hp-hero" id="hero" aria-label="Hero">
@@ -66,16 +116,17 @@
           </div>
         </div>
         <div class="hp-monitor-wrap">
-          <div id="hp-funnel-journey" class="hp-funnel-journey">
-            <div class="hp-monitor-glow" aria-hidden="true"></div>
-            <div class="hp-monitor-panel">
-              <p class="hp-monitor-label">Your journey</p>
-              <div class="hp-monitor-meta">
-                <div>
-                  <p class="sub">Current step</p>
-                  <p class="hp-monitor-state">Waiting for your first mission</p>
-                </div>
-              </div>
+          <div id="hp-funnel-journey" class="hp-funnel-journey ej-hero-scenario-wrap" data-ej-static="true">
+            <div class="ej-hero-scenario">
+              <p class="ej-hero-scenario-label">Current execution</p>
+              <p class="ej-hero-scenario-title">Critical infrastructure procurement</p>
+              <p class="ej-hero-scenario-amount">€250,000</p>
+              <p class="ej-hero-scenario-org">National Infrastructure Authority</p>
+              <dl class="ej-hero-scenario-ids">
+                <div><dt>Mission</dt><dd><code>MSN-INFRA-2026-0047</code></dd></div>
+                <div><dt>Status</dt><dd>Appears compliant</dd></div>
+              </dl>
+              <p class="ej-hero-scenario-question">Is it actually executable?</p>
             </div>
           </div>
         </div>
@@ -407,21 +458,20 @@
     </div>
   </section>
 
-  <div data-ej-next></div>
+  <section class="ej-next" aria-label="Next step" data-ej-static="true">
+    <div class="wrap ej-next-inner">
+      <a class="pill-btn primary ej-next-btn" href="/engine">Validate this execution</a>
+    </div>
+  </section>
 
 </main>
 <div data-platform-footer></div>
 <script src="/assets/platform-brand.js"></script>
 <script src="/assets/platform-nav.js"></script>
 <script src="/assets/executive-journey.js"></script>
-<script type="module" src="/assets/homepage-hero.js"></script>
 <script src="/assets/homepage-story-film.js" defer></script>
-<script type="module" src="/assets/execution-value-calculator.js"></script>
-<script type="module" src="/assets/living-engine-ui.js"></script>
-<script type="module" src="/assets/one-core-ui.js"></script>
-<script type="module" src="/assets/economy-ui.js"></script>
-<script type="module" src="/assets/pilot-ui.js"></script>
-<script src="/assets/public-funnel-bootstrap.js"></script>
+<script src="/assets/entry-deferred.js" defer></script>
+<script src="/assets/public-funnel-bootstrap.js" defer></script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

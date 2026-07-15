@@ -19,6 +19,7 @@
     timestamp: '2026-07-15T06:42:18Z',
     timestampDisplay: '15 Jul 2026, 06:42 UTC',
     status: {
+      executionStateEntry: 'Pending validation',
       executionState: 'Verified',
       evidence: 'Available',
       decision: 'Governed',
@@ -93,16 +94,25 @@
     );
   }
 
-  function renderStatus() {
+  function renderDemonstrationBanner() {
+    return '<p class="ej-demo-banner" role="note">DEMONSTRATION SCENARIO</p>';
+  }
+
+  function renderStatus(pageId) {
+    var state =
+      pageId === 'entry'
+        ? SCENARIO.status.executionStateEntry
+        : SCENARIO.status.executionState;
     return (
-      '<div class="ej-status" aria-label="System status">' +
-      '<div class="ej-status-item"><span class="ej-status-label">Execution State</span><strong>' +
-      escapeHtml(SCENARIO.status.executionState) +
+      renderDemonstrationBanner() +
+      '<div class="ej-status" aria-label="Demonstration scenario status">' +
+      '<div class="ej-status-item"><span class="ej-status-label">Execution State</span><strong data-ej-status="executionState">' +
+      escapeHtml(state) +
       '</strong></div>' +
-      '<div class="ej-status-item"><span class="ej-status-label">Evidence</span><strong>' +
+      '<div class="ej-status-item"><span class="ej-status-label">Evidence</span><strong data-ej-status="evidence">' +
       escapeHtml(SCENARIO.status.evidence) +
       '</strong></div>' +
-      '<div class="ej-status-item"><span class="ej-status-label">Decision</span><strong>' +
+      '<div class="ej-status-item"><span class="ej-status-label">Decision</span><strong data-ej-status="decision">' +
       escapeHtml(SCENARIO.status.decision) +
       '</strong></div>' +
       '</div>'
@@ -278,7 +288,7 @@
       '<div class="ej-proof-panel">' +
       rows +
       '</div>' +
-      '<p class="ej-proof-footnote">Real execution evidence only. No decorative hashes or blockchain claims.</p>' +
+      '<p class="ej-proof-footnote">Demonstration scenario record. Deterministic validation outcome — not a live production execution.</p>' +
       '</div></section>'
     );
   }
@@ -334,14 +344,13 @@
 
   function mountChrome(pageId) {
     var chrome = document.querySelector('[data-ej-chrome]');
-    if (chrome) {
-      chrome.innerHTML = renderBreadcrumb(pageId) + renderStatus();
-    }
+    if (!chrome || chrome.getAttribute('data-ej-static') === 'true') return;
+    chrome.innerHTML = renderBreadcrumb(pageId) + renderStatus(pageId);
   }
 
   function mountPageContent(pageId) {
     var mount = document.querySelector('[data-ej-content]');
-    if (!mount) return;
+    if (!mount || mount.getAttribute('data-ej-static') === 'true') return;
     var html = '';
     if (pageId === 'entry') html = renderEntry();
     else if (pageId === 'engine') html = renderEngine();
@@ -353,17 +362,15 @@
 
   function mountNextCta(pageId) {
     var mount = document.querySelector('[data-ej-next]');
-    if (mount) {
-      mount.outerHTML = renderNextCta(pageId);
-    }
+    if (!mount || mount.getAttribute('data-ej-static') === 'true') return;
+    mount.outerHTML = renderNextCta(pageId);
   }
 
   function mountHeroScenario() {
     var mount = document.getElementById('hp-funnel-journey');
-    if (mount) {
-      mount.innerHTML = renderHeroScenario();
-      mount.classList.add('ej-hero-scenario-wrap');
-    }
+    if (!mount || mount.getAttribute('data-ej-static') === 'true') return;
+    mount.innerHTML = renderHeroScenario();
+    mount.classList.add('ej-hero-scenario-wrap');
   }
 
   window.EXECUTIA_JOURNEY = {

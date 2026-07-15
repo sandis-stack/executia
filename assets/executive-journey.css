@@ -3,11 +3,22 @@
 .ej-chrome {
   border-bottom: 1px solid var(--line);
   background: #fff;
+  min-height: 6.75rem;
 }
 
 .ej-chrome .wrap {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+  min-height: 6.75rem;
+}
+
+.ej-demo-banner {
+  margin: 0 0 0.55rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #64748b;
 }
 
 .ej-breadcrumb {
@@ -71,6 +82,14 @@
 
 .ej-page {
   padding: 3rem 0 2.5rem;
+}
+
+.ej-page-entry {
+  min-height: 28rem;
+}
+
+.hp-funnel-journey.ej-hero-scenario-wrap {
+  min-height: 15.5rem;
 }
 
 .ej-page h1 {
