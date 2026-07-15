@@ -15,6 +15,7 @@
     { "src": "^/pilot$", "dest": "/pilot.html" },
     { "src": "^/pilot/approved$", "dest": "/pilot-approved.html" },
     { "src": "^/one$", "dest": "/one.html" },
+    { "src": "^/proof$", "dest": "/proof.html" },
     { "src": "^/support$", "dest": "/support.html" },
     { "src": "^/request$", "dest": "/request.html" },
     { "src": "^/contact$", "dest": "/contact.html" },

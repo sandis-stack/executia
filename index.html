@@ -21,10 +21,14 @@
   <link rel="stylesheet" href="/assets/pilot.css">
   <link rel="stylesheet" href="/assets/institutional-readiness.css">
   <link rel="stylesheet" href="/assets/executive-architecture.css">
+  <link rel="stylesheet" href="/assets/executive-journey.css">
 </head>
-<body data-page="entry">
+<body data-page="entry" data-journey="executive">
 <div data-platform-header></div>
+<div class="ej-chrome"><div class="wrap" data-ej-chrome></div></div>
 <main class="main">
+
+  <div data-ej-content></div>
 
   <!-- 1 Hero — Why should I care? -->
   <section class="hp-hero" id="hero" aria-label="Hero">
@@ -59,9 +63,6 @@
               <li aria-hidden="true"><span class="hp-exec-path-sep"></span></li>
               <li><span class="sys-state">Request pilot</span></li>
             </ol>
-          </div>
-          <div class="hp-hero-actions">
-            <a class="hp-btn-primary" href="#architecture">See how it works</a>
           </div>
         </div>
         <div class="hp-monitor-wrap">
@@ -133,9 +134,6 @@
           </div>
         </div>
       </div>
-      <div class="hp-section-cta">
-        <a class="pill-btn primary" href="#trust">Continue to trust</a>
-      </div>
     </div>
   </section>
 
@@ -164,9 +162,6 @@
           <h3>Regulated environments</h3>
           <p>Designed to support government, infrastructure, and enterprise control requirements. Certification claims are published only when formally achieved.</p>
         </article>
-      </div>
-      <div class="hp-section-cta">
-        <a class="pill-btn primary" href="#use-cases">Review institutional use cases</a>
       </div>
     </div>
   </section>
@@ -207,9 +202,6 @@
           <p class="hp-use-line"><em>Outcome</em> Executive visibility before value is lost.</p>
         </article>
       </div>
-      <div class="hp-section-cta">
-        <a class="pill-btn primary" href="#comparison">Compare approaches</a>
-      </div>
     </div>
   </section>
 
@@ -234,9 +226,6 @@
             <tr><td>Reconstructed accountability</td><td>Assigned ownership at execution time</td></tr>
           </tbody>
         </table>
-      </div>
-      <div class="hp-section-cta">
-        <a class="pill-btn primary" href="#execution-value">Quantify execution loss</a>
       </div>
     </div>
   </section>
@@ -328,9 +317,6 @@
             </div>
           </div>
 
-          <div class="evc-actions">
-            <a class="pill-btn primary evc-cta-primary" id="ev-cta-assessment" href="#living-engine" aria-disabled="true">Experience the Living Engine</a>
-          </div>
           <p id="ev-cta-assessment-hint" class="evc-cta-hint" role="status"></p>
           <p id="ev-calculator-live" class="evc-live" hidden></p>
         </div>
@@ -352,9 +338,6 @@
         <div id="living-engine-workspace" class="le-workspace">
           <div id="le-lifecycle" class="le-lifecycle" aria-label="Execution lifecycle"></div>
           <div id="le-phase-flow" class="le-flow" aria-live="polite"></div>
-          <div class="le-actions">
-            <a class="pill-btn primary le-cta-primary" id="le-cta-one-core" href="#one-core" aria-disabled="true">Continue to One Core</a>
-          </div>
           <p id="le-cta-one-hint" class="le-cta-hint" role="status"></p>
         </div>
         <p id="le-message" class="le-message le-live" aria-live="polite"></p>
@@ -373,9 +356,6 @@
           <div class="oc-map-canvas" id="oc-map-canvas"></div>
           <div class="oc-detail-panel" aria-live="polite" aria-label="Node detail"></div>
         </div>
-        <div class="oc-actions">
-          <a class="pill-btn primary oc-cta-primary" id="oc-cta-economy" href="#execution-economy" aria-disabled="true">Continue to Execution Economy</a>
-        </div>
         <p id="oc-cta-economy-hint" class="oc-cta-hint" role="status"></p>
       </div>
     </div>
@@ -390,9 +370,6 @@
         <div class="ee-shell">
           <div class="ee-flow-canvas" tabindex="0"></div>
           <div class="ee-detail-panel" aria-live="polite" aria-label="Stage detail"></div>
-        </div>
-        <div class="ee-actions">
-          <a class="pill-btn primary ee-cta-primary" id="ee-cta-pilot" href="#pilot" aria-disabled="true">See what happens next</a>
         </div>
         <p id="ee-cta-pilot-hint" class="ee-cta-hint" role="status"></p>
       </div>
@@ -425,18 +402,18 @@
           </div>
         </div>
         <div id="ev-pilot-handoff" class="pi-handoff" hidden></div>
-        <div class="pi-actions">
-          <a class="pill-btn primary pi-cta-primary" id="ev-cta-pilot-request" href="/request" data-funnel-request>Request Pilot</a>
-        </div>
         <p id="pi-cta-hint" class="pi-cta-hint" role="status"></p>
       </div>
     </div>
   </section>
 
+  <div data-ej-next></div>
+
 </main>
 <div data-platform-footer></div>
 <script src="/assets/platform-brand.js"></script>
 <script src="/assets/platform-nav.js"></script>
+<script src="/assets/executive-journey.js"></script>
 <script type="module" src="/assets/homepage-hero.js"></script>
 <script src="/assets/homepage-story-film.js" defer></script>
 <script type="module" src="/assets/execution-value-calculator.js"></script>

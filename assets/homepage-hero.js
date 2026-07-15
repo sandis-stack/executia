@@ -167,6 +167,7 @@ function mount(root) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (document.body.getAttribute('data-journey') === 'executive') return;
   const root = document.getElementById('hp-funnel-journey');
   if (root) mount(root);
 });

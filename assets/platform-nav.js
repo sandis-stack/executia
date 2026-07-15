@@ -15,6 +15,7 @@
     engine: 'engine',
     pilot: 'pilot',
     one: 'one',
+    proof: 'entry',
   };
 
   function resolveActiveId(page) {
@@ -43,14 +44,7 @@
   }
 
   function engineFooter() {
-    return (
-      '<section class="engine-footer section soft">' +
-      '<div class="wrap" style="text-align:center">' +
-      '<h2>Ready to evaluate your organization?</h2>' +
-      '<div class="actions" style="justify-content:center">' +
-      '<a class="pill-btn primary" href="/request">Request Pilot</a>' +
-      '</div></div></section>'
-    );
+    return '';
   }
 
   window.EXECUTIA_PLATFORM = {

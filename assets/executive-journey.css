@@ -1,0 +1,455 @@
+/* MISSION-005 — Unified Executive Journey */
+
+.ej-chrome {
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+
+.ej-chrome .wrap {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.ej-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin: 0 0 0.65rem;
+}
+
+.ej-breadcrumb-step {
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  transition: color 0.15s ease;
+}
+
+.ej-breadcrumb-step:hover {
+  color: #475569;
+}
+
+.ej-breadcrumb-step--active {
+  color: #124155;
+}
+
+.ej-breadcrumb-sep {
+  font-size: 0.625rem;
+  color: #cbd5e1;
+}
+
+.ej-status {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.ej-status-item {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.ej-status-label {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ej-status-item strong {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #124155;
+}
+
+.ej-page {
+  padding: 3rem 0 2.5rem;
+}
+
+.ej-page h1 {
+  max-width: 28rem;
+  margin: 0;
+  font-size: clamp(1.75rem, 3.2vw, 2.35rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+}
+
+.ej-page .lead {
+  max-width: 40rem;
+  margin: 0.75rem 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: #475569;
+}
+
+.ej-procurement {
+  margin-top: 2rem;
+  padding: 1.25rem 1.35rem;
+  border: 1.5px solid #124155;
+  background: #fff;
+}
+
+.ej-procurement--compact {
+  max-width: 36rem;
+}
+
+.ej-procurement-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ej-procurement-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #124155;
+}
+
+.ej-procurement-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem 1rem;
+  margin: 1rem 0 0;
+}
+
+.ej-procurement-meta dt {
+  margin: 0;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.ej-procurement-meta dd {
+  margin: 0.15rem 0 0;
+  font-size: 0.875rem;
+  color: #334155;
+}
+
+.ej-procurement-meta code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+}
+
+.ej-procurement-summary {
+  margin: 0.85rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #475569;
+}
+
+.ej-question {
+  margin-top: 1.5rem;
+  max-width: 32rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.ej-question-label {
+  margin: 0;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ej-question-text {
+  margin: 0.35rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #124155;
+}
+
+.ej-question-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.9375rem;
+  color: #64748b;
+}
+
+.ej-validation {
+  margin-top: 2rem;
+}
+
+.ej-validation h2,
+.ej-decision-panel h2,
+.ej-pilot-value h2 {
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #124155;
+}
+
+.ej-validation-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.ej-validation-table th,
+.ej-validation-table td {
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.ej-validation-table th {
+  width: 7rem;
+  font-weight: 600;
+  color: #124155;
+}
+
+.ej-check-ok {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #18704f;
+}
+
+.ej-decision-panel {
+  margin-top: 2rem;
+}
+
+.ej-decision-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.ej-decision {
+  min-width: 6.5rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #cbd5e1;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+}
+
+.ej-decision--active {
+  border-color: #124155;
+  color: #124155;
+  background: #f8fafc;
+}
+
+.ej-decision-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.ej-workspace {
+  margin-top: 1.5rem;
+  max-width: 40rem;
+  display: grid;
+  gap: 0;
+  border: 1px solid #e2e8f0;
+}
+
+.ej-workspace-row {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ej-workspace-row:last-child {
+  border-bottom: 0;
+}
+
+.ej-workspace-label {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ej-workspace-row p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.ej-proof-panel {
+  margin-top: 1.5rem;
+  max-width: 40rem;
+  border: 1.5px solid #124155;
+}
+
+.ej-proof-row {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ej-proof-row:last-child {
+  border-bottom: 0;
+}
+
+.ej-proof-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.ej-proof-value {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: #124155;
+}
+
+.ej-proof-footnote {
+  margin: 0.75rem 0 0;
+  max-width: 40rem;
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+.ej-pilot-value {
+  margin-top: 1.5rem;
+  max-width: 40rem;
+}
+
+.ej-pilot-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.ej-pilot-list li {
+  margin: 0.35rem 0;
+}
+
+.ej-next {
+  padding: 2rem 0 3rem;
+  border-top: 1px solid #e2e8f0;
+  background: #fff;
+}
+
+.ej-next-inner {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ej-next-btn {
+  min-width: 14rem;
+}
+
+.ej-hero-scenario-wrap {
+  width: 100%;
+}
+
+.ej-hero-scenario {
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(186, 230, 253, 0.22);
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.ej-hero-scenario-label {
+  margin: 0;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(186, 230, 253, 0.65);
+}
+
+.ej-hero-scenario-title {
+  margin: 0.35rem 0 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.ej-hero-scenario-amount {
+  margin: 0.25rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgba(186, 230, 253, 0.95);
+}
+
+.ej-hero-scenario-org {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.ej-hero-scenario-ids {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0.75rem 0 0;
+}
+
+.ej-hero-scenario-ids dt {
+  margin: 0;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(186, 230, 253, 0.55);
+}
+
+.ej-hero-scenario-ids dd {
+  margin: 0.1rem 0 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.ej-hero-scenario-ids code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.ej-hero-scenario-question {
+  margin: 0.75rem 0 0;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(186, 230, 253, 0.14);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(186, 230, 253, 0.9);
+}
+
+@media (max-width: 860px) {
+  .ej-status {
+    grid-template-columns: 1fr;
+  }
+
+  .ej-procurement-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .ej-proof-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .ej-next-inner {
+    justify-content: stretch;
+  }
+
+  .ej-next-btn {
+    width: 100%;
+  }
+}

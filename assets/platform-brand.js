@@ -23,6 +23,7 @@
       '<a href="/engine">ENGINE</a>' +
       '<a href="/pilot">PILOT</a>' +
       '<a href="/one">ONE</a>' +
+      '<a href="/proof">PROOF</a>' +
       '</div>' +
       '<div class="footer-col"><h4>Resources</h4>' +
       '<a href="/#architecture">Architecture</a>' +

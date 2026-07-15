@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EXECUTIA™ ENGINE — Interactive Proof</title>
-  <meta name="description" content="EXECUTIA Engine — interactive proof environment to demonstrate, validate, and prove governed execution.">
+  <title>EXECUTIA™ ENGINE — Execution Validation</title>
+  <meta name="description" content="EXECUTIA Engine validates authority, budget, approvals, policy, and evidence before execution proceeds.">
   <link rel="canonical" href="https://executia.io/engine">
-  <meta property="og:title" content="EXECUTIA™ ENGINE — Interactive Proof">
-  <meta property="og:description" content="EXECUTIA Engine — interactive proof environment to demonstrate, validate, and prove governed execution.">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
+  <link rel="stylesheet" href="/assets/executive-journey.css">
 </head>
 <body data-page="engine">
 <div data-platform-header></div>
+<div class="ej-chrome"><div class="wrap" data-ej-chrome></div></div>
 <main class="main">
-  <section class="hero"><div class="wrap"><span class="kicker">ENGINE — PROVE</span><h1>See EXECUTIA in action.</h1><p>The execution demonstrator validates requests, applies rules, records decisions, and produces audit proof before action proceeds.</p><div class="actions"><a class="pill-btn primary" href="https://execution.executia.io/dashboard">Open Execution Demonstrator ↗</a><a class="pill-btn" href="/">← Entry</a></div></div></section>
-  <section class="section soft" id="live-execution"><div class="wrap"><span class="kicker">LIVE EXECUTION</span><div class="engine-card"><div class="engine-top"><div><h2>Test execution before action becomes reality.</h2><p class="lead">Submit a controlled execution request. The engine validates, decides and records the result.</p></div><a class="pill-btn" href="https://execution.executia.io/dashboard">Open registry ↗</a></div><form id="execution-demo-form" class="engine-form"><input class="input" id="demo-input" value="Approve controlled pilot execution" aria-label="Execution request"><button class="pill-btn primary" type="submit">Run execution</button></form><div class="state-grid"><div class="state"><span>Request</span><strong id="s-request">Ready</strong></div><div class="state"><span>Validation</span><strong id="s-validation">—</strong></div><div class="state"><span>Decision</span><strong id="s-decision">—</strong></div><div class="state"><span>Registry</span><strong id="s-registry">—</strong></div><div class="state"><span>Ledger</span><strong id="s-ledger">—</strong></div><div class="state"><span>Audit</span><strong id="s-audit">—</strong></div></div><div id="demo-message" class="message">Ready. For full proof, open the execution engine registry.</div></div></div></section>
-  <div data-engine-footer></div>
+  <div data-ej-content></div>
+  <div data-ej-next></div>
 </main>
 <div data-platform-footer></div>
 <script src="/assets/platform-brand.js"></script>
 <script src="/assets/platform-nav.js"></script>
+<script src="/assets/executive-journey.js"></script>
 <script src="/assets/app.js"></script>
 </body>
 </html>
