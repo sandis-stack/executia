@@ -56,14 +56,6 @@
     ],
   };
 
-  var STEPS = [
-    { id: 'entry', label: 'ENTRY', href: '/' },
-    { id: 'engine', label: 'ENGINE', href: '/engine' },
-    { id: 'one', label: 'ONE', href: '/one' },
-    { id: 'proof', label: 'PROOF', href: '/proof' },
-    { id: 'pilot', label: 'PILOT', href: '/pilot' },
-  ];
-
   var NEXT = {
     engine: { label: 'View executive workspace', href: '/one' },
     one: { label: 'View public proof', href: '/proof' },
@@ -77,60 +69,6 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
-  }
-
-  function renderBreadcrumb(activeId) {
-    return (
-      '<nav class="ej-breadcrumb" aria-label="Executive journey">' +
-      STEPS.map(function (step, index) {
-        var active = step.id === activeId ? ' ej-breadcrumb-step--active' : '';
-        var sep = index < STEPS.length - 1 ? '<span class="ej-breadcrumb-sep" aria-hidden="true">→</span>' : '';
-        return (
-          '<a class="ej-breadcrumb-step' +
-          active +
-          '" href="' +
-          step.href +
-          '">' +
-          escapeHtml(step.label) +
-          '</a>' +
-          sep
-        );
-      }).join('') +
-      '</nav>'
-    );
-  }
-
-  function renderDemonstrationBanner() {
-    return '<p class="ej-demo-banner" role="note">DEMONSTRATION SCENARIO</p>';
-  }
-
-  function renderStatus(pageId) {
-    var status = SCENARIO.status;
-    if (pageId === 'one') status = SCENARIO.statusOne;
-    if (pageId === 'proof') status = SCENARIO.statusProof;
-    return (
-      '<div class="ej-status" aria-label="Execution status">' +
-      '<div class="ej-status-item"><span class="ej-status-label">Execution State</span><strong data-ej-status="executionState">' +
-      escapeHtml(status.executionState) +
-      '</strong></div>' +
-      '<div class="ej-status-item"><span class="ej-status-label">Evidence</span><strong data-ej-status="evidence">' +
-      escapeHtml(status.evidence) +
-      '</strong></div>' +
-      '<div class="ej-status-item"><span class="ej-status-label">Decision</span><strong data-ej-status="decision">' +
-      escapeHtml(status.decision) +
-      '</strong></div>' +
-      '</div>'
-    );
-  }
-
-  function renderChromeExtras(pageId) {
-    if (pageId === 'engine') {
-      return renderDemonstrationBanner() + renderStatus(pageId);
-    }
-    if (pageId === 'one' || pageId === 'proof') {
-      return renderStatus(pageId);
-    }
-    return '';
   }
 
   function renderProcurementCard(extraClass) {
@@ -323,12 +261,6 @@
     );
   }
 
-  function mountChrome(pageId) {
-    var chrome = document.querySelector('[data-ej-chrome]');
-    if (!chrome || chrome.getAttribute('data-ej-static') === 'true') return;
-    chrome.innerHTML = renderBreadcrumb(pageId) + renderChromeExtras(pageId);
-  }
-
   function mountPageContent(pageId) {
     var mount = document.querySelector('[data-ej-content]');
     if (!mount || mount.getAttribute('data-ej-static') === 'true') return;
@@ -356,7 +288,6 @@
   window.EXECUTIA_JOURNEY = {
     SCENARIO: SCENARIO,
     mount: function (pageId) {
-      mountChrome(pageId);
       mountPageContent(pageId);
       mountNextCta(pageId);
     },

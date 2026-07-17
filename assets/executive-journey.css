@@ -1,19 +1,5 @@
 /* MISSION-005 — Unified Executive Journey */
 
-.ej-chrome {
-  border-bottom: 1px solid var(--line);
-  background: #fff;
-  min-height: 6.75rem;
-}
-
-.ej-chrome--entry {
-  min-height: 2.75rem;
-}
-
-.ej-chrome--entry .wrap {
-  min-height: 2.75rem;
-}
-
 .hp-hero-copy--entry {
   max-width: 36rem;
 }
@@ -28,80 +14,6 @@
 .ej-pilot-process {
   list-style: decimal;
   padding-left: 1.15rem;
-}
-
-.ej-chrome .wrap {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  min-height: 6.75rem;
-}
-
-.ej-demo-banner {
-  margin: 0 0 0.55rem;
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #64748b;
-}
-
-.ej-breadcrumb {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.5rem;
-  margin: 0 0 0.65rem;
-}
-
-.ej-breadcrumb-step {
-  font-size: 0.625rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #94a3b8;
-  transition: color 0.15s ease;
-}
-
-.ej-breadcrumb-step:hover {
-  color: #475569;
-}
-
-.ej-breadcrumb-step--active {
-  color: #124155;
-}
-
-.ej-breadcrumb-sep {
-  font-size: 0.625rem;
-  color: #cbd5e1;
-}
-
-.ej-status {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.75rem;
-}
-
-.ej-status-item {
-  padding: 0.55rem 0.75rem;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-}
-
-.ej-status-label {
-  display: block;
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #64748b;
-}
-
-.ej-status-item strong {
-  display: block;
-  margin-top: 0.25rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: #124155;
 }
 
 .ej-page {
