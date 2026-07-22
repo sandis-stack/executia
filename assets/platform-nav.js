@@ -1,80 +1,33 @@
 /**
- * EXECUTIA global header + primary navigation shell.
- * UI Constitution v1.0 — FROZEN
+ * EXECUTIA global header — FINAL NAVIGATION
+ * Public: EXECUTIA + Request Pilot only.
  */
 (function () {
-  const NAV = [
-    { id: 'entry', label: 'ENTRY', href: '/' },
-    { id: 'engine', label: 'ENGINE', href: '/engine' },
-    { id: 'pilot', label: 'PILOT', href: '/pilot' },
-    { id: 'one', label: 'ONE', href: '/one' },
-  ];
-
-  const PAGE_ACTIVE = {
-    entry: 'entry',
-    engine: 'engine',
-    pilot: 'pilot',
-    one: 'one',
-    proof: 'entry',
-  };
-
-  function resolveActiveId(page) {
-    if (!page) return null;
-    if (Object.prototype.hasOwnProperty.call(PAGE_ACTIVE, page)) {
-      return PAGE_ACTIVE[page];
-    }
-    return null;
-  }
-
-  function navLinks(activeId) {
-    return NAV.map(function (item) {
-      const cls = item.id === activeId ? ' active' : '';
-      return (
-        '<a data-nav="' +
-        item.id +
-        '" href="' +
-        item.href +
-        '" class="' +
-        cls.trim() +
-        '">' +
-        item.label +
-        '</a>'
-      );
-    }).join('');
-  }
-
-  function engineFooter() {
-    return '';
+  function renderHeader() {
+    var brand =
+      window.EXECUTIA_BRAND && window.EXECUTIA_BRAND.renderBrandIdentity
+        ? window.EXECUTIA_BRAND.renderBrandIdentity()
+        : '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><span class="brand-main">EXECUTIA\u2122</span></a>';
+    return (
+      '<header class="site-header">' +
+      '<div class="wrap header-inner">' +
+      brand +
+      '<button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>' +
+      '<nav class="nav" aria-label="Primary"></nav>' +
+      '<div class="header-cta"><a class="pill-btn" href="/request">Request Pilot</a></div>' +
+      '</div></header>'
+    );
   }
 
   window.EXECUTIA_PLATFORM = {
-    renderHeader: function (activeId) {
-      var brand =
-        window.EXECUTIA_BRAND && window.EXECUTIA_BRAND.renderBrandIdentity
-          ? window.EXECUTIA_BRAND.renderBrandIdentity()
-          : '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><span class="brand-main">EXECUTIA\u2122</span></a>';
-      return (
-        '<header class="site-header">' +
-        '<div class="wrap header-inner">' +
-        brand +
-        '<button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>' +
-        '<nav class="nav" aria-label="Primary">' +
-        navLinks(activeId) +
-        '</nav>' +
-        '<div class="header-cta"><a class="pill-btn" href="/request">Request Pilot</a></div>' +
-        '</div></header>'
-      );
+    renderHeader: renderHeader,
+    engineFooter: function () {
+      return '';
     },
-    engineFooter: engineFooter,
-    mount: function (pageId) {
-      const activeId = resolveActiveId(pageId);
-      const mount = document.querySelector('[data-platform-header]');
+    mount: function () {
+      var mount = document.querySelector('[data-platform-header]');
       if (mount && !mount.querySelector('.site-header')) {
-        mount.outerHTML = window.EXECUTIA_PLATFORM.renderHeader(activeId);
-      }
-      const footerMount = document.querySelector('[data-engine-footer]');
-      if (footerMount) {
-        footerMount.outerHTML = engineFooter();
+        mount.outerHTML = renderHeader();
       }
       if (window.EXECUTIA_BRAND && window.EXECUTIA_BRAND.mountFooter) {
         window.EXECUTIA_BRAND.mountFooter();
@@ -84,7 +37,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('[data-platform-header]')) {
-      window.EXECUTIA_PLATFORM.mount(document.body.getAttribute('data-page'));
+      window.EXECUTIA_PLATFORM.mount();
     }
   });
 })();
