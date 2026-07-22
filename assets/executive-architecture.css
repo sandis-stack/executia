@@ -48,7 +48,6 @@
 .ea-node:nth-child(3) { animation-delay: 0.12s; }
 .ea-node:nth-child(5) { animation-delay: 0.24s; }
 .ea-node:nth-child(7) { animation-delay: 0.36s; }
-.ea-node:nth-child(9) { animation-delay: 0.48s; }
 
 .ea-node-title {
   display: block;
