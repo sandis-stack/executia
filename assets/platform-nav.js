@@ -1,21 +1,37 @@
 /**
- * EXECUTIA global header + primary navigation shell.
- * UI Constitution v1.0 — FROZEN
+ * EXECUTIA global header — approved Platform Navigation.
+ * Platform · Products · Standard · Proof · Developers · Pricing · About · Sign in
+ * Journey stages (ENTRY · ENGINE · PILOT · ONE) are not navigation.
  */
 (function () {
+  const LIFE = 'https://life.executia.io';
+
   const NAV = [
-    { id: 'entry', label: 'ENTRY', href: '/' },
-    { id: 'engine', label: 'ENGINE', href: '/engine' },
-    { id: 'pilot', label: 'PILOT', href: '/pilot' },
-    { id: 'one', label: 'ONE', href: '/one' },
+    { id: 'platform', label: 'Platform', href: '/platform' },
+    { id: 'products', label: 'Products', href: '/products' },
+    { id: 'standard', label: 'Standard', href: '/standard' },
+    { id: 'proof', label: 'Proof', href: '/proof' },
+    { id: 'developers', label: 'Developers', href: '/developers' },
+    { id: 'pricing', label: 'Pricing', href: '/pricing' },
+    { id: 'about', label: 'About', href: '/about' },
   ];
 
   const PAGE_ACTIVE = {
-    entry: 'entry',
-    engine: 'engine',
-    pilot: 'pilot',
-    one: 'one',
-    proof: 'entry',
+    entry: 'platform',
+    platform: 'platform',
+    engine: 'platform',
+    pilot: 'products',
+    one: 'products',
+    products: 'products',
+    standard: 'standard',
+    proof: 'proof',
+    docs: 'developers',
+    developers: 'developers',
+    pricing: 'pricing',
+    about: 'about',
+    institutional: 'about',
+    support: 'about',
+    contact: 'about',
   };
 
   function resolveActiveId(page) {
@@ -52,7 +68,7 @@
       var brand =
         window.EXECUTIA_BRAND && window.EXECUTIA_BRAND.renderBrandIdentity
           ? window.EXECUTIA_BRAND.renderBrandIdentity()
-          : '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><span class="brand-main">EXECUTIA\u2122</span></a>';
+          : '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><span class="brand-dot" aria-hidden="true"></span><span class="brand-main">EXECUTIA\u2122</span></a>';
       return (
         '<header class="site-header">' +
         '<div class="wrap header-inner">' +
@@ -60,8 +76,13 @@
         '<button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>' +
         '<nav class="nav" aria-label="Primary">' +
         navLinks(activeId) +
+        '<a data-nav="signin" class="nav-signin" href="' +
+        LIFE +
+        '/login">Sign in</a>' +
         '</nav>' +
-        '<div class="header-cta"><a class="pill-btn" href="/request">Request Pilot</a></div>' +
+        '<div class="header-cta"><a class="pill-btn" href="' +
+        LIFE +
+        '/login">Sign in</a></div>' +
         '</div></header>'
       );
     },

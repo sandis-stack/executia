@@ -1,11 +1,14 @@
 /**
  * EXECUTIA global brand + corporate footer shell.
- * UI Constitution v1.0 — FROZEN
+ * Platform Navigation — EXECUTIA owns chrome; products are not nav items.
  */
 (function () {
+  const LIFE = 'https://life.executia.io';
+
   function renderBrandIdentity() {
     return (
       '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home">' +
+      '<span class="brand-dot" aria-hidden="true"></span>' +
       '<span class="brand-main">EXECUTIA\u2122</span></a>'
     );
   }
@@ -19,18 +22,20 @@
       '<p>A New Standard for Organizational Execution</p>' +
       '</div>' +
       '<div class="footer-col"><h4>Platform</h4>' +
-      '<a href="/">ENTRY</a>' +
-      '<a href="/engine">ENGINE</a>' +
-      '<a href="/pilot">PILOT</a>' +
-      '<a href="/one">ONE</a>' +
-      '<a href="/proof">PROOF</a>' +
+      '<a href="/platform">Platform</a>' +
+      '<a href="/products">Products</a>' +
+      '<a href="/standard">Standard</a>' +
+      '<a href="/proof">Proof</a>' +
+      '<a href="/developers">Developers</a>' +
       '</div>' +
       '<div class="footer-col"><h4>Resources</h4>' +
-      '<a href="/#architecture">Architecture</a>' +
-      '<a href="/standard">Governance</a>' +
-      '<a href="/pilot">Pilot Process</a>' +
+      '<a href="/pricing">Pricing</a>' +
+      '<a href="/about">About</a>' +
       '<a href="/support">Support</a>' +
       '<a href="/docs">Documentation</a>' +
+      '<a href="' +
+      LIFE +
+      '/login">Sign in</a>' +
       '</div>' +
       '<div class="footer-col"><h4>Company</h4>' +
       '<a href="/support">Support</a>' +
