@@ -1,0 +1,327 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GoalStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ARCHIVED
+}
+
+enum MilestoneStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum PreValidationStatus {
+  APPROVED
+  CORRECTED
+  REQUIRES_CLARIFICATION
+  BLOCKED
+}
+
+enum PostValidationStatus {
+  APPROVED
+  APPROVED_WITH_WARNINGS
+  REQUIRES_CORRECTION
+  BLOCKED
+}
+
+enum ExecutionStatus {
+  PENDING
+  PRE_BLOCKED
+  CLARIFICATION_REQUIRED
+  RUNNING
+  APPROVED
+  APPROVED_WITH_WARNINGS
+  BLOCKED
+  PROVIDER_FAILED
+}
+
+enum GoalAlignment {
+  DIRECTLY_ALIGNED
+  SUPPORTING
+  NEUTRAL
+  CONFLICTING
+}
+
+enum DevelopmentCellStatus {
+  NO_CHANGE
+  PROPOSED
+  REQUIRES_APPROVAL
+}
+
+model ConstitutionVersion {
+  id        String   @id @default(cuid())
+  version   String   @unique
+  lawsJson  Json
+  locked    Boolean  @default(true)
+  active    Boolean  @default(false)
+  summary   String
+  createdAt DateTime @default(now())
+
+  proposals DevelopmentProposal[]
+  executions ExecutionRequest[]
+}
+
+model PrimaryGoal {
+  id           String     @id @default(cuid())
+  title        String
+  description  String
+  status       GoalStatus @default(ACTIVE)
+  currentPhase String     @default("Define")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  milestones   GoalMilestone[]
+  executions   ExecutionRequest[]
+  decisions    DecisionRecord[]
+  pendingTasks PendingTask[]
+  constraints  Constraint[]
+  errors       ErrorRecord[]
+  corrections  CorrectionRecord[]
+  states       ExecutionState[]
+  completed    CompletedExecution[]
+  proposals    DevelopmentProposal[]
+}
+
+model GoalMilestone {
+  id                 String          @id @default(cuid())
+  goalId             String
+  title              String
+  acceptanceCriteria String
+  weight             Float           @default(1)
+  orderIndex         Int
+  status             MilestoneStatus @default(PENDING)
+  evidence           String?
+  completedAt        DateTime?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  goal PrimaryGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@index([goalId, orderIndex])
+}
+
+model ExecutionRequest {
+  id                    String          @id @default(cuid())
+  goalId                String
+  constitutionVersionId String?
+  requestText           String
+  contextJson           Json            @default("{}")
+  currentTask           String?
+  goalAlignment         GoalAlignment?
+  status                ExecutionStatus @default(PENDING)
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+
+  goal                PrimaryGoal             @relation(fields: [goalId], references: [id])
+  constitutionVersion ConstitutionVersion?    @relation(fields: [constitutionVersionId], references: [id])
+  preValidation       PreValidationResult?
+  specification       ExecutionSpecification?
+  aiExecutions        AIExecution[]
+  postValidations     PostValidationResult[]
+  corrections         CorrectionAttempt[]
+  verifiedResponse    VerifiedResponse?
+  decisions           DecisionRecord[]
+  errors              ErrorRecord[]
+  correctionRecords   CorrectionRecord[]
+  completed           CompletedExecution?
+  proposals           DevelopmentProposal[]
+  stateUpdates        ExecutionState[]
+}
+
+model PreValidationResult {
+  id               String               @id @default(cuid())
+  executionId      String               @unique
+  status           PreValidationStatus
+  reasons          String[]
+  correctedRequest String?
+  createdAt        DateTime             @default(now())
+
+  execution ExecutionRequest @relation(fields: [executionId], references: [id], onDelete: Cascade)
+}
+
+model ExecutionSpecification {
+  id          String   @id @default(cuid())
+  executionId String   @unique
+  specJson    Json
+  createdAt   DateTime @default(now())
+
+  execution ExecutionRequest @relation(fields: [executionId], references: [id], onDelete: Cascade)
+}
+
+model AIExecution {
+  id             String   @id @default(cuid())
+  executionId    String
+  provider       String
+  model          String
+  attemptIndex   Int      @default(0)
+  requestPayload Json
+  rawResponse    String?
+  parsedJson     Json?
+  errorMessage   String?
+  latencyMs      Int?
+  createdAt      DateTime @default(now())
+
+  execution   ExecutionRequest    @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  corrections CorrectionAttempt[]
+
+  @@index([executionId, attemptIndex])
+}
+
+model PostValidationResult {
+  id           String                @id @default(cuid())
+  executionId  String
+  attemptIndex Int                   @default(0)
+  status       PostValidationStatus
+  reasons      String[]
+  warnings     String[]
+  createdAt    DateTime              @default(now())
+
+  execution ExecutionRequest @relation(fields: [executionId], references: [id], onDelete: Cascade)
+
+  @@index([executionId, attemptIndex])
+}
+
+model CorrectionAttempt {
+  id              String   @id @default(cuid())
+  executionId     String
+  aiExecutionId   String?
+  attemptIndex    Int
+  failureReasons  String[]
+  correctionBrief String
+  createdAt       DateTime @default(now())
+
+  execution   ExecutionRequest @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  aiExecution AIExecution?     @relation(fields: [aiExecutionId], references: [id])
+
+  @@index([executionId, attemptIndex])
+}
+
+model VerifiedResponse {
+  id                   String                @id @default(cuid())
+  executionId          String                @unique
+  status               ExecutionStatus
+  responseText         String
+  reportJson           Json
+  ledgerOk             Boolean               @default(true)
+  createdAt            DateTime              @default(now())
+
+  execution ExecutionRequest @relation(fields: [executionId], references: [id], onDelete: Cascade)
+}
+
+model DecisionRecord {
+  id          String   @id @default(cuid())
+  goalId      String
+  executionId String?
+  decision    String
+  rationale   String?
+  createdAt   DateTime @default(now())
+
+  goal      PrimaryGoal       @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  execution ExecutionRequest? @relation(fields: [executionId], references: [id], onDelete: SetNull)
+}
+
+model CompletedExecution {
+  id                 String   @id @default(cuid())
+  goalId             String
+  executionId        String   @unique
+  summary            String
+  completedWork      String[]
+  nextPriorityAction String
+  createdAt          DateTime @default(now())
+
+  goal      PrimaryGoal      @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  execution ExecutionRequest @relation(fields: [executionId], references: [id], onDelete: Cascade)
+}
+
+model PendingTask {
+  id          String   @id @default(cuid())
+  goalId      String
+  title       String
+  description String?
+  resolved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  goal PrimaryGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+}
+
+model Constraint {
+  id        String   @id @default(cuid())
+  goalId    String
+  text      String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  goal PrimaryGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+}
+
+model ErrorRecord {
+  id          String   @id @default(cuid())
+  goalId      String
+  executionId String?
+  message     String
+  stage       String
+  createdAt   DateTime @default(now())
+
+  goal      PrimaryGoal       @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  execution ExecutionRequest? @relation(fields: [executionId], references: [id], onDelete: SetNull)
+}
+
+model CorrectionRecord {
+  id          String   @id @default(cuid())
+  goalId      String
+  executionId String?
+  brief       String
+  outcome     String
+  createdAt   DateTime @default(now())
+
+  goal      PrimaryGoal       @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  execution ExecutionRequest? @relation(fields: [executionId], references: [id], onDelete: SetNull)
+}
+
+model DevelopmentProposal {
+  id                  String                @id @default(cuid())
+  constitutionVersionId String
+  goalId              String?
+  executionId         String?
+  finding             String
+  proposal            String?
+  status              DevelopmentCellStatus @default(NO_CHANGE)
+  observedFailure     String?
+  repeatedPattern     String?
+  missingRule         String?
+  evidence            String?
+  applied             Boolean               @default(false)
+  createdAt           DateTime              @default(now())
+
+  constitutionVersion ConstitutionVersion @relation(fields: [constitutionVersionId], references: [id])
+  goal                PrimaryGoal?        @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  execution           ExecutionRequest?   @relation(fields: [executionId], references: [id], onDelete: SetNull)
+}
+
+model ExecutionState {
+  id                 String   @id @default(cuid())
+  goalId             String
+  executionId        String?
+  currentObjective   String
+  completedWork      String[]
+  remainingWork      String[]
+  nextPriorityAction String
+  approved           Boolean  @default(false)
+  createdAt          DateTime @default(now())
+
+  goal      PrimaryGoal       @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  execution ExecutionRequest? @relation(fields: [executionId], references: [id], onDelete: SetNull)
+
+  @@index([goalId, createdAt])
+}
