@@ -1,0 +1,290 @@
+openapi: 3.1.0
+info:
+  title: EXECUTIA Live API
+  version: 1.0.0
+  description: |
+    HTTP entry for EXECUTIA Core MVP 1.0.
+    Every `/execute` request runs the certified Core pipeline.
+    OpenAI is reachable only through the OpenAI Provider Adapter via AI Executor.
+    Direct OpenAI responses are never returned to the client.
+
+servers:
+  - url: https://api.executia.io
+    description: Production placeholder
+
+security:
+  - ExecutiaBearer: []
+
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Liveness check
+      description: Does not call AI or Core execution.
+      security: []
+      responses:
+        "200":
+          description: Service is up
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+
+  /execute:
+    post:
+      operationId: executeThroughExecutia
+      summary: Execute a request through EXECUTIA Core
+      description: |
+        Validates the HTTP body, then runs the fixed Core pipeline:
+        PRE → Focus → Development Cell → AI Executor → OpenAI Adapter →
+        POST → Progress → Development Update → User Response.
+
+        HTTP status mapping:
+        - 200 approved
+        - 400 invalid request schema
+        - 401 missing/invalid bearer token
+        - 409 clarification or context block (PRE / cell / clarification)
+        - 422 rejected execution (Focus / POST)
+        - 502 AI provider failure
+        - 500 unexpected internal error
+      security:
+        - ExecutiaBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExecuteRequest"
+      responses:
+        "200":
+          description: Approved execution
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExecuteSuccessResponse"
+        "400":
+          description: Invalid HTTP request schema
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Clarification or execution-context block
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExecuteResultResponse"
+        "422":
+          description: Rejected execution
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExecuteResultResponse"
+        "502":
+          description: AI provider failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExecuteResultResponse"
+        "500":
+          description: Unexpected internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  securitySchemes:
+    ExecutiaBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: API key
+      description: Value of EXECUTIA_API_KEY
+
+  schemas:
+    HealthResponse:
+      type: object
+      required: [status, service, coreVersion]
+      properties:
+        status:
+          type: string
+          enum: [ok]
+        service:
+          type: string
+          enum: [executia-api]
+        coreVersion:
+          type: string
+          example: "1.0"
+
+    DevelopmentCell:
+      type: object
+      additionalProperties: false
+      required:
+        - mission
+        - currentGoal
+        - currentFocus
+        - completedTasks
+        - remainingTasks
+        - lessonsLearned
+        - openDecisions
+        - knownRisks
+        - nextStep
+      properties:
+        mission:
+          type: string
+          minLength: 1
+        currentGoal:
+          type: string
+          minLength: 1
+        currentFocus:
+          type: string
+          minLength: 1
+        completedTasks:
+          type: array
+          items:
+            type: string
+        remainingTasks:
+          type: array
+          items:
+            type: string
+        lessonsLearned:
+          type: array
+          items:
+            type: string
+        openDecisions:
+          type: array
+          items:
+            type: string
+        knownRisks:
+          type: array
+          items:
+            type: string
+        nextStep:
+          type: string
+          minLength: 1
+
+    ExecuteRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - mission
+        - currentGoal
+        - currentFocus
+        - developmentCell
+        - permissions
+        - userRequest
+      properties:
+        mission:
+          type: string
+          minLength: 1
+        currentGoal:
+          type: string
+          minLength: 1
+        currentFocus:
+          type: string
+          minLength: 1
+        developmentCell:
+          $ref: "#/components/schemas/DevelopmentCell"
+        permissions:
+          type: object
+          additionalProperties: false
+          required: [aiExecutionAllowed]
+          properties:
+            aiExecutionAllowed:
+              type: boolean
+        userRequest:
+          type: string
+          minLength: 1
+
+    PipelineStatus:
+      type: object
+      required:
+        - preValidation
+        - focusValidation
+        - developmentCell
+        - aiExecutor
+        - postValidation
+      properties:
+        preValidation:
+          type: string
+        focusValidation:
+          type: string
+        developmentCell:
+          type: string
+        aiExecutor:
+          type: string
+        postValidation:
+          type: string
+          nullable: true
+
+    ExecuteResultResponse:
+      type: object
+      required:
+        - executionId
+        - status
+        - mission
+        - completedPercent
+        - remainingPercent
+        - currentFocus
+        - nextStep
+        - response
+        - pipeline
+      properties:
+        executionId:
+          type: string
+        status:
+          type: string
+          description: EXECUTIA execution status from Core
+        mission:
+          type: string
+        completedPercent:
+          type: integer
+          nullable: true
+          minimum: 0
+          maximum: 100
+        remainingPercent:
+          type: integer
+          nullable: true
+          minimum: 0
+          maximum: 100
+        currentFocus:
+          type: string
+        nextStep:
+          type: string
+        response:
+          type: string
+          description: ResponseGate-delivered text (blocked/rejected/approved)
+        pipeline:
+          $ref: "#/components/schemas/PipelineStatus"
+
+    ExecuteSuccessResponse:
+      allOf:
+        - $ref: "#/components/schemas/ExecuteResultResponse"
+        - type: object
+          properties:
+            status:
+              type: string
+              enum: [APPROVED, APPROVED_WITH_WARNINGS]
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              message:
+                type: string
