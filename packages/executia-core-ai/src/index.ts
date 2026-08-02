@@ -29,6 +29,8 @@ export {
   FakeAIProviderAdapter,
   OpenAICompatibleAdapter,
   createConfiguredProvider,
+  type AIProviderAdapter,
+  type ProviderCallResult,
 } from "@/core/providers/ai-provider-adapter";
 export {
   runAiExecutor,
@@ -45,8 +47,12 @@ export { buildUserResponse } from "@/core/report/report-builder";
 export { requireConstitution, ensureConstitutionLoaded } from "@/core/constitution/load";
 export { CONSTITUTION_VERSION, CONSTITUTION_LAWS } from "@/core/constitution/laws";
 export { assertConstitutionImmutable } from "@/core/engines/law-engine";
+export { prisma } from "@/lib/prisma";
 export type {
   CoreRequest,
   VerifiedCoreResponse,
   ExecutiaReport,
+  ExecutionSpec,
+  ProviderResponse,
 } from "@/domain/schemas";
+export { ProviderResponseSchema } from "@/domain/schemas";
