@@ -84,7 +84,7 @@ export const BASE_NODE_DEFINITIONS = {
     id: 'finance',
     label: 'Finance',
     purpose: 'Budget, value, and economic constraints on execution decisions.',
-    inputs: ['Execution Intelligence', 'Project portfolio'],
+    inputs: ['Execution Value', 'Project portfolio'],
     outputs: ['Budget envelope', 'Value baseline'],
     businessValue: 'Finance participates — not a separate accounting ledger.',
     dependencies: ['documents'],

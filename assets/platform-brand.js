@@ -1,5 +1,5 @@
 /**
- * EXECUTIA global brand + footer — FINAL NAVIGATION
+ * EXECUTIA global brand + corporate footer shell.
  */
 (function () {
   function renderBrandIdentity() {
@@ -15,6 +15,28 @@
       '<div class="footer-inner">' +
       '<div class="footer-brand">' +
       '<a class="brand footer-logo" href="/" aria-label="EXECUTIA home">EXECUTIA\u2122</a>' +
+      '<p>Better execution leads to better outcomes. EXECUTIA is under development for what follows a decision.</p>' +
+      '</div>' +
+      '<div class="footer-col"><h4>Platform</h4>' +
+      '<a href="/">ENTRY</a>' +
+      '<a href="/engine">Engine</a>' +
+      '<a href="/pilot">Pilot</a>' +
+      '<a href="/one">ONE</a>' +
+      '<a href="https://life.executia.io" target="_blank" rel="noopener noreferrer">LIFE</a>' +
+      '<a href="/#gov">GOV</a>' +
+      '<a href="/#development">Development</a>' +
+      '</div>' +
+      '<div class="footer-col"><h4>Resources</h4>' +
+      '<a href="/#solution">Execution Model</a>' +
+      '<a href="/#platform">Platform</a>' +
+      '<a href="/standard">Governance</a>' +
+      '<a href="/pilot">Pilot Process</a>' +
+      '<a href="/support">Support</a>' +
+      '<a href="/docs">Documentation</a>' +
+      '</div>' +
+      '<div class="footer-col"><h4>Company</h4>' +
+      '<a href="/support">Support</a>' +
+      '<a href="/contact">Contact</a>' +
       '</div>' +
       '</div>' +
       '<div class="footer-bottom"><span>\u00a9 EXECUTIA</span></div>' +

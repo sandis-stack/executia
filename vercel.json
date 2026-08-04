@@ -10,6 +10,8 @@
     { "src": "^/sitemap.xml$", "dest": "/sitemap.xml" },
     { "src": "^/entry$", "dest": "/index.html" },
     { "src": "^/entry/legacy$", "dest": "/index.legacy.html" },
+    { "src": "^/workspace$", "dest": "/workspace/index.html" },
+    { "src": "^/workspace/(.*)$", "dest": "/workspace/$1" },
     { "src": "^/engine$", "dest": "/engine.html" },
     { "src": "^/docs$", "dest": "/docs.html" },
     { "src": "^/pilot$", "dest": "/pilot.html" },

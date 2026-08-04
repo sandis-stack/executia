@@ -10,7 +10,6 @@ import {
   priorityAreas,
   engineScenarioSummary,
 } from '../public-funnel.js';
-import { INSUFFICIENT_BASIS } from '../living-engine/orchestrator.js';
 import { BASE_NODE_DEFINITIONS, FLOW_NODE_IDS, buildGraphNodes } from './graph-model.js';
 
 export function buildOneCoreContext(ctx = loadPublicFunnelContext()) {
@@ -57,76 +56,58 @@ function enrichNode(base, context, scenario) {
     node.outputs = [`Mission: ${context.mission.slice(0, 80)}`];
     node.kind = 'Calculated';
   } else if (base.id === 'mission') {
-    node.missionText =
-      'Your governing objective binds here after Living Engine — every object in ONE derives from Mission.';
+    node.missionText = 'Complete Living Engine to bind your mission';
     node.kind = 'Demo';
   }
 
   if (base.id === 'objectives' && scenario?.objectives?.length) {
     node.outputs = scenario.objectives.slice(0, 3).map((o) => o.text.slice(0, 60));
+    node.kind = 'Estimated';
   }
 
-  if (base.id === 'projects' && scenario?.claims?.length) {
-    node.outputs = scenario.claims.slice(0, 3).map((claim) => claim.statement.slice(0, 60));
+  if (base.id === 'projects' && scenario?.projects?.length) {
+    node.outputs = scenario.projects.map((p) => p.name);
+    node.kind = 'Estimated';
   }
 
   if (base.id === 'people' && scenario?.stakeholders?.length) {
     node.outputs = scenario.stakeholders.slice(0, 4).map((s) => s.role);
-  } else if (base.id === 'people') {
-    node.outputs = [INSUFFICIENT_BASIS];
+    node.kind = 'Estimated';
   }
 
-  if (base.id === 'finance' && scenario?.budget?.total && scenario.budget.total !== INSUFFICIENT_BASIS) {
-    node.outputs = [`Budget ${formatCurrency(scenario.budget.total)}`];
-  } else if (base.id === 'finance') {
-    node.outputs = [INSUFFICIENT_BASIS];
+  if (base.id === 'documents' && scenario?.requiredDocuments?.length) {
+    node.outputs = scenario.requiredDocuments.map((d) => d.name);
+    node.kind = 'Calculated';
   }
 
-  if (base.id === 'validation' && scenario?.validation?.summary) {
-    const summary = scenario.validation.summary;
-    node.outputs = [
-      `${summary.claimsValidated} claims validated`,
-      `${summary.rulesApplied} rules applied`,
-      `${summary.findingsCount} findings`,
-    ];
-    if (summary.blocked) {
-      node.outputs.push(`${summary.blockedClaims.length} blocked claim(s)`);
-    }
-  } else if (base.id === 'validation') {
-    node.outputs = [INSUFFICIENT_BASIS];
+  if (base.id === 'finance' && scenario?.budget) {
+    node.outputs = [`Budget ${formatCurrency(scenario.budget.total)} (estimated)`];
+    node.kind = 'Estimated';
   }
 
-  if (base.id === 'evidence' && scenario?.evidence?.summary) {
-    const summary = scenario.evidence.summary;
-    node.outputs = [
-      `${summary.obligationsCount} obligations`,
-      `${summary.satisfiedObligations.length} satisfied`,
-      `${summary.unsatisfiedObligations.length} unsatisfied`,
-    ];
-    if (summary.insufficientBasisObligations.length) {
-      node.outputs.push(`${summary.insufficientBasisObligations.length} insufficient basis`);
-    }
-  } else if (base.id === 'evidence') {
-    node.outputs = [INSUFFICIENT_BASIS];
+  if (base.id === 'execution' && scenario?.executionStandard) {
+    node.outputs = scenario.executionStandard.flow ?? node.outputs;
+    node.kind = 'Calculated';
   }
 
-  if (base.id === 'prediction' && scenario?.outlook?.summary) {
-    const summary = scenario.outlook.summary;
-    if (summary.status === INSUFFICIENT_BASIS) {
-      node.outputs = [INSUFFICIENT_BASIS];
-    } else {
-      node.outputs = [
-        `Confidence ${scenario.outlook.confidence}`,
-        `${summary.validatedClaimsCount} validated claims`,
-        `${summary.verifiedEvidenceCount} verified evidence`,
-      ];
-    }
-  } else if (base.id === 'prediction') {
-    node.outputs = [INSUFFICIENT_BASIS];
+  if (base.id === 'validation' && scenario?.validation) {
+    node.outputs = [`${scenario.validation.passRate}% pass · ${scenario.validation.summary}`];
+    node.kind = 'Calculated';
   }
 
-  if (base.id === 'continuous-improvement' && scenario?.reasoningChain?.length) {
-    node.outputs = scenario.reasoningChain.slice(0, 2).map((step) => step.inference.slice(0, 60));
+  if (base.id === 'evidence' && scenario?.evidence) {
+    node.outputs = [scenario.evidence.summary];
+    node.kind = 'Calculated';
+  }
+
+  if (base.id === 'prediction' && scenario?.prediction) {
+    node.outputs = [`Readiness ${scenario.prediction.executionReadiness}%`];
+    node.kind = 'Estimated';
+  }
+
+  if (base.id === 'continuous-improvement' && context.priorityAreas?.length) {
+    node.inputs = [...node.inputs, ...context.priorityAreas.slice(0, 2)];
+    node.kind = context.priorityAreas.length ? 'Calculated' : node.kind;
   }
 
   if (context.executionScore != null && ['objectives', 'prediction', 'learning'].includes(base.id)) {
