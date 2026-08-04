@@ -7,8 +7,9 @@
  * 3) Run ENTRY tests
  * 4) Route checks
  * 5) Playwright screenshots + console/network/overflow/anchors
- * 6) A11y + performance audit
- * 7) Write REPORT.md / REPORT.json
+ * 6) Publish screenshot gallery to a public URL (required)
+ * 7) A11y + performance audit
+ * 8) Write REPORT.md / REPORT.json (public screenshot URLs only)
  *
  * Usage:
  *   node scripts/entry-review/run-review.mjs
@@ -114,6 +115,15 @@ async function main() {
   steps.push({ step: 'capture-visual', code: visual.code });
   if (visual.code !== 0) process.exit(1);
 
+  const gallery = await run('node', [path.join(here, 'publish-gallery.mjs')], env);
+  steps.push({ step: 'publish-gallery', code: gallery.code });
+  if (gallery.code !== 0) process.exit(1);
+
+  let galleryUrl = '';
+  try {
+    galleryUrl = (await readFile(path.join(latest, 'GALLERY_URL.txt'), 'utf8')).trim();
+  } catch {}
+
   const audit = await run('node', [path.join(here, 'audit-a11y-perf.mjs')], {
     ...env,
     ENTRY_SKIP_LIGHTHOUSE: process.env.ENTRY_SKIP_LIGHTHOUSE || '0',
@@ -125,10 +135,10 @@ async function main() {
   steps.push({ step: 'report', code: report.code });
   if (report.code !== 0) process.exit(1);
 
-  await writeFile(path.join(latest, 'steps.json'), JSON.stringify({ url, steps }, null, 2));
+  await writeFile(path.join(latest, 'steps.json'), JSON.stringify({ url, galleryUrl, steps }, null, 2));
   console.log('\n[run-review] SUCCESS');
   console.log(`Public preview: ${url}`);
-  console.log(`Report: evidence/entry-review/latest/REPORT.md`);
+  console.log(`Public screenshot gallery: ${galleryUrl}`);
 }
 
 main().catch((e) => {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Generate ENTRY review report (markdown + json).
- * Optional visual diff against evidence/entry-review/baseline/screenshots.
+ * Screenshot links MUST be public HTTPS URLs — never local evidence/ paths.
  */
 import { readFile, writeFile, access, mkdir, readdir } from 'node:fs/promises';
 import path from 'node:path';
@@ -36,6 +36,8 @@ async function maybeDiff() {
   } catch {
     return { skipped: true, reason: 'no baseline' };
   }
+  let pixelmatch;
+  let PNG;
   try {
     pixelmatch = require(path.join(root, 'packages/executia-life/node_modules/pixelmatch'));
     PNG = require(path.join(root, 'packages/executia-life/node_modules/pngjs')).PNG;
@@ -70,8 +72,16 @@ async function maybeDiff() {
   return { skipped: false, changes };
 }
 
+function publicScreenshotLinks(gallery, visual) {
+  if (gallery?.images?.length) {
+    return gallery.images;
+  }
+  return null;
+}
+
 async function main() {
   const preview = await loadJson('preview.json');
+  const gallery = await loadJson('gallery.json');
   const visual = await loadJson('visual.json');
   const a11y = await loadJson('a11y-perf.json');
   const tests = await loadJson('tests.json');
@@ -83,19 +93,23 @@ async function main() {
   const changed = git('git diff --name-only HEAD');
   const status = git('git status --porcelain');
 
+  const screenshots = publicScreenshotLinks(gallery, visual);
+
   const report = {
     generatedAt: new Date().toISOString(),
     publicPreviewUrl: preview?.url || null,
+    publicGalleryUrl: gallery?.url || null,
     previewPublic: preview?.public || null,
+    galleryPublic: gallery?.public || null,
     commit,
     short,
     filesChanged: changed ? changed.split('\n').filter(Boolean) : [],
     workingTree: status ? status.split('\n').filter(Boolean) : [],
     tests,
     routes,
+    screenshots,
     visual: visual
       ? {
-          screenshots: visual.screenshots,
           consoleErrors: visual.consoleErrors?.length || 0,
           pageErrors: visual.pageErrors?.length || 0,
           failedRequests: visual.failedRequests?.length || 0,
@@ -109,17 +123,29 @@ async function main() {
     knownIssues: [],
   };
 
+  if (!gallery?.url || !screenshots?.length) {
+    report.knownIssues.push('Screenshot gallery not published to a public URL');
+  }
   if (visual?.overflow?.length) report.knownIssues.push('Horizontal overflow detected');
   if ((visual?.consoleErrors || []).length) report.knownIssues.push('Console errors present');
   if ((visual?.anchors?.failed || []).length) report.knownIssues.push('Broken homepage anchors');
   if (!preview?.public?.ok) report.knownIssues.push('Preview not publicly accessible');
+
+  const shotLines = screenshots?.length
+    ? [
+        `- Gallery: ${gallery.url}`,
+        ...screenshots.map((u) => `- ${u}`),
+      ]
+    : ['- FAILED: no public screenshot gallery URL'];
 
   const md = [
     '# ENTRY Review Report',
     '',
     `- Generated: ${report.generatedAt}`,
     `- Public preview: ${report.publicPreviewUrl || 'n/a'}`,
+    `- Public screenshot gallery: ${report.publicGalleryUrl || 'n/a'}`,
     `- Preview public: ${report.previewPublic?.ok ? 'YES' : 'NO'}`,
+    `- Gallery public: ${report.galleryPublic?.ok ? 'YES' : 'NO'}`,
     `- Commit: \`${short}\` (\`${commit}\`)`,
     '',
     '## Tests',
@@ -132,9 +158,8 @@ async function main() {
     JSON.stringify(routes, null, 2),
     '```',
     '',
-    '## Screenshots',
-    ...(report.visual?.screenshots?.full || []).map((f) => `- ${f}`),
-    ...(report.visual?.screenshots?.sections || []).map((f) => `- ${f}`),
+    '## Screenshots (public URLs only)',
+    ...shotLines,
     '',
     '## Accessibility',
     '```json',
@@ -158,6 +183,13 @@ async function main() {
 
   await writeFile(path.join(latest, 'REPORT.json'), JSON.stringify(report, null, 2));
   await writeFile(path.join(latest, 'REPORT.md'), md);
+
+  if (!gallery?.url || !screenshots?.length) {
+    console.error('[report] FAILED — review incomplete without public screenshot gallery.');
+    console.error(md);
+    process.exit(1);
+  }
+
   console.log(md);
 }
 
