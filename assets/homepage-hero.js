@@ -27,14 +27,20 @@ function buildHeroJourney(ctx = loadPublicFunnelContext()) {
 
   const steps = [
     {
-      id: 'execution-value',
-      label: 'Execution Value',
-      href: '#execution-value',
-      complete: Boolean(calc),
-      detail: calc
-        ? `${formatCurrency(calc.estimatedExecutionLoss?.value ?? 0)} at risk`
-        : 'Enter your organization profile',
-      kind: calc ? 'Estimated' : 'Pending',
+      id: 'platform',
+      label: 'Approach',
+      href: '#platform',
+      complete: false,
+      detail: 'One continuous path after a decision',
+      kind: 'Pending',
+    },
+    {
+      id: 'engine',
+      label: 'Engine',
+      href: '/engine',
+      complete: false,
+      detail: 'Review the first evidence',
+      kind: 'Pending',
     },
     {
       id: 'pilot',
@@ -43,7 +49,7 @@ function buildHeroJourney(ctx = loadPublicFunnelContext()) {
       complete: Boolean(assessment?.ok),
       detail: assessment?.ok
         ? assessment.pilotRecommendation?.readiness ?? 'Ready'
-        : 'Begin Executive Assessment',
+        : 'Validate under defined conditions',
       kind: assessment?.ok ? 'Calculated' : 'Pending',
     },
   ];
@@ -67,7 +73,8 @@ function currentStateText(steps) {
     }
     return 'Waiting for your first mission';
   }
-  return active.detail?.trim() || active.label;
+  // Prefer step label in the header — detail lives once in the step row (no duplication).
+  return active.label;
 }
 
 function kindLabel(kind) {
