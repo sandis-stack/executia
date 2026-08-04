@@ -1,15 +1,15 @@
 /**
  * EXECUTIA global header + primary navigation shell.
- * ENTRY nav: Platform · Engine · LIFE · ONE · GOV · Development · Pilot + Request Pilot
+ * ENTRY nav: Approach · Engine · LIFE · ONE · GOV · Vision · Pilot + Request Pilot
  */
 (function () {
   var NAV = [
-    { id: 'platform', label: 'Platform', href: '/#platform' },
+    { id: 'platform', label: 'Approach', href: '/#platform' },
     { id: 'engine', label: 'Engine', href: '/engine' },
     { id: 'life', label: 'LIFE', href: 'https://life.executia.io' },
     { id: 'one', label: 'ONE', href: '/one' },
     { id: 'gov', label: 'GOV', href: '/#gov' },
-    { id: 'development', label: 'Development', href: '/#development' },
+    { id: 'vision', label: 'Vision', href: '/#vision' },
     { id: 'pilot', label: 'Pilot', href: '/pilot' },
   ];
 

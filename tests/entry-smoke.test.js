@@ -32,8 +32,7 @@ function get(url) {
 
 test('production smoke: Entry routes and assets return 200 from workspace root', async () => {
   await access(path.join(root, 'index.html'));
-  await access(path.join(root, 'assets/entry-landing.css'));
-  await access(path.join(root, 'assets/entry-landing.js'));
+  await access(path.join(root, 'assets/homepage-migrated.css'));
   await access(path.join(root, 'assets/platform-nav.js'));
 
   const port = 4280 + Math.floor(Math.random() * 200);
@@ -99,8 +98,7 @@ server.listen(port, '127.0.0.1', () => console.log('http://127.0.0.1:' + port));
       '/',
       '/entry',
       '/assets/app.css',
-      '/assets/entry-landing.css',
-      '/assets/entry-landing.js',
+      '/assets/homepage-migrated.css',
       '/assets/platform-nav.js',
       '/assets/platform-brand.js',
       '/assets/app.js',
@@ -118,9 +116,10 @@ server.listen(port, '127.0.0.1', () => console.log('http://127.0.0.1:' + port));
     assert.ok(home.body.includes('id="engine"'));
     assert.ok(home.body.includes('id="pilot"'));
     assert.ok(home.body.includes('One Execution Standard') || home.body.includes('better execution'));
-    assert.ok(home.body.includes('after a decision') || home.body.includes('What happens after a decision'));
+    assert.ok(home.body.includes('after a decision') || home.body.includes('Execution creates reality'));
     assert.ok(home.body.includes('skip-link'));
-    assert.ok(home.body.includes('entry-landing.css'));
+    assert.ok(home.body.includes('homepage-migrated.css'));
+    assert.ok(home.body.includes('story-film-player'));
     assert.equal(home.body, entry.body, '/ and /entry must serve the same Entry document');
     assert.equal(home.body.includes('/sign-in'), false);
   } finally {
