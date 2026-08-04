@@ -1,5 +1,5 @@
 /**
- * ENTRY fully-ready acceptance — production visual foundation + approved copy.
+ * ENTRY fully-ready acceptance — blank-page ENTRY v1.0 (vertical thesis).
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -16,24 +16,28 @@ async function load(rel) {
   return readFile(p, 'utf8');
 }
 
-test('production ENTRY uses approved story section order', async () => {
+test('ENTRY v1 uses new vertical thesis section order', async () => {
   const html = await load('index.html');
   assert.equal(html.includes('executia-website.css'), false, 'must not load WEB-001 parallel stylesheet');
   assert.equal(html.includes('id="demo"'), false, 'must not ship WEB-001 live-demo section as Entry');
-  assert.ok(html.includes('homepage-migrated.css'), 'production visual foundation required');
+  assert.ok(html.includes('entry-v1.css'), 'new ENTRY visual language required');
+  assert.equal(html.includes('homepage-migrated.css'), false, 'old homepage composition CSS must not load');
   assert.ok(html.includes('data-page="entry"'));
-  assert.ok(html.includes('hero-story-film') || html.includes('hp-hero-film'), 'hero film required');
-  assert.ok(html.includes('story-film-player'), 'problem story film required');
+  assert.equal(html.includes('hp-hero'), false, 'old Hero composition must not ship');
+  assert.equal(html.includes('hp-funnel-journey'), false, 'old journey card must not ship');
+  assert.equal(html.includes('hero-story-film'), false, 'hero film backdrop must not ship');
+  assert.ok(html.includes('story-film-player'), 'one purposeful mid-page film required');
 
   const order = [
-    'hero',
+    'reality',
     'problem',
-    'solution',
-    'platform',
-    'products',
+    'cost',
+    'thinking',
+    'executia',
+    'model',
     'engine',
+    'applications',
     'vision',
-    'development',
     'pilot',
   ];
   let last = -1;
@@ -49,14 +53,14 @@ test('production ENTRY uses approved story section order', async () => {
   assert.ok(html.includes('id="gov"'), 'GOV domain anchor missing');
 });
 
-test('production ENTRY declares the Execution Standard category', async () => {
+test('ENTRY v1 declares approved thesis and Engine path', async () => {
   const html = await load('index.html');
   assert.ok(
     html.includes('Ideas Create Possibilities. Execution Creates Reality.') ||
       html.includes('Ideas create possibilities'),
-    'hero positioning missing'
+    'approved thesis missing'
   );
-  assert.ok(/For People|people, organizations/i.test(html), 'people audience missing');
+  assert.ok(/people, organizations/i.test(html), 'people audience missing');
   assert.ok(/Organizations/i.test(html), 'organizations audience missing');
   assert.ok(/Governments/i.test(html), 'governments audience missing');
   assert.ok(
@@ -86,7 +90,7 @@ test('production ENTRY declares the Execution Standard category', async () => {
   assert.equal(/\.(mp4|webm)(["'\s>])/i.test(html), false, 'do not invent final video assets in markup');
 });
 
-test('production ENTRY navigation has Request Pilot and Approach links', async () => {
+test('ENTRY navigation has Request Pilot and Approach links', async () => {
   const nav = await load('assets/platform-nav.js');
   assert.ok(nav.includes('Request Pilot'), 'Request Pilot CTA required');
   assert.ok(nav.includes('/request'), 'Request Pilot must target /request');
@@ -96,7 +100,7 @@ test('production ENTRY navigation has Request Pilot and Approach links', async (
   assert.ok(nav.includes('aria-label="Primary"'));
   assert.ok(nav.includes('aria-label="EXECUTIA home"') || nav.includes('EXECUTIA'));
   assert.ok(nav.includes('Approach'), 'Approach nav label required');
-  assert.ok(nav.includes('/#platform'), 'Approach anchor required');
+  assert.ok(nav.includes('/#model'), 'Approach anchor required');
   assert.ok(nav.includes('/#gov'), 'GOV anchor required');
   assert.ok(nav.includes('/#vision'), 'Vision anchor required');
   assert.ok(nav.includes('/engine'), 'Engine route required');
@@ -105,7 +109,7 @@ test('production ENTRY navigation has Request Pilot and Approach links', async (
   assert.ok(nav.includes('life.executia.io'), 'LIFE route required');
 });
 
-test('production ENTRY accessibility: skip-link, main landmark, reduced motion', async () => {
+test('ENTRY accessibility: skip-link, main landmark, reduced motion', async () => {
   const html = await load('index.html');
   assert.ok(html.includes('lang="en"'));
   assert.ok(html.includes('class="skip-link"'), 'skip-link missing');
@@ -114,20 +118,21 @@ test('production ENTRY accessibility: skip-link, main landmark, reduced motion',
   assert.ok(html.includes('name="viewport"'));
 
   const appCss = await load('assets/app.css');
-  const homeCss = await load('assets/homepage-migrated.css');
+  const entryCss = await load('assets/entry-v1.css');
   assert.ok(
     appCss.includes('.skip-link') ||
-      homeCss.includes('.skip-link') ||
+      entryCss.includes('.skip-link') ||
       html.includes('class="skip-link"'),
     'skip-link missing'
   );
   assert.ok(
-    appCss.includes('@media (max-width:860px)') || homeCss.includes('@media (max-width'),
+    appCss.includes('@media (max-width:860px)') || entryCss.includes('@media (max-width'),
     'mobile breakpoint missing'
   );
+  assert.ok(entryCss.includes('prefers-reduced-motion'), 'reduced-motion support missing');
 });
 
-test('production ENTRY routes / and /entry map to index.html', async () => {
+test('ENTRY routes / and /entry map to index.html', async () => {
   const vercel = await load('vercel.json');
   assert.ok(vercel.includes('"/index.html"') || vercel.includes('/index.html'));
   assert.ok(/"src":\s*"\^\/\$"/.test(vercel) || vercel.includes('"^/$"'));

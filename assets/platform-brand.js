@@ -24,11 +24,11 @@
       '<a href="/one">ONE</a>' +
       '<a href="https://life.executia.io" target="_blank" rel="noopener noreferrer">LIFE</a>' +
       '<a href="/#vision">Vision</a>' +
-      '<a href="/#development">Development</a>' +
+      '<a href="/#thinking">Thinking</a>' +
       '</div>' +
       '<div class="footer-col"><h4>Resources</h4>' +
-      '<a href="/#solution">Cause</a>' +
-      '<a href="/#platform">Approach</a>' +
+      '<a href="/#problem">Problem</a>' +
+      '<a href="/#model">Approach</a>' +
       '<a href="/standard">Governance</a>' +
       '<a href="/pilot">Pilot Process</a>' +
       '<a href="/support">Support</a>' +

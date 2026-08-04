@@ -32,7 +32,7 @@ function get(url) {
 
 test('production smoke: Entry routes and assets return 200 from workspace root', async () => {
   await access(path.join(root, 'index.html'));
-  await access(path.join(root, 'assets/homepage-migrated.css'));
+  await access(path.join(root, 'assets/entry-v1.css'));
   await access(path.join(root, 'assets/platform-nav.js'));
 
   const port = 4280 + Math.floor(Math.random() * 200);
@@ -98,7 +98,7 @@ server.listen(port, '127.0.0.1', () => console.log('http://127.0.0.1:' + port));
       '/',
       '/entry',
       '/assets/app.css',
-      '/assets/homepage-migrated.css',
+      '/assets/entry-v1.css',
       '/assets/platform-nav.js',
       '/assets/platform-brand.js',
       '/assets/app.js',
@@ -111,8 +111,8 @@ server.listen(port, '127.0.0.1', () => console.log('http://127.0.0.1:' + port));
     const home = await get(`http://127.0.0.1:${port}/`);
     const entry = await get(`http://127.0.0.1:${port}/entry`);
     assert.ok(home.body.includes('data-page="entry"'));
-    assert.ok(home.body.includes('id="hero"'));
-    assert.ok(home.body.includes('id="platform"'));
+    assert.ok(home.body.includes('id="reality"'));
+    assert.ok(home.body.includes('id="model"'));
     assert.ok(home.body.includes('id="engine"'));
     assert.ok(home.body.includes('id="pilot"'));
     assert.ok(
@@ -121,8 +121,9 @@ server.listen(port, '127.0.0.1', () => console.log('http://127.0.0.1:' + port));
     );
     assert.ok(home.body.includes('after a decision') || home.body.includes('Execution creates reality'));
     assert.ok(home.body.includes('skip-link'));
-    assert.ok(home.body.includes('homepage-migrated.css'));
+    assert.ok(home.body.includes('entry-v1.css'));
     assert.ok(home.body.includes('story-film-player'));
+    assert.equal(home.body.includes('hp-hero'), false, 'old Hero must not ship');
     assert.equal(home.body, entry.body, '/ and /entry must serve the same Entry document');
     assert.equal(home.body.includes('/sign-in'), false);
   } finally {

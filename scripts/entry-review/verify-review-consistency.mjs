@@ -78,8 +78,12 @@ async function main() {
 
   const previewRes = await fetch(previewUrl.replace(/\/?$/, '/') );
   const previewHtml = await previewRes.text();
-  if (!/hp-hero|data-page="entry"|Execution creates reality|Ideas create possibilities/i.test(previewHtml)) {
+  if (!/data-page="entry"|Execution creates reality|Ideas create possibilities|A decision alone changes nothing/i.test(previewHtml)) {
     console.error('[verify-sync] preview does not look like expected ENTRY');
+    process.exit(1);
+  }
+  if (!/Ideas create possibilities/i.test(previewHtml) || !/Execution creates reality/i.test(previewHtml)) {
+    console.error('[verify-sync] approved thesis missing from ENTRY');
     process.exit(1);
   }
 
@@ -92,34 +96,34 @@ async function main() {
   });
   await page.waitForTimeout(800);
   const liveHero = await page.evaluate(() => {
-    const h1 = document.querySelector('#hero h1, .hp-hero h1, h1');
+    const h1 = document.querySelector('#reality h1, h1');
     return (h1?.innerText || '').replace(/\s+/g, ' ').trim();
   });
   await browser.close();
 
   const capturedHero = String(visual.heroText || '').replace(/\s+/g, ' ').trim();
   if (!liveHero) {
-    console.error('[verify-sync] could not read live preview hero text');
+    console.error('[verify-sync] could not read live preview opening text');
     process.exit(1);
   }
   if (capturedHero && capturedHero !== liveHero) {
-    console.error('[verify-sync] captured hero text != live preview hero');
+    console.error('[verify-sync] captured opening text != live preview');
     console.error('  captured:', capturedHero);
     console.error('  live:    ', liveHero);
     process.exit(1);
   }
-  if (!/Execution creates reality|Ideas create possibilities/i.test(liveHero)) {
-    console.error('[verify-sync] live hero text unexpected:', liveHero);
+  if (!/decision alone changes nothing|Ideas create possibilities/i.test(liveHero)) {
+    console.error('[verify-sync] live opening text unexpected:', liveHero);
     process.exit(1);
   }
 
-  // Gallery hero PNG must exist and be public
-  const heroPng = `${galleryUrl.replace(/\/$/, '')}/sections/hero.png`;
+  // Gallery reality PNG must exist and be public
+  const heroPng = `${galleryUrl.replace(/\/$/, '')}/sections/reality.png`;
   const pngRes = await fetch(heroPng);
   const buf = Buffer.from(await pngRes.arrayBuffer());
   const isPng = buf[0] === 0x89 && buf[1] === 0x50;
   if (!pngRes.ok || !isPng) {
-    console.error('[verify-sync] gallery hero PNG not publicly available');
+    console.error('[verify-sync] gallery reality PNG not publicly available');
     process.exit(1);
   }
 

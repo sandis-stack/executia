@@ -45,7 +45,7 @@ const VIEWPORTS = {
   mobile: { width: 390, height: 844 },
 };
 
-const SECTION_IDS = ['hero', 'platform', 'products', 'engine', 'vision', 'pilot'];
+const SECTION_IDS = ['reality', 'problem', 'cost', 'thinking', 'executia', 'model', 'engine', 'applications', 'vision', 'pilot'];
 
 function gitHash() {
   try {
@@ -110,7 +110,7 @@ async function capture() {
   // Full pages
   await withPage(VIEWPORTS.desktop, false, async (page) => {
     heroText = await page.evaluate(() => {
-      const h1 = document.querySelector('#hero h1, .hp-hero h1, h1');
+      const h1 = document.querySelector('#reality h1, h1');
       return (h1?.innerText || '').replace(/\s+/g, ' ').trim();
     });
     await page.screenshot({

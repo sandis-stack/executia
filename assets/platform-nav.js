@@ -4,7 +4,7 @@
  */
 (function () {
   var NAV = [
-    { id: 'platform', label: 'Approach', href: '/#platform' },
+    { id: 'platform', label: 'Approach', href: '/#model' },
     { id: 'engine', label: 'Engine', href: '/engine' },
     { id: 'life', label: 'LIFE', href: 'https://life.executia.io' },
     { id: 'one', label: 'ONE', href: '/one' },

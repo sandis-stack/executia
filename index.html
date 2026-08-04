@@ -14,9 +14,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
-  <link rel="stylesheet" href="/assets/homepage-migrated.css">
+  <link rel="stylesheet" href="/assets/entry-v1.css">
   <link rel="stylesheet" href="/assets/pilot.css">
-  <link rel="stylesheet" href="/assets/executive-architecture.css">
 </head>
 <body data-page="entry">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -24,36 +23,53 @@
 
 <main id="main" class="main">
 
-  <!-- Hero — Why continue reading? -->
-  <section class="hp-hero hp-hero--film-bg" id="hero" aria-label="Hero">
-    <div id="hero-story-film" class="hp-hero-film" aria-hidden="true">
-      <div class="hp-film-stage"></div>
+  <!-- 01 Reality -->
+  <section class="ev-reality" id="reality" aria-label="Reality">
+    <div class="ev-reality-inner">
+      <span class="ev-chapter">Reality</span>
+      <h1>A decision alone changes nothing.</h1>
+      <p class="ev-reality-lead">What happens after a decision is where outcomes are decided — for people, organizations, and governments.</p>
+      <a class="ev-scroll" href="#problem">Continue</a>
     </div>
-    <div class="hp-hero-film-shade" aria-hidden="true"></div>
-    <div class="wrap-home hp-hero-inner">
-      <div class="hp-hero-grid">
-        <div class="hp-hero-copy">
-          <h1>Ideas create possibilities.<br>Execution creates reality.</h1>
-          <div class="hp-hero-body">
-            <p>A decision alone changes nothing.</p>
-            <p>Execution determines what becomes real.</p>
-            <p>Across people, organizations and governments, good decisions still produce unreliable results when execution fragments across systems, responsibilities and time.</p>
-          </div>
-          <div class="hp-hero-actions">
-            <a class="hp-btn-primary" href="/engine">Review the Engine</a>
-            <a class="pill-btn" href="#platform">Understand the Approach</a>
-          </div>
-        </div>
-        <div class="hp-monitor-wrap">
-          <div id="hp-funnel-journey" class="hp-funnel-journey">
-            <div class="hp-monitor-glow" aria-hidden="true"></div>
-            <div class="hp-monitor-panel">
-              <p class="hp-monitor-label">Path</p>
-              <div class="hp-monitor-meta">
-                <div>
-                  <p class="sub">Current step</p>
-                  <p class="hp-monitor-state">Understand</p>
-                </div>
+  </section>
+
+  <!-- 02 The problem -->
+  <section class="ev-section" id="problem" aria-labelledby="problem-heading">
+    <div class="ev-section-inner">
+      <span class="ev-section-num" aria-hidden="true">02</span>
+      <div class="ev-section-body ev-reveal">
+        <span class="ev-chapter">The problem</span>
+        <h2 id="problem-heading">After decisions, clarity disappears.</h2>
+        <p class="ev-prose">People lose the thread of their commitments. Organizations lose control after approval. Governments lose visibility once policy becomes delivery.</p>
+        <p class="ev-prose">This is not rare. It is normal. The decision was clear. The execution was not.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 The cost of today's execution (+ one purposeful film) -->
+  <section class="ev-section ev-section--soft" id="cost" aria-labelledby="cost-heading">
+    <div class="ev-section-inner">
+      <span class="ev-section-num" aria-hidden="true">03</span>
+      <div class="ev-section-body ev-section-body--wide ev-reveal">
+        <span class="ev-chapter">The cost</span>
+        <h2 id="cost-heading">Good decisions still produce unreliable results.</h2>
+        <p class="ev-prose">When execution fragments across systems, responsibilities and time, loss becomes invisible until it is expensive.</p>
+        <ul class="ev-cost-list">
+          <li><strong>Time</strong><span>Deadlines slip while work is reconstructed across tools and handoffs.</span></li>
+          <li><strong>Money</strong><span>Rework, audits, and delayed delivery compound after approval.</span></li>
+          <li><strong>Trust</strong><span>Leaders cannot see whether intent survived into action.</span></li>
+          <li><strong>Energy</strong><span>People carry complexity that belongs in the system — not in their minds.</span></li>
+        </ul>
+        <div class="ev-film">
+          <div id="story-film-player" role="region" aria-label="Execution fragmentation film">
+            <div class="hp-film-stage"></div>
+            <div class="hp-film-controls">
+              <div class="hp-film-progress"><div class="hp-film-progress-fill"></div></div>
+              <div class="hp-film-toolbar">
+                <button type="button" class="hp-film-icon-btn" data-action="play" aria-label="Pause"></button>
+                <button type="button" class="hp-film-icon-btn" data-action="replay" aria-label="Replay" hidden>
+                  <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.2 2.2v3.4h3.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M2.6 5.4A5.2 5.2 0 1 1 3 9.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                </button>
               </div>
             </div>
           </div>
@@ -62,177 +78,172 @@
     </div>
   </section>
 
-  <!-- Problem — Is this really happening today? Film has purpose: show fragmentation -->
-  <section class="hp-story" id="problem" aria-label="The Problem">
-    <div class="wrap-home">
-      <span class="kicker">TODAY</span>
-      <h2 class="compact hp-story-head">After decisions, clarity disappears.</h2>
-      <p class="ea-subtitle">People lose the thread of their commitments. Organizations lose control after approval. Governments lose visibility once policy becomes delivery.</p>
-      <div id="story-film-player" role="region" aria-label="Execution fragmentation film">
-        <div class="hp-film-stage"></div>
-        <div class="hp-film-controls">
-          <div class="hp-film-progress"><div class="hp-film-progress-fill"></div></div>
-          <div class="hp-film-toolbar">
-            <button type="button" class="hp-film-icon-btn" data-action="play" aria-label="Pause"></button>
-            <button type="button" class="hp-film-icon-btn" data-action="replay" aria-label="Replay" hidden>
-              <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.2 2.2v3.4h3.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M2.6 5.4A5.2 5.2 0 1 1 3 9.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-            </button>
+  <!-- 04 A different way of thinking -->
+  <section class="ev-section" id="thinking" aria-labelledby="thinking-heading">
+    <div class="ev-section-inner">
+      <span class="ev-section-num" aria-hidden="true">04</span>
+      <div class="ev-section-body ev-reveal">
+        <span class="ev-chapter">A different way of thinking</span>
+        <h2 id="thinking-heading">Execution is not coordination after the fact.</h2>
+        <p class="ev-prose">Communication improved. Information improved. Decision-making improved. Execution remained fragmented — left to people to reconstruct across tools, handoffs, and reports.</p>
+        <p class="ev-prose">The cause is structural. Not “bad people.”</p>
+        <p class="ev-thesis" role="note">
+          <span>Ideas create possibilities.</span>
+          <span>Execution creates reality.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 EXECUTIA -->
+  <section class="ev-section ev-section--ink" id="executia" aria-labelledby="executia-heading">
+    <div class="ev-section-inner">
+      <span class="ev-section-num" aria-hidden="true">05</span>
+      <div class="ev-section-body ev-reveal">
+        <span class="ev-chapter">EXECUTIA</span>
+        <h2 id="executia-heading">EXECUTIA exists because execution was unfinished.</h2>
+        <p class="ev-prose">Not to build software as an end in itself. Not to build AI as an end in itself. Not to build accounting as an end in itself.</p>
+        <p class="ev-prose">EXECUTIA exists to improve how people, organizations and governments turn decisions into real-world outcomes.</p>
+        <p class="ev-prose">Better execution leads to better outcomes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 The model (Approach) -->
+  <section class="ev-section" id="model" aria-labelledby="model-heading">
+    <div class="ev-section-inner">
+      <span class="ev-section-num" aria-hidden="true">06</span>
+      <div class="ev-section-body ev-reveal">
+        <span class="ev-chapter">The model</span>
+        <h2 id="model-heading">One continuous path after a decision.</h2>
+        <p class="ev-prose">EXECUTIA structures execution across existing systems — so work stays understandable, validated, and open to improvement.</p>
+        <ol class="ev-model" aria-label="Execution model">
+          <li>
+            <span class="ev-model-i">01</span>
+            <div><strong>Decision</strong><p>Authorizes work before commitment.</p></div>
+          </li>
+          <li>
+            <span class="ev-model-i">02</span>
+            <div><strong>Execution</strong><p>Carries intent through existing systems.</p></div>
+          </li>
+          <li>
+            <span class="ev-model-i">03</span>
+            <div><strong>Validation</strong><p>Checks conditions before irreversible action.</p></div>
+          </li>
+          <li>
+            <span class="ev-model-i">04</span>
+            <div><strong>Evidence</strong><p>Records what happened — not a reconstruction.</p></div>
+          </li>
+          <li>
+            <span class="ev-model-i">05</span>
+            <div><strong>Learning</strong><p>Improves the next cycle of execution.</p></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Engine — first proof -->
+  <section class="ev-section ev-section--soft" id="engine" aria-labelledby="engine-heading">
+    <div class="ev-section-inner">
+      <span class="ev-section-num" aria-hidden="true">07</span>
+      <div class="ev-section-body ev-reveal">
+        <span class="ev-chapter">First proof</span>
+        <h2 id="engine-heading">The Engine is where principles become visible.</h2>
+        <p class="ev-prose">Principles are developed, tested, and validated there. It demonstrates execution. It does not ask for belief.</p>
+        <p class="ev-prose">Available for review.</p>
+        <div class="ev-cta-row">
+          <a class="ev-btn ev-btn--ink" href="/engine">Review the Engine</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 Applications -->
+  <section class="ev-section ev-section--ink" id="applications" aria-labelledby="applications-heading">
+    <div class="ev-section-inner">
+      <span class="ev-section-num" aria-hidden="true">08</span>
+      <div class="ev-section-body ev-section-body--wide ev-reveal">
+        <span class="ev-chapter">Applications</span>
+        <h2 id="applications-heading">One approach. Three applications.</h2>
+        <p class="ev-prose">LIFE, ONE, and GOV are applications of one common approach — not separate stories.</p>
+        <ul class="ev-apps">
+          <li id="life">
+            <span class="ev-apps-name">LIFE</span>
+            <div>
+              <p class="ev-apps-meta">Available for review</p>
+              <p>The approach applied to people — personal and financial execution.</p>
+              <a href="https://life.executia.io" target="_blank" rel="noopener noreferrer">Open LIFE</a>
+            </div>
+          </li>
+          <li id="one">
+            <span class="ev-apps-name">ONE</span>
+            <div>
+              <p class="ev-apps-meta">In development</p>
+              <p>The approach applied to organizations.</p>
+              <a href="/one">View ONE</a>
+            </div>
+          </li>
+          <li id="gov">
+            <span class="ev-apps-name">GOV</span>
+            <div>
+              <p class="ev-apps-meta">Long-term vision</p>
+              <p>The approach applied to governments. Not available today.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 Vision -->
+  <section class="ev-section" id="vision" aria-labelledby="vision-heading">
+    <div class="ev-section-inner">
+      <span class="ev-section-num" aria-hidden="true">09</span>
+      <div class="ev-section-body ev-reveal">
+        <span class="ev-chapter">Vision</span>
+        <h2 id="vision-heading">Less administration. More capacity for development and life.</h2>
+        <p class="ev-prose">A direction — not a present claim: people spend less time administering complexity; organizations create more value; governments become more transparent; and there is more time to create, learn, collaborate, and live. Trust is built through evidence.</p>
+        <p class="ev-prose">Whether this becomes a broadly adopted standard will be determined by evidence, adoption, and time — not by claims.</p>
+        <p class="ev-prose">Claims wait for evidence. What cannot yet be demonstrated remains in development or vision. What can be demonstrated is available for review.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 Pilot -->
+  <section class="ev-section ev-section--soft" id="pilot" aria-label="Pilot">
+    <div class="ev-section-inner">
+      <span class="ev-section-num" aria-hidden="true">10</span>
+      <div class="ev-section-body ev-section-body--wide ev-reveal">
+        <span class="ev-chapter">Pilot</span>
+        <h2>Test it on a real decision.</h2>
+        <p class="ev-prose">Request a pilot under defined conditions. Or open the Engine first.</p>
+        <ol class="ev-pilot-path" aria-label="Pilot path">
+          <li>Understand</li>
+          <li aria-hidden="true"></li>
+          <li>Validate</li>
+          <li aria-hidden="true"></li>
+          <li>Review proof</li>
+          <li aria-hidden="true"></li>
+          <li>Request pilot</li>
+        </ol>
+
+        <div id="pilot-product">
+          <div class="pi-shell">
+            <div class="pi-journey-col">
+              <div class="pi-flow" id="pi-journey" aria-label="Pilot journey"></div>
+            </div>
+            <div class="pi-deliverables-col">
+              <ul class="pi-deliverable-list" id="pi-deliverable-list"></ul>
+            </div>
           </div>
-        </div>
-      </div>
-      <p class="hp-hero-lead" style="margin-top:28px;max-width:42ch">This is not rare. It is normal. The decision was clear. The execution was not.</p>
-      <div class="hp-section-cta">
-        <a class="pill-btn primary" href="#solution">Why this happens</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Reality — Why does this happen? -->
-  <section class="hp-section soft" id="solution" aria-labelledby="solution-heading">
-    <div class="wrap-home">
-      <span class="kicker">CAUSE</span>
-      <h2 id="solution-heading">Execution is treated as coordination, not as a system.</h2>
-      <p class="ea-subtitle">Communication improved. Information improved. Decision-making improved. Execution remained fragmented — left to people to reconstruct after the fact across tools, handoffs, and reports.</p>
-      <div class="hp-section-cta">
-        <a class="pill-btn primary" href="#platform">What a better model looks like</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Approach — What would a better model look like? -->
-  <section class="ea-section" id="platform" aria-labelledby="platform-heading">
-    <div class="wrap-home">
-      <span class="kicker">APPROACH</span>
-      <h2 id="platform-heading">One continuous path after a decision.</h2>
-      <p class="ea-subtitle">EXECUTIA structures execution across existing systems — so work stays understandable, validated, and open to improvement. Complexity belongs inside the system, not inside people’s minds.</p>
-      <div class="ea-diagram" role="list" aria-label="Execution approach">
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">Decision</span>
-          <p class="ea-node-detail">Authorizes work before commitment.</p>
-        </div>
-        <div class="ea-connector" aria-hidden="true"><span class="ea-connector-line"></span></div>
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">Execution</span>
-          <p class="ea-node-detail">Carries intent through existing systems.</p>
-        </div>
-        <div class="ea-connector" aria-hidden="true"><span class="ea-connector-line"></span></div>
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">Validation</span>
-          <p class="ea-node-detail">Checks conditions before irreversible action.</p>
-        </div>
-        <div class="ea-connector" aria-hidden="true"><span class="ea-connector-line"></span></div>
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">Evidence</span>
-          <p class="ea-node-detail">Records what happened — not a reconstruction.</p>
-        </div>
-        <div class="ea-connector" aria-hidden="true"><span class="ea-connector-line"></span></div>
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">Learning</span>
-          <p class="ea-node-detail">Improves the next cycle of execution.</p>
-        </div>
-      </div>
-      <div class="hp-section-cta">
-        <a class="pill-btn primary" href="#products">Why EXECUTIA exists</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXECUTIA + Applications -->
-  <section class="hp-section soft hp-institutional" id="products" aria-labelledby="products-heading">
-    <div class="wrap-home">
-      <span class="kicker">EXECUTIA</span>
-      <h2 id="products-heading">EXECUTIA was created because execution was unfinished.</h2>
-      <p class="ea-subtitle">Not to build software as an end in itself. Not to build AI as an end in itself. Not to build accounting as an end in itself. EXECUTIA exists to improve how decisions become real-world results.</p>
-      <p class="ea-subtitle">LIFE, ONE, and GOV are applications of one common approach — not separate stories.</p>
-      <div class="hp-use-grid">
-        <article class="hp-use-card" id="life">
-          <p class="kicker">Available for review</p>
-          <h3>LIFE</h3>
-          <p>The approach applied to people — personal and financial execution.</p>
-          <p><a class="pill-btn" href="https://life.executia.io" target="_blank" rel="noopener noreferrer">Open LIFE</a></p>
-        </article>
-        <article class="hp-use-card" id="one">
-          <p class="kicker">In development</p>
-          <h3>ONE</h3>
-          <p>The approach applied to organizations.</p>
-          <p><a class="pill-btn" href="/one">View ONE</a></p>
-        </article>
-        <article class="hp-use-card" id="gov">
-          <p class="kicker">Long-term vision</p>
-          <h3>GOV</h3>
-          <p>The approach applied to governments. Not available today.</p>
-        </article>
-      </div>
-      <div class="hp-section-cta">
-        <a class="pill-btn primary" href="#engine">See the first evidence</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Engine — Can I see this? First evidence, natural next step -->
-  <section class="hp-pilot-cta" id="engine" aria-labelledby="engine-heading">
-    <div class="wrap-home">
-      <span class="kicker">EVIDENCE</span>
-      <h2 id="engine-heading">Review the EXECUTIA Engine</h2>
-      <p class="ea-subtitle">The Engine is the first place to continue. Principles are developed, tested, and validated there. It demonstrates execution. It does not ask for belief.</p>
-      <p class="ea-subtitle">Available for review.</p>
-      <div class="hp-hero-actions" style="justify-content:center;margin-top:28px">
-        <a class="hp-btn-primary" href="/engine">Review the Engine</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Vision -->
-  <section class="hp-section soft" id="vision" aria-labelledby="vision-heading">
-    <div class="wrap-home">
-      <span class="kicker">VISION</span>
-      <h2 id="vision-heading">Less administration. More capacity for development and life.</h2>
-      <p class="ea-subtitle">A direction — not a present claim: people spend less time administering complexity; organizations create more value; governments become more transparent; and there is more time to create, learn, collaborate, and live. Trust is built through evidence.</p>
-      <p class="ea-subtitle">Whether this becomes a broadly adopted standard will be determined by evidence, adoption, and time — not by claims.</p>
-    </div>
-  </section>
-
-  <!-- Discipline bridge -->
-  <section class="hp-section" id="development" aria-labelledby="development-heading">
-    <div class="wrap-home">
-      <span class="kicker">DISCIPLINE</span>
-      <h2 id="development-heading">Claims wait for evidence.</h2>
-      <p class="ea-subtitle">What cannot yet be demonstrated remains in development or vision. What can be demonstrated is available for review. Development is continuous.</p>
-    </div>
-  </section>
-
-  <!-- Pilot — How can I validate it? Preserve pilot UI -->
-  <section class="hp-pilot-cta" id="pilot" aria-label="Pilot">
-    <div class="wrap-home">
-      <span class="kicker">VALIDATION</span>
-      <h2>Test it on a real decision.</h2>
-      <p class="ea-subtitle">Request a pilot under defined conditions. Or open the Engine first.</p>
-
-      <ol class="hp-pilot-path" aria-label="Pilot path">
-        <li><span class="sys-state">Understand</span></li>
-        <li aria-hidden="true"><span class="hp-pilot-path-sep"></span></li>
-        <li><span class="sys-state">Validate</span></li>
-        <li aria-hidden="true"><span class="hp-pilot-path-sep"></span></li>
-        <li><span class="sys-state">Review proof</span></li>
-        <li aria-hidden="true"><span class="hp-pilot-path-sep"></span></li>
-        <li><span class="sys-state">Request pilot</span></li>
-      </ol>
-
-      <div id="pilot-product">
-        <div class="pi-shell">
-          <div class="pi-journey-col">
-            <div class="pi-flow" id="pi-journey" aria-label="Pilot journey"></div>
+          <div id="ev-pilot-handoff" class="pi-handoff" hidden></div>
+          <div class="pi-actions">
+            <a class="pill-btn primary pi-cta-primary" href="/engine">Review the Engine</a>
+            <a class="pill-btn pi-cta-primary" id="ev-cta-pilot-request" href="/request" data-funnel-request>Request Pilot</a>
           </div>
-          <div class="pi-deliverables-col">
-            <ul class="pi-deliverable-list" id="pi-deliverable-list"></ul>
-          </div>
+          <p id="pi-cta-hint" class="pi-cta-hint" role="status"></p>
         </div>
-        <div id="ev-pilot-handoff" class="pi-handoff" hidden></div>
-        <div class="pi-actions">
-          <a class="pill-btn primary pi-cta-primary" href="/engine">Review the Engine</a>
-          <a class="pill-btn pi-cta-primary" id="ev-cta-pilot-request" href="/request" data-funnel-request>Request Pilot</a>
-        </div>
-        <p id="pi-cta-hint" class="pi-cta-hint" role="status"></p>
       </div>
     </div>
   </section>
@@ -242,8 +253,7 @@
 <div data-platform-footer></div>
 <script src="/assets/platform-brand.js"></script>
 <script src="/assets/platform-nav.js"></script>
-<script type="module" src="/assets/homepage-hero.js"></script>
-<script src="/assets/homepage-hero-film.js" defer></script>
+<script src="/assets/entry-v1.js" defer></script>
 <script src="/assets/homepage-story-film.js" defer></script>
 <script type="module" src="/assets/pilot-ui.js"></script>
 <script src="/assets/public-funnel-bootstrap.js"></script>
