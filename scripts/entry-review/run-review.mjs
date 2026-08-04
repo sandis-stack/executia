@@ -135,6 +135,10 @@ async function main() {
   steps.push({ step: 'report', code: report.code });
   if (report.code !== 0) process.exit(1);
 
+  const sync = await run('node', [path.join(here, 'verify-review-consistency.mjs')], env);
+  steps.push({ step: 'verify-consistency', code: sync.code });
+  if (sync.code !== 0) process.exit(1);
+
   await writeFile(path.join(latest, 'steps.json'), JSON.stringify({ url, galleryUrl, steps }, null, 2));
   console.log('\n[run-review] SUCCESS');
   console.log(`Public preview: ${url}`);

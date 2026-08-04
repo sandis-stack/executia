@@ -1,9 +1,6 @@
 /**
- * Hero — live journey panel (user-facing homepage story).
+ * Hero — logical path panel (Approach → Engine → Pilot).
  */
-
-import { loadPublicFunnelContext } from './public-funnel.js';
-import { formatCurrency } from './execution-value-engine.js';
 
 function el(tag, className, html) {
   const node = document.createElement(tag);
@@ -20,89 +17,44 @@ function escapeHtml(text) {
     .replace(/"/g, '&quot;');
 }
 
-/** User-facing steps aligned with homepage journey — no internal labels. */
-function buildHeroJourney(ctx = loadPublicFunnelContext()) {
-  const calc = ctx.calculator?.results;
-  const assessment = ctx.assessment?.results;
-
-  const steps = [
+function buildHeroPath() {
+  return [
     {
       id: 'platform',
       label: 'Approach',
       href: '#platform',
-      complete: false,
-      detail: 'One continuous path after a decision',
-      kind: 'Pending',
+      status: 'active',
     },
     {
       id: 'engine',
       label: 'Engine',
       href: '/engine',
-      complete: false,
-      detail: 'Review the first evidence',
-      kind: 'Pending',
+      status: 'next',
     },
     {
       id: 'pilot',
       label: 'Pilot',
       href: '#pilot',
-      complete: Boolean(assessment?.ok),
-      detail: assessment?.ok
-        ? assessment.pilotRecommendation?.readiness ?? 'Ready'
-        : 'Validate under defined conditions',
-      kind: assessment?.ok ? 'Calculated' : 'Pending',
+      status: 'next',
     },
   ];
-
-  const firstIncomplete = steps.findIndex((step) => !step.complete);
-  return steps.map((step, index) => ({
-    ...step,
-    status: step.complete
-      ? 'complete'
-      : index === firstIncomplete
-        ? 'active'
-        : 'pending',
-  }));
-}
-
-function currentStateText(steps) {
-  const active = steps.find((step) => step.status === 'active');
-  if (!active) {
-    if (steps.length && steps.every((step) => step.complete)) {
-      return 'Ready for Executive Assessment';
-    }
-    return 'Waiting for your first mission';
-  }
-  // Prefer step label in the header — detail lives once in the step row (no duplication).
-  return active.label;
-}
-
-function kindLabel(kind) {
-  const map = {
-    Estimated: 'VERIFIED',
-    Calculated: 'VERIFIED',
-    Demonstration: 'READY',
-    Pending: 'PENDING',
-  };
-  return map[kind] || String(kind || '').toUpperCase();
 }
 
 function renderJourney(root, steps) {
   root.innerHTML = '';
-  root.setAttribute('aria-label', 'Live execution journey');
+  root.setAttribute('aria-label', 'Path through EXECUTIA');
 
   const glow = el('div', 'hp-monitor-glow');
   const panel = el('div', 'hp-monitor-panel');
   root.appendChild(glow);
   root.appendChild(panel);
 
-  panel.appendChild(el('p', 'hp-monitor-label', 'Your journey'));
+  panel.appendChild(el('p', 'hp-monitor-label', 'Path'));
 
   const meta = el('div', 'hp-monitor-meta');
-  const stateText = currentStateText(steps);
   meta.innerHTML =
     '<div><p class="sub">Current step</p>' +
-    `<p class="hp-monitor-state">${escapeHtml(stateText)}</p></div>`;
+    '<p class="hp-monitor-state">Understand</p></div>';
   panel.appendChild(meta);
 
   const list = el('ul', 'hp-journey-list');
@@ -117,31 +69,14 @@ function renderJourney(root, steps) {
     item.innerHTML =
       '<div class="hp-journey-main">' +
       `<a class="hp-journey-label" href="${step.href}">${escapeHtml(step.label)}</a>` +
-      `<span class="sys-state">${escapeHtml(kindLabel(step.kind))}</span>` +
-      '</div>' +
-      `<p class="hp-journey-detail">${escapeHtml(step.detail)}</p>`;
+      '</div>';
     list.appendChild(item);
   });
   panel.appendChild(list);
-
-  if (steps.every((step) => step.complete) && steps.length > 0) {
-    const ready = el('div', 'hp-ready-banner');
-    ready.style.display = 'block';
-    ready.style.backgroundColor = 'var(--hp-on-track-bg)';
-    ready.innerHTML =
-      '<p style="color:var(--hp-on-track-text)"><span class="sys-state">APPROVED</span> Ready for Executive Assessment</p>';
-    panel.appendChild(ready);
-  }
 }
 
 function mount(root) {
-  function refresh() {
-    renderJourney(root, buildHeroJourney());
-  }
-
-  refresh();
-  document.addEventListener('executia:funnel-update', refresh);
-  return () => document.removeEventListener('executia:funnel-update', refresh);
+  renderJourney(root, buildHeroPath());
 }
 
 document.addEventListener('DOMContentLoaded', () => {

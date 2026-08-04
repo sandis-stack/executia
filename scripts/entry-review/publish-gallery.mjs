@@ -53,6 +53,16 @@ function gitShort() {
   }
 }
 
+function assertRequiredCommit(short) {
+  const required = (process.env.ENTRY_REQUIRE_COMMIT || '').trim();
+  if (!required) return;
+  const full = execSync('git rev-parse HEAD', { cwd: root }).toString().trim();
+  const ok = short === required || full.startsWith(required) || required.startsWith(short);
+  if (!ok) {
+    throw new Error(`ENTRY_REQUIRE_COMMIT=${required} but HEAD is ${short}`);
+  }
+}
+
 const CANONICAL = new Set([
   'full-desktop-1440x1000.png',
   'full-tablet-1024x900.png',
@@ -213,6 +223,7 @@ async function buildStaging(previewUrl) {
 
   const generatedAt = new Date().toISOString();
   const commit = gitShort();
+  assertRequiredCommit(commit);
   const html = galleryHtml({ previewUrl, commit, images, generatedAt });
   await writeFile(path.join(staging, 'index.html'), html);
   await writeFile(

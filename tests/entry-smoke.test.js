@@ -115,7 +115,10 @@ server.listen(port, '127.0.0.1', () => console.log('http://127.0.0.1:' + port));
     assert.ok(home.body.includes('id="platform"'));
     assert.ok(home.body.includes('id="engine"'));
     assert.ok(home.body.includes('id="pilot"'));
-    assert.ok(home.body.includes('One Execution Standard') || home.body.includes('better execution'));
+    assert.ok(
+      home.body.includes('Ideas create possibilities') ||
+        home.body.includes('better execution')
+    );
     assert.ok(home.body.includes('after a decision') || home.body.includes('Execution creates reality'));
     assert.ok(home.body.includes('skip-link'));
     assert.ok(home.body.includes('homepage-migrated.css'));

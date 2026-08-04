@@ -105,8 +105,14 @@ async function capture() {
     await context.close();
   }
 
+  let heroText = '';
+
   // Full pages
   await withPage(VIEWPORTS.desktop, false, async (page) => {
+    heroText = await page.evaluate(() => {
+      const h1 = document.querySelector('#hero h1, .hp-hero h1, h1');
+      return (h1?.innerText || '').replace(/\s+/g, ' ').trim();
+    });
     await page.screenshot({
       path: path.join(shotsDir, 'full-desktop-1440x1000.png'),
       fullPage: true,
@@ -199,6 +205,7 @@ async function capture() {
     capturedAt: new Date().toISOString(),
     baseUrl,
     commit: gitHash(),
+    heroText,
     screenshots: {
       full: [
         'screenshots/full-desktop-1440x1000.png',
