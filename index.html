@@ -12,31 +12,75 @@
   <meta property="og:url" content="https://executia.io/">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
   <link rel="stylesheet" href="/assets/entry-v1.css">
   <link rel="stylesheet" href="/assets/pilot.css">
 </head>
 <body data-page="entry">
 <a class="skip-link" href="#main">Skip to content</a>
-<div data-platform-header></div>
+
+<header class="ev-header" data-entry-header>
+  <div class="ev-header-inner">
+    <a class="ev-logo" href="/" aria-label="EXECUTIA home">EXECUTIA</a>
+    <button class="ev-menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-ev-menu>
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="ev-nav" aria-label="Primary" data-ev-nav>
+      <a href="#model">Standard</a>
+      <a href="#applications">Expressions</a>
+      <a href="/engine">Engine</a>
+      <a href="#development-cell">Development Cell</a>
+      <a href="#pilot">Institutional</a>
+    </nav>
+    <div class="ev-header-tools">
+      <div class="ev-status" role="status" aria-label="Entry availability">
+        <span class="ev-status-dot" aria-hidden="true"></span>
+        <span>[ ENTRY LIVE // AVAILABLE FOR REVIEW ]</span>
+      </div>
+      <a class="ev-cta-glass" href="/request" data-funnel-request>[ Request Pilot ]</a>
+    </div>
+  </div>
+</header>
 
 <main id="main" class="main">
 
-  <!-- 01 Reality -->
-  <section class="ev-reality" id="reality" aria-label="Reality">
+  <!-- 01 Reality — Laws of Reality -->
+  <section class="ev-reality" id="reality" aria-label="Laws of Reality">
     <div class="ev-reality-inner">
-      <span class="ev-chapter">Reality</span>
-      <h1>A decision alone changes nothing.</h1>
-      <p class="ev-reality-lead">What happens after a decision is where outcomes are decided — for people, organizations, and governments.</p>
-      <a class="ev-scroll" href="#problem">Continue</a>
+      <span class="ev-chapter">The Laws of Reality</span>
+      <h1 class="visually-hidden">Energy, information, and execution define reality</h1>
+      <ul class="ev-axioms" aria-label="Core axioms">
+        <li>Energy defines what is possible.</li>
+        <li>Information defines what is known.</li>
+        <li>Execution defines what becomes real.</li>
+      </ul>
+      <p class="ev-axiom-box">[ Without it — nothing happens. ]</p>
+      <a class="ev-scroll" href="#truth-statement">Continue</a>
     </div>
   </section>
 
-  <!-- 02 The problem -->
+  <!-- 02 Ultimate truth statement -->
+  <section class="ev-section ev-section--truth" id="truth-statement" aria-label="Ultimate truth statement">
+    <div class="ev-wrap">
+      <div class="ev-glass-panel-elevated ev-reveal">
+        <blockquote class="ev-quote-primary">
+          “If a system can still detect errors only after execution, it is not governance, it is not intelligence, and it is not truth — it is merely reporting failure.”
+        </blockquote>
+        <p class="ev-prose-highlight">
+          Execution-Time Truth Engine defines truth at the moment of execution and structurally prevents error; anything else operates either before reality or after failure.
+        </p>
+        <p class="ev-tagline-subtle">
+          This system doesn’t optimize finance. It replaces post-factum trust with execution-time truth.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 The problem -->
   <section class="ev-section" id="problem" aria-labelledby="problem-heading">
     <div class="ev-section-inner">
-      <span class="ev-section-num" aria-hidden="true">02</span>
+      <span class="ev-section-num" aria-hidden="true">03</span>
       <div class="ev-section-body ev-reveal">
         <span class="ev-chapter">The problem</span>
         <h2 id="problem-heading">After decisions, clarity disappears.</h2>
@@ -49,7 +93,7 @@
   <!-- 03 The cost of today's execution (+ one purposeful film) -->
   <section class="ev-section ev-section--soft" id="cost" aria-labelledby="cost-heading">
     <div class="ev-section-inner">
-      <span class="ev-section-num" aria-hidden="true">03</span>
+      <span class="ev-section-num" aria-hidden="true">04</span>
       <div class="ev-section-body ev-section-body--wide ev-reveal">
         <span class="ev-chapter">The cost</span>
         <h2 id="cost-heading">Good decisions still produce unreliable results.</h2>
@@ -81,7 +125,7 @@
   <!-- 04 A different way of thinking -->
   <section class="ev-section" id="thinking" aria-labelledby="thinking-heading">
     <div class="ev-section-inner">
-      <span class="ev-section-num" aria-hidden="true">04</span>
+      <span class="ev-section-num" aria-hidden="true">05</span>
       <div class="ev-section-body ev-reveal">
         <span class="ev-chapter">A different way of thinking</span>
         <h2 id="thinking-heading">Execution is not coordination after the fact.</h2>
@@ -98,7 +142,7 @@
   <!-- 05 EXECUTIA -->
   <section class="ev-section ev-section--ink" id="executia" aria-labelledby="executia-heading">
     <div class="ev-section-inner">
-      <span class="ev-section-num" aria-hidden="true">05</span>
+      <span class="ev-section-num" aria-hidden="true">06</span>
       <div class="ev-section-body ev-reveal">
         <span class="ev-chapter">EXECUTIA</span>
         <h2 id="executia-heading">EXECUTIA exists because execution was unfinished.</h2>
@@ -112,33 +156,48 @@
   <!-- 06 The model (Approach) -->
   <section class="ev-section" id="model" aria-labelledby="model-heading">
     <div class="ev-section-inner">
-      <span class="ev-section-num" aria-hidden="true">06</span>
+      <span class="ev-section-num" aria-hidden="true">07</span>
       <div class="ev-section-body ev-reveal">
         <span class="ev-chapter">The model</span>
-        <h2 id="model-heading">One continuous path after a decision.</h2>
-        <p class="ev-prose">EXECUTIA structures execution across existing systems — so work stays understandable, validated, and open to improvement.</p>
-        <ol class="ev-model" aria-label="Execution model">
+        <h2 id="model-heading">One continuous execution loop.</h2>
+        <p class="ev-prose">EXECUTIA structures execution across existing systems — so work stays understandable, validated, and open to improvement. The final node feeds continuously back into system evolution.</p>
+        <ol class="ev-model" aria-label="Continuous execution loop">
           <li>
             <span class="ev-model-i">01</span>
-            <div><strong>Decision</strong><p>Authorizes work before commitment.</p></div>
+            <div><strong>Decision</strong><p>Clear intent or institutional choice.</p></div>
           </li>
           <li>
             <span class="ev-model-i">02</span>
-            <div><strong>Execution</strong><p>Carries intent through existing systems.</p></div>
+            <div><strong>Execution</strong><p>Automated, deterministic routing.</p></div>
           </li>
           <li>
             <span class="ev-model-i">03</span>
-            <div><strong>Validation</strong><p>Checks conditions before irreversible action.</p></div>
+            <div><strong>Validation</strong><p>Compliance and authority verification.</p></div>
           </li>
           <li>
             <span class="ev-model-i">04</span>
-            <div><strong>Evidence</strong><p>Records what happened — not a reconstruction.</p></div>
+            <div><strong>Evidence</strong><p>Immutable proof of state change.</p></div>
           </li>
           <li>
             <span class="ev-model-i">05</span>
-            <div><strong>Learning</strong><p>Improves the next cycle of execution.</p></div>
+            <div><strong>Learning</strong><p>System-wide operational intelligence.</p></div>
+          </li>
+          <li class="ev-model-step--cell">
+            <span class="ev-model-i">06</span>
+            <div><strong>Development Cell</strong><p>Continuous refinement of execution rules and logic.</p></div>
           </li>
         </ol>
+        <p class="ev-model-loop-note" aria-hidden="true">↻ feeds back into Decision</p>
+        <aside class="ev-devcell-core" id="development-cell" aria-label="Development Cell core engine">
+          <p class="ev-devcell-core-kicker">Development Cell · Core Engine</p>
+          <h3 class="ev-devcell-core-title">DEVELOPMENT CELL [ CORE ENGINE ]</h3>
+          <ul class="ev-devcell-axioms">
+            <li><span>If this cell does not work</span><strong>→ EXECUTIA does not exist.</strong></li>
+            <li><span>If it works</span><strong>→ it cannot be stopped.</strong></li>
+          </ul>
+          <p class="ev-devcell-core-body">An autonomous system that generates processes, binds execution, and evolves without human intervention.</p>
+          <p class="ev-devcell-badge">[ DEVELOPMENT CELL ACTIVE // CONTINUOUS STANDARD EVOLUTION ]</p>
+        </aside>
       </div>
     </div>
   </section>
@@ -146,12 +205,34 @@
   <!-- 07 Engine — first proof -->
   <section class="ev-section ev-section--soft" id="engine" aria-labelledby="engine-heading">
     <div class="ev-section-inner">
-      <span class="ev-section-num" aria-hidden="true">07</span>
-      <div class="ev-section-body ev-reveal">
+      <span class="ev-section-num" aria-hidden="true">08</span>
+      <div class="ev-section-body ev-section-body--wide ev-reveal">
         <span class="ev-chapter">First proof</span>
         <h2 id="engine-heading">The Engine is where principles become visible.</h2>
         <p class="ev-prose">Principles are developed, tested, and validated there. It demonstrates execution. It does not ask for belief.</p>
         <p class="ev-prose">Available for review.</p>
+
+        <div class="ev-verify-log" role="region" aria-label="Engine verification protocol demonstration">
+          <p class="ev-verify-log-kicker">Engine protocol · demonstration</p>
+          <pre class="ev-verify-boot" aria-hidden="true">SYSTEM READY
+&gt; VALIDATION ONLINE
+&gt; EXECUTION ACTIVE
+&gt; CONTROL LOCKED
+&gt; STATE VERIFIED
+&gt; OUTPUT FINALIZED</pre>
+          <div class="ev-verify-panel">
+            <p class="ev-verify-title">STATE VERIFICATION LOG</p>
+            <dl class="ev-verify-rows">
+              <div><dt>INPUT</dt><dd>DECISION RECEIVED</dd></div>
+              <div><dt>VALIDATION</dt><dd>CHECK PASSED</dd></div>
+              <div><dt>STATUS</dt><dd class="ev-verify-ok">ALLOWED</dd></div>
+              <div><dt>EXECUTION</dt><dd class="ev-verify-ok">CONFIRMED</dd></div>
+              <div><dt>HASH</dt><dd class="ev-verify-hash">0xA7F3C91</dd></div>
+            </dl>
+            <p class="ev-verify-footer">STATUS: ACTIVE // EXECUTION PROTOCOL LOCKED</p>
+          </div>
+        </div>
+
         <div class="ev-cta-row">
           <a class="ev-btn ev-btn--ink" href="/engine">Review the Engine</a>
         </div>
@@ -162,36 +243,33 @@
   <!-- 08 Applications -->
   <section class="ev-section ev-section--ink" id="applications" aria-labelledby="applications-heading">
     <div class="ev-section-inner">
-      <span class="ev-section-num" aria-hidden="true">08</span>
+      <span class="ev-section-num" aria-hidden="true">09</span>
       <div class="ev-section-body ev-section-body--wide ev-reveal">
         <span class="ev-chapter">Applications</span>
-        <h2 id="applications-heading">One approach. Three applications.</h2>
-        <p class="ev-prose">LIFE, ONE, and GOV are applications of one common approach — not separate stories.</p>
-        <ul class="ev-apps">
-          <li id="life">
-            <span class="ev-apps-name">LIFE</span>
-            <div>
-              <p class="ev-apps-meta">Available for review</p>
-              <p>The approach applied to people — personal and financial execution.</p>
-              <a href="https://life.executia.io" target="_blank" rel="noopener noreferrer">Open LIFE</a>
-            </div>
-          </li>
-          <li id="one">
-            <span class="ev-apps-name">ONE</span>
-            <div>
-              <p class="ev-apps-meta">In development</p>
-              <p>The approach applied to organizations.</p>
-              <a href="/one">View ONE</a>
-            </div>
-          </li>
-          <li id="gov">
-            <span class="ev-apps-name">GOV</span>
-            <div>
-              <p class="ev-apps-meta">Long-term vision</p>
-              <p>The approach applied to governments. Not available today.</p>
-            </div>
-          </li>
-        </ul>
+        <h2 id="applications-heading">Specialized expressions of one Execution Standard.</h2>
+        <p class="ev-prose">LIFE, ONE, and GOV are not disconnected apps. They are specialized expressions of the unified Execution Standard — applied to people, organizations, and governments.</p>
+        <div class="ev-app-rows">
+          <div class="ev-app-row" id="life">
+            <p class="ev-apps-meta">Available for review</p>
+            <h3>EXECUTIA LIFE</h3>
+            <p class="ev-app-sub">Your Financial &amp; Life Operating System</p>
+            <p class="ev-prose">Personal execution layer. Eliminates financial uncertainty, automates routine administration, and brings absolute daily clarity. Powered by your personal Development Cell.</p>
+            <a class="ev-app-link" href="https://life.executia.io" target="_blank" rel="noopener noreferrer">Open LIFE</a>
+          </div>
+          <div class="ev-app-row" id="one">
+            <p class="ev-apps-meta">In development</p>
+            <h3>EXECUTIA ONE</h3>
+            <p class="ev-app-sub">Business Execution Infrastructure</p>
+            <p class="ev-prose">Organizational execution layer. Creates direct alignment between board decisions, automated financial ledgers, and verifiable team output.</p>
+            <a class="ev-app-link" href="/one">View ONE</a>
+          </div>
+          <div class="ev-app-row" id="gov">
+            <p class="ev-apps-meta">Long-term vision</p>
+            <h3>EXECUTIA GOV</h3>
+            <p class="ev-app-sub">National Execution Infrastructure</p>
+            <p class="ev-prose">Government execution layer. Institutional infrastructure for transparent public finance, automated compliance, and deterministic policy execution.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -199,13 +277,25 @@
   <!-- 09 Vision -->
   <section class="ev-section" id="vision" aria-labelledby="vision-heading">
     <div class="ev-section-inner">
-      <span class="ev-section-num" aria-hidden="true">09</span>
+      <span class="ev-section-num" aria-hidden="true">10</span>
       <div class="ev-section-body ev-reveal">
         <span class="ev-chapter">Vision</span>
-        <h2 id="vision-heading">Less administration. More capacity for development and life.</h2>
-        <p class="ev-prose">A direction — not a present claim: people spend less time administering complexity; organizations create more value; governments become more transparent; and there is more time to create, learn, collaborate, and live. Trust is built through evidence.</p>
-        <p class="ev-prose">Whether this becomes a broadly adopted standard will be determined by evidence, adoption, and time — not by claims.</p>
-        <p class="ev-prose">Claims wait for evidence. What cannot yet be demonstrated remains in development or vision. What can be demonstrated is available for review.</p>
+        <h2 id="vision-heading">Technology made information abundant. Execution remains fragmented.</h2>
+        <p class="ev-prose">
+          We believe humanity should evolve from consumers into creators. Technology should remove operational friction so people spend less time managing complexity and more time building, learning, and living.
+        </p>
+        <p class="ev-prose">
+          EXECUTIA exists to establish a universal execution standard — bringing total clarity and evidence-based execution to individuals, organizations, and national infrastructure.
+        </p>
+        <div class="ev-imagine-block">
+          <h3 class="ev-imagine-heading">Imagine a reality where:</h3>
+          <ul class="ev-imagine-list">
+            <li>Every payment is automatically accounted for with zero manual effort.</li>
+            <li>Every decision is linked to immutable evidence and real-time execution.</li>
+            <li>Every project synchronizes continuously without status meetings.</li>
+            <li>Every execution node generates continuous operational intelligence.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -213,7 +303,7 @@
   <!-- 10 Pilot -->
   <section class="ev-section ev-section--soft" id="pilot" aria-label="Pilot">
     <div class="ev-section-inner">
-      <span class="ev-section-num" aria-hidden="true">10</span>
+      <span class="ev-section-num" aria-hidden="true">11</span>
       <div class="ev-section-body ev-section-body--wide ev-reveal">
         <span class="ev-chapter">Pilot</span>
         <h2>Test it on a real decision.</h2>

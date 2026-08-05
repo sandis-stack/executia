@@ -78,7 +78,7 @@ async function main() {
 
   const previewRes = await fetch(previewUrl.replace(/\/?$/, '/') );
   const previewHtml = await previewRes.text();
-  if (!/data-page="entry"|Execution creates reality|Ideas create possibilities|A decision alone changes nothing/i.test(previewHtml)) {
+  if (!/data-page="entry"|Execution creates reality|Ideas create possibilities|Execution defines what becomes real/i.test(previewHtml)) {
     console.error('[verify-sync] preview does not look like expected ENTRY');
     process.exit(1);
   }
@@ -96,6 +96,8 @@ async function main() {
   });
   await page.waitForTimeout(800);
   const liveHero = await page.evaluate(() => {
+    const axioms = document.querySelector('.ev-axioms');
+    if (axioms) return (axioms.innerText || '').replace(/\s+/g, ' ').trim();
     const h1 = document.querySelector('#reality h1, h1');
     return (h1?.innerText || '').replace(/\s+/g, ' ').trim();
   });
@@ -112,7 +114,7 @@ async function main() {
     console.error('  live:    ', liveHero);
     process.exit(1);
   }
-  if (!/decision alone changes nothing|Ideas create possibilities/i.test(liveHero)) {
+  if (!/Execution defines what becomes real|decision alone changes nothing|Ideas create possibilities/i.test(liveHero)) {
     console.error('[verify-sync] live opening text unexpected:', liveHero);
     process.exit(1);
   }

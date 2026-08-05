@@ -1,5 +1,5 @@
 /**
- * ENTRY v1 — quiet reveal motion (reduced-motion safe).
+ * ENTRY v1 — header menu, footer mount, quiet reveal (reduced-motion safe).
  */
 (function () {
   'use strict';
@@ -14,7 +14,7 @@
     });
   }
 
-  function mount() {
+  function mountReveals() {
     var nodes = Array.prototype.slice.call(
       document.querySelectorAll('.ev-reveal, .ev-model li')
     );
@@ -43,9 +43,32 @@
     });
   }
 
+  function mountMenu() {
+    var toggle = document.querySelector('[data-ev-menu]');
+    var nav = document.querySelector('[data-ev-nav]');
+    if (!toggle || !nav) return;
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    });
+  }
+
+  function mountFooter() {
+    if (window.EXECUTIA_BRAND && typeof window.EXECUTIA_BRAND.mountFooter === 'function') {
+      window.EXECUTIA_BRAND.mountFooter();
+    }
+  }
+
+  function boot() {
+    mountMenu();
+    mountFooter();
+    mountReveals();
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', mount);
+    document.addEventListener('DOMContentLoaded', boot);
   } else {
-    mount();
+    boot();
   }
 })();

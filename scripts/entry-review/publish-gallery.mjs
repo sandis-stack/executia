@@ -69,6 +69,7 @@ const CANONICAL = new Set([
   'full-mobile-390x844.png',
   'mobile-nav-open.png',
   'sections/reality.png',
+  'sections/truth-statement.png',
   'sections/problem.png',
   'sections/cost.png',
   'sections/thinking.png',

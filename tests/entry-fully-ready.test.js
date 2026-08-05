@@ -30,6 +30,7 @@ test('ENTRY v1 uses new vertical thesis section order', async () => {
 
   const order = [
     'reality',
+    'truth-statement',
     'problem',
     'cost',
     'thinking',
@@ -90,23 +91,23 @@ test('ENTRY v1 declares approved thesis and Engine path', async () => {
   assert.equal(/\.(mp4|webm)(["'\s>])/i.test(html), false, 'do not invent final video assets in markup');
 });
 
-test('ENTRY navigation has Request Pilot and Approach links', async () => {
+test('ENTRY navigation has Request Pilot and institutional links', async () => {
+  const html = await load('index.html');
+  assert.ok(html.includes('Request Pilot') || html.includes('[ Request Pilot ]'), 'Request Pilot CTA required');
+  assert.ok(html.includes('/request'), 'Request Pilot must target /request');
+  assert.ok(html.includes('Standard'), 'Standard nav required');
+  assert.ok(html.includes('Expressions'), 'Expressions nav required');
+  assert.ok(html.includes('Development Cell'), 'Development Cell nav required');
+  assert.ok(html.includes('Institutional'), 'Institutional nav required');
+  assert.ok(html.includes('href="/engine"'), 'Engine route required');
+  assert.ok(html.includes('id="development-cell"'), 'Development Cell anchor required');
+  assert.equal(html.includes('/sign-in'), false, 'broken /sign-in must not ship');
+
   const nav = await load('assets/platform-nav.js');
-  assert.ok(nav.includes('Request Pilot'), 'Request Pilot CTA required');
-  assert.ok(nav.includes('/request'), 'Request Pilot must target /request');
+  assert.ok(nav.includes('Request Pilot'), 'shared shell Request Pilot required');
+  assert.ok(nav.includes('/request'), 'shared shell /request required');
   assert.equal(nav.includes('/sign-in'), false, 'broken /sign-in must not ship');
   assert.equal(nav.includes('Sign in'), false, 'Sign in link 404s on production');
-  assert.ok(nav.includes('site-header--entry') || nav.includes('site-header'), 'Entry header shell required');
-  assert.ok(nav.includes('aria-label="Primary"'));
-  assert.ok(nav.includes('aria-label="EXECUTIA home"') || nav.includes('EXECUTIA'));
-  assert.ok(nav.includes('Approach'), 'Approach nav label required');
-  assert.ok(nav.includes('/#model'), 'Approach anchor required');
-  assert.ok(nav.includes('/#gov'), 'GOV anchor required');
-  assert.ok(nav.includes('/#vision'), 'Vision anchor required');
-  assert.ok(nav.includes('/engine'), 'Engine route required');
-  assert.ok(nav.includes('/one'), 'ONE route required');
-  assert.ok(nav.includes('/pilot'), 'Pilot route required');
-  assert.ok(nav.includes('life.executia.io'), 'LIFE route required');
 });
 
 test('ENTRY accessibility: skip-link, main landmark, reduced motion', async () => {
