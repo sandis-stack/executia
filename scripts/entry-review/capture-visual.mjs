@@ -188,7 +188,7 @@ async function capture() {
     if (ov.overflow) overflow.push({ viewport: 'mobile', ...ov });
 
     // Open mobile nav
-    const toggle = page.locator('.menu-toggle');
+    const toggle = page.locator('.ev-menu-toggle, .menu-toggle, [data-ev-menu]');
     if ((await toggle.count()) > 0) {
       await toggle.first().click();
       await page.waitForTimeout(300);
