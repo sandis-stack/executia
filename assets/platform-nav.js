@@ -7,14 +7,19 @@
     { id: 'entry', label: 'ENTRY', href: '/' },
     { id: 'engine', label: 'ENGINE', href: '/engine' },
     { id: 'pilot', label: 'PILOT', href: '/pilot' },
+    { id: 'life', label: 'LIFE', href: 'https://life.executia.io' },
     { id: 'one', label: 'ONE', href: '/one' },
+    { id: 'gov', label: 'GOV', href: '/standard' },
   ];
 
   const PAGE_ACTIVE = {
     entry: 'entry',
     engine: 'engine',
     pilot: 'pilot',
+    life: 'life',
     one: 'one',
+    gov: 'gov',
+    standard: 'gov',
     proof: 'entry',
   };
 
