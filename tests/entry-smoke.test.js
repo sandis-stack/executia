@@ -111,19 +111,27 @@ server.listen(port, '127.0.0.1', () => console.log('http://127.0.0.1:' + port));
     const home = await get(`http://127.0.0.1:${port}/`);
     const entry = await get(`http://127.0.0.1:${port}/entry`);
     assert.ok(home.body.includes('data-page="entry"'));
-    assert.ok(home.body.includes('id="reality"'));
-    assert.ok(home.body.includes('id="model"'));
-    assert.ok(home.body.includes('id="engine"'));
+    assert.ok(home.body.includes('id="architecture"'));
+    assert.ok(home.body.includes('id="problem"'));
+    assert.ok(home.body.includes('id="trust"'));
+    assert.ok(home.body.includes('id="execution-value"'));
     assert.ok(home.body.includes('id="pilot"'));
+    assert.ok(home.body.includes('data-protocol-video'));
     assert.ok(
-      home.body.includes('Ideas create possibilities') ||
-        home.body.includes('better execution')
+      home.body.includes('How much is invisible execution costing your organization?')
     );
-    assert.ok(home.body.includes('after a decision') || home.body.includes('Execution creates reality'));
+    assert.ok(
+      home.body.includes('INSTITUTIONAL GOVERNANCE &amp; STANDARDS') ||
+        home.body.includes('INSTITUTIONAL GOVERNANCE & STANDARDS')
+    );
     assert.ok(home.body.includes('skip-link'));
     assert.ok(home.body.includes('entry-v1.css'));
-    assert.ok(home.body.includes('story-film-player'));
-    assert.equal(home.body.includes('hp-hero'), false, 'old Hero must not ship');
+    assert.equal(home.body.includes('story-film-player'), false);
+    assert.equal(home.body.includes('hp-hero'), false, 'old film Hero must not ship');
+    assert.equal(home.body.includes('Development Cell'), false, 'Development Cell must not surface');
+    assert.ok(home.body.includes('EXECUTIA™'));
+    assert.ok(home.body.includes('ENTRY') && home.body.includes('ENGINE') && home.body.includes('PILOT'));
+    assert.ok(home.body.includes('LIFE') && home.body.includes('ONE') && home.body.includes('GOV'));
     assert.equal(home.body, entry.body, '/ and /entry must serve the same Entry document');
     assert.equal(home.body.includes('/sign-in'), false);
   } finally {

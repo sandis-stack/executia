@@ -1,5 +1,5 @@
 /**
- * ENTRY fully-ready acceptance — blank-page ENTRY v1.0 (vertical thesis).
+ * ENTRY fully-ready acceptance — ideal institutional ENTRY merge.
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -16,29 +16,25 @@ async function load(rel) {
   return readFile(p, 'utf8');
 }
 
-test('ENTRY v1 uses new vertical thesis section order', async () => {
+test('ENTRY uses institutional architecture section order', async () => {
   const html = await load('index.html');
   assert.equal(html.includes('executia-website.css'), false, 'must not load WEB-001 parallel stylesheet');
   assert.equal(html.includes('id="demo"'), false, 'must not ship WEB-001 live-demo section as Entry');
-  assert.ok(html.includes('entry-v1.css'), 'new ENTRY visual language required');
+  assert.ok(html.includes('entry-v1.css'), 'ENTRY visual language required');
   assert.equal(html.includes('homepage-migrated.css'), false, 'old homepage composition CSS must not load');
   assert.ok(html.includes('data-page="entry"'));
-  assert.equal(html.includes('hp-hero'), false, 'old Hero composition must not ship');
-  assert.equal(html.includes('hp-funnel-journey'), false, 'old journey card must not ship');
+  assert.equal(html.includes('hp-hero'), false, 'old film hero composition must not ship');
   assert.equal(html.includes('hero-story-film'), false, 'hero film backdrop must not ship');
-  assert.ok(html.includes('story-film-player'), 'one purposeful mid-page film required');
+  assert.equal(html.includes('story-film-player'), false, 'unfinished film placeholders must not ship');
 
   const order = [
-    'reality',
-    'truth-statement',
+    'hero',
+    'architecture',
     'problem',
-    'cost',
-    'thinking',
-    'executia',
-    'model',
-    'engine',
-    'applications',
-    'vision',
+    'trust',
+    'use-cases',
+    'comparison',
+    'execution-value',
     'pilot',
   ];
   let last = -1;
@@ -49,65 +45,67 @@ test('ENTRY v1 uses new vertical thesis section order', async () => {
     last = i;
   }
 
-  assert.ok(html.includes('id="life"'), 'LIFE domain anchor missing');
-  assert.ok(html.includes('id="one"'), 'ONE domain anchor missing');
-  assert.ok(html.includes('id="gov"'), 'GOV domain anchor missing');
+  assert.ok(html.includes('How EXECUTIA works'), 'architecture heading missing');
+  assert.ok(html.includes('Every organization loses value through poor execution'), 'problem heading missing');
+  assert.ok(
+    html.includes('How much is invisible execution costing your organization?'),
+    'problem hook missing'
+  );
+  assert.ok(html.includes('data-protocol-video'), 'protocol engine shell missing');
+  assert.ok(
+    html.includes('INSTITUTIONAL GOVERNANCE &amp; STANDARDS') ||
+      html.includes('INSTITUTIONAL GOVERNANCE & STANDARDS'),
+    'governance section title missing'
+  );
+  assert.ok(/Government/i.test(html), 'Government sector missing');
+  assert.ok(/Infrastructure/i.test(html), 'Infrastructure sector missing');
+  assert.ok(/Energy/i.test(html), 'Energy sector missing');
+  assert.ok(/Finance/i.test(html), 'Finance sector missing');
+  assert.ok(/Enterprise/i.test(html), 'Enterprise sector missing');
+  assert.ok(html.includes('execution-value-calculator'), 'calculator missing');
+  assert.ok(html.includes('hp-compare-table'), 'comparison table missing');
+  assert.ok(html.includes('hp-pilot-path'), 'pilot path missing');
 });
 
-test('ENTRY v1 declares approved thesis and Engine path', async () => {
+test('ENTRY declares Engine path and avoids overclaim language', async () => {
   const html = await load('index.html');
+  assert.ok(html.includes('href="/engine"'), 'Engine proof path missing');
   assert.ok(
-    html.includes('Ideas Create Possibilities. Execution Creates Reality.') ||
-      html.includes('Ideas create possibilities'),
-    'approved thesis missing'
-  );
-  assert.ok(/people, organizations/i.test(html), 'people audience missing');
-  assert.ok(/Organizations/i.test(html), 'organizations audience missing');
-  assert.ok(/Governments/i.test(html), 'governments audience missing');
-  assert.ok(
-    html.includes('Review the EXECUTIA Engine') || html.includes('Review the Engine'),
+    html.includes('Review the Engine') || html.includes('Review the EXECUTIA Engine'),
     'Engine review path missing'
   );
-  assert.ok(html.includes('href="/engine"'), 'Engine proof path missing');
-  assert.ok(html.includes('LIFE'), 'LIFE product missing');
-  assert.ok(html.includes('ONE'), 'ONE product missing');
-  assert.ok(html.includes('GOV'), 'GOV product missing');
-  assert.ok(html.includes('Available for review'), 'LIFE maturity signal missing');
-  assert.ok(html.includes('In development'), 'ONE maturity signal missing');
-  assert.ok(html.includes('Long-term vision'), 'GOV maturity signal missing');
-  assert.ok(html.includes('id="engine"'), 'Engine section missing');
-  assert.ok(/better execution|after a decision|Execution creates reality/i.test(html), 'central execution idea missing');
-  assert.ok(/creat|learn|collaborat|liv/i.test(html), 'Vision human frame missing');
-  assert.ok(
-    /under development|in development|being built|working toward|validat|Available for review/i.test(html),
-    'building language missing'
-  );
+  assert.ok(html.includes('Request Pilot'), 'Request Pilot CTA required');
+  assert.ok(html.includes('/request'), 'Request Pilot must target /request');
   assert.equal(html.includes('Sign up'), false, 'SaaS signup language must not ship');
   assert.equal(/let'?s test/i.test(html), false, 'casual startup pilot language must not ship');
-  assert.equal(html.includes('world’s first') || html.includes("world's first"), false);
+  assert.equal(html.includes("world's first") || html.includes('world’s first'), false);
   assert.equal(html.includes('industry-leading'), false);
   assert.equal(html.includes('revolutionary'), false);
   assert.equal(html.includes('/sign-in'), false);
   assert.equal(/\.(mp4|webm)(["'\s>])/i.test(html), false, 'do not invent final video assets in markup');
+  assert.equal(html.includes('Development Cell'), false, 'Development Cell must not surface on ENTRY');
 });
 
-test('ENTRY navigation has Request Pilot and institutional links', async () => {
+test('ENTRY navigation is ENTRY ENGINE PILOT LIFE ONE GOV with Request Pilot', async () => {
   const html = await load('index.html');
-  assert.ok(html.includes('Request Pilot') || html.includes('[ Request Pilot ]'), 'Request Pilot CTA required');
-  assert.ok(html.includes('/request'), 'Request Pilot must target /request');
-  assert.ok(html.includes('Standard'), 'Standard nav required');
-  assert.ok(html.includes('Expressions'), 'Expressions nav required');
-  assert.ok(html.includes('Development Cell'), 'Development Cell nav required');
-  assert.ok(html.includes('Institutional'), 'Institutional nav required');
-  assert.ok(html.includes('href="/engine"'), 'Engine route required');
-  assert.ok(html.includes('id="development-cell"'), 'Development Cell anchor required');
-  assert.equal(html.includes('/sign-in'), false, 'broken /sign-in must not ship');
-
-  const nav = await load('assets/platform-nav.js');
-  assert.ok(nav.includes('Request Pilot'), 'shared shell Request Pilot required');
-  assert.ok(nav.includes('/request'), 'shared shell /request required');
-  assert.equal(nav.includes('/sign-in'), false, 'broken /sign-in must not ship');
-  assert.equal(nav.includes('Sign in'), false, 'Sign in link 404s on production');
+  assert.ok(html.includes('EXECUTIA™'), 'trademark branding required');
+  const navMatch = html.match(/<nav class="ev-nav"[\s\S]*?<\/nav>/);
+  assert.ok(navMatch, 'primary nav missing');
+  const nav = navMatch[0];
+  const labels = [...nav.matchAll(/>(ENTRY|ENGINE|PILOT|LIFE|ONE|GOV)</g)].map((m) => m[1]);
+  assert.deepEqual(
+    labels,
+    ['ENTRY', 'ENGINE', 'PILOT', 'LIFE', 'ONE', 'GOV'],
+    'nav order must be ENTRY ENGINE PILOT LIFE ONE GOV'
+  );
+  assert.ok(nav.includes('aria-current="page"'), 'ENTRY active state required');
+  assert.ok(html.includes('href="/engine"'), 'ENGINE nav required');
+  assert.ok(html.includes('href="/pilot"'), 'PILOT nav required');
+  assert.ok(html.includes('life.executia.io') || html.includes('href="#life"'), 'LIFE nav required');
+  assert.ok(html.includes('href="/one"'), 'ONE nav required');
+  assert.ok(html.includes('GOV'), 'GOV nav required');
+  assert.ok(html.includes('Request Pilot'), 'Request Pilot CTA required');
+  assert.ok(html.includes('class="ev-cta-pilot"'), 'light Request Pilot pill required');
 });
 
 test('ENTRY accessibility: skip-link, main landmark, reduced motion', async () => {
@@ -121,9 +119,7 @@ test('ENTRY accessibility: skip-link, main landmark, reduced motion', async () =
   const appCss = await load('assets/app.css');
   const entryCss = await load('assets/entry-v1.css');
   assert.ok(
-    appCss.includes('.skip-link') ||
-      entryCss.includes('.skip-link') ||
-      html.includes('class="skip-link"'),
+    appCss.includes('.skip-link') || entryCss.includes('.skip-link') || html.includes('class="skip-link"'),
     'skip-link missing'
   );
   assert.ok(
@@ -131,6 +127,14 @@ test('ENTRY accessibility: skip-link, main landmark, reduced motion', async () =
     'mobile breakpoint missing'
   );
   assert.ok(entryCss.includes('prefers-reduced-motion'), 'reduced-motion support missing');
+  assert.ok(
+    entryCss.includes('#0F1E2B') || entryCss.includes('#0A131C'),
+    'institutional slate palette missing'
+  );
+  assert.ok(
+    entryCss.includes('min-height: 420px') || entryCss.includes('height: 420px'),
+    'protocol shell fixed height missing'
+  );
 });
 
 test('ENTRY routes / and /entry map to index.html', async () => {
@@ -147,4 +151,15 @@ test('WEB-001 build must not overwrite production ENTRY index.html', async () =>
     false,
     'build.mjs must not publish WEB-001 over production root index.html'
   );
+});
+
+test('Protocol shell JS forces SVG when branded MP4 is absent', async () => {
+  const js = await load('assets/entry-v1.js');
+  assert.ok(js.includes("/videos/executia-briefing.mp4"), 'branded VIDEO_SRC path missing');
+  assert.ok(js.includes('buildProtocolVisual'), 'SVG protocol visual builder missing');
+  assert.ok(
+    js.includes('EXECUTION ENGINE INITIALIZED') || js.includes('AWAITING ASSET OVERLAY'),
+    'SVG status overlay missing'
+  );
+  assert.ok(js.includes('showEngineVisual'), 'engine visual mount missing');
 });
