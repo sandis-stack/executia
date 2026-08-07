@@ -50,7 +50,7 @@
   top: 1.85rem;
   bottom: 0.35rem;
   width: 0;
-  border-left: 1px solid rgba(148, 163, 184, 0.4);
+  border-left: 1px solid rgba(148, 163, 184, 0.25);
   transform: translateX(-50%);
 }
 
@@ -258,25 +258,23 @@
 .ea-slab {
   position: relative;
   z-index: 1;
-  padding: 1.1rem 0.5rem 1.15rem;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
+  padding: 1.2rem 1rem 1.25rem;
+  border-radius: 10px;
 }
 
 .ea-slab--business {
-  background: transparent;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
 }
 
 .ea-slab--integrity {
-  background: linear-gradient(180deg, rgba(249, 252, 255, 0.55) 0%, rgba(242, 248, 253, 0.4) 100%);
-  border-radius: 12px;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
+  background: linear-gradient(180deg, #f9fcff 0%, #f2f8fd 100%);
+  border: 1px solid #bae6fd;
 }
 
 .ea-slab--execution {
-  background: transparent;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
 }
 
 .ea-slab-head {
@@ -364,8 +362,8 @@
 }
 
 .ea-chip--approved {
-  border: 1.5px solid #0f172a;
-  background: #ffffff;
+  border: 2px solid #0f172a;
+  background: #f1f5f9;
 }
 
 .ea-chip--approved span {
@@ -386,14 +384,14 @@
 }
 
 .ea-chip--destination {
-  border: 2px solid #0d9488;
-  background: #f0fdfa;
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.12);
+  border: 2px solid #0f766e;
+  background: #ecfdf5;
+  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.15);
 }
 
 .ea-chip--destination span {
-  font-weight: 600;
-  color: #0f766e;
+  font-weight: 700;
+  color: #047857;
 }
 
 .ea-chip--muted {
@@ -419,18 +417,18 @@
 
 .ea-boundary-line {
   height: 0;
-  border-top: 1px dashed rgba(148, 163, 184, 0.55);
+  border-top: 1px dashed #94a3b8;
 }
 
 .ea-boundary-text {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.56rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: #475569;
   white-space: nowrap;
-  background: rgba(251, 252, 254, 0.88);
+  background: rgba(251, 252, 254, 0.92);
   padding: 0 0.35rem;
 }
 
