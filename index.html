@@ -141,42 +141,39 @@
               <span class="layer-purpose">Determines whether it may happen.</span>
             </div>
 
-            <div class="ea-integrity-body">
-              <div class="ea-integrity-spacer" aria-hidden="true"></div>
+            <div class="ea-integrity-main">
+              <div class="ea-eval-row" aria-label="Evaluation sequence" data-spec-node="evaluation">
+                <span class="ea-eval-kicker">Evaluation</span>
+                <div class="ea-axis-stack" role="list">
+                  <div class="ea-chip ea-chip--core ea-chip--axis" role="listitem" data-spec-node="validate"><span>Validate</span></div>
+                  <span class="ea-axis-arrow" aria-hidden="true">↓</span>
 
-              <div class="ea-integrity-main">
-                <div class="ea-eval-row" aria-label="Evaluation sequence" data-spec-node="evaluation">
-                  <span class="ea-eval-kicker">Evaluation</span>
-                  <div class="ea-axis-stack" role="list">
-                    <div class="ea-chip ea-chip--core ea-chip--axis" role="listitem" data-spec-node="validate"><span>Validate</span></div>
-                    <span class="ea-axis-arrow" aria-hidden="true">↓</span>
-                    <div class="ea-chip ea-chip--core ea-chip--axis" role="listitem" data-spec-node="authorize"><span>Authorize</span></div>
-                  </div>
-                </div>
-
-                <div class="ea-gate" aria-label="Binary decision gate" data-spec-node="authorization-gate">
-                  <p class="ea-gate-label">Binary Decision Gate</p>
-                  <div class="ea-gate-split">
-                    <div class="ea-gate-path ea-gate-path--yes" data-spec-node="authorized">
-                      <span class="ea-gate-badge">Authorized</span>
-                      <span class="ea-gate-desc">Proceeds down the execution axis</span>
-                    </div>
-                    <div class="ea-gate-path ea-gate-path--no" data-spec-node="blocked">
-                      <span class="ea-gate-badge">Blocked</span>
-                      <span class="ea-gate-desc">Action contained • Risk prevented</span>
+                  <div class="ea-authorize-junction" data-spec-node="authorize">
+                    <div class="ea-chip ea-chip--core ea-chip--axis" role="listitem"><span>Authorize</span></div>
+                    <div class="ea-schematic-branch" data-spec-node="execution-evidence">
+                      <span class="ea-branch-rail" aria-hidden="true"></span>
+                      <span class="ea-branch-arrow" aria-hidden="true">►</span>
+                      <aside class="ea-evidence-byproduct" aria-label="Automatically generated evidence">
+                        <p class="ea-evidence-title">Automatically Generated Evidence</p>
+                        <p class="ea-evidence-note">Immutable Audit Log</p>
+                      </aside>
                     </div>
                   </div>
-                </div>
-              </div>
 
-              <div class="ea-integrity-side">
-                <div class="ea-evidence-branch" aria-hidden="true">
-                  <span class="ea-evidence-connector"></span>
+                  <span class="ea-axis-arrow" aria-hidden="true">↓</span>
+
+                  <div class="ea-gate-axis" aria-label="Binary decision gate" data-spec-node="authorization-gate">
+                    <div class="ea-chip ea-chip--authorized ea-chip--axis" role="listitem" data-spec-node="authorized">
+                      <span>Authorized</span>
+                    </div>
+                    <div class="ea-blocked-off" data-spec-node="blocked">
+                      <div class="ea-chip ea-chip--blocked">
+                        <span>Blocked</span>
+                      </div>
+                      <span class="ea-blocked-desc">Action contained • Risk prevented</span>
+                    </div>
+                  </div>
                 </div>
-                <aside class="ea-evidence-byproduct" aria-label="Side byproduct of authorization" data-spec-node="execution-evidence">
-                  <span class="ea-evidence-kicker">Byproduct</span>
-                  <p class="ea-evidence-title">Execution Evidence <span class="mono-sub">(AUTO GENERATED)</span></p>
-                </aside>
               </div>
             </div>
           </div>
@@ -196,7 +193,7 @@
               <div class="ea-chip ea-chip--core ea-chip--axis" role="listitem" data-spec-node="verified-execution"><span>Verified Execution</span></div>
               <span class="ea-axis-arrow" aria-hidden="true">↓</span>
               <div class="ea-outcome-outside" data-spec-node="business-outcome">
-                <div class="ea-chip ea-chip--muted" role="listitem"><span>Business Outcome</span></div>
+                <div class="ea-chip ea-chip--destination ea-chip--axis" role="listitem"><span>Business Outcome</span></div>
                 <span class="ea-outcome-kicker">Bounded by EXECUTIA Governance Boundary</span>
               </div>
             </div>
