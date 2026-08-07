@@ -27,12 +27,12 @@
   overflow: hidden;
 }
 
-.ea-architecture-plate > *:not(.ea-execution-axis) {
+.ea-architecture-plate > * {
   position: relative;
   z-index: 1;
 }
 
-/* —— Continuous vertical execution flow axis (plate-wide) —— */
+/* —— Execution axis: confined to model (below header/title) —— */
 .ea-execution-axis {
   position: absolute;
   left: 50%;
@@ -47,20 +47,20 @@
 .ea-plate-spine {
   position: absolute;
   left: 50%;
-  top: 1.25rem;
-  bottom: 1.25rem;
+  top: 2.85rem;
+  bottom: 0.75rem;
   width: 0;
-  border-left: 1.5px solid #94a3b8;
+  border-left: 1px solid rgba(148, 163, 184, 0.4);
   transform: translateX(-50%);
 }
 
 .ea-flow-label {
   position: absolute;
   left: 50%;
-  top: 15.25rem;
+  top: 0.35rem;
   z-index: 1;
   transform: translateX(-50%);
-  padding: 0.12rem 0.4rem;
+  padding: 0.1rem 0.35rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.56rem;
   font-weight: 700;
@@ -124,12 +124,29 @@
   display: grid;
   gap: 0.28rem;
   justify-items: end;
-  min-width: 7.5rem;
+  min-width: 9.5rem;
   padding: 0.55rem 0.7rem;
   border: 1px solid #e3e9f2;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.82);
   text-align: right;
+}
+
+.doc-meta-strip {
+  display: grid;
+  gap: 0.12rem;
+  margin-top: 0.2rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid #e3e9f2;
+}
+
+.doc-meta-strip span {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.52rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
 }
 
 .id-label {
@@ -208,6 +225,11 @@
   width: 100%;
 }
 
+.ea-ref-model > *:not(.ea-execution-axis) {
+  position: relative;
+  z-index: 1;
+}
+
 .plate-iso-footer {
   display: flex;
   flex-wrap: wrap;
@@ -246,7 +268,7 @@
 }
 
 .ea-slab--integrity {
-  background: rgba(240, 249, 255, 0.65);
+  background: linear-gradient(180deg, #f9fcff 0%, #f2f8fd 100%);
   border: 1px solid rgba(186, 230, 253, 0.8);
 }
 
@@ -358,8 +380,8 @@
 }
 
 .ea-chip--destination {
-  border: 1.5px solid #0d9488;
-  background: rgba(204, 251, 241, 0.3);
+  border: 2px solid #0d9488;
+  background: #f0fdfa;
   box-shadow: 0 2px 8px rgba(13, 148, 136, 0.08);
 }
 
@@ -504,6 +526,11 @@
   color: #334155;
 }
 
+.ea-evidence-mark {
+  margin-right: 0.25rem;
+  color: #64748b;
+}
+
 .ea-evidence-note {
   margin: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -584,9 +611,5 @@
 
   .ea-ref-model {
     margin-top: 2.25rem;
-  }
-
-  .ea-flow-label {
-    top: 18rem;
   }
 }
