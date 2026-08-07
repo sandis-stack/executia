@@ -78,31 +78,53 @@
     <div class="wrap-home">
       <h2 id="ea-heading">How EXECUTIA works.</h2>
       <p class="ea-subtitle">EXECUTIA governs execution before actions become irreversible.</p>
-      <div class="ea-diagram" role="list" aria-label="Executive execution architecture">
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">Mission</span>
-          <p class="ea-node-detail">Defines the intended outcome.</p>
+
+      <div class="ea-layer-model" role="list" aria-label="EXECUTIA Execution Layer Architecture Model">
+        <div class="ea-layer-node ea-layer-node--decision" role="listitem">
+          <span class="ea-layer-label">Decision</span>
         </div>
-        <div class="ea-connector" aria-hidden="true"><span class="ea-connector-line"></span></div>
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">EXECUTIA</span>
-          <span class="ea-node-sub">Validates Execution</span>
-          <p class="ea-node-detail">Validates execution before commitment.</p>
+
+        <div class="ea-layer-connector" aria-hidden="true">
+          <span class="ea-layer-line"></span>
+          <span class="ea-layer-arrow">▼</span>
         </div>
-        <div class="ea-connector" aria-hidden="true"><span class="ea-connector-line"></span></div>
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">Governed Execution</span>
-          <p class="ea-node-detail">Executes only validated actions.</p>
+
+        <div class="ea-integrity-engine" role="listitem" aria-label="EXECUTIA Integrity Engine">
+          <div class="ea-integrity-bar" aria-hidden="true"></div>
+          <p class="ea-integrity-title">EXECUTIA Integrity Engine</p>
+          <ul class="ea-integrity-capabilities">
+            <li>Verifies</li>
+            <li>Authorizes</li>
+            <li>Records</li>
+          </ul>
+          <div class="ea-integrity-bar" aria-hidden="true"></div>
         </div>
-        <div class="ea-connector" aria-hidden="true"><span class="ea-connector-line"></span></div>
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">Evidence</span>
-          <p class="ea-node-detail">Produces verifiable execution evidence.</p>
+
+        <div class="ea-layer-connector" aria-hidden="true">
+          <span class="ea-layer-line"></span>
+          <span class="ea-layer-arrow">▼</span>
         </div>
-        <div class="ea-connector" aria-hidden="true"><span class="ea-connector-line"></span></div>
-        <div class="ea-node" role="listitem" tabindex="0">
-          <span class="ea-node-title">Outcome</span>
-          <p class="ea-node-detail">Delivers measurable organizational value.</p>
+
+        <div class="ea-layer-node ea-layer-node--execution" role="listitem">
+          <span class="ea-layer-label">Authorized Execution</span>
+        </div>
+
+        <div class="ea-layer-connector" aria-hidden="true">
+          <span class="ea-layer-line"></span>
+          <span class="ea-layer-arrow">▼</span>
+        </div>
+
+        <div class="ea-layer-node ea-layer-node--evidence" role="listitem">
+          <span class="ea-layer-label">Execution Evidence</span>
+        </div>
+
+        <div class="ea-layer-connector" aria-hidden="true">
+          <span class="ea-layer-line"></span>
+          <span class="ea-layer-arrow">▼</span>
+        </div>
+
+        <div class="ea-layer-node ea-layer-node--outcome" role="listitem">
+          <span class="ea-layer-label">Outcome</span>
         </div>
       </div>
     </div>
