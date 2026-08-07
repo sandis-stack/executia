@@ -76,66 +76,78 @@
 
   <section class="ea-section" id="architecture" aria-labelledby="ea-heading">
     <div class="wrap-home">
-      <h2 id="ea-heading">How EXECUTIA works.</h2>
-      <p class="ea-subtitle">EXECUTIA governs execution before actions become irreversible.</p>
+      <h2 id="ea-heading">Execution Integrity Reference Architecture</h2>
+      <p class="ea-subtitle">Defining the boundary between organizational intent, governed authorization, and verified execution.</p>
 
-      <div class="ea-layer-model" role="list" aria-label="EXECUTIA Reference Architecture Model">
-        <div class="ea-layer-node ea-layer-node--intent" role="listitem">
-          <span class="ea-layer-label">Need / Intent</span>
-        </div>
+      <div class="ea-ref-model" aria-label="EXECUTIA Reference Architecture with responsibility boundaries">
 
-        <div class="ea-layer-connector" aria-hidden="true">
-          <span class="ea-layer-line"></span>
-          <span class="ea-layer-arrow">▼</span>
-        </div>
-
-        <div class="ea-layer-node ea-layer-node--decision" role="listitem">
-          <span class="ea-layer-label">Decision</span>
-        </div>
-
-        <div class="ea-layer-connector" aria-hidden="true">
-          <span class="ea-layer-line"></span>
-          <span class="ea-layer-arrow">▼</span>
-        </div>
-
-        <div class="ea-layer-node ea-layer-node--request" role="listitem">
-          <span class="ea-layer-label">Execution Request</span>
-        </div>
-
-        <div class="ea-layer-connector" aria-hidden="true">
-          <span class="ea-layer-line"></span>
-          <span class="ea-layer-arrow">▼</span>
-        </div>
-
-        <div class="ea-integrity-engine" role="listitem" aria-label="EXECUTIA Integrity Engine">
-          <div class="ea-integrity-bar" aria-hidden="true"></div>
-          <p class="ea-integrity-title">EXECUTIA Integrity Engine</p>
-          <div class="ea-integrity-grid" role="list" aria-label="Integrity responsibilities">
-            <div class="ea-integrity-cell" role="listitem"><span>Validate</span></div>
-            <div class="ea-integrity-cell" role="listitem"><span>Authorize</span></div>
-            <div class="ea-integrity-cell" role="listitem"><span>Record</span></div>
-            <div class="ea-integrity-cell" role="listitem"><span>Evidence</span></div>
+        <!-- ZONE 1: Outside EXECUTIA -->
+        <div class="ea-zone ea-zone--outside" data-zone="1">
+          <p class="ea-zone-label">Organizational Context</p>
+          <div class="ea-zone-flow" role="list">
+            <div class="ea-chip" role="listitem"><span>Need / Intent</span></div>
+            <span class="ea-flow-arrow" aria-hidden="true">→</span>
+            <div class="ea-chip" role="listitem"><span>Decision</span></div>
+            <span class="ea-flow-arrow" aria-hidden="true">→</span>
+            <div class="ea-chip" role="listitem"><span>Requested Action</span></div>
           </div>
-          <div class="ea-integrity-bar" aria-hidden="true"></div>
         </div>
 
-        <div class="ea-layer-connector" aria-hidden="true">
-          <span class="ea-layer-line"></span>
-          <span class="ea-layer-arrow">▼</span>
+        <div class="ea-boundary" aria-hidden="true">
+          <span class="ea-boundary-line"></span>
+          <span class="ea-boundary-text">EXECUTIA Responsibility Boundary</span>
+          <span class="ea-boundary-line"></span>
         </div>
 
-        <div class="ea-layer-node ea-layer-node--execution" role="listitem">
-          <span class="ea-layer-label">Verified Execution</span>
+        <!-- ZONE 2: Integrity Engine + Decision Gate -->
+        <div class="ea-zone ea-zone--engine" data-zone="2">
+          <div class="ea-engine-block">
+            <p class="ea-engine-title">EXECUTIA Integrity Engine</p>
+            <div class="ea-engine-core" role="list" aria-label="Core infrastructure functions">
+              <div class="ea-engine-fn" role="listitem"><span>Validate</span></div>
+              <div class="ea-engine-fn" role="listitem"><span>Authorize</span></div>
+              <div class="ea-engine-fn" role="listitem"><span>Record</span></div>
+            </div>
+          </div>
+
+          <div class="ea-gate" aria-label="Authorization decision gate">
+            <p class="ea-gate-label">Decision Gate</p>
+            <div class="ea-gate-split">
+              <div class="ea-gate-path ea-gate-path--yes">
+                <span class="ea-gate-badge">YES // Authorized</span>
+                <span class="ea-gate-desc">Proceeds to verified execution</span>
+              </div>
+              <div class="ea-gate-path ea-gate-path--no">
+                <span class="ea-gate-badge">NO // Blocked</span>
+                <span class="ea-gate-desc">Action blocked · Risk prevented · Immutable log</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="ea-layer-connector" aria-hidden="true">
-          <span class="ea-layer-line"></span>
-          <span class="ea-layer-arrow">▼</span>
+        <div class="ea-boundary" aria-hidden="true">
+          <span class="ea-boundary-line"></span>
+          <span class="ea-boundary-text">EXECUTIA Responsibility Boundary</span>
+          <span class="ea-boundary-line"></span>
         </div>
 
-        <div class="ea-layer-node ea-layer-node--outcome" role="listitem">
-          <span class="ea-layer-label">Outcome</span>
+        <!-- ZONE 3: Outside EXECUTIA outputs -->
+        <div class="ea-zone ea-zone--outside ea-zone--outputs" data-zone="3">
+          <p class="ea-zone-label">Outcome &amp; Evidence</p>
+          <div class="ea-outputs">
+            <div class="ea-output-path" role="list">
+              <div class="ea-chip ea-chip--emphasis" role="listitem"><span>Verified Execution</span></div>
+              <span class="ea-flow-arrow" aria-hidden="true">→</span>
+              <div class="ea-chip" role="listitem"><span>Business Outcome</span></div>
+            </div>
+            <div class="ea-evidence-byproduct">
+              <span class="ea-evidence-kicker">Byproduct</span>
+              <span class="ea-evidence-title">Execution Evidence Generated</span>
+              <span class="ea-evidence-note">Audit-proof record</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
