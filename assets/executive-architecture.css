@@ -1,48 +1,65 @@
-/* Execution Integrity Model v1.0 — Canonical Architecture Artifact */
+/* Execution Integrity Model v1.0 — Monolithic Reference Architecture Plate */
 
 .ea-section {
   position: relative;
-  background:
-    radial-gradient(circle at center, rgba(56, 189, 248, 0.06) 0%, transparent 70%),
-    #f8fafc;
+  background: #ffffff;
   padding: 120px 0;
   border-top: 1px solid #e2e8f0;
   border-bottom: 1px solid #e2e8f0;
 }
 
-.ea-reference-platform {
+.ea-architecture-plate {
+  position: relative;
   max-width: 56rem;
   margin: 0 auto;
-  padding: 60px 48px;
+  padding: 64px 56px 48px;
   border: 1px solid #e2e8f0;
   border-radius: 32px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.03);
+  background: #f8fafc;
+  box-shadow: 0 20px 80px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
 }
 
-.canonical-artifact-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin: 0 0 1.15rem;
+.ea-architecture-plate::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: min(42rem, 120%);
+  height: min(28rem, 70%);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center, rgba(38, 80, 120, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.artifact-dot {
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: #0f172a;
-  flex-shrink: 0;
+.ea-architecture-plate > * {
+  position: relative;
+  z-index: 1;
 }
 
-.artifact-mono {
+.doc-classification {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem 0.85rem;
+  margin: 0 0 1.25rem;
+}
+
+.classification-tag,
+.classification-sub {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.68rem;
-  font-weight: 650;
+  font-size: 0.66rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.classification-tag {
+  color: #0f172a;
+}
+
+.classification-sub {
   color: #64748b;
 }
 
@@ -71,6 +88,31 @@
   margin: 2.75rem auto 0;
   max-width: 52rem;
   width: 100%;
+}
+
+.plate-iso-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem 1.25rem;
+  margin: 2.25rem 0 0;
+  padding-top: 1.15rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.iso-left,
+.iso-right {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.iso-right {
+  color: #64748b;
 }
 
 .ea-slab {
@@ -359,8 +401,8 @@
     padding: 72px 0;
   }
 
-  .ea-reference-platform {
-    padding: 40px 24px;
+  .ea-architecture-plate {
+    padding: 40px 24px 32px;
     border-radius: 24px;
   }
 
