@@ -57,7 +57,7 @@
 .ea-flow-label {
   position: absolute;
   left: 50%;
-  top: 12.75rem;
+  top: 15.25rem;
   z-index: 1;
   transform: translateX(-50%);
   padding: 0.12rem 0.4rem;
@@ -147,6 +147,43 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   color: #0f172a;
+}
+
+.canonical-dna-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.45rem;
+  margin: 0 0 1.5rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #e3e9f2;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.dna-label {
+  margin-right: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.dna-step {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1e293b;
+}
+
+.dna-arrow {
+  font-size: 0.7rem;
+  line-height: 1;
+  color: #94a3b8;
 }
 
 .ea-section h2 {
@@ -555,6 +592,6 @@
   }
 
   .ea-flow-label {
-    top: 15.5rem;
+    top: 18rem;
   }
 }
