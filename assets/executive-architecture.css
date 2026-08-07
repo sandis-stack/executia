@@ -1,10 +1,49 @@
-/* Execution Integrity Model v1.0 — clinical academic reference standard */
+/* Execution Integrity Model v1.0 — Canonical Architecture Artifact */
 
 .ea-section {
-  background: #ffffff;
-  padding: 4.5rem 0 5.25rem;
+  position: relative;
+  background:
+    radial-gradient(circle at center, rgba(56, 189, 248, 0.06) 0%, transparent 70%),
+    #f8fafc;
+  padding: 120px 0;
   border-top: 1px solid #e2e8f0;
   border-bottom: 1px solid #e2e8f0;
+}
+
+.ea-reference-platform {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 60px 48px;
+  border: 1px solid #e2e8f0;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.03);
+}
+
+.canonical-artifact-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 1.15rem;
+}
+
+.artifact-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #0f172a;
+  flex-shrink: 0;
+}
+
+.artifact-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
 }
 
 .ea-section h2 {
@@ -18,29 +57,6 @@
   color: #0f172a;
 }
 
-.ea-title-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.65rem 0.85rem;
-}
-
-.version-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.28rem 0.55rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #475569;
-  background: #f8fafc;
-  white-space: nowrap;
-}
-
 .ea-subtitle {
   margin: 0.9rem 0 0;
   max-width: 44rem;
@@ -52,7 +68,7 @@
 .ea-ref-model {
   display: grid;
   gap: 0.95rem;
-  margin: 3rem auto 0;
+  margin: 2.75rem auto 0;
   max-width: 52rem;
   width: 100%;
 }
@@ -340,7 +356,12 @@
 
 @media (max-width: 860px) {
   .ea-section {
-    padding: 3.5rem 0 4rem;
+    padding: 72px 0;
+  }
+
+  .ea-reference-platform {
+    padding: 40px 24px;
+    border-radius: 24px;
   }
 
   .ea-ref-model {
