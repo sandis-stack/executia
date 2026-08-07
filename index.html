@@ -76,7 +76,12 @@
 
   <section class="ea-section" id="architecture" aria-labelledby="ea-heading" data-spec="execution-integrity-model" data-spec-version="1.0">
     <div class="wrap-home">
-      <div class="ea-architecture-plate">
+      <div class="ea-architecture-plate" data-eim="1.0">
+        <div class="ea-execution-axis" aria-hidden="true">
+          <span class="ea-plate-spine"></span>
+          <span class="ea-flow-label">EXECUTION FLOW ↓</span>
+        </div>
+
         <div class="spec-header-grid">
           <div class="spec-header-left">
             <div class="doc-vendor">EXECUTIA™</div>
@@ -93,8 +98,7 @@
         <h2 id="ea-heading">The Execution Integrity Model</h2>
         <p class="ea-subtitle">The Execution Integrity Model defines the governance layer between business decisions and verified execution.</p>
 
-        <div class="ea-ref-model" aria-label="Execution Integrity Model — Reference Architecture v1.0">
-          <div class="ea-spine" aria-hidden="true"></div>
+        <div class="ea-ref-model" aria-label="Execution Integrity Model EIM-1.0 — Reference Specification">
 
           <div class="ea-slab ea-slab--business" data-spec-node="business-layer">
             <div class="ea-slab-head">
@@ -102,6 +106,8 @@
               <span class="layer-purpose">Defines intended actions.</span>
             </div>
             <div class="ea-axis-stack" role="list">
+              <div class="ea-chip ea-chip--axis" role="listitem" data-spec-node="business-intent"><span>Business Intent</span></div>
+              <span class="ea-axis-arrow" aria-hidden="true">↓</span>
               <div class="ea-chip ea-chip--axis" role="listitem" data-spec-node="decision"><span>Decision</span></div>
               <span class="ea-axis-arrow" aria-hidden="true">↓</span>
               <div class="ea-chip ea-chip--axis" role="listitem" data-spec-node="requested-action"><span>Requested Action</span></div>
@@ -117,7 +123,7 @@
           <div class="ea-slab ea-slab--integrity" data-spec-node="integrity-engine">
             <div class="ea-slab-head">
               <h3 class="ea-slab-title">Execution Integrity Layer</h3>
-              <p class="ea-slab-sub">EXECUTIA Integrity Engine</p>
+              <p class="ea-slab-sub">Governance Engine</p>
               <span class="layer-purpose">Determines whether it may happen.</span>
             </div>
 
@@ -139,7 +145,7 @@
                   <div class="ea-gate-split">
                     <div class="ea-gate-path ea-gate-path--yes" data-spec-node="authorized">
                       <span class="ea-gate-badge">Authorized</span>
-                      <span class="ea-gate-desc">Proceeds to verified execution</span>
+                      <span class="ea-gate-desc">Proceeds down the execution axis</span>
                     </div>
                     <div class="ea-gate-path ea-gate-path--no" data-spec-node="blocked">
                       <span class="ea-gate-badge">Blocked</span>
@@ -155,7 +161,7 @@
                 </div>
                 <aside class="ea-evidence-byproduct" aria-label="Side byproduct of authorization" data-spec-node="execution-evidence">
                   <span class="ea-evidence-kicker">Byproduct</span>
-                  <p class="ea-evidence-title">Execution Evidence Generated</p>
+                  <p class="ea-evidence-title">Execution Evidence <span class="mono-sub">(AUTO GENERATED)</span></p>
                 </aside>
               </div>
             </div>
@@ -175,9 +181,9 @@
             <div class="ea-axis-stack" role="list">
               <div class="ea-chip ea-chip--core ea-chip--axis" role="listitem" data-spec-node="verified-execution"><span>Verified Execution</span></div>
               <span class="ea-axis-arrow" aria-hidden="true">↓</span>
-              <div class="ea-outcome-outside" data-spec-node="external-outcome">
-                <span class="ea-outcome-kicker">EXECUTIA Boundary</span>
-                <div class="ea-chip ea-chip--muted" role="listitem"><span>External Outcome</span></div>
+              <div class="ea-outcome-outside" data-spec-node="business-outcome">
+                <div class="ea-chip ea-chip--muted" role="listitem"><span>Business Outcome</span></div>
+                <span class="ea-outcome-kicker">Bounded by EXECUTIA Governance Boundary</span>
               </div>
             </div>
           </div>

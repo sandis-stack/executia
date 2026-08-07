@@ -1,4 +1,4 @@
-/* Execution Integrity Model v1.0 — ISO/RFC Specification Document */
+/* EIM-1.0 — Execution Integrity Model Reference Specification (FROZEN) */
 
 .ea-section {
   position: relative;
@@ -15,29 +15,60 @@
   padding: 64px 60px 48px;
   border: 1px solid #e3e9f2;
   border-radius: 24px;
-  background: radial-gradient(circle at center, #ffffff 0%, #fbfcfe 65%, #f3f6fa 100%);
+  background-color: #fbfcfe;
+  background-image:
+    radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at center, #ffffff 0%, #fbfcfe 65%, #f3f6fa 100%);
+  background-size: 16px 16px, auto;
+  background-position: 0 0, center;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.8),
     0 20px 60px rgba(15, 23, 42, 0.03);
   overflow: hidden;
 }
 
-.ea-architecture-plate::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 52%;
-  width: min(42rem, 120%);
-  height: min(28rem, 70%);
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle at center, rgba(38, 80, 120, 0.04) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.ea-architecture-plate > * {
+.ea-architecture-plate > *:not(.ea-execution-axis) {
   position: relative;
   z-index: 1;
+}
+
+/* —— Continuous vertical execution flow axis (plate-wide) —— */
+.ea-execution-axis {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.ea-plate-spine {
+  position: absolute;
+  left: 50%;
+  top: 1.25rem;
+  bottom: 1.25rem;
+  width: 1px;
+  background: rgba(226, 232, 240, 0.95);
+  transform: translateX(-50%);
+}
+
+.ea-flow-label {
+  position: absolute;
+  left: 50%;
+  top: 12.75rem;
+  z-index: 1;
+  transform: translateX(-50%);
+  padding: 0.12rem 0.4rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  white-space: nowrap;
+  background: rgba(251, 252, 254, 0.94);
 }
 
 /* —— Spec header —— */
@@ -97,7 +128,7 @@
   padding: 0.55rem 0.7rem;
   border: 1px solid #e3e9f2;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.82);
   text-align: right;
 }
 
@@ -137,7 +168,7 @@
   color: #475569;
 }
 
-/* —— Model + monolithic spine —— */
+/* —— Model —— */
 .ea-ref-model {
   position: relative;
   display: grid;
@@ -145,18 +176,6 @@
   margin: 2.75rem auto 0;
   max-width: 52rem;
   width: 100%;
-}
-
-.ea-spine {
-  position: absolute;
-  left: 50%;
-  top: 3.5rem;
-  bottom: 1.5rem;
-  width: 1px;
-  background: rgba(226, 232, 240, 0.9);
-  transform: translateX(-50%);
-  z-index: 0;
-  pointer-events: none;
 }
 
 .plate-iso-footer {
@@ -190,11 +209,11 @@
   padding: 1.35rem 1.25rem 1.5rem;
   border: 1px solid rgba(227, 233, 242, 0.95);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.78);
 }
 
 .ea-slab--integrity {
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .ea-slab-head {
@@ -261,7 +280,7 @@
 }
 
 .ea-chip--axis {
-  min-width: 11.5rem;
+  min-width: 12.5rem;
 }
 
 .ea-chip span {
@@ -312,7 +331,6 @@
   text-transform: uppercase;
   color: #64748b;
   white-space: nowrap;
-  background: transparent;
 }
 
 .ea-integrity-body {
@@ -453,10 +471,24 @@
   color: #475569;
 }
 
+.mono-sub {
+  display: inline;
+  font-weight: 550;
+  letter-spacing: 0.04em;
+  color: #94a3b8;
+}
+
 .ea-outcome-outside {
   display: grid;
   gap: 0.35rem;
   justify-items: center;
+}
+
+.ea-outcome-kicker {
+  max-width: 16rem;
+  text-align: center;
+  line-height: 1.35;
+  font-size: 0.56rem;
 }
 
 @media (max-width: 820px) {
@@ -486,7 +518,7 @@
     grid-template-columns: 1fr;
   }
 
-  .ea-spine {
+  .ea-execution-axis {
     display: none;
   }
 }
@@ -520,5 +552,9 @@
 
   .ea-ref-model {
     margin-top: 2.25rem;
+  }
+
+  .ea-flow-label {
+    top: 15.5rem;
   }
 }
