@@ -95,6 +95,29 @@
 .hp-hero-copy--authority .btn-primary-engine:hover {
   opacity: 0.9;
 }
+.hp-hero-copy--authority .hero-authority-signature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin-top: 1.35rem;
+  max-width: 22rem;
+}
+.hp-hero-copy--authority .signature-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  margin-top: 0.45rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(186, 230, 253, 0.72);
+  box-shadow: 0 0 10px rgba(186, 230, 253, 0.35);
+}
+.hp-hero-copy--authority .signature-text {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: rgba(186, 230, 253, 0.58);
+}
 .hp-hero-copy--control {
   max-width: min(100%, 32rem);
 }
