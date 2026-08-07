@@ -76,14 +76,17 @@
 
   <section class="ea-section" id="architecture" aria-labelledby="ea-heading">
     <div class="wrap-home">
-      <h2 id="ea-heading">Execution Integrity Reference Architecture</h2>
-      <p class="ea-subtitle">Defining the boundary between organizational intent, governed authorization, and verified execution.</p>
+      <h2 id="ea-heading">The Execution Integrity Model</h2>
+      <p class="ea-subtitle">The definitive 3-layer reference model for governed execution.</p>
 
-      <div class="ea-ref-model" aria-label="EXECUTIA Reference Architecture with responsibility boundaries">
+      <div class="ea-ref-model" aria-label="Execution Integrity Model v1.0 — Canonical Layer Architecture">
 
-        <!-- ZONE 1: Outside EXECUTIA -->
-        <div class="ea-zone ea-zone--outside" data-zone="1">
-          <p class="ea-zone-label">Organizational Context</p>
+        <!-- 1. BUSINESS LAYER -->
+        <div class="ea-slab ea-slab--business" data-layer="1">
+          <div class="ea-slab-head">
+            <span class="ea-slab-index">1</span>
+            <h3 class="ea-slab-title">Business Layer</h3>
+          </div>
           <div class="ea-zone-flow" role="list">
             <div class="ea-chip" role="listitem"><span>Need / Intent</span></div>
             <span class="ea-flow-arrow" aria-hidden="true">→</span>
@@ -95,31 +98,37 @@
 
         <div class="ea-boundary" aria-hidden="true">
           <span class="ea-boundary-line"></span>
-          <span class="ea-boundary-text">EXECUTIA Responsibility Boundary</span>
+          <span class="ea-boundary-text">EXECUTIA Governance Boundary</span>
           <span class="ea-boundary-line"></span>
         </div>
 
-        <!-- ZONE 2: Integrity Engine + Decision Gate -->
-        <div class="ea-zone ea-zone--engine" data-zone="2">
-          <div class="ea-engine-block">
-            <p class="ea-engine-title">EXECUTIA Integrity Engine</p>
-            <div class="ea-engine-core" role="list" aria-label="Core infrastructure functions">
-              <div class="ea-engine-fn" role="listitem"><span>Validate</span></div>
-              <div class="ea-engine-fn" role="listitem"><span>Authorize</span></div>
-              <div class="ea-engine-fn" role="listitem"><span>Record</span></div>
+        <!-- 2. GOVERNANCE LAYER -->
+        <div class="ea-slab ea-slab--governance" data-layer="2">
+          <div class="ea-slab-head">
+            <span class="ea-slab-index">2</span>
+            <h3 class="ea-slab-title">Governance Layer</h3>
+            <p class="ea-slab-sub">EXECUTIA Integrity Engine</p>
+          </div>
+
+          <div class="ea-eval-row" aria-label="Evaluation sequence">
+            <span class="ea-eval-kicker">Evaluation</span>
+            <div class="ea-eval-flow">
+              <div class="ea-engine-fn"><span>Validate</span></div>
+              <span class="ea-flow-arrow ea-flow-arrow--on-dark" aria-hidden="true">→</span>
+              <div class="ea-engine-fn"><span>Authorize</span></div>
             </div>
           </div>
 
-          <div class="ea-gate" aria-label="Authorization decision gate">
-            <p class="ea-gate-label">Decision Gate</p>
+          <div class="ea-gate" aria-label="Binary decision gate">
+            <p class="ea-gate-label">Binary Decision Gate</p>
             <div class="ea-gate-split">
               <div class="ea-gate-path ea-gate-path--yes">
                 <span class="ea-gate-badge">YES // Authorized</span>
-                <span class="ea-gate-desc">Proceeds to verified execution</span>
+                <span class="ea-gate-desc">Triggers <strong>Record</strong> &amp; verified execution</span>
               </div>
               <div class="ea-gate-path ea-gate-path--no">
                 <span class="ea-gate-badge">NO // Blocked</span>
-                <span class="ea-gate-desc">Action blocked · Risk prevented · Immutable log</span>
+                <span class="ea-gate-desc">Action blocked · Risk prevented · Evidence logged</span>
               </div>
             </div>
           </div>
@@ -127,13 +136,16 @@
 
         <div class="ea-boundary" aria-hidden="true">
           <span class="ea-boundary-line"></span>
-          <span class="ea-boundary-text">EXECUTIA Responsibility Boundary</span>
+          <span class="ea-boundary-text">EXECUTIA Governance Boundary</span>
           <span class="ea-boundary-line"></span>
         </div>
 
-        <!-- ZONE 3: Outside EXECUTIA outputs -->
-        <div class="ea-zone ea-zone--outside ea-zone--outputs" data-zone="3">
-          <p class="ea-zone-label">Outcome &amp; Evidence</p>
+        <!-- 3. EXECUTION LAYER -->
+        <div class="ea-slab ea-slab--execution" data-layer="3">
+          <div class="ea-slab-head">
+            <span class="ea-slab-index">3</span>
+            <h3 class="ea-slab-title">Execution Layer</h3>
+          </div>
           <div class="ea-outputs">
             <div class="ea-output-path" role="list">
               <div class="ea-chip ea-chip--emphasis" role="listitem"><span>Verified Execution</span></div>
