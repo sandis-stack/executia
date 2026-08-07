@@ -79,7 +79,16 @@
       <h2 id="ea-heading">How EXECUTIA works.</h2>
       <p class="ea-subtitle">EXECUTIA governs execution before actions become irreversible.</p>
 
-      <div class="ea-layer-model" role="list" aria-label="EXECUTIA Execution Layer Architecture Model">
+      <div class="ea-layer-model" role="list" aria-label="EXECUTIA Execution Integrity Layer Architecture Model">
+        <div class="ea-layer-node ea-layer-node--intent" role="listitem">
+          <span class="ea-layer-label">Need / Intent</span>
+        </div>
+
+        <div class="ea-layer-connector" aria-hidden="true">
+          <span class="ea-layer-line"></span>
+          <span class="ea-layer-arrow">▼</span>
+        </div>
+
         <div class="ea-layer-node ea-layer-node--decision" role="listitem">
           <span class="ea-layer-label">Decision</span>
         </div>
@@ -92,11 +101,12 @@
         <div class="ea-integrity-engine" role="listitem" aria-label="EXECUTIA Integrity Engine">
           <div class="ea-integrity-bar" aria-hidden="true"></div>
           <p class="ea-integrity-title">EXECUTIA Integrity Engine</p>
-          <ul class="ea-integrity-capabilities">
-            <li>Verifies</li>
-            <li>Authorizes</li>
-            <li>Records</li>
-          </ul>
+          <div class="ea-integrity-grid" role="list" aria-label="Integrity capabilities">
+            <div class="ea-integrity-cell" role="listitem"><span>Validate</span></div>
+            <div class="ea-integrity-cell" role="listitem"><span>Authorize</span></div>
+            <div class="ea-integrity-cell" role="listitem"><span>Record</span></div>
+            <div class="ea-integrity-cell" role="listitem"><span>Audit</span></div>
+          </div>
           <div class="ea-integrity-bar" aria-hidden="true"></div>
         </div>
 
@@ -106,7 +116,7 @@
         </div>
 
         <div class="ea-layer-node ea-layer-node--execution" role="listitem">
-          <span class="ea-layer-label">Authorized Execution</span>
+          <span class="ea-layer-label">Verified Execution</span>
         </div>
 
         <div class="ea-layer-connector" aria-hidden="true">
