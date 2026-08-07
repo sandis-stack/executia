@@ -1,9 +1,11 @@
 /**
- * Hero — live journey panel (user-facing homepage story).
+ * Hero — Execution Sequence Protocol (live, psychologically active flow).
  */
 
 import { loadPublicFunnelContext } from './public-funnel.js';
 import { formatCurrency } from './execution-value-engine.js';
+
+const TOTAL_STEPS = 5;
 
 function el(tag, className, html) {
   const node = document.createElement(tag);
@@ -20,43 +22,82 @@ function escapeHtml(text) {
     .replace(/"/g, '&quot;');
 }
 
-/** User-facing steps aligned with homepage journey — no internal labels. */
+/** Five-step execution sequence aligned to ENTRY path. */
 function buildHeroJourney(ctx = loadPublicFunnelContext()) {
   const calc = ctx.calculator?.results;
   const assessment = ctx.assessment?.results;
+  const hasProfile = Boolean(calc);
+  const hasAssessment = Boolean(assessment?.ok);
 
   const steps = [
     {
-      id: 'execution-value',
-      label: 'Execution Value',
+      id: 'profile',
+      label: 'Execution Profile',
       href: '#execution-value',
-      complete: Boolean(calc),
-      detail: calc
+      complete: hasProfile,
+      detail: hasProfile
         ? `${formatCurrency(calc.estimatedExecutionLoss?.value ?? 0)} at risk`
-        : 'Enter your organization profile',
-      kind: calc ? 'Estimated' : 'Pending',
+        : 'Build your execution profile',
+    },
+    {
+      id: 'understand',
+      label: 'Understand',
+      href: '#architecture',
+      complete: hasProfile,
+      detail: hasProfile
+        ? 'Architecture path reviewed'
+        : 'See how EXECUTIA governs execution',
+    },
+    {
+      id: 'validate',
+      label: 'Validate',
+      href: '#execution-value',
+      complete: hasProfile,
+      detail: hasProfile
+        ? 'Loss estimate captured'
+        : 'Quantify invisible execution loss',
+    },
+    {
+      id: 'proof',
+      label: 'Review Proof',
+      href: '/engine',
+      complete: hasAssessment,
+      detail: hasAssessment
+        ? 'Engine evidence reviewed'
+        : 'Inspect governed execution evidence',
     },
     {
       id: 'pilot',
-      label: 'Pilot',
+      label: 'Request Pilot',
       href: '#pilot',
-      complete: Boolean(assessment?.ok),
-      detail: assessment?.ok
-        ? assessment.pilotRecommendation?.readiness ?? 'Ready'
+      complete: hasAssessment,
+      detail: hasAssessment
+        ? assessment.pilotRecommendation?.readiness ?? 'Ready for pilot'
         : 'Begin Executive Assessment',
-      kind: assessment?.ok ? 'Calculated' : 'Pending',
     },
   ];
 
   const firstIncomplete = steps.findIndex((step) => !step.complete);
   return steps.map((step, index) => ({
     ...step,
+    stepNumber: index + 1,
     status: step.complete
       ? 'complete'
       : index === firstIncomplete
         ? 'active'
-        : 'pending',
+        : firstIncomplete === -1
+          ? 'complete'
+          : 'pending',
   }));
+}
+
+function stepMetaLabel(steps) {
+  if (steps.length && steps.every((step) => step.complete)) {
+    return `STEP ${TOTAL_STEPS} OF ${TOTAL_STEPS} // COMPLETE`;
+  }
+  const active = steps.find((step) => step.status === 'active');
+  const n = active ? active.stepNumber : 1;
+  return `STEP ${n} OF ${TOTAL_STEPS} // ACTIVE`;
 }
 
 function currentStateText(steps) {
@@ -65,37 +106,50 @@ function currentStateText(steps) {
     if (steps.length && steps.every((step) => step.complete)) {
       return 'Ready for Executive Assessment';
     }
-    return 'Waiting for your first mission';
+    return 'Build your execution profile';
   }
   return active.detail?.trim() || active.label;
 }
 
-function kindLabel(kind) {
-  const map = {
-    Estimated: 'VERIFIED',
-    Calculated: 'VERIFIED',
-    Demonstration: 'READY',
-    Pending: 'PENDING',
-  };
-  return map[kind] || String(kind || '').toUpperCase();
+function badgeForStatus(status) {
+  if (status === 'active') return 'WAITING FOR INPUT';
+  if (status === 'pending') return 'NEXT IN SEQUENCE';
+  return 'COMPLETE';
+}
+
+/** Active step shows progress through the 5-step sequence (step 1 = 20%). */
+function activeProgressPercent(stepNumber) {
+  return Math.max(20, Math.min(100, stepNumber * 20));
+}
+
+function progressBarHtml(percent) {
+  const filled = Math.max(1, Math.round(percent / 10));
+  const empty = Math.max(0, 10 - filled);
+  const blocks = `${'█'.repeat(filled)}${'░'.repeat(empty)}`;
+  return (
+    `<div class="hp-flow-progress" aria-hidden="true">` +
+    `<span class="hp-flow-progress-track">[ ${blocks} ]</span>` +
+    `<span class="hp-flow-progress-pct">${percent}% COMPLETE</span>` +
+    `</div>`
+  );
 }
 
 function renderJourney(root, steps) {
   root.innerHTML = '';
-  root.setAttribute('aria-label', 'Live execution journey');
+  root.setAttribute('aria-label', 'Execution Sequence Protocol');
+  root.classList.add('hp-execution-flow');
 
   const glow = el('div', 'hp-monitor-glow');
   const panel = el('div', 'hp-monitor-panel');
   root.appendChild(glow);
   root.appendChild(panel);
 
-  panel.appendChild(el('p', 'hp-monitor-label', 'Your journey'));
+  panel.appendChild(el('p', 'hp-monitor-label', 'Execution Flow'));
 
   const meta = el('div', 'hp-monitor-meta');
-  const stateText = currentStateText(steps);
   meta.innerHTML =
-    '<div><p class="sub">Current step</p>' +
-    `<p class="hp-monitor-state">${escapeHtml(stateText)}</p></div>`;
+    `<div><p class="sub">${escapeHtml(stepMetaLabel(steps))}</p>` +
+    `<p class="hp-monitor-state">${escapeHtml(currentStateText(steps))}</p></div>`;
   panel.appendChild(meta);
 
   const list = el('ul', 'hp-journey-list');
@@ -107,12 +161,20 @@ function renderJourney(root, steps) {
     }
 
     const item = el('li', `hp-journey-step hp-journey-step--${step.status}`);
-    item.innerHTML =
+    item.setAttribute('data-flow-step', String(step.stepNumber));
+
+    let html =
       '<div class="hp-journey-main">' +
       `<a class="hp-journey-label" href="${step.href}">${escapeHtml(step.label)}</a>` +
-      `<span class="sys-state">${escapeHtml(kindLabel(step.kind))}</span>` +
+      `<span class="sys-state hp-flow-badge hp-flow-badge--${step.status}">${escapeHtml(badgeForStatus(step.status))}</span>` +
       '</div>' +
       `<p class="hp-journey-detail">${escapeHtml(step.detail)}</p>`;
+
+    if (step.status === 'active') {
+      html += progressBarHtml(activeProgressPercent(step.stepNumber));
+    }
+
+    item.innerHTML = html;
     list.appendChild(item);
   });
   panel.appendChild(list);

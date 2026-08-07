@@ -161,11 +161,12 @@
 @media (min-width: 640px) { .hp-monitor-panel { padding: 2.25rem; } }
 @media (min-width: 1024px) { .hp-monitor-panel { padding: 2.625rem; } }
 .hp-monitor-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: rgba(186,230,253,0.52);
+  color: rgba(148, 163, 184, 0.72);
 }
 .hp-status-grid {
   display: grid;
@@ -200,11 +201,12 @@
   margin-top: 1.75rem;
 }
 .hp-monitor-meta .sub {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(186,230,253,0.57);
+  color: rgba(148, 163, 184, 0.7);
 }
 .hp-monitor-meta .state,
 .hp-monitor-state {
@@ -282,7 +284,7 @@
 }
 .hp-ready-banner p { margin: 0; font-size: 1rem; font-weight: 600; }
 
-/* Funnel journey panel (hero) */
+/* Funnel journey panel (hero) — Execution Sequence Protocol */
 .hp-journey-list {
   list-style: none;
   margin: 1.25rem 0 0;
@@ -294,25 +296,32 @@
   color: rgba(186, 230, 253, 0.35);
   padding: 0.15rem 0;
   margin: 0;
+  animation: sequenceArrowPulse 2.5s ease-in-out infinite;
 }
 .hp-journey-step {
   border-radius: 1rem;
   padding: 0.875rem 1rem;
   border: 1px solid rgba(186, 230, 253, 0.12);
   background: rgba(10, 46, 63, 0.35);
-  transition: border-color 0.25s, background 0.25s;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s, opacity 0.25s;
 }
 .hp-journey-step--complete {
   border-color: rgba(94, 234, 212, 0.28);
   background: rgba(45, 212, 191, 0.08);
+  opacity: 0.88;
 }
 .hp-journey-step--active {
-  border-color: rgba(186, 230, 253, 0.42);
-  background: rgba(186, 230, 253, 0.1);
-  box-shadow: 0 0 32px rgba(186, 230, 253, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  background: rgba(56, 189, 248, 0.08);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+  animation: sequencePulse 3s ease-in-out infinite;
+}
+.hp-journey-step--active:hover {
+  border-color: rgba(56, 189, 248, 0.72);
+  box-shadow: 0 0 28px rgba(56, 189, 248, 0.28);
 }
 .hp-journey-step--pending {
-  opacity: 0.62;
+  opacity: 0.45;
 }
 .hp-journey-main {
   display: flex;
@@ -339,11 +348,66 @@
   background: rgba(186, 230, 253, 0.12);
   color: var(--hp-accent);
 }
+.hp-flow-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.hp-flow-badge--active {
+  color: rgba(125, 211, 252, 0.95);
+}
+.hp-flow-badge--pending {
+  color: rgba(148, 163, 184, 0.8);
+}
+.hp-flow-badge--complete {
+  color: rgba(94, 234, 212, 0.9);
+}
 .hp-journey-detail {
   margin: 0.4rem 0 0;
   font-size: 0.9rem;
   line-height: 1.45;
   color: var(--hp-text-muted);
+}
+.hp-flow-progress {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.75rem;
+  margin-top: 0.7rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: rgba(125, 211, 252, 0.88);
+}
+.hp-flow-progress-track {
+  opacity: 0.95;
+}
+.hp-flow-progress-pct {
+  color: rgba(186, 230, 253, 0.72);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+@keyframes sequencePulse {
+  0%, 100% {
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.12);
+    border-color: rgba(56, 189, 248, 0.34);
+  }
+  50% {
+    box-shadow: 0 0 26px rgba(56, 189, 248, 0.28);
+    border-color: rgba(56, 189, 248, 0.58);
+  }
+}
+@keyframes sequenceArrowPulse {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50% { transform: translateY(3px); opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hp-journey-step--active,
+  .hp-journey-arrow {
+    animation: none;
+  }
 }
 
 /* Story film */
