@@ -38,26 +38,79 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem 0 2.5rem;
+  padding: 3.5rem 0 4rem;
 }
 .hp-hero-grid {
   display: grid;
   align-items: center;
-  gap: 1rem;
+  gap: 2.5rem;
 }
 @media (min-width: 1024px) {
   .hp-hero-grid {
-    grid-template-columns: minmax(0, 33fr) minmax(0, 67fr);
-    gap: 1.25rem;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+    gap: 4.5rem;
   }
 }
 .hp-hero-copy { max-width: 25rem; }
-.hp-hero-copy h1 {
+.hp-hero-copy--authority {
+  max-width: min(100%, 28rem);
+}
+.hp-hero-copy h1,
+.hp-hero-copy .hero-title {
   margin: 0;
-  font-size: clamp(1.975rem, 4vw, 2.55rem);
+  font-size: clamp(2.1rem, 4.2vw, 3rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+.hp-hero-copy--authority .hero-title {
+  max-width: 14ch;
+}
+.hp-hero-copy--authority .hero-subtitle {
+  margin: 1.25rem 0 0;
+  max-width: 28rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
   font-weight: 400;
-  line-height: 1.14;
+  line-height: 1.5;
   letter-spacing: -0.01em;
+  color: rgba(186, 230, 253, 0.78);
+}
+.hp-hero-copy--authority .btn-primary-engine {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.75rem;
+  min-height: 2.75rem;
+  padding: 0 1.35rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--hp-bg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+.hp-hero-copy--authority .btn-primary-engine:hover {
+  opacity: 0.9;
+}
+.hp-hero-copy--control {
+  max-width: min(100%, 32rem);
+}
+.hp-hero-copy--control h1 {
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: rgba(226, 232, 240, 0.92);
+}
+.hp-hero-copy--control .exec-accent {
+  display: inline;
+  font-size: 1.18em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 0 22px rgba(255, 255, 255, 0.28);
 }
 .hp-hero-ceo-line {
   margin: 0.75rem 0 0;
@@ -73,7 +126,58 @@
   line-height: 1.6;
 }
 .hp-hero-body p { margin: 0 0 0.625rem; color: inherit; }
-.hp-hero-lead { margin-bottom: 0.5rem !important; }
+.hp-hero-lead {
+  margin: 1rem 0 0 !important;
+  max-width: 34rem;
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.55;
+  font-weight: 500;
+  color: rgba(186, 230, 253, 0.88);
+}
+.execution-proof-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem 0.7rem;
+  flex-wrap: wrap;
+  margin-top: 1.15rem;
+  padding: 0.45rem 0.75rem 0.45rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  background: rgba(8, 24, 36, 0.55);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.execution-proof-badge .pulse-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.55);
+  animation: proofPulse 2.2s ease-out infinite;
+  flex-shrink: 0;
+}
+.execution-proof-badge .proof-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(186, 230, 253, 0.7);
+}
+.execution-proof-badge .proof-value {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e0f2fe;
+}
+@keyframes proofPulse {
+  0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.5); opacity: 1; }
+  70% { box-shadow: 0 0 0 8px rgba(56, 189, 248, 0); opacity: 0.85; }
+  100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .execution-proof-badge .pulse-dot { animation: none; }
+}
 .hp-hero-capabilities {
   list-style: none;
   margin: 0 0 0.75rem;
@@ -98,7 +202,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.875rem;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 @media (min-width: 640px) {
   .hp-hero-actions { flex-direction: row; align-items: center; gap: 1rem; }
@@ -139,7 +243,12 @@
   justify-content: center;
 }
 @media (min-width: 1024px) {
-  .hp-monitor-wrap { justify-content: flex-end; max-width: 900px; margin-left: auto; }
+  .hp-monitor-wrap {
+    justify-content: flex-end;
+    max-width: none;
+    margin-left: 0;
+    width: 100%;
+  }
 }
 .hp-monitor-glow {
   position: absolute;
