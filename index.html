@@ -137,15 +137,26 @@
         <div class="hp-film-stage">
           <video
             class="hp-briefing-video"
+            src="/assets/executia-briefing-v2.mp4"
+            poster="/assets/executia-briefing-poster.jpg"
             controls
             playsinline
             preload="metadata"
-            poster="/assets/executia-briefing-poster.jpg"
             aria-label="EXECUTIA protocol briefing"
-            style="display:block;width:100%;height:100%;object-fit:cover;background:#0f1e2b;"
-          >
-            <source src="/assets/executia-briefing-v2.mp4" type="video/mp4">
-          </video>
+          ></video>
+          <div class="hp-briefing-overlay" data-briefing-overlay>
+            <button type="button" class="hp-briefing-play" data-briefing-play aria-label="Play protocol briefing">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <p class="hp-briefing-title">How much is invisible execution costing your organization?</p>
+          </div>
+          <div class="hp-briefing-fallback" data-briefing-fallback hidden>
+            <svg class="hp-briefing-fallback-svg" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Briefing unavailable">
+              <rect width="960" height="540" fill="#0F1E2B"/>
+              <text x="480" y="255" text-anchor="middle" fill="rgba(226,232,240,0.92)" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="600">Briefing unavailable</text>
+              <text x="480" y="290" text-anchor="middle" fill="rgba(186,230,253,0.75)" font-family="Inter, system-ui, sans-serif" font-size="14">Media could not be loaded. Please try again later.</text>
+            </svg>
+          </div>
         </div>
       </div>
       <div class="hp-section-cta">

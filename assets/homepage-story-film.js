@@ -250,11 +250,94 @@
     playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
   }
 
+  function mountBriefing(player) {
+    var stage = player.querySelector('.hp-film-stage');
+    var video = player.querySelector('video.hp-briefing-video');
+    var overlay = player.querySelector('[data-briefing-overlay]');
+    var playBtn = player.querySelector('[data-briefing-play]');
+    var fallback = player.querySelector('[data-briefing-fallback]');
+    if (!stage || !video || !overlay || !playBtn) return;
+
+    var mediaFailed = false;
+
+    function showOverlay() {
+      if (mediaFailed) return;
+      overlay.hidden = false;
+      overlay.removeAttribute('aria-hidden');
+      stage.classList.remove('is-playing');
+    }
+
+    function hideOverlay() {
+      overlay.hidden = true;
+      overlay.setAttribute('aria-hidden', 'true');
+      stage.classList.add('is-playing');
+    }
+
+    function showFallback() {
+      mediaFailed = true;
+      if (fallback) {
+        fallback.hidden = false;
+        fallback.removeAttribute('aria-hidden');
+      }
+      overlay.hidden = true;
+      overlay.setAttribute('aria-hidden', 'true');
+      video.setAttribute('hidden', '');
+      video.removeAttribute('controls');
+      stage.classList.remove('is-playing');
+      stage.classList.add('is-fallback');
+    }
+
+    function startPlayback(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      if (mediaFailed) return;
+      hideOverlay();
+      var playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function () {
+          /* Keep controls available; user can retry via native UI once overlay is down. */
+          if (video.error) showFallback();
+          else showOverlay();
+        });
+      }
+    }
+
+    playBtn.addEventListener('click', startPlayback);
+    overlay.addEventListener('click', function (event) {
+      if (event.target && event.target.closest && event.target.closest('button')) return;
+      startPlayback(event);
+    });
+
+    video.addEventListener('playing', hideOverlay);
+    video.addEventListener('play', hideOverlay);
+    video.addEventListener('pause', function () {
+      if (mediaFailed) return;
+      if (video.ended) return;
+      showOverlay();
+    });
+    video.addEventListener('ended', function () {
+      if (mediaFailed) return;
+      try {
+        video.currentTime = 0;
+      } catch (err) {}
+      showOverlay();
+    });
+    video.addEventListener('error', showFallback);
+
+    /* Ensure no leftover story-film SVG can cover native controls. */
+    Array.prototype.slice.call(stage.querySelectorAll('[data-story-root], .sf-root')).forEach(function (el) {
+      el.remove();
+    });
+  }
+
   function mount(player) {
     var stage = player.querySelector('.hp-film-stage');
     var progressFill = player.querySelector('.hp-film-progress-fill');
     var playBtn = player.querySelector('[data-action="play"]');
     var replayBtn = player.querySelector('[data-action="replay"]');
+    if (!stage || !progressFill || !playBtn) return;
 
     stage.insertAdjacentHTML('beforeend', STORY_HTML);
     var root = stage.querySelector('[data-story-root]');
@@ -338,6 +421,11 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     var player = document.getElementById('story-film-player');
-    if (player) mount(player);
+    if (!player) return;
+    if (player.querySelector('video.hp-briefing-video')) {
+      mountBriefing(player);
+      return;
+    }
+    mount(player);
   });
 })();
