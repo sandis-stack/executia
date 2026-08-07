@@ -77,19 +77,16 @@
   <section class="ea-section" id="architecture" aria-labelledby="ea-heading">
     <div class="wrap-home">
       <h2 id="ea-heading">The Execution Integrity Model</h2>
-      <p class="ea-subtitle">The definitive 3-layer reference model for governed execution.</p>
+      <p class="ea-subtitle">The Execution Integrity Model defines the governance boundary between organizational intent and verified execution.</p>
 
-      <div class="ea-ref-model" aria-label="Execution Integrity Model v1.0 — Canonical Layer Architecture">
+      <div class="ea-ref-model" aria-label="The Execution Integrity Model — academic reference architecture">
 
-        <!-- 1. BUSINESS LAYER -->
         <div class="ea-slab ea-slab--business" data-layer="1">
           <div class="ea-slab-head">
             <span class="ea-slab-index">1</span>
             <h3 class="ea-slab-title">Business Layer</h3>
           </div>
           <div class="ea-zone-flow" role="list">
-            <div class="ea-chip" role="listitem"><span>Need / Intent</span></div>
-            <span class="ea-flow-arrow" aria-hidden="true">→</span>
             <div class="ea-chip" role="listitem"><span>Decision</span></div>
             <span class="ea-flow-arrow" aria-hidden="true">→</span>
             <div class="ea-chip" role="listitem"><span>Requested Action</span></div>
@@ -102,20 +99,19 @@
           <span class="ea-boundary-line"></span>
         </div>
 
-        <!-- 2. GOVERNANCE LAYER -->
-        <div class="ea-slab ea-slab--governance" data-layer="2">
+        <div class="ea-slab ea-slab--integrity" data-layer="2">
           <div class="ea-slab-head">
             <span class="ea-slab-index">2</span>
-            <h3 class="ea-slab-title">Governance Layer</h3>
-            <p class="ea-slab-sub">EXECUTIA Integrity Engine</p>
+            <h3 class="ea-slab-title">Execution Integrity Layer</h3>
+            <p class="ea-slab-sub">Governed Engine</p>
           </div>
 
           <div class="ea-eval-row" aria-label="Evaluation sequence">
             <span class="ea-eval-kicker">Evaluation</span>
-            <div class="ea-eval-flow">
-              <div class="ea-engine-fn"><span>Validate</span></div>
-              <span class="ea-flow-arrow ea-flow-arrow--on-dark" aria-hidden="true">→</span>
-              <div class="ea-engine-fn"><span>Authorize</span></div>
+            <div class="ea-eval-flow" role="list">
+              <div class="ea-chip ea-chip--core" role="listitem"><span>Validate</span></div>
+              <span class="ea-flow-arrow" aria-hidden="true">→</span>
+              <div class="ea-chip ea-chip--core" role="listitem"><span>Authorize</span></div>
             </div>
           </div>
 
@@ -124,11 +120,11 @@
             <div class="ea-gate-split">
               <div class="ea-gate-path ea-gate-path--yes">
                 <span class="ea-gate-badge">YES // Authorized</span>
-                <span class="ea-gate-desc">Triggers <strong>Record</strong> &amp; verified execution</span>
+                <span class="ea-gate-desc">Proceeds to verified execution &amp; evidence</span>
               </div>
               <div class="ea-gate-path ea-gate-path--no">
                 <span class="ea-gate-badge">NO // Blocked</span>
-                <span class="ea-gate-desc">Action blocked · Risk prevented · Evidence logged</span>
+                <span class="ea-gate-desc">Action blocked · Risk prevented</span>
               </div>
             </div>
           </div>
@@ -140,7 +136,6 @@
           <span class="ea-boundary-line"></span>
         </div>
 
-        <!-- 3. EXECUTION LAYER -->
         <div class="ea-slab ea-slab--execution" data-layer="3">
           <div class="ea-slab-head">
             <span class="ea-slab-index">3</span>
@@ -148,14 +143,13 @@
           </div>
           <div class="ea-outputs">
             <div class="ea-output-path" role="list">
-              <div class="ea-chip ea-chip--emphasis" role="listitem"><span>Verified Execution</span></div>
+              <div class="ea-chip ea-chip--core" role="listitem"><span>Verified Execution</span></div>
               <span class="ea-flow-arrow" aria-hidden="true">→</span>
-              <div class="ea-chip" role="listitem"><span>Business Outcome</span></div>
+              <div class="ea-chip ea-chip--core" role="listitem"><span>Execution Evidence Generated</span></div>
             </div>
-            <div class="ea-evidence-byproduct">
-              <span class="ea-evidence-kicker">Byproduct</span>
-              <span class="ea-evidence-title">Execution Evidence Generated</span>
-              <span class="ea-evidence-note">Audit-proof record</span>
+            <div class="ea-outcome-outside">
+              <span class="ea-outcome-kicker">Outside Boundary</span>
+              <div class="ea-chip ea-chip--muted" role="note"><span>Business Outcome</span></div>
             </div>
           </div>
         </div>

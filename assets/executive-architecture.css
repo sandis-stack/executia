@@ -1,14 +1,14 @@
-/* Execution Integrity Model v1.0 — Canonical 3-Layer Architecture */
+/* The Execution Integrity Model — light academic reference architecture */
 
 .ea-section {
-  background: #fff;
+  background: #fafbfc;
   padding: 4.5rem 0 5.25rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e8eef4;
 }
 
 .ea-section h2 {
   margin: 0;
-  max-width: 36rem;
+  max-width: 40rem;
   font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   font-weight: 500;
@@ -18,86 +18,70 @@
 }
 
 .ea-subtitle {
-  margin: 0.75rem 0 0;
-  max-width: 40rem;
-  font-size: 1.0625rem;
-  line-height: 1.55;
+  margin: 0.85rem 0 0;
+  max-width: 42rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
   color: #475569;
 }
 
 .ea-ref-model {
   display: grid;
-  gap: 0.85rem;
+  gap: 0.9rem;
   margin: 3rem auto 0;
-  max-width: 52rem;
+  max-width: 48rem;
   width: 100%;
 }
 
 .ea-slab {
-  padding: 1.45rem 1.25rem 1.6rem;
+  padding: 1.35rem 1.2rem 1.5rem;
   border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
 }
 
-.ea-slab--business,
-.ea-slab--execution {
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-}
-
-.ea-slab--governance {
-  background: #090d16;
-  border-color: #0f172a;
-  box-shadow: 0 24px 56px rgba(9, 13, 22, 0.22);
-  padding: 1.6rem 1.25rem 1.75rem;
+.ea-slab--integrity {
+  background: #f8fafc;
+  border-color: #dbe3ec;
 }
 
 .ea-slab-head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.45rem 0.7rem;
-  margin-bottom: 1.1rem;
+  gap: 0.4rem 0.65rem;
+  margin-bottom: 1rem;
 }
 
 .ea-slab-index {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.35rem;
-  height: 1.35rem;
-  border: 1px solid currentColor;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid #94a3b8;
+  border-radius: 4px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: #64748b;
 }
 
-.ea-slab--governance .ea-slab-index {
-  color: rgba(148, 163, 184, 0.9);
-  border-color: rgba(148, 163, 184, 0.45);
-}
-
 .ea-slab-title {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #0f172a;
-}
-
-.ea-slab--governance .ea-slab-title {
-  color: #f8fafc;
 }
 
 .ea-slab-sub {
   margin: 0;
   width: 100%;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(148, 163, 184, 0.85);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748b;
 }
 
 .ea-zone-flow,
@@ -107,66 +91,69 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem 0.65rem;
+  gap: 0.5rem 0.6rem;
 }
 
 .ea-chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.5rem;
-  padding: 0.55rem 0.95rem;
-  border: 1.5px solid #124155;
+  min-height: 2.35rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
   background: #fff;
 }
 
 .ea-chip span {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #124155;
+  color: #1e293b;
   text-align: center;
 }
 
-.ea-chip--emphasis {
-  border-color: #0f1e2b;
-  background: #0f1e2b;
+.ea-chip--core {
+  border-color: #94a3b8;
+  background: #fff;
 }
 
-.ea-chip--emphasis span {
-  color: #f8fafc;
+.ea-chip--muted {
+  border-color: #e2e8f0;
+  background: #f8fafc;
+}
+
+.ea-chip--muted span {
+  color: #64748b;
+  font-weight: 600;
 }
 
 .ea-flow-arrow {
   color: #94a3b8;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1;
-}
-
-.ea-flow-arrow--on-dark {
-  color: rgba(148, 163, 184, 0.75);
 }
 
 .ea-boundary {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.15rem 0;
+  gap: 0.7rem;
+  padding: 0.1rem 0;
 }
 
 .ea-boundary-line {
   height: 0;
-  border-top: 1.5px dashed #94a3b8;
-  opacity: 0.7;
+  border-top: 1.5px solid #94a3b8;
+  opacity: 0.55;
 }
 
 .ea-boundary-text {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #64748b;
   white-space: nowrap;
@@ -174,135 +161,81 @@
 
 .ea-eval-row {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.5rem;
   justify-items: center;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.1rem;
 }
 
-.ea-eval-kicker {
+.ea-eval-kicker,
+.ea-gate-label,
+.ea-outcome-kicker {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(148, 163, 184, 0.85);
-}
-
-.ea-engine-fn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.75rem;
-  min-width: 7.5rem;
-  padding: 0.65rem 0.9rem;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(15, 23, 42, 0.55);
-}
-
-.ea-engine-fn span {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(226, 232, 240, 0.95);
-}
-
-.ea-gate {
-  margin-top: 0.25rem;
+  color: #64748b;
 }
 
 .ea-gate-label {
-  margin: 0 0 0.7rem;
+  margin: 0 0 0.65rem;
   text-align: center;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(148, 163, 184, 0.85);
 }
 
 .ea-gate-split {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
 .ea-gate-path {
   display: grid;
-  gap: 0.35rem;
-  padding: 0.85rem 0.8rem;
-  border: 1px solid transparent;
+  gap: 0.3rem;
+  padding: 0.8rem 0.85rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
   text-align: left;
 }
 
 .ea-gate-path--yes {
-  border-color: rgba(34, 211, 238, 0.4);
-  background: rgba(8, 47, 53, 0.55);
+  border-color: #a7f3d0;
+  background: #f0fdf4;
 }
 
 .ea-gate-path--no {
-  border-color: rgba(251, 146, 60, 0.38);
-  background: rgba(69, 26, 3, 0.28);
+  border-color: #fed7aa;
+  background: #fff7ed;
 }
 
 .ea-gate-badge {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.ea-gate-path--yes .ea-gate-badge { color: #67e8f9; }
-.ea-gate-path--no .ea-gate-badge { color: #fdba74; }
+.ea-gate-path--yes .ea-gate-badge { color: #047857; }
+.ea-gate-path--no .ea-gate-badge { color: #c2410c; }
 
 .ea-gate-desc {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   line-height: 1.4;
-  color: rgba(203, 213, 225, 0.82);
-}
-
-.ea-gate-desc strong {
-  color: #e2e8f0;
-  font-weight: 700;
+  color: #475569;
 }
 
 .ea-outputs {
   display: grid;
   gap: 1rem;
+  justify-items: center;
 }
 
-.ea-evidence-byproduct {
+.ea-outcome-outside {
   display: grid;
-  justify-items: start;
-  gap: 0.2rem;
-  padding: 0.85rem 1rem;
-  border: 1px dashed #94a3b8;
-  background: rgba(255, 255, 255, 0.72);
-}
-
-.ea-evidence-kicker {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #64748b;
-}
-
-.ea-evidence-title {
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #0f172a;
-}
-
-.ea-evidence-note {
-  font-size: 0.8rem;
-  color: #64748b;
+  gap: 0.4rem;
+  justify-items: center;
+  padding-top: 0.15rem;
 }
 
 @media (max-width: 720px) {
@@ -328,10 +261,5 @@
 
   .ea-ref-model {
     margin-top: 2.25rem;
-    gap: 0.7rem;
-  }
-
-  .ea-slab {
-    padding: 1.2rem 0.95rem 1.35rem;
   }
 }
