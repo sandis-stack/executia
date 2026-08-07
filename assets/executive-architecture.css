@@ -58,23 +58,23 @@
 .ea-layer-node--decision {
   width: min(100%, 12.5rem);
   min-height: 2.85rem;
-  animation-delay: 0.1s;
+  animation-delay: 0.08s;
+}
+
+.ea-layer-node--request {
+  width: min(100%, 17rem);
+  animation-delay: 0.16s;
 }
 
 .ea-layer-node--execution {
   width: min(100%, 19rem);
-  animation-delay: 0.36s;
-}
-
-.ea-layer-node--evidence {
-  width: min(100%, 16rem);
-  animation-delay: 0.48s;
+  animation-delay: 0.4s;
 }
 
 .ea-layer-node--outcome {
   width: min(100%, 11.5rem);
   min-height: 2.75rem;
-  animation-delay: 0.6s;
+  animation-delay: 0.52s;
 }
 
 .ea-layer-label {
@@ -101,11 +101,11 @@
   animation: ea-fade-in 0.35s ease forwards;
 }
 
-.ea-layer-connector:nth-of-type(2) { animation-delay: 0.05s; }
-.ea-layer-connector:nth-of-type(4) { animation-delay: 0.15s; }
-.ea-layer-connector:nth-of-type(6) { animation-delay: 0.3s; }
-.ea-layer-connector:nth-of-type(8) { animation-delay: 0.42s; }
-.ea-layer-connector:nth-of-type(10) { animation-delay: 0.54s; }
+.ea-layer-connector:nth-of-type(2) { animation-delay: 0.04s; }
+.ea-layer-connector:nth-of-type(4) { animation-delay: 0.12s; }
+.ea-layer-connector:nth-of-type(6) { animation-delay: 0.2s; }
+.ea-layer-connector:nth-of-type(8) { animation-delay: 0.34s; }
+.ea-layer-connector:nth-of-type(10) { animation-delay: 0.46s; }
 
 .ea-layer-line {
   width: 1.5px;
@@ -137,7 +137,7 @@
     0 0 42px rgba(56, 189, 248, 0.12);
   opacity: 0;
   animation: ea-fade-in 0.45s ease forwards;
-  animation-delay: 0.2s;
+  animation-delay: 0.26s;
 }
 
 .ea-integrity-bar {
