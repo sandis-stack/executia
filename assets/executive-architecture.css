@@ -71,6 +71,16 @@
   color: #64748b;
 }
 
+.layer-purpose {
+  margin: 0.1rem 0 0;
+  font-size: 0.86rem;
+  font-weight: 450;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #64748b;
+}
+
 .ea-zone-flow,
 .ea-eval-flow,
 .ea-output-path {
@@ -148,7 +158,7 @@
 
 .ea-integrity-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(11rem, 0.85fr);
+  grid-template-columns: minmax(0, 1fr) auto minmax(8.25rem, 0.64fr);
   gap: 0.65rem 0.5rem;
   align-items: stretch;
 }
@@ -198,13 +208,13 @@
 }
 
 .ea-gate-path--yes {
-  border-color: #bbf7d0;
-  background: #f0fdf4;
+  border-color: #1e293b;
+  background: #ffffff;
 }
 
 .ea-gate-path--no {
-  border-color: #fed7aa;
-  background: #fff7ed;
+  border-color: #94a3b8;
+  background: #ffffff;
 }
 
 .ea-gate-badge {
@@ -215,14 +225,17 @@
   text-transform: uppercase;
 }
 
-.ea-gate-path--yes .ea-gate-badge { color: #047857; }
-.ea-gate-path--no .ea-gate-badge { color: #c2410c; }
+.ea-gate-path--yes .ea-gate-badge { color: #0f172a; }
+.ea-gate-path--no .ea-gate-badge { color: #475569; }
 
 .ea-gate-desc {
   font-size: 0.78rem;
   line-height: 1.4;
   color: #475569;
 }
+
+.ea-gate-path--yes .ea-gate-desc { color: #0f172a; }
+.ea-gate-path--no .ea-gate-desc { color: #64748b; }
 
 .ea-evidence-branch {
   display: flex;
@@ -241,29 +254,23 @@
 .ea-evidence-byproduct {
   display: grid;
   align-content: start;
-  gap: 0.35rem;
-  padding: 0.95rem 1rem;
-  border: 1px solid #cbd5e1;
+  gap: 0.28rem;
+  max-width: 11.25rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid #94a3b8;
   border-radius: 10px;
   background: #ffffff;
-  box-shadow: inset 3px 0 0 #94a3b8;
 }
 
 .ea-evidence-title {
   margin: 0;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  line-height: 1.35;
-  color: #0f172a;
-}
-
-.ea-evidence-note {
-  margin: 0;
-  font-size: 0.76rem;
-  line-height: 1.35;
-  color: #64748b;
+  line-height: 1.4;
+  color: #475569;
 }
 
 .ea-outputs {
