@@ -242,7 +242,7 @@ body[data-page="contact"] .contact-wrap{
   text-align:center;
 }
 body[data-page="contact"] .contact-intro{
-  padding:5.5rem 0 3.25rem;
+  padding:5.5rem 0 1.75rem;
 }
 body[data-page="contact"] .contact-intro .kicker{
   margin:0 0 1.1rem;
@@ -315,7 +315,15 @@ body[data-page="contact"] .contact-cta-secondary:focus-visible{
   outline-offset:3px;
 }
 body[data-page="contact"] .contact-details{
-  padding:1.5rem 0 4.5rem;
+  padding:.5rem 0 2.5rem;
+}
+body[data-page="contact"] .contact-or{
+  margin:0 0 1.25rem;
+  font-size:.75rem;
+  font-weight:400;
+  letter-spacing:.08em;
+  text-transform:lowercase;
+  color:#94a3b8;
 }
 body[data-page="contact"] .contact-brand{
   margin:0;
@@ -325,28 +333,33 @@ body[data-page="contact"] .contact-brand{
   text-transform:uppercase;
   color:#0f2d4a;
 }
+body[data-page="contact"] .contact-official{
+  margin:.4rem 0 0;
+  font-size:.8125rem;
+  font-weight:400;
+  letter-spacing:.02em;
+  color:#94a3b8;
+}
 body[data-page="contact"] .contact-email,
 body[data-page="contact"] .contact-linkedin{
   display:block;
-  margin-top:.65rem;
+  margin-top:.55rem;
   color:#475569;
   font-size:.875rem;
   font-weight:400;
   letter-spacing:.02em;
   text-decoration:none;
 }
+body[data-page="contact"] .contact-email{
+  margin-top:1rem;
+}
 body[data-page="contact"] .contact-email:hover,
 body[data-page="contact"] .contact-linkedin:hover{
   color:#0f2d4a;
 }
-body[data-page="contact"] .contact-note{
-  margin:1.35rem 0 0;
-  font-size:.8125rem;
-  line-height:1.5;
-  color:#94a3b8;
-}
 @media (max-width:520px){
-  body[data-page="contact"] .contact-intro{padding:4rem 0 2.75rem}
+  body[data-page="contact"] .contact-intro{padding:4rem 0 1.5rem}
+  body[data-page="contact"] .contact-details{padding:.35rem 0 2.25rem}
   body[data-page="contact"] .contact-actions{width:100%}
   body[data-page="contact"] .contact-cta-primary,
   body[data-page="contact"] .contact-cta-secondary{width:100%;max-width:20rem}
