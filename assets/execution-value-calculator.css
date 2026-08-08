@@ -55,20 +55,20 @@
   display: block;
   margin-bottom: 0.25rem;
   font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #55708b;
+  color: #64748b;
 }
 
 .evc-field-legend {
   display: block;
   margin-bottom: 0.25rem;
   font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #55708b;
+  color: #64748b;
   padding: 0;
 }
 
@@ -268,6 +268,7 @@
   align-items: baseline;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--line);
+  transition: background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .evc-metric:last-child { border-bottom: 0; padding-bottom: 0; }
@@ -275,7 +276,7 @@
 .evc-metric-name {
   font-size: 13px;
   font-weight: 600;
-  color: #334155;
+  color: #475569;
 }
 
 .evc-metric-kind {
@@ -314,10 +315,54 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--ink);
+  transition:
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    font-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .evc-metric-value.loss { color: #9a3e3e; }
 .evc-metric-value.gain { color: #18704f; }
+
+/* Assessment climax — Enterprise Value is the focal point */
+.evc-metric[data-metric="enterpriseValueCreated"] {
+  margin: 0.15rem -0.65rem 0.15rem;
+  padding: 0.95rem 0.65rem 1rem;
+  border-radius: 0.5rem;
+  border-bottom: 1px solid transparent;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  box-shadow: inset 0 0 0 1px #e2e8f0;
+}
+.evc-metric[data-metric="enterpriseValueCreated"] .evc-metric-name {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+.evc-metric[data-metric="enterpriseValueCreated"] .evc-metric-value {
+  font-size: clamp(1.55rem, 3.1vw, 2.15rem);
+  font-weight: 700;
+  letter-spacing: -0.032em;
+  color: #0f2d4a;
+}
+
+/* Execution Score — secondary authority */
+.evc-metric[data-metric="executionScore"] {
+  padding-top: 0.35rem;
+}
+.evc-metric[data-metric="executionScore"] .evc-metric-name {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+.evc-metric[data-metric="executionScore"] .evc-metric-value {
+  font-size: clamp(1.4rem, 2.8vw, 1.95rem);
+  letter-spacing: -0.028em;
+  color: #124155;
+}
 
 .evc-priority-list {
   margin: 0.25rem 0 0;
@@ -366,12 +411,12 @@
 .evc-chart-fill {
   height: 100%;
   border-radius: 999px;
-  transition: width 180ms ease;
+  transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .evc-chart-fill.loss { background: #c97a7a; }
 .evc-chart-fill.recovered { background: #3d8b67; }
-.evc-chart-fill.enterprise { background: #124155; }
+.evc-chart-fill.enterprise { background: #0f2d4a; }
 
 .evc-chart-row span:last-child {
   font-size: 11px;
@@ -409,12 +454,32 @@
   min-height: 48px;
   font-size: 13px;
   letter-spacing: 0.04em;
+  border-radius: 0.5rem;
+  transition:
+    opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.evc-cta-primary.is-disabled {
-  opacity: 0.42;
+.evc-cta-primary.is-disabled,
+.evc-cta-primary[aria-disabled="true"] {
+  opacity: 0.36;
   pointer-events: none;
   cursor: not-allowed;
+  box-shadow: none;
+}
+
+.evc-cta-primary:not(.is-disabled):not([aria-disabled="true"]) {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.12) inset,
+    0 10px 28px rgba(15, 45, 74, 0.16);
+}
+
+.evc-cta-primary:not(.is-disabled):not([aria-disabled="true"]):hover {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.14) inset,
+    0 14px 32px rgba(15, 45, 74, 0.2);
 }
 
 .evc-cta-secondary {
