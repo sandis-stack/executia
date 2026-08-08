@@ -200,10 +200,14 @@
         </div>
 
         <div class="spec-download-dock">
-          <button type="button" class="spec-pdf-btn" onclick="window.print()">
+          <a
+            class="spec-pdf-btn"
+            href="/public/docs/EXECUTIA-EIM-1.0-Reference-Specification.pdf"
+            download="EXECUTIA-EIM-1.0-Reference-Specification.pdf"
+          >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             DOWNLOAD SPECIFICATION PDF (EIM-1.0)
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -245,43 +249,61 @@
             <div class="cm-vignette" aria-hidden="true"></div>
             <div class="cm-camera" data-cm-camera>
               <div class="cm-copy">
-                <p class="cm-kicker" data-cm-kicker></p>
-                <p class="cm-brand-mark" data-cm-brand hidden>EXECUTIA™</p>
-                <p class="cm-text" data-cm-text></p>
-                <div class="cm-chain" data-cm-chain hidden>
-                  <span>Intent</span>
-                  <i aria-hidden="true"></i>
-                  <span>Decision</span>
-                  <i aria-hidden="true"></i>
-                  <span>Execution</span>
-                  <i aria-hidden="true"></i>
-                  <span>Outcome</span>
+                <div class="cm-narrative cm-narrative--brand" data-cm-brand-wrap>
+                  <p class="cm-brand-mark" data-cm-brand>EXECUTIA™</p>
                 </div>
-                <ul class="cm-failures" data-cm-failures hidden>
-                  <li>Error</li>
-                  <li>Delay</li>
-                  <li>Fraud</li>
-                  <li>Waste</li>
-                </ul>
-                <div class="cm-eim" data-cm-eim hidden aria-hidden="true">
-                  <div class="cm-eim-layer" data-eim-layer="business">Business Layer</div>
-                  <div class="cm-eim-layer cm-eim-layer--core" data-eim-layer="integrity">Execution Integrity Layer</div>
-                  <div class="cm-eim-layer" data-eim-layer="execution">Execution Layer</div>
+                <div class="cm-narrative cm-narrative--copy" data-cm-copy-wrap>
+                  <p class="cm-kicker" data-cm-kicker></p>
+                  <p class="cm-text" data-cm-text></p>
                 </div>
-                <div class="cm-platform" data-cm-platform hidden aria-hidden="true">
-                  <p class="cm-platform-label">EXECUTIA Platform</p>
-                  <div class="cm-platform-stack">
-                    <span>Governance</span>
-                    <span>Evidence</span>
-                    <span>Verification</span>
+                <div class="cm-narrative cm-narrative--axis" data-cm-axis>
+                  <div class="cm-chain-row" data-cm-chain>
+                    <span data-chain-node="0">Intent</span>
+                    <i aria-hidden="true"></i>
+                    <span data-chain-node="1">Decision</span>
+                    <i aria-hidden="true"></i>
+                    <span data-chain-node="2">Execution</span>
+                    <i aria-hidden="true"></i>
+                    <span data-chain-node="3">Outcome</span>
+                  </div>
+                  <div class="cm-failures-block" data-cm-failures>
+                    <p class="cm-kicker cm-kicker--static">Execution failures</p>
+                    <ul class="cm-failures-list">
+                      <li>Error</li>
+                      <li>Delay</li>
+                      <li>Fraud</li>
+                      <li>Waste</li>
+                    </ul>
                   </div>
                 </div>
-                <div class="cm-life" data-cm-life hidden>
-                  <p class="cm-life-line">First implementation — LIFE</p>
+                <div class="cm-narrative cm-narrative--build" data-cm-build aria-hidden="true">
+                  <p class="cm-build-label" data-build-label data-label-mode="">Execution Integrity Model</p>
+                  <div class="cm-build-stack" data-build-eim>
+                    <div class="cm-build-layer" data-eim-layer="business">Business Layer</div>
+                    <div class="cm-build-link" data-build-link="upper" aria-hidden="true"></div>
+                    <div class="cm-build-layer cm-build-layer--core" data-eim-layer="integrity">Execution Integrity Layer</div>
+                    <div class="cm-build-link" data-build-link="lower" aria-hidden="true"></div>
+                    <div class="cm-build-layer" data-eim-layer="execution">Execution Layer</div>
+                  </div>
+                  <div class="cm-build-caps" data-build-caps>
+                    <span data-cap="governance">Governance</span>
+                    <span data-cap="evidence">Evidence</span>
+                    <span data-cap="verification">Verification</span>
+                  </div>
+                  <div class="cm-build-rays" data-build-rays aria-hidden="true">
+                    <i></i><i></i><i></i>
+                  </div>
+                  <div class="cm-build-apps" data-build-apps>
+                    <span data-app="life">LIFE</span>
+                    <span data-app="one" class="cm-app--next">ONE <em>Next</em></span>
+                    <span data-app="gov" class="cm-app--next">GOV <em>Next</em></span>
+                  </div>
+                  <p class="cm-life-caption" data-cm-life>First implementation.</p>
                 </div>
-                <div class="cm-finale" data-cm-finale hidden>
+                <div class="cm-narrative cm-narrative--finale" data-cm-finale>
                   <p class="cm-brand">EXECUTIA™</p>
                   <p class="cm-card">Execution Integrity Standard</p>
+                  <p class="cm-finale-line">A new standard for organizational execution.</p>
                   <a class="cm-cta" href="#trust" data-cm-cta>Continue</a>
                 </div>
               </div>

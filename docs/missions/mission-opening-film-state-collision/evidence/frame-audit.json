@@ -1,0 +1,161 @@
+[
+  {
+    "ms": 7000,
+    "dominant": [
+      "copy@1"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [],
+    "apps": [],
+    "label": "Execution Integrity Model@0",
+    "life": 0,
+    "caps": []
+  },
+  {
+    "ms": 15000,
+    "dominant": [
+      "copy@0.94"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [],
+    "apps": [],
+    "label": "Execution Integrity Model@0",
+    "life": 0,
+    "caps": []
+  },
+  {
+    "ms": 24000,
+    "dominant": [
+      "axis@1"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [
+      "Error~@0.55",
+      "Delay*@1"
+    ],
+    "apps": [],
+    "label": "Execution Integrity Model@0",
+    "life": 0,
+    "caps": []
+  },
+  {
+    "ms": 35000,
+    "dominant": [
+      "build@0.94"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [],
+    "apps": [],
+    "label": "Execution Integrity Model@0",
+    "life": 0,
+    "caps": []
+  },
+  {
+    "ms": 50000,
+    "dominant": [
+      "build@1"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [],
+    "apps": [],
+    "label": "Execution Integrity Model@1",
+    "life": 0,
+    "caps": []
+  },
+  {
+    "ms": 65000,
+    "dominant": [
+      "build@1"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [],
+    "apps": [],
+    "label": "Execution Integrity Model@0",
+    "life": 0,
+    "caps": [
+      "governance",
+      "evidence",
+      "verification"
+    ]
+  },
+  {
+    "ms": 78000,
+    "dominant": [
+      "build@1"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [],
+    "apps": [],
+    "label": "EXECUTIA Platform@1",
+    "life": 0,
+    "caps": [
+      "governance",
+      "evidence",
+      "verification"
+    ]
+  },
+  {
+    "ms": 88000,
+    "dominant": [
+      "build@1"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [],
+    "apps": [
+      "life@1",
+      "one@1",
+      "gov@1"
+    ],
+    "label": "EXECUTIA Platform@1",
+    "life": 0,
+    "caps": []
+  },
+  {
+    "ms": 94000,
+    "dominant": [
+      "build@1"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [],
+    "apps": [
+      "life@1",
+      "one@1",
+      "gov@1"
+    ],
+    "label": "EXECUTIA Platform@1",
+    "life": 1,
+    "caps": []
+  },
+  {
+    "ms": 101000,
+    "dominant": [
+      "finale@1"
+    ],
+    "multi": false,
+    "brandText": "",
+    "brandOp": 0,
+    "fail": [],
+    "apps": [],
+    "label": "EXECUTIA Platform@0",
+    "life": 0,
+    "caps": []
+  }
+]
