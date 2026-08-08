@@ -101,29 +101,79 @@
   min-height: 44px;
 }
 
-.evc-risks {
-  display: grid;
-  gap: 0.5rem;
-  margin-top: 0.25rem;
+/* Institutional multi-select — Optional Major Risks */
+.evc-risks-block {
+  margin: 0;
+  padding: 2rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-sizing: border-box;
 }
 
+.evc-risks-block > .evc-field-legend {
+  float: left;
+  width: 100%;
+  margin: 0 0 0.35rem;
+  padding: 0;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.evc-risks-block > .evc-field-hint {
+  clear: both;
+  margin: 0 0 1.15rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #94a3b8;
+}
+
+.evc-risks {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  clear: both;
+}
+
+.evc-field .evc-risk,
 .evc-risk {
   display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  font-size: 14px;
-  color: #405870;
-  line-height: 1.4;
+  align-items: center;
+  gap: 1.5rem; /* 24px */
+  margin: 0;
+  padding: 0.5rem 0.35rem; /* 16px vertical rhythm */
+  border-radius: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #334155;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: background 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.evc-risk:hover {
+  background: #f8fafc;
 }
 
 .evc-risk-copy {
-  display: grid;
-  gap: 0.15rem;
+  display: block;
+  min-width: 0;
 }
 
 .evc-risk-label {
-  font-weight: 600;
+  font-weight: 400;
   color: #334155;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 .evc-risk-hint {
@@ -148,7 +198,63 @@
   color: var(--ink);
 }
 
-.evc-risk input { margin-top: 0.2rem; flex-shrink: 0; }
+.evc-risk input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.25rem; /* 20px */
+  height: 1.25rem;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  max-width: 1.25rem;
+  margin: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border: 1.5px solid #94a3b8;
+  border-radius: 0.25rem;
+  background: #fff;
+  cursor: pointer;
+  transition:
+    border-color 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.evc-risk:hover input[type="checkbox"] {
+  border-color: #64748b;
+}
+
+.evc-risk input[type="checkbox"]:focus-visible {
+  outline: 2px solid rgba(15, 45, 74, 0.35);
+  outline-offset: 2px;
+}
+
+.evc-risk input[type="checkbox"]:checked {
+  border-color: #0f2d4a;
+  background-color: #0f2d4a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8.2L6.4 11.1L12.5 4.9' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 0.75rem 0.75rem;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 640px) {
+  .evc-risks-block {
+    padding: 1.5rem;
+    max-height: none;
+  }
+
+  .evc-field .evc-risk,
+  .evc-risk {
+    min-height: 2.75rem;
+    padding: 0.65rem 0.35rem;
+    gap: 1.25rem;
+  }
+
+  .evc-risk input[type="checkbox"] {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+}
 
 .evc-results {
   display: grid;
