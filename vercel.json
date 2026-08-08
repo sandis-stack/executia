@@ -20,6 +20,7 @@
     { "src": "^/request$", "dest": "/request.html" },
     { "src": "^/contact$", "dest": "/contact.html" },
     { "src": "^/life-proof$", "dest": "/life-proof.html" },
+    { "src": "^/invoice-proof$", "dest": "/invoice-proof.html" },
     { "src": "^/standard$", "dest": "/standard.html" },
     { "src": "^/definition$", "dest": "/definition.html" },
     { "src": "^/global$", "dest": "/global.html" },
