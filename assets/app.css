@@ -229,6 +229,50 @@ a{color:inherit;text-decoration:none}
   color:#94a3b8;
 }
 
+/* Minimal legal footer — Contact destination page only */
+.site-footer.legal-footer{
+  background:#fff;
+  border-top:1px solid #e2e8f0;
+  padding:0;
+}
+.legal-footer-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.35rem;
+  min-height:3.5rem; /* 56px */
+  padding:.85rem 1.25rem;
+  text-align:center;
+}
+.legal-footer-copy{
+  margin:0;
+  font-size:.6875rem;
+  font-weight:400;
+  letter-spacing:.04em;
+  color:#94a3b8;
+}
+.legal-footer-nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.45rem;
+  font-size:.6875rem;
+  letter-spacing:.02em;
+}
+.legal-footer-nav a{
+  color:#94a3b8;
+  text-decoration:none;
+}
+.legal-footer-nav a:hover{color:#0f2d4a}
+.legal-footer-nav a:focus-visible{
+  outline:1px solid rgba(15,45,74,.35);
+  outline-offset:3px;
+}
+.legal-footer-sep{
+  color:#cbd5e1;
+}
+
 /* Contact — institutional continuation of ENTRY */
 body[data-page="contact"]{
   background:#fff;
