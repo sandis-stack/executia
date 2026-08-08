@@ -542,34 +542,42 @@
   }
 }
 
-/* Opening Film — single intro, then player */
+/* Opening Film — compact intro, then player */
 .hp-opening-film {
   background: #fff;
-  padding: 3.5rem 0 5rem;
+  padding: 2rem 0 4rem;
 }
 .eof-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.85rem;
+}
+.hp-opening-film .eof-kicker {
+  margin-bottom: 0.35rem;
 }
 .hp-film-intro-meta {
-  margin: 0 0 0.75rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: #64748b;
-}
-.eof-title {
-  margin: 0;
-  max-width: 28rem;
-  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
-  font-size: clamp(1.55rem, 3vw, 2.15rem);
+  margin: 0 0 0.4rem;
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.18;
-  color: #0f172a;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+}
+.eof-support {
+  margin: 0;
+  max-width: 32rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: #334155;
 }
 .eof-cta {
-  margin-top: 1.25rem;
+  margin-top: 0.75rem;
   margin-bottom: 0;
+}
+.eof-watch {
+  min-height: 34px;
+  padding: 0 16px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
 }
 #story-film-player {
   position: relative;
