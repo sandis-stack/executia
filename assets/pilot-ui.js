@@ -221,16 +221,14 @@ function updateCta(root, ctx) {
 
   if (cta) {
     cta.href = buildRequestUrl();
-    cta.textContent = 'Request Pilot';
+    cta.textContent = 'Request Pilot Assessment';
   }
 
   if (hint) {
-    if (ctx.assessment?.results?.ok) {
-      hint.textContent = 'Your organization context is attached. An executive team member follows up within days.';
-    } else if (ctx.calculator?.results) {
-      hint.textContent = 'Your loss estimate is included. The engagement starts with a structured executive briefing.';
+    if (ctx.assessment?.results?.ok || ctx.calculator?.results) {
+      hint.textContent = 'Your execution context will be included in the assessment.';
     } else {
-      hint.textContent = 'The engagement begins with diagnosis, Execution Score, and improvement roadmap.';
+      hint.textContent = '';
     }
   }
 }

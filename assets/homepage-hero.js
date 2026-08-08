@@ -22,6 +22,10 @@ function escapeHtml(text) {
     .replace(/"/g, '&quot;');
 }
 
+function preferReducedMotion() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 /** Five-step execution sequence aligned to ENTRY path. */
 function buildHeroJourney(ctx = loadPublicFunnelContext()) {
   const calc = ctx.calculator?.results;
@@ -123,28 +127,40 @@ function activeProgressPercent(stepNumber) {
 }
 
 function progressBarHtml(percent) {
-  const filled = Math.max(1, Math.round(percent / 10));
-  const empty = Math.max(0, 10 - filled);
-  const blocks = `${'█'.repeat(filled)}${'░'.repeat(empty)}`;
   return (
     `<div class="hp-flow-progress" aria-hidden="true">` +
-    `<span class="hp-flow-progress-track">[ ${blocks} ]</span>` +
+    `<div class="hp-flow-progress-bar" style="--pct:${percent}%">` +
+    `<span class="hp-flow-progress-fill"></span>` +
+    `</div>` +
     `<span class="hp-flow-progress-pct">${percent}% COMPLETE</span>` +
     `</div>`
+  );
+}
+
+function badgeHtml(status) {
+  return (
+    `<span class="sys-state hp-flow-badge hp-flow-badge--${status}">` +
+    `${escapeHtml(badgeForStatus(status))}` +
+    `</span>`
   );
 }
 
 function renderJourney(root, steps) {
   root.innerHTML = '';
   root.setAttribute('aria-label', 'Execution Sequence Protocol');
-  root.classList.add('hp-execution-flow');
+  root.classList.add('hp-execution-flow', 'is-live');
 
   const glow = el('div', 'hp-monitor-glow');
   const panel = el('div', 'hp-monitor-panel');
   root.appendChild(glow);
   root.appendChild(panel);
 
-  panel.appendChild(el('p', 'hp-monitor-label', 'Execution Flow'));
+  const label = el(
+    'p',
+    'hp-monitor-label',
+    '<span class="hp-flow-live" aria-hidden="true"></span>Execution Flow'
+  );
+  panel.appendChild(label);
 
   const meta = el('div', 'hp-monitor-meta');
   meta.innerHTML =
@@ -162,11 +178,12 @@ function renderJourney(root, steps) {
 
     const item = el('li', `hp-journey-step hp-journey-step--${step.status}`);
     item.setAttribute('data-flow-step', String(step.stepNumber));
+    item.setAttribute('data-flow-status', step.status);
 
     let html =
       '<div class="hp-journey-main">' +
       `<a class="hp-journey-label" href="${step.href}">${escapeHtml(step.label)}</a>` +
-      `<span class="sys-state hp-flow-badge hp-flow-badge--${step.status}">${escapeHtml(badgeForStatus(step.status))}</span>` +
+      badgeHtml(step.status) +
       '</div>' +
       `<p class="hp-journey-detail">${escapeHtml(step.detail)}</p>`;
 
@@ -189,14 +206,46 @@ function renderJourney(root, steps) {
   }
 }
 
+/**
+ * Soft live status: deterministic micro-tick on the active step
+ * without changing step state or narrative copy.
+ */
+function startIdlePresence(root) {
+  if (preferReducedMotion()) return () => {};
+
+  let tick = 0;
+  const timer = window.setInterval(() => {
+    tick += 1;
+    const active = root.querySelector('.hp-journey-step--active');
+    if (!active) return;
+    active.setAttribute('data-flow-tick', String(tick % 4));
+    const fill = active.querySelector('.hp-flow-progress-fill');
+    if (fill) {
+      // Sub-percent breathing around the declared progress — calm, not noisy.
+      const base = Number.parseFloat(getComputedStyle(active.querySelector('.hp-flow-progress-bar')).getPropertyValue('--pct')) || 20;
+      const delta = tick % 2 === 0 ? 0.6 : -0.4;
+      fill.style.width = `${Math.max(16, Math.min(100, base + delta))}%`;
+    }
+  }, 3200);
+
+  return () => window.clearInterval(timer);
+}
+
 function mount(root) {
+  let stopIdle = () => {};
+
   function refresh() {
+    stopIdle();
     renderJourney(root, buildHeroJourney());
+    stopIdle = startIdlePresence(root);
   }
 
   refresh();
   document.addEventListener('executia:funnel-update', refresh);
-  return () => document.removeEventListener('executia:funnel-update', refresh);
+  return () => {
+    stopIdle();
+    document.removeEventListener('executia:funnel-update', refresh);
+  };
 }
 
 document.addEventListener('DOMContentLoaded', () => {

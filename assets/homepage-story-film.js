@@ -1065,6 +1065,7 @@
         finished = true;
         playing = false;
         score.stop();
+        markBriefingComplete();
       }
       render(now);
       if (effectivePlaying()) rafId = requestAnimationFrame(tick);
@@ -1145,17 +1146,57 @@
       inView = true;
     }
 
+    function markBriefingComplete() {
+      root.classList.add('is-film-complete');
+      player.classList.add('is-film-complete');
+      var section = player.closest('#opening-film') || document.getElementById('opening-film');
+      if (section) section.classList.add('is-film-complete');
+    }
+
+    function continueBriefing(event) {
+      var trust = document.getElementById('trust');
+      if (!trust) return;
+      if (event) event.preventDefault();
+      markBriefingComplete();
+      var section = document.getElementById('opening-film');
+      if (section) section.classList.add('is-briefing-continued');
+      trust.classList.add('is-briefing-continue');
+      var header = document.querySelector('.site-header');
+      var offset = header ? Math.ceil(header.getBoundingClientRect().height) + 10 : 10;
+      var top = Math.max(0, trust.getBoundingClientRect().top + window.pageYOffset - offset);
+      var reducedMotion = preferReduced();
+      if (reducedMotion || typeof window.scrollTo !== 'function') {
+        window.scrollTo(0, top);
+        return;
+      }
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+
+    var cta = root.querySelector('[data-cm-cta]');
+    if (cta) {
+      cta.addEventListener('click', continueBriefing);
+    }
+
     setPlayIcon(playBtn, playing);
     if (replayBtn) replayBtn.hidden = true;
     if (reduced) {
       finished = true;
       playing = false;
       elapsedMs = TOTAL_MS;
+      markBriefingComplete();
     }
     root.__cmSeek = function (ms) {
       elapsedMs = Math.max(0, Math.min(TOTAL_MS, Number(ms) || 0));
       finished = elapsedMs >= TOTAL_MS;
-      if (finished) playing = false;
+      if (finished) {
+        playing = false;
+        markBriefingComplete();
+      } else {
+        root.classList.remove('is-film-complete');
+        player.classList.remove('is-film-complete');
+        var section = document.getElementById('opening-film');
+        if (section) section.classList.remove('is-film-complete', 'is-briefing-continued');
+      }
       lastTick = null;
       if (textSwapTimer) {
         window.clearTimeout(textSwapTimer);
