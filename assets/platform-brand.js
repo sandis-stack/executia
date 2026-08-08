@@ -1,7 +1,6 @@
 /**
- * EXECUTIA global brand + corporate footer shell.
- * UI Constitution v1.0 — FROZEN (platform pages)
- * ENTRY uses institutional authority footer (Block 6).
+ * EXECUTIA global brand + canonical institutional footer.
+ * Design-system source of truth: ENTRY institutional footer (platform-wide).
  */
 (function () {
   function renderBrandIdentity() {
@@ -11,39 +10,8 @@
     );
   }
 
-  function renderPlatformFooter() {
-    return (
-      '<footer class="site-footer shell-footer">' +
-      '<div class="footer-inner">' +
-      '<div class="footer-brand">' +
-      '<a class="brand footer-logo" href="/" aria-label="EXECUTIA home">EXECUTIA\u2122</a>' +
-      '<p>A New Standard for Organizational Execution</p>' +
-      '</div>' +
-      '<div class="footer-col"><h4>Platform</h4>' +
-      '<a href="/">ENTRY</a>' +
-      '<a href="/engine">ENGINE</a>' +
-      '<a href="/pilot">PILOT</a>' +
-      '<a href="/one">ONE</a>' +
-      '<a href="/proof">PROOF</a>' +
-      '</div>' +
-      '<div class="footer-col"><h4>Resources</h4>' +
-      '<a href="/#architecture">Architecture</a>' +
-      '<a href="/standard">Governance</a>' +
-      '<a href="/pilot">Pilot Process</a>' +
-      '<a href="/support">Support</a>' +
-      '<a href="/docs">Documentation</a>' +
-      '</div>' +
-      '<div class="footer-col"><h4>Company</h4>' +
-      '<a href="/support">Support</a>' +
-      '<a href="/contact">Contact</a>' +
-      '</div>' +
-      '</div>' +
-      '<div class="footer-bottom"><span>\u00a9 EXECUTIA</span></div>' +
-      '</footer>'
-    );
-  }
-
-  function renderEntryFooter() {
+  /** Canonical platform footer — identical on every public page. */
+  function renderInstitutionalFooter() {
     return (
       '<footer class="site-footer entry-footer" role="contentinfo">' +
       '<div class="entry-footer-inner">' +
@@ -68,18 +36,19 @@
 
   window.EXECUTIA_BRAND = {
     renderBrandIdentity: renderBrandIdentity,
-    renderPlatformFooter: renderPlatformFooter,
-    renderEntryFooter: renderEntryFooter,
+    renderInstitutionalFooter: renderInstitutionalFooter,
+    /** @deprecated Use renderInstitutionalFooter — kept as alias for callers. */
+    renderEntryFooter: renderInstitutionalFooter,
+    /** @deprecated Legacy multi-column footer removed; alias to institutional. */
+    renderPlatformFooter: renderInstitutionalFooter,
     mountFooter: function () {
       var mount = document.querySelector('[data-platform-footer]');
       if (!mount) return;
-      var isEntry = document.body && document.body.getAttribute('data-page') === 'entry';
-      mount.outerHTML = isEntry ? renderEntryFooter() : renderPlatformFooter();
+      mount.outerHTML = renderInstitutionalFooter();
     },
   };
 
-  // ENTRY has no [data-platform-header], so platform-nav.js never calls mountFooter.
-  // This script is placed immediately after [data-platform-footer] — mount here.
+  // Mount whenever [data-platform-footer] is present (ENTRY has no platform header).
   function bootFooter() {
     window.EXECUTIA_BRAND.mountFooter();
   }

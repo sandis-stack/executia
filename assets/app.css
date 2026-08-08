@@ -153,19 +153,19 @@ a{color:inherit;text-decoration:none}
   line-height:1.55;
 }
 
-/* ENTRY institutional footer (mounted by platform-brand.js) */
-body[data-page="entry"] .site-footer.entry-footer{
+/* Canonical institutional footer (mounted by platform-brand.js — all public pages) */
+.site-footer.entry-footer{
   background:#fff;
   border-top:1px solid #e2e8f0;
   padding:0;
 }
-body[data-page="entry"] .entry-footer-inner{
+.entry-footer-inner{
   width:min(36rem,calc(100% - 2.5rem));
   margin:0 auto;
   padding:3.25rem 0 2.75rem;
   text-align:center;
 }
-body[data-page="entry"] .entry-footer-brand{
+.entry-footer-brand{
   margin:0;
   font-size:.8125rem;
   font-weight:700;
@@ -173,14 +173,14 @@ body[data-page="entry"] .entry-footer-brand{
   text-transform:uppercase;
   color:#0f2d4a;
 }
-body[data-page="entry"] .entry-footer-standard{
+.entry-footer-standard{
   margin:.45rem 0 0;
   font-size:.8125rem;
   font-weight:400;
   letter-spacing:.02em;
   color:#64748b;
 }
-body[data-page="entry"] .entry-footer-rule{
+.entry-footer-rule{
   display:block;
   width:5.5rem;
   height:0;
@@ -188,7 +188,7 @@ body[data-page="entry"] .entry-footer-rule{
   border:0;
   border-top:1px solid #e2e8f0;
 }
-body[data-page="entry"] .entry-footer-model{
+.entry-footer-model{
   margin:0 auto;
   max-width:22rem;
   font-size:.875rem;
@@ -196,32 +196,32 @@ body[data-page="entry"] .entry-footer-model{
   line-height:1.5;
   color:#475569;
 }
-body[data-page="entry"] .entry-footer-ip{
+.entry-footer-ip{
   margin:.4rem 0 0;
   font-size:.6875rem;
   font-weight:400;
   letter-spacing:.04em;
   color:#94a3b8;
 }
-body[data-page="entry"] .entry-footer-nav{
+.entry-footer-nav{
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:.55rem;
 }
-body[data-page="entry"] .entry-footer-nav a{
+.entry-footer-nav a{
   color:#64748b;
   font-size:.8125rem;
   font-weight:400;
   letter-spacing:.02em;
   text-decoration:none;
 }
-body[data-page="entry"] .entry-footer-nav a:hover{color:#0f2d4a}
-body[data-page="entry"] .entry-footer-nav a:focus-visible{
+.entry-footer-nav a:hover{color:#0f2d4a}
+.entry-footer-nav a:focus-visible{
   outline:1px solid rgba(15,45,74,.35);
   outline-offset:3px;
 }
-body[data-page="entry"] .entry-footer-copy{
+.entry-footer-copy{
   margin:0;
   font-size:.6875rem;
   font-weight:400;
