@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://executia.io/">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
   <link rel="stylesheet" href="/assets/homepage-migrated.css">
   <link rel="stylesheet" href="/assets/execution-value-calculator.css">
@@ -214,7 +214,20 @@
     <div class="wrap-home">
       <span class="kicker">THE PROBLEM</span>
       <h2 class="compact hp-story-head">Every organization loses value through poor execution.</h2>
-      <div id="story-film-player" role="region" aria-label="From Chaos to Execution">
+      <div class="hp-section-cta">
+        <a class="pill-btn primary" href="#opening-film">Watch Opening Film</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXECUTIA Opening Film (Protocol Briefing) — evolved from From Chaos to Execution -->
+  <section class="hp-opening-film" id="opening-film" aria-label="EXECUTIA Opening Film">
+    <div class="wrap-home">
+      <div class="eof-header">
+        <span class="kicker">PROTOCOL BRIEFING</span>
+        <h2 class="eof-title">EXECUTIA Opening Film</h2>
+      </div>
+      <div id="story-film-player" role="region" aria-label="EXECUTIA Opening Film — Protocol Briefing">
         <div class="hp-film-stage" data-manifesto-stage>
           <video
             class="hp-briefing-video"
@@ -230,28 +243,56 @@
           <div class="cm-root" data-manifesto>
             <canvas class="cm-canvas" aria-hidden="true"></canvas>
             <div class="cm-vignette" aria-hidden="true"></div>
-            <div class="cm-copy">
-              <p class="cm-kicker" data-cm-kicker>From Chaos to Execution</p>
-              <p class="cm-text" data-cm-text></p>
-              <div class="cm-chain" data-cm-chain hidden>
-                <span>Decision</span>
-                <i aria-hidden="true"></i>
-                <span>Validation</span>
-                <i aria-hidden="true"></i>
-                <span>Execution</span>
-                <i aria-hidden="true"></i>
-                <span>Proof</span>
-              </div>
-              <div class="cm-finale" data-cm-finale hidden>
-                <p class="cm-brand">EXECUTIA</p>
-                <p class="cm-card">Execution Integrity Standard</p>
-                <a class="cm-cta" href="/engine" data-cm-cta>Enter ENGINE</a>
+            <div class="cm-camera" data-cm-camera>
+              <div class="cm-copy">
+                <p class="cm-kicker" data-cm-kicker></p>
+                <p class="cm-brand-mark" data-cm-brand hidden>EXECUTIA™</p>
+                <p class="cm-text" data-cm-text></p>
+                <div class="cm-chain" data-cm-chain hidden>
+                  <span>Intent</span>
+                  <i aria-hidden="true"></i>
+                  <span>Decision</span>
+                  <i aria-hidden="true"></i>
+                  <span>Execution</span>
+                  <i aria-hidden="true"></i>
+                  <span>Outcome</span>
+                </div>
+                <ul class="cm-failures" data-cm-failures hidden>
+                  <li>Error</li>
+                  <li>Delay</li>
+                  <li>Fraud</li>
+                  <li>Waste</li>
+                </ul>
+                <div class="cm-eim" data-cm-eim hidden aria-hidden="true">
+                  <div class="cm-eim-layer" data-eim-layer="business">Business Layer</div>
+                  <div class="cm-eim-layer cm-eim-layer--core" data-eim-layer="integrity">Execution Integrity Layer</div>
+                  <div class="cm-eim-layer" data-eim-layer="execution">Execution Layer</div>
+                </div>
+                <div class="cm-platform" data-cm-platform hidden aria-hidden="true">
+                  <p class="cm-platform-label">EXECUTIA Platform</p>
+                  <div class="cm-platform-stack">
+                    <span>Governance</span>
+                    <span>Evidence</span>
+                    <span>Verification</span>
+                  </div>
+                </div>
+                <div class="cm-life" data-cm-life hidden>
+                  <p class="cm-life-line">First implementation — LIFE</p>
+                </div>
+                <div class="cm-finale" data-cm-finale hidden>
+                  <p class="cm-brand">EXECUTIA™</p>
+                  <p class="cm-card">Execution Integrity Standard</p>
+                  <a class="cm-cta" href="#trust" data-cm-cta>Continue</a>
+                </div>
               </div>
             </div>
             <div class="cm-controls">
               <div class="cm-progress" aria-hidden="true"><div class="cm-progress-fill" data-cm-progress></div></div>
               <div class="cm-toolbar">
                 <button type="button" class="cm-icon-btn" data-cm-play aria-label="Pause"></button>
+                <button type="button" class="cm-icon-btn" data-cm-mute aria-label="Unmute" aria-pressed="true">
+                  <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 5.2h2.2L7 3v8L4.2 8.8H2V5.2Z" fill="currentColor"/><path d="M9.2 5.2 12 8M12 5.2 9.2 8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                </button>
                 <button type="button" class="cm-icon-btn" data-cm-replay aria-label="Replay" hidden>
                   <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.2 2.2v3.4h3.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M2.6 5.4A5.2 5.2 0 1 1 3 9.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
                 </button>
