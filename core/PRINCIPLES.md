@@ -37,6 +37,75 @@ These principles govern every product surface — LIFE, ONE, GOV — and every f
 10. **No feature may increase administrative work.**  
     If a proposal adds process management for people, it is rejected — regardless of demand or revenue.
 
+11. **External systems are replaceable. The Engine is not.**  
+    The Engine never depends on an external system.  
+    External systems depend on adapters.  
+    Adapters isolate change.  
+    The Engine remains stable.
+
+---
+
+## External systems and adapters
+
+Banks change.  
+Accounting systems change.  
+Governments change.  
+Tax rules change.  
+Email providers change.  
+Calendars change.  
+Document storage changes.
+
+The Engine must not.
+
+The Engine communicates only through adapters.  
+Every external platform is an implementation detail.  
+Never a dependency.
+
+### Architectural rule
+
+Never allow business logic inside an adapter.
+
+Adapters only:
+
+- receive information  
+- normalize information  
+- send information  
+- receive responses  
+
+All decisions belong to the Engine.
+
+### Examples
+
+```
+Gmail            → Email Adapter        → Engine
+Outlook          → Email Adapter        → Engine
+Fiken            → Accounting Adapter   → Engine
+Tripletex        → Accounting Adapter   → Engine
+DNB              → Bank Adapter         → Engine
+Google Calendar  → Calendar Adapter     → Engine
+```
+
+### Replacement rule
+
+Replacing Fiken with another accounting platform must require changing only the Accounting Adapter.  
+Never the Engine.
+
+Replacing Gmail must require changing only the Email Adapter.  
+Never the Engine.
+
+Replacing a bank must require changing only the Bank Adapter.  
+Never the Engine.
+
+### Adapter product test
+
+If removing an external platform requires changing the Engine,  
+the architecture is wrong.
+
+### Success
+
+The Engine should be able to survive for decades,  
+while external systems evolve around it.
+
 ---
 
 ## Test
@@ -46,5 +115,11 @@ Before any feature ships, ask:
 > Does this reduce administration while increasing execution integrity?
 
 If no — do not build it.
+
+Before any integration ships, ask:
+
+> Can this external platform be removed without changing the Engine?
+
+If no — the architecture is wrong.
 
 Core never changes to justify a feature.
