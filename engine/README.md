@@ -17,6 +17,7 @@ It never depends on an external system.
 | `rules/` | Validation and governance rules |
 | `synchronization/` | Sync policy toward adapters (truth stays here) |
 | `objects/` | Execution-object behaviour at Engine layer |
+| `learning/` | Confirmed-truth learning (silence over time) |
 
 ---
 

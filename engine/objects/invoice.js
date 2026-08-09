@@ -46,6 +46,9 @@ export function createInvoice(input = {}) {
     },
     dueDate: input.dueDate || null,
     context: input.context || null, // 'business' | 'personal' | null
+    expenseCategory: input.expenseCategory || null,
+    recurring: input.recurring != null ? input.recurring : null,
+    learning: input.learning || { applied: [], confirmed: [] },
     state: INVOICE_STATES.RECEIVED,
     evidenceStatus: EVIDENCE_STATUS.MISSING,
     synchronizationStatus: SYNC_STATUS.NOT_REQUIRED,

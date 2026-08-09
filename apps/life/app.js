@@ -291,6 +291,13 @@ function detailView(invoice) {
       <div class="life-row"><span>Accounting sync</span><span>${escapeHtml(invoice.sync?.accounting?.status || invoice.synchronizationStatus || '—')}${invoice.sync?.accounting?.vendor ? ` · ${escapeHtml(invoice.sync.accounting.vendor)}` : ''}</span></div>
       <div class="life-row"><span>Payment</span><span>${escapeHtml(c.payment?.status || '—')}</span></div>
       <div class="life-row"><span>Forecast</span><span>${c.forecast?.updated ? money(c.forecast.outflow, c.forecast.currency) : '—'}</span></div>
+      <div class="life-row"><span>Learning</span><span>${
+        invoice.learning?.applied?.length
+          ? `applied · ${invoice.learning.applied.map((a) => a.kind).join(', ')}`
+          : invoice.learning?.confirmed?.length
+            ? 'confirmed this execution'
+            : '—'
+      }</span></div>
     </div>
     ${
       c.accounting

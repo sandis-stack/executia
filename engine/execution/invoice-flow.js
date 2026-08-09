@@ -11,6 +11,11 @@ import {
 } from '../objects/invoice.js';
 import { attachEvidence, verifyEvidence } from '../evidence/capture.js';
 import { nextRequiredDecision, applyDecision } from '../decision/invoice-decisions.js';
+import {
+  applyLearnedTruth,
+  confirmFromDecision,
+  confirmFromCompletedExecution,
+} from '../learning/index.js';
 
 function round2(n) {
   return Math.round(n * 100) / 100;
@@ -57,6 +62,7 @@ function computeAccountingConsequence(invoice, vat) {
         kind: 'expense',
         amount: vat.net,
         vatAmount: vat.vatAmount,
+        category: invoice.expenseCategory || null,
         description: `Invoice ${invoice.supplier || ''}`.trim(),
       },
     ],
@@ -125,6 +131,9 @@ export async function advanceInvoice(invoice, adapters = {}) {
     });
   }
 
+  // Apply confirmed learning before asking — silence when confidence allows
+  current = applyLearnedTruth(current);
+
   const decision = nextRequiredDecision(current);
   if (decision) {
     return touch(current, {
@@ -166,7 +175,7 @@ export async function advanceInvoice(invoice, adapters = {}) {
   const syncStatus =
     accountingSync?.status === SYNC_STATUS.FAILED ? SYNC_STATUS.FAILED : accountingSync?.status || SYNC_STATUS.STUBBED;
 
-  return touch(current, {
+  current = touch(current, {
     state: INVOICE_STATES.COMPLETE,
     completedAt: new Date().toISOString(),
     synchronizationStatus: syncStatus,
@@ -176,12 +185,25 @@ export async function advanceInvoice(invoice, adapters = {}) {
     },
     pendingDecision: null,
   });
+
+  // Reinforce residual confirmed truths that reduce future administration
+  const completedLearn = confirmFromCompletedExecution(current);
+  if (completedLearn.learned?.length) {
+    current = touch(current, {
+      learning: {
+        ...(current.learning || {}),
+        confirmed: [...(current.learning?.confirmed || []), ...completedLearn.learned],
+      },
+    });
+  }
+
+  return current;
 }
 
 /**
  * Apply a human decision then continue execution.
  */
-export async function decideAndAdvance(invoice, decisionType, optionId, adapters = {}) {
+export async function decideAndAdvance(invoice, decisionType, optionId, adapters = {}, learningExtras = {}) {
   let current = applyDecision(invoice, decisionType, optionId);
 
   if (decisionType === 'supplier' && optionId === 'set_later') {
@@ -205,6 +227,17 @@ export async function decideAndAdvance(invoice, decisionType, optionId, adapters
     if (invoice.pendingDecision?.type === 'supplier_hold') {
       current = applyDecision(current, 'supplier', 'accept_unknown');
     }
+  }
+
+  // Store confirmed truth only when it will reduce future administration
+  const learned = confirmFromDecision(current, decisionType, optionId, learningExtras);
+  if (learned.learned?.length) {
+    current = touch(current, {
+      learning: {
+        ...(current.learning || {}),
+        confirmed: [...(current.learning?.confirmed || []), ...learned.learned],
+      },
+    });
   }
 
   return advanceInvoice(current, adapters);
