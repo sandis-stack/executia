@@ -1,22 +1,12 @@
 # EXECUTIA Apps
 
-Product surfaces that implement Core.
+Product surfaces that implement Core through the Engine.
 
-| App | Role | Notes |
+| Path | Role | Ownership |
 |---|---|---|
-| **LIFE** | Personal execution — first living implementation of the Engine | Primary app surface (see LIFE product repository / deployment) |
-| **ONE** | Enterprise execution — same Engine, enterprise objects | Future / parallel surface |
-| **GOV** | Public-sector execution — same Engine, public objects | Future surface |
+| `life/` | Personal execution | See `life/README.md` |
+| `one/` | Enterprise execution | See `one/README.md` |
+| `gov/` | Public-sector execution | See `gov/README.md` |
+| `shared/` | Cross-app UI/shell primitives | See `shared/README.md` |
 
----
-
-## Rule
-
-Apps may evolve.  
-Core does not.
-
-Every app feature must reference `/core`.  
-If an app proposal conflicts with Core, the proposal changes — not Core.
-
-Shared human interface model: Execution Inbox  
-(`governance/EXECUTION-INBOX-CONSTITUTION-v1.0.md`)
+Apps consume Engine + schemas. They do not own execution truth.
