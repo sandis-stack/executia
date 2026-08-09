@@ -88,11 +88,16 @@ export function extractConfirmedContext(invoice, extras = {}) {
   if (extras.vatTreatment?.rate != null) patch.typicalVatRate = extras.vatTreatment.rate;
 
   if (ec.costCentre || extras.costCentre) patch.costCentre = extras.costCentre || ec.costCentre;
+  // Payment method is context (how paid), not consent to pay this obligation
   if (ec.paymentMethod || extras.paymentMethod) {
     patch.typicalPaymentMethod = extras.paymentMethod || ec.paymentMethod;
   }
-  if (ec.deadlineBehaviour || extras.deadlineBehaviour) {
-    patch.typicalDeadlineBehaviour = extras.deadlineBehaviour || ec.deadlineBehaviour;
+  // Deadline tracking only — never store approval consent
+  if (ec.deadlineTracking || extras.deadlineTracking) {
+    patch.deadlineTracking = extras.deadlineTracking || ec.deadlineTracking;
+  }
+  if (invoice.dueDate) {
+    patch.deadlineTracking = patch.deadlineTracking || { hasDueDate: true };
   }
 
   if (ec.vehicle || extras.vehicle) patch.vehicle = extras.vehicle || ec.vehicle;
@@ -116,6 +121,10 @@ export function enrichFromConfirmedDecision(invoice, decisionType, optionId, ext
   if (decisionType === 'supplier' && optionId === 'accept_unknown') {
     return { enriched: [], skipped: true };
   }
+  // Never enrich Memory from payment consent — obligation approval is not context
+  if (decisionType === 'approve_payment') {
+    return { enriched: [], skipped: true };
+  }
 
   const at = new Date().toISOString();
   const patch = extractConfirmedContext(invoice, {
@@ -123,15 +132,12 @@ export function enrichFromConfirmedDecision(invoice, decisionType, optionId, ext
     context: decisionType === 'context' ? optionId : extras.context,
   });
 
-  if (decisionType === 'approve_payment' && optionId === 'approve') {
-    patch.typicalDeadlineBehaviour = patch.typicalDeadlineBehaviour || 'approve_on_due';
-  }
-
   return writeSupplierEnrichment(invoice.supplier, patch, at, { bumpExecution: false });
 }
 
 /**
  * Every completed execution enriches Memory (confirmed fields only).
+ * Does not store payment consent.
  */
 export function enrichFromCompletedExecution(invoice) {
   if (!canLearnSupplierSubject(invoice.supplier)) return { enriched: [] };
@@ -139,11 +145,6 @@ export function enrichFromCompletedExecution(invoice) {
 
   const at = new Date().toISOString();
   const patch = extractConfirmedContext(invoice, {});
-
-  const approved = (invoice.decisions || []).some(
-    (d) => d.type === 'approve_payment' && d.optionId === 'approve',
-  );
-  if (approved) patch.typicalDeadlineBehaviour = patch.typicalDeadlineBehaviour || 'approve_on_due';
 
   return writeSupplierEnrichment(invoice.supplier, patch, at, { bumpExecution: true });
 }
@@ -165,7 +166,7 @@ function writeSupplierEnrichment(supplier, patch, at, { bumpExecution }) {
     ['recurring', patch.recurring],
     ['typicalVatRate', patch.typicalVatRate],
     ['typicalPaymentMethod', patch.typicalPaymentMethod],
-    ['typicalDeadlineBehaviour', patch.typicalDeadlineBehaviour],
+    ['deadlineTracking', patch.deadlineTracking],
   ];
 
   for (const [field, value] of attrMap) {

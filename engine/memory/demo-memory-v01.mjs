@@ -1,6 +1,7 @@
 /**
  * Execution Memory v0.1 — acceptance demonstration
- * Invoice 1 asks → confirmed. Invoice 20 restores entire context → Complete.
+ * Invoice 1 asks context → confirmed. Later invoices restore context.
+ * Payment consent is never skipped (each payable is a new obligation).
  *
  * Run: node engine/memory/demo-memory-v01.mjs
  */
@@ -33,7 +34,6 @@ const CIRCLE_K_CONTEXT = {
   project: 'Site Operations',
   costCentre: 'OPS-12',
   paymentMethod: 'corporate_card',
-  deadlineBehaviour: 'approve_on_due',
   expenseCategory: 'fuel',
   recurring: false,
   vatTreatment: { rate: 25 },
@@ -48,7 +48,7 @@ function evidence(n) {
   };
 }
 
-async function processInvoice(n, { confirm } = {}) {
+async function processInvoice(n, { allowContext = false } = {}) {
   let inv = startInvoiceFromUpload(
     {
       supplier: 'Circle K',
@@ -62,9 +62,10 @@ async function processInvoice(n, { confirm } = {}) {
   inv = await advanceInvoice(inv, adapters);
   const decisions = [];
 
-  while (inv.state === 'needs_decision' && confirm) {
+  while (inv.state === 'needs_decision') {
     const pending = inv.pendingDecision;
     if (pending.type === 'context') {
+      if (!allowContext) throw new Error(`Invoice ${n}: unexpected context question`);
       decisions.push('context=business');
       inv = await decideAndAdvance(inv, 'context', 'business', adapters, CIRCLE_K_CONTEXT);
       continue;
@@ -106,16 +107,19 @@ async function main() {
 
   console.log('=== Execution Memory v0.1 demonstration ===\n');
 
-  console.log('Invoice 1 · question asked → confirmed');
-  const first = await processInvoice(1, { confirm: true });
+  console.log('Invoice 1 · context asked → confirmed (payment also required)');
+  const first = await processInvoice(1, { allowContext: true });
   console.log(`  → state=${first.state}`);
   console.log(`  → decisions=[${first.decisions.join(', ')}]`);
   if (first.state !== 'complete') throw new Error('Invoice 1 must complete');
   if (!first.decisions.includes('context=business')) {
     throw new Error('Invoice 1 must ask Business/Personal');
   }
+  if (!first.decisions.includes('approve_payment=approve')) {
+    throw new Error('Invoice 1 must ask payment consent');
+  }
   assertContextRestored(first.inv, 'Invoice 1 after confirm');
-  console.log('  → confirmed context: Business · Vehicle · Project · Cost centre · VAT · Payment · Deadline');
+  console.log('  → confirmed context: Business · Vehicle · Project · Cost centre · VAT · Payment method');
 
   const memAfter1 = getMemoryRecord(memoryId(MEMORY_TYPES.SUPPLIER, 'circle k'));
   console.log(
@@ -125,22 +129,29 @@ async function main() {
   console.log(`     project=${getMemoryRecord(memAfter1.links.projectId)?.displayName}`);
   console.log(`     costCentre=${memAfter1.attributes.costCentre}`);
 
-  console.log('\nInvoices 2–19 · quiet enrichment');
+  console.log('\nInvoices 2–19 · context restored; payment consent still required');
   for (let n = 2; n <= 19; n += 1) {
-    const run = await processInvoice(n, { confirm: false });
-    if (run.state !== 'complete' || run.decisions.length) {
-      throw new Error(`Invoice ${n} should complete with no decisions (got ${run.state} / ${run.decisions})`);
+    const run = await processInvoice(n);
+    if (run.state !== 'complete') throw new Error(`Invoice ${n} must complete`);
+    if (run.decisions.includes('context=business')) {
+      throw new Error(`Invoice ${n} must not re-ask context`);
+    }
+    if (!run.decisions.includes('approve_payment=approve')) {
+      throw new Error(`Invoice ${n} must still require payment consent`);
     }
   }
-  console.log('  → 18 invoices completed with no questions');
+  console.log('  → 18 invoices: context quiet, payment consent each time');
 
-  console.log('\nInvoice 20 · entire context restored automatically');
-  const last = await processInvoice(20, { confirm: false });
+  console.log('\nInvoice 20 · entire context restored; payment still asked');
+  const last = await processInvoice(20);
   console.log(`  → state=${last.state}`);
-  console.log(`  → decisions=[${last.decisions.join(', ') || 'none'}]`);
+  console.log(`  → decisions=[${last.decisions.join(', ')}]`);
   console.log(`  → memory restored fields: ${(last.inv.memory?.restored || []).map((r) => r.field).join(', ')}`);
   if (last.state !== 'complete') throw new Error('Invoice 20 must complete');
-  if (last.decisions.length) throw new Error('Invoice 20 must not ask');
+  if (last.decisions.includes('context=business')) throw new Error('Invoice 20 must not ask context');
+  if (!last.decisions.includes('approve_payment=approve')) {
+    throw new Error('Invoice 20 must still require payment consent');
+  }
   assertContextRestored(last.inv, 'Invoice 20');
 
   const mem = getMemoryRecord(memoryId(MEMORY_TYPES.SUPPLIER, 'circle k'));
@@ -155,7 +166,7 @@ async function main() {
   );
 
   console.log('\n=== Execution Memory acceptance passed ===');
-  console.log('The Engine remembered the administrative life. The person did not reconstruct it.');
+  console.log('Context remembered. Consent never learned.');
 }
 
 main().catch((err) => {

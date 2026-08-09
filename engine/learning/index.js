@@ -12,7 +12,6 @@ import {
 import {
   applyClassificationLearning,
   confirmExpenseCategory,
-  confirmPaymentBehaviour,
   confirmRecurring,
   confirmVatTreatment,
 } from './classification-learning.js';
@@ -33,10 +32,9 @@ export function willReduceFutureAdministration({ decisionType, optionId, invoice
   if (!invoice) return false;
   if (optionId === 'resume' || optionId === 'set_later' || optionId === 'hold') return false;
   if (decisionType === 'supplier' && optionId === 'accept_unknown') return false;
+  // Learn context only — never payment consent (each payable is a new obligation)
+  if (decisionType === 'approve_payment') return false;
   if (decisionType === 'context') {
-    return canLearnSupplierSubject(invoice.supplier);
-  }
-  if (decisionType === 'approve_payment' && optionId === 'approve') {
     return canLearnSupplierSubject(invoice.supplier);
   }
   return false;
@@ -94,11 +92,6 @@ export function confirmFromDecision(invoice, decisionType, optionId, extras = {}
     }
   }
 
-  if (decisionType === 'approve_payment' && optionId === 'approve') {
-    const pay = confirmPaymentBehaviour(supplier, 'approve', at);
-    if (pay) learned.push(pay);
-  }
-
   // When execution completes with VAT rate present and known supplier, strengthen VAT treatment
   if (extras.confirmVatFromInvoice && invoice.vat?.rate != null && canLearnSupplierSubject(supplier)) {
     const vat = confirmVatTreatment(supplier, { rate: invoice.vat.rate }, at);
@@ -110,8 +103,8 @@ export function confirmFromDecision(invoice, decisionType, optionId, extras = {}
 
 /**
  * After completion, record only document-grounded facts that reduce future admin.
- * Never learn Engine defaults or silently re-confirm applied learning as if human-confirmed.
- * Context and payment behaviour are confirmed only at decision time.
+ * Never learn Engine defaults or payment consent.
+ * Context is confirmed only at decision time.
  */
 export function confirmFromCompletedExecution(invoice) {
   if (!canLearnSupplierSubject(invoice.supplier)) return { learned: [] };

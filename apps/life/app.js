@@ -15,6 +15,15 @@ import { listInvoices, saveInvoice, getInvoice, inboxBuckets } from './lib/store
 const adapters = getRuntimeAdapters();
 const root = document.getElementById('app');
 
+function isDeveloperMode() {
+  try {
+    if (new URLSearchParams(location.search).get('dev') === '1') return true;
+    return localStorage.getItem('executia.life.dev') === '1';
+  } catch {
+    return false;
+  }
+}
+
 const state = {
   view: 'today', // today | needs | executing | complete | upload | camera | detail
   selectedId: null,
@@ -276,10 +285,34 @@ function detailView(invoice) {
     `;
   }
 
+  const m = invoice.metrics || {};
+  const devHtml = isDeveloperMode()
+    ? `
+    <div class="life-dev" aria-label="Developer metrics">
+      <p class="life-kicker">Developer metrics</p>
+      <div class="life-detail">
+        <div class="life-row"><span>Questions asked</span><span>${m.questionsAsked ?? 0}</span></div>
+        <div class="life-row"><span>Avoided by Memory</span><span>${m.questionsAvoidedByMemory ?? 0}</span></div>
+        <div class="life-row"><span>Avoided by Learning</span><span>${m.questionsAvoidedByLearning ?? 0}</span></div>
+        <div class="life-row"><span>Memory hits</span><span>${m.memoryHits ?? 0}</span></div>
+        <div class="life-row"><span>Learning hits</span><span>${m.learningHits ?? 0}</span></div>
+        <div class="life-row"><span>Confidence</span><span>${m.confidence != null ? m.confidence : '—'}</span></div>
+        <div class="life-row"><span>Execution time</span><span>${m.executionTimeMs != null ? `${m.executionTimeMs} ms` : '—'}</span></div>
+        <div class="life-row"><span>Complete</span><span>${m.executionComplete ? 'yes' : 'no'}</span></div>
+        <div class="life-row"><span>Asked types</span><span>${escapeHtml((m.askedTypes || []).join(', ') || '—')}</span></div>
+        <div class="life-row"><span>Memory restored</span><span>${escapeHtml((invoice.memory?.restored || []).map((r) => r.field).join(', ') || '—')}</span></div>
+        <div class="life-row"><span>Project</span><span>${escapeHtml(invoice.executionContext?.project || '—')}</span></div>
+        <div class="life-row"><span>Vehicle</span><span>${escapeHtml(invoice.executionContext?.vehicle || '—')}</span></div>
+        <div class="life-row"><span>Cost centre</span><span>${escapeHtml(invoice.executionContext?.costCentre || '—')}</span></div>
+        <div class="life-row"><span>Accounting intent</span><span>${escapeHtml(c.accounting?.intent || '—')}</span></div>
+      </div>
+    </div>`
+    : '';
+
   return `
     <p class="life-kicker">Execution object</p>
     <h1 class="life-title">${escapeHtml(invoice.supplier || 'Invoice')}</h1>
-    <p class="life-lead">${labelForState(invoice.state)} · ${escapeHtml(invoice.id)}</p>
+    <p class="life-lead">${labelForState(invoice.state)}</p>
     ${decisionHtml}
     ${completeHtml}
     <div class="life-detail">
@@ -288,32 +321,11 @@ function detailView(invoice) {
       <div class="life-row"><span>Context</span><span>${escapeHtml(invoice.context || '—')}</span></div>
       <div class="life-row"><span>Due</span><span>${escapeHtml(invoice.dueDate || '—')}</span></div>
       <div class="life-row"><span>Evidence</span><span>${escapeHtml(invoice.evidenceStatus)}${evidence ? ` · ${escapeHtml(evidence.name)}` : ''}</span></div>
-      <div class="life-row"><span>Accounting sync</span><span>${escapeHtml(invoice.sync?.accounting?.status || invoice.synchronizationStatus || '—')}${invoice.sync?.accounting?.vendor ? ` · ${escapeHtml(invoice.sync.accounting.vendor)}` : ''}</span></div>
+      <div class="life-row"><span>Accounting</span><span>${escapeHtml(invoice.sync?.accounting?.status || invoice.synchronizationStatus || '—')}</span></div>
       <div class="life-row"><span>Payment</span><span>${escapeHtml(c.payment?.status || '—')}</span></div>
       <div class="life-row"><span>Forecast</span><span>${c.forecast?.updated ? money(c.forecast.outflow, c.forecast.currency) : '—'}</span></div>
-      <div class="life-row"><span>Learning</span><span>${
-        invoice.learning?.applied?.length
-          ? `applied · ${invoice.learning.applied.map((a) => a.kind).join(', ')}`
-          : invoice.learning?.confirmed?.length
-            ? 'confirmed this execution'
-            : '—'
-      }</span></div>
-      <div class="life-row"><span>Memory</span><span>${
-        invoice.memory?.restored?.length
-          ? `restored · ${invoice.memory.restored.map((r) => r.field).join(', ')}`
-          : invoice.memory?.enriched
-            ? `enriched · executions ${invoice.memory.executionCount ?? '—'}`
-            : '—'
-      }</span></div>
-      <div class="life-row"><span>Project</span><span>${escapeHtml(invoice.executionContext?.project || '—')}</span></div>
-      <div class="life-row"><span>Vehicle</span><span>${escapeHtml(invoice.executionContext?.vehicle || '—')}</span></div>
-      <div class="life-row"><span>Cost centre</span><span>${escapeHtml(invoice.executionContext?.costCentre || '—')}</span></div>
     </div>
-    ${
-      c.accounting
-        ? `<p class="life-stub">Accounting-ready intent: ${escapeHtml(c.accounting.intent)}. Vendor translation happens only in the Fiken adapter (${escapeHtml(invoice.sync?.accounting?.mode || 'n/a')}).</p>`
-        : ''
-    }
+    ${devHtml}
     <div class="life-actions">
       <button type="button" class="life-btn secondary" data-action="today">Back</button>
     </div>

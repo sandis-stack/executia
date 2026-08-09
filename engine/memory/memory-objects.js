@@ -40,8 +40,8 @@ export function createSupplierMemory({ key, displayName, at = new Date().toISOSt
       expenseCategory: null,
       recurring: null,
       typicalVatRate: null,
-      typicalPaymentMethod: null,
-      typicalDeadlineBehaviour: null, // approve_on_due | hold
+      typicalPaymentMethod: null, // how paid historically — not consent to pay
+      deadlineTracking: null, // { hasDueDate } — never approval consent
     },
     links: {
       vehicleId: null,

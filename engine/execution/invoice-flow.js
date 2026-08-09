@@ -21,6 +21,12 @@ import {
   rememberFromDecision,
   rememberFromCompletedExecution,
 } from '../memory/index.js';
+import {
+  beginMetrics,
+  recordRestoreMetrics,
+  recordQuestionAsked,
+  finalizeMetrics,
+} from './metrics.js';
 
 function round2(n) {
   return Math.round(n * 100) / 100;
@@ -111,11 +117,12 @@ function computeForecastConsequence(invoice, vat) {
  * @param {{ accountingAdapter?: object, governmentAdapter?: object }} adapters
  */
 export async function advanceInvoice(invoice, adapters = {}) {
-  let current = { ...invoice };
+  let current = beginMetrics({ ...invoice });
 
   if (current.state === INVOICE_STATES.COMPLETE) return current;
 
   if (current.pendingDecision?.type === 'supplier_hold' || current.pendingDecision?.type === 'payment_hold') {
+    current = recordQuestionAsked(current, current.pendingDecision.type);
     return touch(current, {
       state: INVOICE_STATES.NEEDS_DECISION,
       pendingDecision: {
@@ -145,12 +152,16 @@ export async function advanceInvoice(invoice, adapters = {}) {
     });
   }
 
-  // Memory restores execution context; Learning silences repeated decisions
+  const hadContextBeforeMemory = Boolean(current.context);
+  // Memory restores execution context; Learning silences repeated context decisions
   current = applyExecutionMemory(current);
+  const hadContextBeforeLearning = Boolean(current.context);
   current = applyLearnedTruth(current);
+  current = recordRestoreMetrics(current, { hadContextBeforeMemory, hadContextBeforeLearning });
 
   const decision = nextRequiredDecision(current);
   if (decision) {
+    current = recordQuestionAsked(current, decision.type);
     return touch(current, {
       state: INVOICE_STATES.NEEDS_DECISION,
       pendingDecision: decision,
@@ -226,7 +237,7 @@ export async function advanceInvoice(invoice, adapters = {}) {
     });
   }
 
-  return current;
+  return finalizeMetrics(current, { complete: true });
 }
 
 /**
@@ -289,7 +300,7 @@ function attachConfirmedExtras(invoice, extras = {}) {
   if (extras.property) executionContext.property = extras.property;
   if (extras.costCentre) executionContext.costCentre = extras.costCentre;
   if (extras.paymentMethod) executionContext.paymentMethod = extras.paymentMethod;
-  if (extras.deadlineBehaviour) executionContext.deadlineBehaviour = extras.deadlineBehaviour;
+  if (extras.deadlineTracking) executionContext.deadlineTracking = extras.deadlineTracking;
   if (extras.subscription) executionContext.subscription = extras.subscription;
   if (extras.customer) executionContext.customer = extras.customer;
   if (extras.employee) executionContext.employee = extras.employee;

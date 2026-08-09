@@ -41,9 +41,14 @@ async function runInvoice(label, meta, { decide } = {}) {
   inv = await advanceInvoice(inv, adapters);
   const day1Decisions = [];
 
-  while (inv.state === 'needs_decision' && decide) {
+  // Default: answer payment consent when present; context only via decide()
+  const resolver =
+    decide ||
+    ((pending) => (pending.type === 'approve_payment' ? { optionId: 'approve' } : null));
+
+  while (inv.state === 'needs_decision') {
     const pending = inv.pendingDecision;
-    const choice = decide(pending, inv);
+    const choice = resolver(pending, inv);
     if (!choice) break;
     day1Decisions.push(`${pending.type}=${choice.optionId}`);
     inv = await decideAndAdvance(inv, choice.type || pending.type, choice.optionId, adapters, choice.extras || {});
@@ -79,7 +84,7 @@ async function main() {
   const ctxRule = getRule('context', 'circle k');
   line(`  → Learned context: ${ctxRule.value} confidence=${ctxRule.confidence} count=${ctxRule.confirmationCount} band=${bandForConfidence(ctxRule.confidence)}`);
 
-  // --- Day 10: Circle K ---
+  // --- Day 10: Circle K (context quiet; payment consent still required) ---
   line('\nDay 10 · Circle K');
   const d10 = await runInvoice('Circle K Day 10', {
     supplier: 'Circle K',
@@ -91,8 +96,12 @@ async function main() {
   line(`  → decisions asked: [${d10.decisions.join(', ') || 'none'}]`);
   line(`  → state: ${d10.state}`);
   line(`  → learning applied: ${d10.applied.map((a) => a.kind).join(', ') || 'none'}`);
-  if (d10.state !== 'complete' || d10.decisions.length) {
-    throw new Error('Circle K Day 10 must complete with no decisions');
+  if (d10.state !== 'complete') throw new Error('Circle K Day 10 must complete');
+  if (d10.decisions.some((d) => d.startsWith('context='))) {
+    throw new Error('Circle K Day 10 must not re-ask context');
+  }
+  if (!d10.decisions.includes('approve_payment=approve')) {
+    throw new Error('Circle K Day 10 must still require payment consent');
   }
 
   // --- Amazon AWS ---
@@ -107,7 +116,7 @@ async function main() {
   });
   line(`  → ${aws1.state} decisions=[${aws1.decisions.join(', ')}]`);
 
-  line('Amazon AWS · Day 10 (quiet)');
+  line('Amazon AWS · Day 10 (context quiet)');
   const aws10 = await runInvoice('AWS Day 10', {
     supplier: 'Amazon AWS',
     amount: 2400,
@@ -115,7 +124,9 @@ async function main() {
     dueDate: '2026-09-15',
   });
   line(`  → ${aws10.state} decisions=[${aws10.decisions.join(', ') || 'none'}] applied=${aws10.applied.map((a) => a.kind).join(',')}`);
-  if (aws10.state !== 'complete' || aws10.decisions.length) throw new Error('AWS Day 10 failed silence');
+  if (aws10.state !== 'complete') throw new Error('AWS Day 10 must complete');
+  if (aws10.decisions.some((d) => d.startsWith('context='))) throw new Error('AWS Day 10 context not quiet');
+  if (!aws10.decisions.includes('approve_payment=approve')) throw new Error('AWS Day 10 must ask payment');
 
   // --- Netflix ---
   line('\nNetflix · Day 1 (personal + recurring)');
@@ -135,7 +146,7 @@ async function main() {
   });
   line(`  → ${net1.state} decisions=[${net1.decisions.join(', ')}]`);
 
-  line('Netflix · Day 10 (quiet)');
+  line('Netflix · Day 10 (context quiet)');
   const net10 = await runInvoice('Netflix Day 10', {
     supplier: 'Netflix',
     amount: 149,
@@ -143,7 +154,9 @@ async function main() {
     dueDate: '2026-09-12',
   });
   line(`  → ${net10.state} decisions=[${net10.decisions.join(', ') || 'none'}] context=${net10.inv.context} recurring=${JSON.stringify(net10.inv.recurring)}`);
-  if (net10.state !== 'complete' || net10.decisions.length) throw new Error('Netflix Day 10 failed silence');
+  if (net10.state !== 'complete') throw new Error('Netflix Day 10 must complete');
+  if (net10.decisions.some((d) => d.startsWith('context='))) throw new Error('Netflix Day 10 context not quiet');
+  if (!net10.decisions.includes('approve_payment=approve')) throw new Error('Netflix Day 10 must ask payment');
 
   // --- Rema 1000 ---
   line('\nRema 1000 · Day 1 (personal)');
@@ -157,7 +170,7 @@ async function main() {
   });
   line(`  → ${rema1.state}`);
 
-  line('Rema 1000 · Day 10 (quiet)');
+  line('Rema 1000 · Day 10 (context quiet)');
   const rema10 = await runInvoice('Rema Day 10', {
     supplier: 'Rema 1000',
     amount: 420,
@@ -165,10 +178,12 @@ async function main() {
     dueDate: '2026-09-10',
   });
   line(`  → ${rema10.state} decisions=[${rema10.decisions.join(', ') || 'none'}]`);
-  if (rema10.state !== 'complete' || rema10.decisions.length) throw new Error('Rema Day 10 failed silence');
+  if (rema10.state !== 'complete') throw new Error('Rema Day 10 must complete');
+  if (rema10.decisions.some((d) => d.startsWith('context='))) throw new Error('Rema Day 10 context not quiet');
+  if (!rema10.decisions.includes('approve_payment=approve')) throw new Error('Rema Day 10 must ask payment');
 
   // --- Known supplier (already learned Circle K) ---
-  line('\nKnown supplier invoice · Circle K (already learned)');
+  line('\nKnown supplier invoice · Circle K (context learned; payment still required)');
   const known = await runInvoice('Known', {
     supplier: 'Circle K',
     amount: 99,
@@ -176,7 +191,9 @@ async function main() {
     dueDate: '2026-10-01',
   });
   line(`  → ${known.state} decisions=[${known.decisions.join(', ') || 'none'}]`);
-  if (known.state !== 'complete') throw new Error('Known supplier should complete quietly');
+  if (known.state !== 'complete') throw new Error('Known supplier should complete');
+  if (known.decisions.some((d) => d.startsWith('context='))) throw new Error('Known supplier must not re-ask context');
+  if (!known.decisions.includes('approve_payment=approve')) throw new Error('Known supplier must ask payment');
 
   // --- Unknown supplier — must still ask; must not store context against blank ---
   line('\nUnknown supplier invoice');

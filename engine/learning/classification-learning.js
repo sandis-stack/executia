@@ -1,6 +1,7 @@
 /**
  * Engine · Classification learning
- * Expense category, VAT treatment, payment behaviour, recurring subscriptions.
+ * Expense category, VAT treatment, recurring subscriptions.
+ * Never learns payment consent — each payable is a new obligation.
  */
 
 import { getRule, putRule } from './rules-store.js';
@@ -15,7 +16,6 @@ import { canLearnSupplierSubject, normalizeSupplierKey } from './supplier-learni
 export const RULE_KINDS = {
   EXPENSE_CATEGORY: 'expense_category',
   VAT_TREATMENT: 'vat_treatment',
-  PAYMENT_BEHAVIOUR: 'payment_behaviour',
   RECURRING: 'recurring',
 };
 
@@ -42,12 +42,11 @@ export function confirmVatTreatment(supplier, treatment, at = new Date().toISOSt
   return confirmValue(RULE_KINDS.VAT_TREATMENT, supplier, treatment, at);
 }
 
-export function confirmPaymentBehaviour(supplier, behaviour, at = new Date().toISOString()) {
-  // behaviour: 'approve' | 'hold'
-  if (behaviour !== 'approve' && behaviour !== 'hold') return null;
-  // Holding does not reduce future admin — do not learn hold as silence rule
-  if (behaviour === 'hold') return null;
-  return confirmValue(RULE_KINDS.PAYMENT_BEHAVIOUR, supplier, behaviour, at);
+/**
+ * @deprecated Payment consent must never be learned. Kept as no-op for API stability.
+ */
+export function confirmPaymentBehaviour() {
+  return null;
 }
 
 export function confirmRecurring(supplier, recurring, at = new Date().toISOString()) {
@@ -116,35 +115,7 @@ export function applyClassificationLearning(invoice) {
     }
   }
 
-  // Payment behaviour — inject confirmed approve so payment decision is skipped
-  const payRule = getRule(RULE_KINDS.PAYMENT_BEHAVIOUR, key);
-  if (
-    shouldApplySilently(payRule) &&
-    payRule.value === 'approve' &&
-    next.amount != null &&
-    next.dueDate &&
-    !(next.decisions || []).some((d) => d.type === 'approve_payment')
-  ) {
-    next = {
-      ...next,
-      decisions: [
-        ...(next.decisions || []),
-        {
-          type: 'approve_payment',
-          optionId: 'approve',
-          at: new Date().toISOString(),
-          source: 'learning',
-        },
-      ],
-    };
-    applied.push({
-      kind: RULE_KINDS.PAYMENT_BEHAVIOUR,
-      key,
-      value: 'approve',
-      confidence: payRule.confidence,
-      source: 'learning',
-    });
-  }
+  // Never auto-approve payment from Learning — consent is not learnable
 
   return { invoice: next, applied };
 }

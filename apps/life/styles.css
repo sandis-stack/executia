@@ -289,3 +289,9 @@ html, body {
   font-size: 1.05rem;
   font-weight: 500;
 }
+
+.life-dev {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--line);
+}

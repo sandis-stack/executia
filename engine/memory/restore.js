@@ -68,9 +68,10 @@ export function restoreExecutionMemory(invoice) {
     restored.push({ field: 'paymentMethod', value: attrs.typicalPaymentMethod });
   }
 
-  if (!executionContext.deadlineBehaviour && attrs.typicalDeadlineBehaviour) {
-    executionContext.deadlineBehaviour = attrs.typicalDeadlineBehaviour;
-    restored.push({ field: 'deadlineBehaviour', value: attrs.typicalDeadlineBehaviour });
+  // Deadline tracking metadata may restore — never used to skip payment consent
+  if (!executionContext.deadlineTracking && attrs.deadlineTracking) {
+    executionContext.deadlineTracking = attrs.deadlineTracking;
+    restored.push({ field: 'deadlineTracking', value: attrs.deadlineTracking });
   }
 
   const linkFields = [
@@ -92,32 +93,13 @@ export function restoreExecutionMemory(invoice) {
     }
   }
 
-  // Typical deadline behaviour → skip payment decision when approve_on_due
-  if (
-    attrs.typicalDeadlineBehaviour === 'approve_on_due' &&
-    next.amount != null &&
-    next.dueDate &&
-    !(next.decisions || []).some((d) => d.type === 'approve_payment')
-  ) {
-    next = {
-      ...next,
-      decisions: [
-        ...(next.decisions || []),
-        {
-          type: 'approve_payment',
-          optionId: 'approve',
-          at: new Date().toISOString(),
-          source: 'memory',
-        },
-      ],
-    };
-    restored.push({ field: 'approve_payment', value: 'approve' });
-  }
+  // Never inject approve_payment from Memory — each payable is a new obligation
 
   next.executionContext = executionContext;
+  const priorRestored = next.memory?.restored || [];
   next.memory = {
     ...(next.memory || {}),
-    restored,
+    restored: restored.length ? restored : priorRestored,
     supplierMemoryId: record.id,
     confidence: record.confidence,
     band: bandForConfidence(record.confidence),
