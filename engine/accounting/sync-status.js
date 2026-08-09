@@ -4,18 +4,20 @@
  */
 
 export const ACCOUNTING_SYNC_STATUS = {
-  NOT_REQUESTED: 'not_requested',
+  NOT_REQUIRED: 'not_required',
   QUEUED: 'queued',
   SYNCING: 'syncing',
   SYNCHRONIZED: 'synchronized',
   FAILED: 'failed',
   REQUIRES_ATTENTION: 'requires_attention',
+  /** @deprecated alias — use NOT_REQUIRED */
+  NOT_REQUESTED: 'not_required',
 };
 
 /** Map any adapter/legacy label into the Engine contract. */
 export function normalizeAccountingSyncStatus(status) {
   const s = String(status || '').toLowerCase();
-  if (s === 'not_requested' || s === 'not_required') return ACCOUNTING_SYNC_STATUS.NOT_REQUESTED;
+  if (s === 'not_requested' || s === 'not_required') return ACCOUNTING_SYNC_STATUS.NOT_REQUIRED;
   if (s === 'queued' || s === 'pending' || s === 'stubbed') return ACCOUNTING_SYNC_STATUS.QUEUED;
   if (s === 'syncing') return ACCOUNTING_SYNC_STATUS.SYNCING;
   if (s === 'synchronized' || s === 'synced' || s === 'ok') return ACCOUNTING_SYNC_STATUS.SYNCHRONIZED;

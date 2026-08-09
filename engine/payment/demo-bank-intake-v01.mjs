@@ -9,8 +9,16 @@ import {
   probeOpenBanking,
   resetLocalBank,
 } from '../../adapters/banking/index.js';
-import * as fiken from '../../adapters/accounting/fiken/adapter.js';
 import * as government from '../../adapters/government/stub.js';
+
+/** Non-Fiken demos: accounting consequence satisfied so Complete semantics can be tested */
+const accountingOk = {
+  synchronizeAccounting: async () => ({
+    status: 'synchronized',
+    detail: 'test accounting sync',
+    externalIds: { purchaseId: 'test_purchase' },
+  }),
+};
 import {
   advanceInvoice,
   decideAndAdvance,
@@ -35,7 +43,7 @@ import {
   resolveAmbiguousPaymentMatch,
 } from './index.js';
 
-const runtime = { accountingAdapter: fiken, governmentAdapter: government };
+const runtime = { accountingAdapter: accountingOk, governmentAdapter: government };
 const invoices = new Map();
 
 function ports() {

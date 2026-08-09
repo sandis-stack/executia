@@ -23,10 +23,16 @@ import {
   createExecutionMemoryStore,
   resetActiveMemoryStore,
 } from './index.js';
-import * as fiken from '../../adapters/accounting/fiken/adapter.js';
 import * as government from '../../adapters/government/stub.js';
 
-const adapters = { accountingAdapter: fiken, governmentAdapter: government };
+const accountingOk = {
+  synchronizeAccounting: async () => ({
+    status: 'synchronized',
+    detail: 'test accounting sync',
+    externalIds: { purchaseId: 'test_purchase' },
+  }),
+};
+const adapters = { accountingAdapter: accountingOk, governmentAdapter: government };
 
 function evidence(n) {
   return {

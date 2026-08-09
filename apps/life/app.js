@@ -61,6 +61,16 @@ function labelForState(s) {
   return map[s] || s;
 }
 
+async function retryPendingExecutions() {
+  // Temporary sync failures stay Executing — retry without human interruption
+  for (const inv of listInvoices()) {
+    if (inv.state !== 'executing' || !inv.truthEstablished) continue;
+    if (!inv.completion?.unmet?.length) continue;
+    const next = await advanceInvoice(inv, adapters);
+    saveInvoice(next);
+  }
+}
+
 async function runArrivalsIntake() {
   if (state.intakeBusy) return;
   state.intakeBusy = true;
@@ -68,6 +78,7 @@ async function runArrivalsIntake() {
   try {
     const emailResult = await pollEmailIntake({ provider: 'local-mailbox' });
     const bankResult = await pollBankIntake({ provider: 'local-bank' });
+    await retryPendingExecutions();
     state.intakeStatus = emailResult;
     state.bankStatus = bankResult;
     const created = (emailResult.results || []).filter((r) => r.status === 'created');
@@ -339,6 +350,10 @@ function detailView(invoice) {
       <p class="life-complete-line">Execution Complete</p>
       <p class="life-lead">Evidence preserved · VAT known · Accounting prepared · Deadline under control · Nothing left to do.</p>
     `;
+  } else if (invoice.truthEstablished && invoice.state === 'executing') {
+    completeHtml = `
+      <p class="life-lead">Execution in progress. Required consequences are still finishing.</p>
+    `;
   }
 
   const m = invoice.metrics || {};
@@ -362,12 +377,14 @@ function detailView(invoice) {
   const accountingQuiet =
     accountingStatus === 'synchronized' || accountingStatus === 'synced'
       ? `<p class="life-silence">Accounting synchronized</p>`
-      : accountingStatus === 'queued' ||
-          accountingStatus === 'syncing' ||
-          accountingStatus === 'failed' ||
-          accountingStatus === 'pending' ||
-          accountingStatus === 'stubbed'
-        ? `<p class="life-silence">Synchronization waiting</p>`
+      : invoice.truthEstablished &&
+          invoice.state === 'executing' &&
+          (accountingStatus === 'queued' ||
+            accountingStatus === 'syncing' ||
+            accountingStatus === 'failed' ||
+            accountingStatus === 'pending' ||
+            accountingStatus === 'stubbed')
+        ? `<p class="life-silence">Accounting synchronization pending</p>`
         : '';
   const devHtml = isDeveloperMode()
     ? `
@@ -398,8 +415,11 @@ function detailView(invoice) {
         <div class="life-row"><span>Reversals</span><span>${bank.reversals}</span></div>
         <div class="life-row"><span>Completed from bank truth</span><span>${bank.executionsCompletedFromBankTruth}</span></div>
         <div class="life-row"><span>Payment truth</span><span>${escapeHtml(invoice.paymentTruth?.status || '—')}</span></div>
+        <div class="life-row"><span>Truth established</span><span>${invoice.truthEstablished ? 'yes' : 'no'}</span></div>
         <div class="life-row"><span>Accounting sync</span><span>${escapeHtml(accountingStatus || '—')}</span></div>
-        <div class="life-row"><span>Fiken purchase</span><span>${escapeHtml(invoice.sync?.accounting?.externalIds?.purchaseId || '—')}</span></div>
+        <div class="life-row"><span>Unmet consequences</span><span>${escapeHtml((invoice.completion?.unmet || []).join(', ') || '—')}</span></div>
+        <div class="life-row"><span>External purchase id</span><span>${escapeHtml(invoice.sync?.accounting?.externalIds?.purchaseId || '—')}</span></div>
+        <div class="life-row"><span>Sync detail</span><span>${escapeHtml(invoice.sync?.accounting?.detail || '—')}</span></div>
         <div class="life-row"><span>Source identity</span><span>${escapeHtml(invoice.sourceIdentity?.key || '—')}</span></div>
         <div class="life-row"><span>Memory restored</span><span>${escapeHtml((invoice.memory?.restored || []).map((r) => r.field).join(', ') || '—')}</span></div>
       </div>

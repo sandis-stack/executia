@@ -10,8 +10,15 @@ import {
   probeGmail,
 } from '../../adapters/email/index.js';
 import { FIXTURE_EVENTS } from '../../adapters/email/local-mailbox/fixtures.js';
-import * as fiken from '../../adapters/accounting/fiken/adapter.js';
 import * as government from '../../adapters/government/stub.js';
+
+const accountingOk = {
+  synchronizeAccounting: async () => ({
+    status: 'synchronized',
+    detail: 'test accounting sync',
+    externalIds: { purchaseId: 'test_purchase' },
+  }),
+};
 import {
   ingestFromEmailAdapter,
   processSourceEvent,
@@ -28,7 +35,7 @@ import {
 } from '../memory/index.js';
 import { decideAndAdvance } from '../execution/invoice-flow.js';
 
-const runtime = { accountingAdapter: fiken, governmentAdapter: government };
+const runtime = { accountingAdapter: accountingOk, governmentAdapter: government };
 const invoices = new Map();
 
 function ports() {

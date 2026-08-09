@@ -21,14 +21,14 @@ export const EVIDENCE_STATUS = {
 
 /** Normalized external synchronization states (accounting and others). */
 export const SYNC_STATUS = {
-  NOT_REQUESTED: 'not_requested',
+  NOT_REQUIRED: 'not_required',
   QUEUED: 'queued',
   SYNCING: 'syncing',
   SYNCHRONIZED: 'synchronized',
   FAILED: 'failed',
   REQUIRES_ATTENTION: 'requires_attention',
-  // Legacy aliases (prefer new names)
-  NOT_REQUIRED: 'not_requested',
+  // Legacy aliases
+  NOT_REQUESTED: 'not_required',
   PENDING: 'queued',
   SYNCED: 'synchronized',
   STUBBED: 'queued',
@@ -101,6 +101,9 @@ export function createInvoice(input = {}) {
     },
     /** Provider-neutral accounting synchronization payload */
     accountingIntent: input.accountingIntent || null,
+    /** Engine truth established — not the same as Execution Complete */
+    truthEstablished: Boolean(input.truthEstablished),
+    truthEstablishedAt: input.truthEstablishedAt || null,
     createdAt: now,
     updatedAt: now,
     completedAt: null,

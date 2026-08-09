@@ -1,6 +1,8 @@
 # Engine · execution
 
-Intended ownership: Engine `execution` domain.
+Invoice advancement and **Execution Complete** policy.
 
-No implementation invented in the structure pass.
-See `/engine/README.md` for existing runtime inventory.
+- `completion.js` — Engine truth established ≠ Execution Complete
+- Complete only when every required consequence satisfies policy (accounting sync, payment settlement, etc.)
+- Temporary sync failure → remain `executing` for automatic retry
+- Auth/config problems → `needs_decision` (no vendor names in the prompt)

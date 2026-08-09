@@ -6,12 +6,5 @@
 export function syncIsHealthy(syncResult) {
   if (!syncResult) return false;
   const s = syncResult.status;
-  return (
-    s === 'synchronized' ||
-    s === 'synced' ||
-    s === 'not_requested' ||
-    s === 'not_required' ||
-    s === 'queued' ||
-    s === 'stubbed'
-  );
+  return s === 'synchronized' || s === 'synced' || s === 'not_requested' || s === 'not_required';
 }

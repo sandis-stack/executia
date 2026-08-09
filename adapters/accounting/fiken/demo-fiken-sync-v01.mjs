@@ -174,7 +174,7 @@ async function main() {
 
   // ── A · Missing credentials must not fake success ──
   resetLocal();
-  console.log('\nA. Missing credentials → failed (Engine truth preserved)');
+  console.log('\nA. Missing credentials → truth established, not Complete (Needs Decision)');
   const prevConfig = globalThis.__FIKEN_CONFIG__;
   const savedToken = process.env.FIKEN_API_TOKEN;
   const savedAccess = process.env.FIKEN_ACCESS_TOKEN;
@@ -196,8 +196,12 @@ async function main() {
     governmentAdapter: government,
     getEvidence,
   });
-  console.log(`  state=${inv.state} sync=${inv.sync?.accounting?.status} detail=${inv.sync?.accounting?.detail?.slice(0, 80)}`);
-  if (inv.state !== 'complete') throw new Error('A: execution must Complete with Engine truth');
+  console.log(`  state=${inv.state} truth=${inv.truthEstablished} sync=${inv.sync?.accounting?.status}`);
+  if (!inv.truthEstablished) throw new Error('A: Engine truth must be established');
+  if (inv.state === 'complete') throw new Error('A: must not Execution Complete while sync unresolved');
+  if (inv.state !== 'needs_decision') {
+    throw new Error('A: credentials missing requires Needs Decision (human configuration)');
+  }
   if (normalizeAccountingSyncStatus(inv.sync?.accounting?.status) === ACCOUNTING_SYNC_STATUS.SYNCHRONIZED) {
     throw new Error('A: must not claim synchronized without credentials');
   }

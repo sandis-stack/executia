@@ -32,6 +32,10 @@ import {
   normalizeAccountingSyncStatus,
   ACCOUNTING_SYNC_STATUS,
 } from '../accounting/index.js';
+import {
+  evaluateExecutionCompletion,
+  accountingSyncNeedsHuman,
+} from './completion.js';
 
 function round2(n) {
   return Math.round(n * 100) / 100;
@@ -161,10 +165,11 @@ export async function advanceInvoice(invoice, adapters = {}) {
 
   if (current.state === INVOICE_STATES.COMPLETE) return current;
 
-  // Bank match / reversal decisions must not be overwritten
+  // Outstanding judgement must not be overwritten by automatic advance
   if (
     current.pendingDecision?.type === 'payment_match' ||
-    current.pendingDecision?.type === 'payment_reversed'
+    current.pendingDecision?.type === 'payment_reversed' ||
+    current.pendingDecision?.type === 'accounting_sync'
   ) {
     current = recordQuestionAsked(current, current.pendingDecision.type);
     return touch(current, { state: INVOICE_STATES.NEEDS_DECISION });
@@ -227,28 +232,33 @@ export async function advanceInvoice(invoice, adapters = {}) {
 
   current = touch(current, { state: INVOICE_STATES.EXECUTING, pendingDecision: null });
 
-  const vat = computeVatConsequence(current);
-  const accounting = computeAccountingConsequence(current, vat);
-  const payment = computePaymentConsequence(current, current.decisions || []);
-  const forecast = computeForecastConsequence(current, vat);
-  const accountingIntent = createAccountingIntent(current, accounting, payment);
+  // Establish Engine truth (consequences + accounting intent) — not Execution Complete
+  const vat = current.consequences?.vat || computeVatConsequence(current);
+  const accounting = current.consequences?.accounting || computeAccountingConsequence(current, vat);
+  const payment =
+    current.consequences?.payment || computePaymentConsequence(current, current.decisions || []);
+  const forecast = current.consequences?.forecast || computeForecastConsequence(current, vat);
+  const accountingIntent =
+    current.accountingIntent || createAccountingIntent(current, accounting, payment);
 
-  // Engine truth is established before external sync — Fiken offline must not erase it
   const syncRequested = accountingSyncRequested(current);
   current = touch(current, {
     consequences: { vat, accounting, payment, forecast },
     accountingIntent,
+    truthEstablished: true,
+    truthEstablishedAt: current.truthEstablishedAt || new Date().toISOString(),
     synchronizationStatus: syncRequested
       ? ACCOUNTING_SYNC_STATUS.QUEUED
-      : ACCOUNTING_SYNC_STATUS.NOT_REQUESTED,
+      : ACCOUNTING_SYNC_STATUS.NOT_REQUIRED,
+    completedAt: null,
   });
 
-  // Synchronization via adapters only (translation destination)
-  let accountingSync = null;
+  // Synchronization via adapters only — retryable while Executing
+  let accountingSync = current.sync?.accounting || null;
   if (!syncRequested) {
     accountingSync = {
-      status: ACCOUNTING_SYNC_STATUS.NOT_REQUESTED,
-      detail: 'Accounting synchronization not requested for this execution',
+      status: ACCOUNTING_SYNC_STATUS.NOT_REQUIRED,
+      detail: 'Accounting synchronization not required by policy',
     };
   } else if (adapters.accountingAdapter?.synchronizeAccounting) {
     current = touch(current, { synchronizationStatus: ACCOUNTING_SYNC_STATUS.SYNCING });
@@ -258,7 +268,8 @@ export async function advanceInvoice(invoice, adapters = {}) {
   } else {
     accountingSync = {
       status: ACCOUNTING_SYNC_STATUS.FAILED,
-      detail: 'No accounting adapter bound. Engine truth preserved.',
+      detail: 'No accounting adapter bound. Engine truth preserved; execution remains pending.',
+      metadata: { reason: 'credentials_missing' },
     };
   }
 
@@ -267,43 +278,63 @@ export async function advanceInvoice(invoice, adapters = {}) {
     status: normalizeAccountingSyncStatus(accountingSync?.status),
   };
 
-  let governmentSync = null;
+  let governmentSync = current.sync?.government || null;
   if (current.context === 'business' && adapters.governmentAdapter?.synchronizeFiling) {
     governmentSync = await adapters.governmentAdapter.synchronizeFiling({
       kind: 'vat_consequence',
       payload: vat,
     });
+    governmentSync = {
+      ...governmentSync,
+      status: normalizeAccountingSyncStatus(governmentSync?.status),
+    };
   } else {
-    governmentSync = { status: ACCOUNTING_SYNC_STATUS.NOT_REQUESTED };
+    governmentSync = { status: ACCOUNTING_SYNC_STATUS.NOT_REQUIRED };
   }
 
-  const syncStatus = accountingSync.status;
+  current = touch(current, {
+    synchronizationStatus: accountingSync.status,
+    sync: { accounting: accountingSync, government: governmentSync },
+  });
 
-  // Surface human attention only when adapter reports genuine divergence / action needed
-  if (syncStatus === ACCOUNTING_SYNC_STATUS.REQUIRES_ATTENTION) {
-    return touch(current, {
-      state: INVOICE_STATES.EXCEPTION,
-      synchronizationStatus: syncStatus,
-      sync: { accounting: accountingSync, government: governmentSync },
-      pendingDecision: {
-        type: 'accounting_sync',
-        prompt: 'Accounting synchronization needs your attention.',
-        options: [{ id: 'acknowledge', label: 'Continue' }],
-      },
-      completedAt: null,
-    });
+  // Auth/config/immutable — Needs Decision (never pretend Complete)
+  if (accountingSyncNeedsHuman(accountingSync)) {
+    current = recordQuestionAsked(current, 'accounting_sync');
+    return finalizeMetrics(
+      touch(current, {
+        state: INVOICE_STATES.NEEDS_DECISION,
+        pendingDecision: {
+          type: 'accounting_sync',
+          prompt: 'Accounting synchronization needs your attention.',
+          options: [{ id: 'retry', label: 'Try again' }, { id: 'acknowledge', label: 'Continue later' }],
+        },
+        completedAt: null,
+      }),
+      { complete: false },
+    );
+  }
+
+  const verdict = evaluateExecutionCompletion(current);
+  if (!verdict.complete) {
+    // Temporary failure / queued / syncing → remain Executing for automatic retry
+    return finalizeMetrics(
+      touch(current, {
+        state: INVOICE_STATES.EXECUTING,
+        pendingDecision: null,
+        completedAt: null,
+        completion: verdict,
+      }),
+      { complete: false },
+    );
   }
 
   current = touch(current, {
     state: INVOICE_STATES.COMPLETE,
     completedAt: new Date().toISOString(),
-    // Execution Complete = Engine truth established; sync may still be waiting/failed
-    synchronizationStatus: syncStatus,
-    sync: {
-      accounting: accountingSync,
-      government: governmentSync,
-    },
+    synchronizationStatus: accountingSync.status,
+    sync: { accounting: accountingSync, government: governmentSync },
     pendingDecision: null,
+    completion: verdict,
   });
 
   // Reinforce residual confirmed truths that reduce future administration
@@ -341,6 +372,16 @@ export async function decideAndAdvance(invoice, decisionType, optionId, adapters
   // Ambiguous bank match — Engine resolves via payment module (ports bind storage)
   if (decisionType === 'payment_match' && typeof ports.resolvePaymentMatch === 'function') {
     return ports.resolvePaymentMatch(invoice, optionId, adapters, ports);
+  }
+
+  // Accounting sync: retry continues execution; acknowledge parks as Executing (not Complete)
+  if (decisionType === 'accounting_sync' && optionId === 'acknowledge') {
+    const current = applyDecision(invoice, decisionType, optionId);
+    return touch(current, {
+      state: INVOICE_STATES.EXECUTING,
+      pendingDecision: null,
+      completedAt: null,
+    });
   }
 
   let current = applyDecision(invoice, decisionType, optionId);
