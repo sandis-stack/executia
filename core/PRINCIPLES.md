@@ -37,74 +37,112 @@ These principles govern every product surface — LIFE, ONE, GOV — and every f
 10. **No feature may increase administrative work.**  
     If a proposal adds process management for people, it is rejected — regardless of demand or revenue.
 
-11. **External systems are replaceable. The Engine is not.**  
-    The Engine never depends on an external system.  
-    External systems depend on adapters.  
-    Adapters isolate change.  
-    The Engine remains stable.
-
 ---
 
-## External systems and adapters
+## Core Laws
 
-Banks change.  
-Accounting systems change.  
-Governments change.  
-Tax rules change.  
-Email providers change.  
-Calendars change.  
-Document storage changes.
+These are platform laws.  
+They must never be changed to accommodate implementation.  
+Implementation must adapt to the laws.
 
-The Engine must not.
+### Core Law 1 — External systems are replaceable. The Engine is not.
 
-The Engine communicates only through adapters.  
-Every external platform is an implementation detail.  
-Never a dependency.
+The Engine never depends on an external system.  
+External systems connect through adapters.  
+Adapters isolate change.  
+The Engine remains stable.
 
-### Architectural rule
+#### Why
 
-Never allow business logic inside an adapter.
+Banks evolve.  
+Accounting platforms evolve.  
+Governments evolve.  
+Tax regulations evolve.  
+Email providers evolve.  
+Calendars evolve.  
+AI models evolve.
+
+The Engine must remain independent.
+
+#### Architectural rule
+
+Adapters never contain business logic.
 
 Adapters only:
 
-- receive information  
-- normalize information  
-- send information  
-- receive responses  
+- receive events  
+- normalize data  
+- deliver data  
+- synchronize results  
 
-All decisions belong to the Engine.
+Every decision belongs to the Engine.
 
-### Examples
+### Core Law 2 — The Engine owns truth. External systems own synchronization.
+
+The Engine is the single source of execution truth.
+
+External systems are:
+
+- event sources  
+- execution destinations  
+- synchronization endpoints  
+
+Never the source of truth.
+
+#### Examples
 
 ```
-Gmail            → Email Adapter        → Engine
-Outlook          → Email Adapter        → Engine
-Fiken            → Accounting Adapter   → Engine
-Tripletex        → Accounting Adapter   → Engine
-DNB              → Bank Adapter         → Engine
-Google Calendar  → Calendar Adapter     → Engine
+Email
+  → Email Adapter
+  → Engine
+  → Execution Truth
+  → Accounting Adapter
+  → Fiken
+
+Receipt
+  → Camera
+  → Evidence Adapter
+  → Engine
+  → Execution Truth
+  → Archive
+  → Government
 ```
 
-### Replacement rule
+#### Synchronization rule
 
-Replacing Fiken with another accounting platform must require changing only the Accounting Adapter.  
+External systems may become unavailable.  
+The Engine must continue to preserve truth.
+
+Synchronization happens when available.  
+Truth never depends on synchronization.
+
+#### Replacement rule
+
+Replacing any external platform must require changing only its adapter.  
 Never the Engine.
 
-Replacing Gmail must require changing only the Email Adapter.  
-Never the Engine.
+#### Future rule
 
-Replacing a bank must require changing only the Bank Adapter.  
-Never the Engine.
+The Engine must survive technology generations.  
+Adapters are expected to change.  
+The Engine is expected to endure.
 
-### Adapter product test
+#### Integration product test
 
-If removing an external platform requires changing the Engine,  
+Ask before every integration:
+
+> If this external system disappeared tomorrow,  
+> would the Engine still understand reality?
+
+If not,  
 the architecture is wrong.
 
-### Success
+These laws should still be correct in twenty years,  
+regardless of which banks, governments, accounting systems,  
+AI providers, or communication platforms exist.
 
-The Engine should be able to survive for decades,  
-while external systems evolve around it.
+Core changes only if the philosophy changes.  
+Technology changes around Core.
 
 ---
 
@@ -118,7 +156,7 @@ If no — do not build it.
 
 Before any integration ships, ask:
 
-> Can this external platform be removed without changing the Engine?
+> If this external system disappeared tomorrow, would the Engine still understand reality?
 
 If no — the architecture is wrong.
 
