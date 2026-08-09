@@ -90,13 +90,38 @@ function computeAccountingConsequence(invoice, vat) {
 }
 
 function computePaymentConsequence(invoice, decisions) {
-  if (invoice.paymentSettled) {
+  const truth = invoice.paymentTruth?.status;
+  if (truth === 'reversed') {
+    return {
+      dueDate: invoice.dueDate,
+      amount: invoice.amount,
+      currency: invoice.currency,
+      status: 'reversed',
+      bankConfirmed: false,
+      surfaceLater: true,
+      transactionId: invoice.paymentTruth?.transactionId || null,
+    };
+  }
+  if (truth === 'booked' || invoice.paymentSettled) {
     return {
       dueDate: invoice.dueDate,
       amount: invoice.amount,
       currency: invoice.currency,
       status: 'settled',
+      bankConfirmed: truth === 'booked' || Boolean(invoice.paymentConfirmed),
       surfaceLater: false,
+      transactionId: invoice.paymentTruth?.transactionId || null,
+    };
+  }
+  if (truth === 'pending') {
+    return {
+      dueDate: invoice.dueDate,
+      amount: invoice.amount,
+      currency: invoice.currency,
+      status: 'pending',
+      bankConfirmed: false,
+      surfaceLater: true,
+      transactionId: invoice.paymentTruth?.transactionId || null,
     };
   }
   const approved = decisions.some((d) => d.type === 'approve_payment' && d.optionId === 'approve');
@@ -105,7 +130,8 @@ function computePaymentConsequence(invoice, decisions) {
     dueDate: invoice.dueDate,
     amount: invoice.amount,
     currency: invoice.currency,
-    status: held ? 'held' : approved ? 'scheduled' : invoice.dueDate ? 'tracked' : 'none',
+    status: held ? 'held' : approved || truth === 'scheduled' ? 'scheduled' : invoice.dueDate ? 'tracked' : 'none',
+    bankConfirmed: false,
     surfaceLater: Boolean(invoice.dueDate),
   };
 }
@@ -129,6 +155,23 @@ export async function advanceInvoice(invoice, adapters = {}) {
   let current = beginMetrics({ ...invoice });
 
   if (current.state === INVOICE_STATES.COMPLETE) return current;
+
+  // Bank match / reversal decisions must not be overwritten
+  if (
+    current.pendingDecision?.type === 'payment_match' ||
+    current.pendingDecision?.type === 'payment_reversed'
+  ) {
+    current = recordQuestionAsked(current, current.pendingDecision.type);
+    return touch(current, { state: INVOICE_STATES.NEEDS_DECISION });
+  }
+
+  // Card/bank before receipt — park until evidence arrives (no false Complete)
+  if (current.awaitingEvidence && !current.document) {
+    return touch(current, {
+      state: INVOICE_STATES.EXECUTING,
+      pendingDecision: null,
+    });
+  }
 
   if (current.pendingDecision?.type === 'supplier_hold' || current.pendingDecision?.type === 'payment_hold') {
     current = recordQuestionAsked(current, current.pendingDecision.type);
@@ -252,7 +295,12 @@ export async function advanceInvoice(invoice, adapters = {}) {
 /**
  * Apply a human decision then continue execution.
  */
-export async function decideAndAdvance(invoice, decisionType, optionId, adapters = {}, learningExtras = {}) {
+export async function decideAndAdvance(invoice, decisionType, optionId, adapters = {}, learningExtras = {}, ports = {}) {
+  // Ambiguous bank match — Engine resolves via payment module (ports bind storage)
+  if (decisionType === 'payment_match' && typeof ports.resolvePaymentMatch === 'function') {
+    return ports.resolvePaymentMatch(invoice, optionId, adapters, ports);
+  }
+
   let current = applyDecision(invoice, decisionType, optionId);
 
   if (decisionType === 'supplier' && optionId === 'set_later') {

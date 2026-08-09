@@ -51,8 +51,17 @@ Core Laws:
 - LIFE is not an email client — only execution objects surface
 - Check arrivals on Today (also runs automatically on open)
 
+## Bank intake (payment truth)
+
+- Default provider: `adapters/banking/local-bank` (fixtures)
+- Open Banking boundary: `adapters/banking/open-banking` — **blocked** without credentials
+- Engine matches bank events to obligations — no finance dashboard, no bank feed UI
+- Quiet signal only: “Payment confirmed”
+- Check arrivals also drains bank fixtures (automatic on open)
+
 ## Stubbed / blocked
 
 - Fiken: stub translator only — no API credentials
 - Gmail live sync: adapter boundary ready, credentials not configured
-- Banking / calendar / government: stubs
+- Open Banking live sync: adapter boundary ready, credentials not configured
+- Calendar / government: stubs

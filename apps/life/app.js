@@ -10,9 +10,11 @@ import {
   startInvoiceFromUpload,
 } from '/engine/execution/invoice-flow.js';
 import { getIntakeMetrics } from '/engine/intake/index.js';
+import { getBankMetrics, resolveAmbiguousPaymentMatch } from '/engine/payment/index.js';
 import { getRuntimeAdapters } from './lib/adapters.js';
 import { listInvoices, saveInvoice, getInvoice, inboxBuckets } from './lib/store.js';
 import { pollEmailIntake } from './lib/email-intake.js';
+import { pollBankIntake, matchInvoiceAgainstBankAwaiting } from './lib/bank-intake.js';
 
 const adapters = getRuntimeAdapters();
 const root = document.getElementById('app');
@@ -30,6 +32,7 @@ const state = {
   view: 'today', // today | needs | executing | complete | upload | camera | detail
   selectedId: null,
   intakeStatus: null,
+  bankStatus: null,
   intakeBusy: false,
 };
 
@@ -58,15 +61,18 @@ function labelForState(s) {
   return map[s] || s;
 }
 
-async function runEmailIntake() {
+async function runArrivalsIntake() {
   if (state.intakeBusy) return;
   state.intakeBusy = true;
   render();
   try {
-    const result = await pollEmailIntake({ provider: 'local-mailbox' });
-    state.intakeStatus = result;
-    const created = (result.results || []).filter((r) => r.status === 'created');
-    const needs = created.find((r) => r.invoice?.state === 'needs_decision');
+    const emailResult = await pollEmailIntake({ provider: 'local-mailbox' });
+    const bankResult = await pollBankIntake({ provider: 'local-bank' });
+    state.intakeStatus = emailResult;
+    state.bankStatus = bankResult;
+    const created = (emailResult.results || []).filter((r) => r.status === 'created');
+    const bankNeeds = (bankResult.results || []).find((r) => r.invoice?.state === 'needs_decision');
+    const needs = created.find((r) => r.invoice?.state === 'needs_decision') || bankNeeds;
     state.intakeBusy = false;
     if (needs?.invoiceId) navigate('detail', needs.invoiceId);
     else render();
@@ -107,13 +113,25 @@ async function onUploadSubmit(event) {
 
   let invoice = startInvoiceFromUpload(meta, evidenceRef);
   invoice = await persistAndAdvance(invoice);
+  const bankMatch = await matchInvoiceAgainstBankAwaiting(invoice);
+  if (bankMatch.status === 'matched') invoice = bankMatch.invoice;
   navigate('detail', invoice.id);
 }
 
 async function onDecide(type, optionId) {
   const invoice = getInvoice(state.selectedId);
   if (!invoice) return;
-  const next = await decideAndAdvance(invoice, type, optionId, adapters);
+  const next = await decideAndAdvance(invoice, type, optionId, adapters, {}, {
+    listInvoices,
+    getInvoiceById: getInvoice,
+    onInvoice: saveInvoice,
+    resolvePaymentMatch: (carrier, opt, ads) =>
+      resolveAmbiguousPaymentMatch(carrier, opt, ads, {
+        listInvoices,
+        getInvoiceById: getInvoice,
+        onInvoice: saveInvoice,
+      }),
+  });
   saveInvoice(next);
   navigate('detail', next.id);
 }
@@ -176,9 +194,16 @@ function card(invoice) {
 
 function todayView(buckets) {
   const attention = [...buckets.needsDecision, ...buckets.executing];
-  const intakeNote = state.intakeStatus
-    ? `<p class="life-stub">Arrivals checked · ${(state.intakeStatus.results || []).filter((r) => r.status === 'created').length} new · ${(state.intakeStatus.results || []).filter((r) => r.status === 'duplicate').length} duplicate · ${(state.intakeStatus.results || []).filter((r) => r.status === 'ignored').length} ignored</p>`
+  const emailNote = state.intakeStatus
+    ? `Email · ${(state.intakeStatus.results || []).filter((r) => r.status === 'created').length} new · ${(state.intakeStatus.results || []).filter((r) => r.status === 'duplicate').length} duplicate`
     : '';
+  const bankNote = state.bankStatus
+    ? `Bank · ${(state.bankStatus.results || []).filter((r) => r.status === 'matched').length} matched · ${(state.bankStatus.results || []).filter((r) => r.status === 'ambiguous').length} need match · ${(state.bankStatus.results || []).filter((r) => r.status === 'duplicate').length} duplicate`
+    : '';
+  const intakeNote =
+    emailNote || bankNote
+      ? `<p class="life-stub">Arrivals checked · ${[emailNote, bankNote].filter(Boolean).join(' · ')}</p>`
+      : '';
 
   if (!attention.length) {
     return `
@@ -318,12 +343,21 @@ function detailView(invoice) {
 
   const m = invoice.metrics || {};
   const intake = getIntakeMetrics();
+  const bank = getBankMetrics();
   const sourceLabel =
     invoice.source === 'email'
       ? 'Arrived by email'
-      : invoice.source === 'camera'
-        ? 'Captured'
-        : 'Uploaded';
+      : invoice.source === 'bank'
+        ? 'Payment event'
+        : invoice.source === 'camera'
+          ? 'Captured'
+          : 'Uploaded';
+  const paymentQuiet =
+    invoice.paymentConfirmed || invoice.paymentTruth?.status === 'booked'
+      ? `<p class="life-silence">Payment confirmed</p>`
+      : invoice.paymentTruth?.status === 'reversed'
+        ? `<p class="life-silence">Payment reversed — execution reopened</p>`
+        : '';
   const devHtml = isDeveloperMode()
     ? `
     <div class="life-dev" aria-label="Developer metrics">
@@ -341,10 +375,18 @@ function detailView(invoice) {
         <div class="life-row"><span>Emails inspected</span><span>${intake.emailsInspected}</span></div>
         <div class="life-row"><span>Candidates detected</span><span>${intake.candidateDocumentsDetected}</span></div>
         <div class="life-row"><span>Objects created</span><span>${intake.executionObjectsCreated}</span></div>
-        <div class="life-row"><span>Duplicates prevented</span><span>${intake.duplicatesPrevented}</span></div>
+        <div class="life-row"><span>Duplicates prevented (email)</span><span>${intake.duplicatesPrevented}</span></div>
         <div class="life-row"><span>Requiring decision</span><span>${intake.objectsRequiringDecision}</span></div>
         <div class="life-row"><span>Completed silently</span><span>${intake.objectsCompletedSilently}</span></div>
         <div class="life-row"><span>Adapter errors</span><span>${intake.adapterErrors}</span></div>
+        <div class="life-row"><span>Bank tx ingested</span><span>${bank.transactionsIngested}</span></div>
+        <div class="life-row"><span>Automatic matches</span><span>${bank.automaticMatches}</span></div>
+        <div class="life-row"><span>Ambiguous matches</span><span>${bank.ambiguousMatches}</span></div>
+        <div class="life-row"><span>Unmatched bank tx</span><span>${bank.unmatchedTransactions}</span></div>
+        <div class="life-row"><span>Duplicates prevented (bank)</span><span>${bank.duplicatesPrevented}</span></div>
+        <div class="life-row"><span>Reversals</span><span>${bank.reversals}</span></div>
+        <div class="life-row"><span>Completed from bank truth</span><span>${bank.executionsCompletedFromBankTruth}</span></div>
+        <div class="life-row"><span>Payment truth</span><span>${escapeHtml(invoice.paymentTruth?.status || '—')}</span></div>
         <div class="life-row"><span>Source identity</span><span>${escapeHtml(invoice.sourceIdentity?.key || '—')}</span></div>
         <div class="life-row"><span>Memory restored</span><span>${escapeHtml((invoice.memory?.restored || []).map((r) => r.field).join(', ') || '—')}</span></div>
       </div>
@@ -355,6 +397,7 @@ function detailView(invoice) {
     <p class="life-kicker">Execution object</p>
     <h1 class="life-title">${escapeHtml(invoice.supplier || 'Invoice')}</h1>
     <p class="life-lead">${labelForState(invoice.state)} · ${escapeHtml(sourceLabel)}</p>
+    ${paymentQuiet}
     ${decisionHtml}
     ${completeHtml}
     <div class="life-detail">
@@ -407,7 +450,7 @@ function render() {
     btn.addEventListener('click', () => navigate('camera'));
   });
   root.querySelectorAll('[data-action="intake"]').forEach((btn) => {
-    btn.addEventListener('click', () => runEmailIntake());
+    btn.addEventListener('click', () => runArrivalsIntake());
   });
   root.querySelectorAll('[data-action="today"]').forEach((btn) => {
     btn.addEventListener('click', () => navigate('today'));
@@ -425,5 +468,5 @@ function render() {
 }
 
 render();
-// Automatic intake on open — invoices arrive without download/upload
-runEmailIntake();
+// Automatic intake on open — documents + payment truth without manual reconcile
+runArrivalsIntake();

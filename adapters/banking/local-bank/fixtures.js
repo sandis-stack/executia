@@ -1,0 +1,91 @@
+/**
+ * Local bank fixtures — deterministic payment events without live Open Banking credentials.
+ */
+
+export const FIXTURE_TRANSACTIONS = [
+  {
+    id: 'tx_circle_k_pay_001',
+    tx: {
+      source: 'bank',
+      provider: 'local-bank',
+      transactionId: 'tx_circle_k_pay_001',
+      accountId: 'acc_operating_1',
+      bookedAt: '2026-08-10T10:00:00.000Z',
+      amount: -489,
+      currency: 'NOK',
+      counterparty: 'Circle K',
+      reference: 'INV-CK-440',
+      status: 'booked',
+      metadata: { scenario: 'match_invoice', direction: 'outflow', absoluteAmount: 489 },
+    },
+  },
+  {
+    id: 'tx_ambiguous_500_002',
+    tx: {
+      source: 'bank',
+      provider: 'local-bank',
+      transactionId: 'tx_ambiguous_500_002',
+      accountId: 'acc_operating_1',
+      bookedAt: '2026-08-11T11:00:00.000Z',
+      amount: -500,
+      currency: 'NOK',
+      counterparty: 'Generic Supplier',
+      reference: 'PAYMENT',
+      status: 'booked',
+      metadata: { scenario: 'ambiguous', direction: 'outflow', absoluteAmount: 500 },
+    },
+  },
+  {
+    id: 'tx_card_cafe_003',
+    tx: {
+      source: 'bank',
+      provider: 'local-bank',
+      transactionId: 'tx_card_cafe_003',
+      accountId: 'acc_card_1',
+      bookedAt: '2026-08-12T08:30:00.000Z',
+      amount: -189,
+      currency: 'NOK',
+      counterparty: 'Cafe Sol',
+      reference: 'CARD PURCHASE',
+      status: 'booked',
+      metadata: { scenario: 'card_first', direction: 'outflow', absoluteAmount: 189, channel: 'card' },
+    },
+  },
+  {
+    id: 'tx_circle_k_pay_001_dup',
+    tx: {
+      source: 'bank',
+      provider: 'local-bank',
+      transactionId: 'tx_circle_k_pay_001',
+      accountId: 'acc_operating_1',
+      bookedAt: '2026-08-10T10:00:00.000Z',
+      amount: -489,
+      currency: 'NOK',
+      counterparty: 'Circle K',
+      reference: 'INV-CK-440',
+      status: 'booked',
+      metadata: { scenario: 'duplicate', direction: 'outflow', absoluteAmount: 489 },
+    },
+  },
+  {
+    id: 'tx_circle_k_pay_001_rev',
+    tx: {
+      source: 'bank',
+      provider: 'local-bank',
+      transactionId: 'tx_circle_k_pay_001',
+      accountId: 'acc_operating_1',
+      bookedAt: '2026-08-13T09:00:00.000Z',
+      amount: 489,
+      currency: 'NOK',
+      counterparty: 'Circle K',
+      reference: 'INV-CK-440 REVERSAL',
+      status: 'reversed',
+      metadata: {
+        scenario: 'reversal',
+        direction: 'inflow',
+        absoluteAmount: 489,
+        reversesTransactionId: 'tx_circle_k_pay_001',
+      },
+    },
+  },
+];

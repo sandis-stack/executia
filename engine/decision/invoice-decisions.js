@@ -31,9 +31,14 @@ export function nextRequiredDecision(invoice) {
     };
   }
 
-  // Each payable is a new obligation — but already-settled receipts skip consent
+  // Bank pending/booked proves payment motion — never ask the person to reconcile
+  const bankStatus = invoice.paymentTruth?.status;
+  const bankProvesPayment = bankStatus === 'booked' || bankStatus === 'pending';
+
+  // Each payable is a new obligation — but already-settled / bank-proven skip consent
   if (
     !invoice.paymentSettled &&
+    !bankProvesPayment &&
     invoice.amount != null &&
     invoice.dueDate &&
     !invoice.decisions.some((d) => d.type === 'approve_payment')
@@ -76,6 +81,9 @@ export function applyDecision(invoice, decisionType, optionId) {
   }
   if (decisionType === 'approve_payment' && optionId === 'hold') {
     patch.pendingDecision = { type: 'payment_hold', at: record.at };
+  }
+  if (decisionType === 'payment_reversed' && optionId === 'acknowledge') {
+    patch.pendingDecision = null;
   }
 
   return { ...invoice, ...patch, updatedAt: new Date().toISOString() };

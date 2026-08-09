@@ -49,6 +49,16 @@ export function createInvoice(input = {}) {
     dueDate: input.dueDate || null,
     /** When true, payment obligation is already settled — never ask approve_payment */
     paymentSettled: Boolean(input.paymentSettled),
+    /** Quiet UI signal — bank booked settlement (not a finance feed) */
+    paymentConfirmed: Boolean(input.paymentConfirmed),
+    /** Structured payment / invoice reference for deterministic bank match */
+    paymentReference: input.paymentReference || null,
+    /** Bank proves settlement; scheduling is not settlement */
+    paymentTruth: input.paymentTruth || null,
+    /** Card/bank arrived before receipt evidence */
+    awaitingEvidence: Boolean(input.awaitingEvidence),
+    ambiguousMatch: Boolean(input.ambiguousMatch),
+    metadata: input.metadata || null,
     context: input.context || null, // 'business' | 'personal' | null
     expenseCategory: input.expenseCategory || null,
     recurring: input.recurring != null ? input.recurring : null,

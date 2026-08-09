@@ -1,5 +1,17 @@
 # Adapter · banking
 
-Banks and payment rails. Vendors later: dnb/, nordea/.
+Banks synchronize **payment facts**. The Engine owns execution truth.
 
-No business decisions. No fake integrations.
+## Contract
+
+See `contract.js` — `NormalizedBankTransaction`.
+
+## Providers
+
+| Path | Mode | Notes |
+|---|---|---|
+| `local-bank/` | fixture | Default payment-truth intake without live credentials |
+| `open-banking/` | blocked | Real boundary; credentials not configured |
+| `stub.js` | stub | Legacy empty sync |
+
+Do not fake a successful live bank connection.
