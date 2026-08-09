@@ -5,7 +5,6 @@
 
 import {
   INVOICE_STATES,
-  SYNC_STATUS,
   createInvoice,
   touch,
 } from '../objects/invoice.js';
@@ -27,6 +26,12 @@ import {
   recordQuestionAsked,
   finalizeMetrics,
 } from './metrics.js';
+import {
+  createAccountingIntent,
+  accountingSyncRequested,
+  normalizeAccountingSyncStatus,
+  ACCOUNTING_SYNC_STATUS,
+} from '../accounting/index.js';
 
 function round2(n) {
   return Math.round(n * 100) / 100;
@@ -226,19 +231,41 @@ export async function advanceInvoice(invoice, adapters = {}) {
   const accounting = computeAccountingConsequence(current, vat);
   const payment = computePaymentConsequence(current, current.decisions || []);
   const forecast = computeForecastConsequence(current, vat);
+  const accountingIntent = createAccountingIntent(current, accounting, payment);
 
+  // Engine truth is established before external sync — Fiken offline must not erase it
+  const syncRequested = accountingSyncRequested(current);
   current = touch(current, {
     consequences: { vat, accounting, payment, forecast },
-    synchronizationStatus: SYNC_STATUS.PENDING,
+    accountingIntent,
+    synchronizationStatus: syncRequested
+      ? ACCOUNTING_SYNC_STATUS.QUEUED
+      : ACCOUNTING_SYNC_STATUS.NOT_REQUESTED,
   });
 
-  // Synchronization via adapters only
+  // Synchronization via adapters only (translation destination)
   let accountingSync = null;
-  if (adapters.accountingAdapter?.synchronizeAccounting) {
-    accountingSync = await adapters.accountingAdapter.synchronizeAccounting(accounting);
+  if (!syncRequested) {
+    accountingSync = {
+      status: ACCOUNTING_SYNC_STATUS.NOT_REQUESTED,
+      detail: 'Accounting synchronization not requested for this execution',
+    };
+  } else if (adapters.accountingAdapter?.synchronizeAccounting) {
+    current = touch(current, { synchronizationStatus: ACCOUNTING_SYNC_STATUS.SYNCING });
+    accountingSync = await adapters.accountingAdapter.synchronizeAccounting(accountingIntent, {
+      getEvidence: adapters.getEvidence,
+    });
   } else {
-    accountingSync = { status: SYNC_STATUS.STUBBED, detail: 'No accounting adapter bound' };
+    accountingSync = {
+      status: ACCOUNTING_SYNC_STATUS.FAILED,
+      detail: 'No accounting adapter bound. Engine truth preserved.',
+    };
   }
+
+  accountingSync = {
+    ...accountingSync,
+    status: normalizeAccountingSyncStatus(accountingSync?.status),
+  };
 
   let governmentSync = null;
   if (current.context === 'business' && adapters.governmentAdapter?.synchronizeFiling) {
@@ -247,15 +274,30 @@ export async function advanceInvoice(invoice, adapters = {}) {
       payload: vat,
     });
   } else {
-    governmentSync = { status: SYNC_STATUS.NOT_REQUIRED };
+    governmentSync = { status: ACCOUNTING_SYNC_STATUS.NOT_REQUESTED };
   }
 
-  const syncStatus =
-    accountingSync?.status === SYNC_STATUS.FAILED ? SYNC_STATUS.FAILED : accountingSync?.status || SYNC_STATUS.STUBBED;
+  const syncStatus = accountingSync.status;
+
+  // Surface human attention only when adapter reports genuine divergence / action needed
+  if (syncStatus === ACCOUNTING_SYNC_STATUS.REQUIRES_ATTENTION) {
+    return touch(current, {
+      state: INVOICE_STATES.EXCEPTION,
+      synchronizationStatus: syncStatus,
+      sync: { accounting: accountingSync, government: governmentSync },
+      pendingDecision: {
+        type: 'accounting_sync',
+        prompt: 'Accounting synchronization needs your attention.',
+        options: [{ id: 'acknowledge', label: 'Continue' }],
+      },
+      completedAt: null,
+    });
+  }
 
   current = touch(current, {
     state: INVOICE_STATES.COMPLETE,
     completedAt: new Date().toISOString(),
+    // Execution Complete = Engine truth established; sync may still be waiting/failed
     synchronizationStatus: syncStatus,
     sync: {
       accounting: accountingSync,

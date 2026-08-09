@@ -5,5 +5,13 @@
 
 export function syncIsHealthy(syncResult) {
   if (!syncResult) return false;
-  return syncResult.status === 'synced' || syncResult.status === 'stubbed' || syncResult.status === 'not_required';
+  const s = syncResult.status;
+  return (
+    s === 'synchronized' ||
+    s === 'synced' ||
+    s === 'not_requested' ||
+    s === 'not_required' ||
+    s === 'queued' ||
+    s === 'stubbed'
+  );
 }

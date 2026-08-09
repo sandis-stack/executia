@@ -19,12 +19,19 @@ export const EVIDENCE_STATUS = {
   VERIFIED: 'verified',
 };
 
+/** Normalized external synchronization states (accounting and others). */
 export const SYNC_STATUS = {
-  NOT_REQUIRED: 'not_required',
-  PENDING: 'pending',
-  SYNCED: 'synced',
+  NOT_REQUESTED: 'not_requested',
+  QUEUED: 'queued',
+  SYNCING: 'syncing',
+  SYNCHRONIZED: 'synchronized',
   FAILED: 'failed',
-  STUBBED: 'stubbed',
+  REQUIRES_ATTENTION: 'requires_attention',
+  // Legacy aliases (prefer new names)
+  NOT_REQUIRED: 'not_requested',
+  PENDING: 'queued',
+  SYNCED: 'synchronized',
+  STUBBED: 'queued',
 };
 
 /**
@@ -92,6 +99,8 @@ export function createInvoice(input = {}) {
       accounting: null,
       government: null,
     },
+    /** Provider-neutral accounting synchronization payload */
+    accountingIntent: input.accountingIntent || null,
     createdAt: now,
     updatedAt: now,
     completedAt: null,

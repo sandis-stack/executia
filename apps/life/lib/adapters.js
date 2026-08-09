@@ -8,6 +8,7 @@ import * as government from '/adapters/government/stub.js';
 import * as email from '/adapters/email/index.js';
 import * as banking from '/adapters/banking/index.js';
 import * as calendar from '/adapters/calendar/stub.js';
+import { getEvidence } from '/adapters/documents/local.js';
 
 export function getRuntimeAdapters() {
   return {
@@ -16,5 +17,7 @@ export function getRuntimeAdapters() {
     emailAdapter: email,
     bankingAdapter: banking,
     calendarAdapter: calendar,
+    /** Evidence port for accounting attachment — Engine never imports documents */
+    getEvidence,
   };
 }

@@ -358,6 +358,17 @@ function detailView(invoice) {
       : invoice.paymentTruth?.status === 'reversed'
         ? `<p class="life-silence">Payment reversed — execution reopened</p>`
         : '';
+  const accountingStatus = invoice.sync?.accounting?.status || invoice.synchronizationStatus;
+  const accountingQuiet =
+    accountingStatus === 'synchronized' || accountingStatus === 'synced'
+      ? `<p class="life-silence">Accounting synchronized</p>`
+      : accountingStatus === 'queued' ||
+          accountingStatus === 'syncing' ||
+          accountingStatus === 'failed' ||
+          accountingStatus === 'pending' ||
+          accountingStatus === 'stubbed'
+        ? `<p class="life-silence">Synchronization waiting</p>`
+        : '';
   const devHtml = isDeveloperMode()
     ? `
     <div class="life-dev" aria-label="Developer metrics">
@@ -387,6 +398,8 @@ function detailView(invoice) {
         <div class="life-row"><span>Reversals</span><span>${bank.reversals}</span></div>
         <div class="life-row"><span>Completed from bank truth</span><span>${bank.executionsCompletedFromBankTruth}</span></div>
         <div class="life-row"><span>Payment truth</span><span>${escapeHtml(invoice.paymentTruth?.status || '—')}</span></div>
+        <div class="life-row"><span>Accounting sync</span><span>${escapeHtml(accountingStatus || '—')}</span></div>
+        <div class="life-row"><span>Fiken purchase</span><span>${escapeHtml(invoice.sync?.accounting?.externalIds?.purchaseId || '—')}</span></div>
         <div class="life-row"><span>Source identity</span><span>${escapeHtml(invoice.sourceIdentity?.key || '—')}</span></div>
         <div class="life-row"><span>Memory restored</span><span>${escapeHtml((invoice.memory?.restored || []).map((r) => r.field).join(', ') || '—')}</span></div>
       </div>
@@ -398,6 +411,7 @@ function detailView(invoice) {
     <h1 class="life-title">${escapeHtml(invoice.supplier || 'Invoice')}</h1>
     <p class="life-lead">${labelForState(invoice.state)} · ${escapeHtml(sourceLabel)}</p>
     ${paymentQuiet}
+    ${accountingQuiet}
     ${decisionHtml}
     ${completeHtml}
     <div class="life-detail">

@@ -85,6 +85,9 @@ export function applyDecision(invoice, decisionType, optionId) {
   if (decisionType === 'payment_reversed' && optionId === 'acknowledge') {
     patch.pendingDecision = null;
   }
+  if (decisionType === 'accounting_sync' && optionId === 'acknowledge') {
+    patch.pendingDecision = null;
+  }
 
   return { ...invoice, ...patch, updatedAt: new Date().toISOString() };
 }

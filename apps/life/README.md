@@ -25,7 +25,8 @@ Upload / camera
   → Engine invoice object + advanceInvoice()
   → human decision only when required
   → VAT / accounting / payment / forecast consequences (Engine)
-  → accounting adapter (Fiken stub) + government stub
+  → AccountingIntent (Engine)
+  → Fiken adapter synchronizes (when credentials present)
   → Execution Complete
 ```
 
@@ -59,9 +60,15 @@ Core Laws:
 - Quiet signal only: “Payment confirmed”
 - Check arrivals also drains bank fixtures (automatic on open)
 
+## Accounting sync (Fiken)
+
+- Quiet signals only: “Accounting synchronized” / “Synchronization waiting”
+- No Fiken screens, journals, or bookkeeping UI
+- Credentials: `FIKEN_API_TOKEN` + `FIKEN_COMPANY_SLUG` (never committed)
+
 ## Stubbed / blocked
 
-- Fiken: stub translator only — no API credentials
+- Fiken live sync: blocked without API credentials (Engine truth still completes)
 - Gmail live sync: adapter boundary ready, credentials not configured
 - Open Banking live sync: adapter boundary ready, credentials not configured
 - Calendar / government: stubs
