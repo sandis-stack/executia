@@ -37,6 +37,9 @@ These principles govern every product surface — LIFE, ONE, GOV — and every f
 10. **No feature may increase administrative work.**  
     If a proposal adds process management for people, it is rejected — regardless of demand or revenue.
 
+11. **People experience events.**  
+    The Engine executes consequences.
+
 ---
 
 ## Core Laws
@@ -225,6 +228,100 @@ Ask:
 If no,  
 the architecture is wrong.
 
+### Core Law 4 — People experience events. The Engine executes consequences.
+
+People naturally understand reality as events.
+
+Examples:
+
+- “I bought fuel.”  
+- “I received my salary.”  
+- “I signed a contract.”  
+- “I moved house.”  
+- “I received an invoice.”  
+
+The Engine never experiences events.  
+The Engine receives execution objects and performs every required consequence.
+
+Examples:
+
+- evidence  
+- classification  
+- payment  
+- tax  
+- forecast  
+- accounting  
+- compliance  
+- archive  
+- truth  
+- completion  
+
+People experience events.  
+The Engine executes consequences.
+
+#### Architectural consequence
+
+Every product built on EXECUTIA must follow:
+
+```
+Reality
+  ↓
+Event
+  ↓
+Execution Object
+  ↓
+Engine
+  ↓
+Consequences
+  ↓
+Truth
+  ↓
+Complete
+```
+
+Never expose Engine modules as the primary human mental model.
+
+People should never think in:
+
+- Tax  
+- Accounting  
+- Document Layer  
+- Finance Module  
+
+Instead they think:
+
+- “I bought fuel.”  
+- “I paid an invoice.”  
+- “I received income.”  
+
+The Engine transforms those events into execution.
+
+#### Relationship to existing Core
+
+This law complements but does not replace:
+
+- Replace administration with execution.  
+- The Engine owns truth.  
+- External systems are replaceable.  
+- The Engine never depends on external systems.  
+
+No conflicts.
+
+#### Product rule
+
+LIFE, ONE, and GOV must present human events — not Engine modules — as the primary mental model.  
+A team reading only Core must independently arrive at the same architecture.
+
+#### Architecture test
+
+Ask:
+
+> Would a person describe this as an event in their life,  
+> or as a module in the Engine?
+
+If the product leads with modules,  
+the architecture is wrong.
+
 ### How the Core Laws work together
 
 | Law | Statement |
@@ -232,17 +329,24 @@ the architecture is wrong.
 | **1** | External systems are replaceable. The Engine is not. |
 | **2** | The Engine owns truth. External systems own synchronization. |
 | **3** | The Engine executes intent. Adapters execute interfaces. |
+| **4** | People experience events. The Engine executes consequences. |
 
 ```
-Intent
+Reality
+  ↓
+Event / Intent
+  ↓
+Execution Object
   ↓
 Engine
   ↓
-Execution Truth
+Consequences + Execution Truth
   ↓
 Adapters
   ↓
 External systems
+  ↓
+Complete
 ```
 
 These laws should still be correct in twenty years,  
@@ -273,5 +377,11 @@ Before any human workflow ships, ask:
 > If we replaced every external system tomorrow, would the person’s intent and the Engine’s execution model remain unchanged?
 
 If no — the architecture is wrong.
+
+Before any product surface ships, ask:
+
+> Would a person describe this as an event in their life, or as a module in the Engine?
+
+If the product leads with modules — the architecture is wrong.
 
 Core never changes to justify a feature.
