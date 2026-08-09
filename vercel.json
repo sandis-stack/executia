@@ -20,6 +20,7 @@
     { "src": "^/support$", "dest": "/support.html" },
     { "src": "^/request$", "dest": "/request.html" },
     { "src": "^/contact$", "dest": "/contact.html" },
+    { "src": "^/life/?$", "dest": "/apps/life/index.html" },
     { "src": "^/life-proof/?$", "dest": "/proofs/life-proof/index.html" },
     { "src": "^/invoice-proof/?$", "dest": "/proofs/invoice-proof/index.html" },
     { "src": "^/standard$", "dest": "/standard.html" },

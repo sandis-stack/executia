@@ -1,0 +1,291 @@
+/* LIFE product shell — Execution Inbox */
+
+:root {
+  --ink: #0f2d4a;
+  --muted: #64748b;
+  --quiet: #94a3b8;
+  --line: #e2e8f0;
+  --soft: #f8fafc;
+  --white: #fff;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+.life-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.life-top {
+  border-bottom: 1px solid var(--line);
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.life-top-inner {
+  width: min(40rem, calc(100% - 2rem));
+  margin: 0 auto;
+  height: 3.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.life-mark {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.life-nav {
+  display: flex;
+  gap: 0.15rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.life-nav button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--quiet);
+  padding: 0.45rem 0.55rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.life-nav button.is-active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.life-nav .count {
+  margin-left: 0.25rem;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.life-main {
+  width: min(40rem, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+  flex: 1;
+}
+
+.life-kicker {
+  margin: 0 0 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--quiet);
+}
+
+.life-title {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.life-lead {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.life-silence {
+  margin: 2.5rem 0 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
+  color: var(--quiet);
+  font-size: 0.9375rem;
+}
+
+.life-actions {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.life-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.6rem;
+  padding: 0 1.2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--white);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.life-btn.secondary {
+  background: var(--white);
+  color: var(--ink);
+  border-color: #cbd5e1;
+}
+
+.life-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.life-card {
+  margin-top: 1rem;
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--white);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  color: inherit;
+}
+
+.life-card:hover {
+  border-color: #cbd5e1;
+  background: var(--soft);
+}
+
+.life-card-title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.life-card-meta {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.life-badge {
+  display: inline-block;
+  margin-top: 0.55rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--quiet);
+}
+
+.life-form {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.life-field label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--quiet);
+}
+
+.life-field input,
+.life-field select {
+  width: 100%;
+  min-height: 2.6rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  padding: 0 0.85rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--white);
+}
+
+.life-field input[type="file"] {
+  padding: 0.55rem;
+}
+
+.life-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+@media (max-width: 560px) {
+  .life-grid-2 { grid-template-columns: 1fr; }
+  .life-nav button { font-size: 0.625rem; padding: 0.4rem 0.35rem; }
+}
+
+.life-detail {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.55rem;
+}
+
+.life-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.life-row span:first-child { color: var(--quiet); }
+.life-row span:last-child { text-align: right; font-weight: 500; }
+
+.life-decision {
+  margin-top: 1.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--soft);
+}
+
+.life-decision h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.life-stub {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--quiet);
+  line-height: 1.45;
+}
+
+.life-complete-line {
+  margin: 1.75rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+}

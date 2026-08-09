@@ -26,7 +26,7 @@ Apps
 | `/engine` | Execution truth — decisions, evidence, rules, synchronization, objects |
 | `/adapters` | Capability boundaries to external systems (no business decisions) |
 | `/schemas` | Canonical execution-object contracts (LIFE / ONE / GOV) |
-| `/apps` | Product surfaces — LIFE, ONE, GOV, shared |
+| `/apps` | Product surfaces — LIFE (`/life`), ONE, GOV, shared |
 | `/proofs` | Constrained demonstrations of Core + Engine behaviour |
 | `/governance` | Constitutions and standards that apply Core |
 

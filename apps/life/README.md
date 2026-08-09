@@ -2,12 +2,50 @@
 
 Personal execution surface — first living implementation of the Engine.
 
-## Ownership (inventory)
+**Live path:** `/life` → `apps/life/index.html`
 
-| Location | Role | Migrated? |
-|---|---|---|
-| `packages/executia-life/` (this monorepo) | Package stub / workspace entry | **Not moved** — package layout remains |
-| External repo `executia-life` (life.executia.io) | Primary LIFE Next.js product | **External** — do not pretend migrated |
-| `/proofs/life-proof`, `/proofs/invoice-proof` | Constrained proofs | Separate from the app |
+## What this is
 
-This folder is the architectural home for LIFE app ownership docs and future in-repo app code.
+Smallest real product: one invoice end-to-end through the Execution Inbox.
+
+Primary navigation:
+
+- Today
+- Needs Decision
+- Executing
+- Complete
+
+Default screen answers: **What needs my attention?**
+
+## Architecture
+
+```
+Upload / camera
+  → documents adapter (local evidence)
+  → Engine invoice object + advanceInvoice()
+  → human decision only when required
+  → VAT / accounting / payment / forecast consequences (Engine)
+  → accounting adapter (Fiken stub) + government stub
+  → Execution Complete
+```
+
+Core Laws:
+
+1. Engine never depends on external systems (adapters injected at the edge).
+2. Engine owns truth; adapters own synchronization.
+3. Engine executes intent, not interfaces.
+
+## Ownership
+
+| Location | Role |
+|---|---|
+| `apps/life/` | In-repo LIFE product foundation (this app) |
+| `engine/` | Invoice object, decisions, execution flow |
+| `adapters/` | Email / accounting / banking / calendar / government / documents |
+| External `executia-life` | Separate Next.js product — not this surface |
+
+## Stubbed / blocked
+
+- Fiken: stub translator only — no API credentials
+- Email ingestion: stub adapter (no Gmail coupling)
+- Banking / calendar / government: stubs
