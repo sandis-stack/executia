@@ -137,6 +137,114 @@ Ask before every integration:
 If not,  
 the architecture is wrong.
 
+### Core Law 3 — The Engine executes intent, not interfaces.
+
+A person expresses intent.  
+The Engine determines execution.  
+Adapters communicate with external systems.
+
+The person must never be required to think in terms of:
+
+- Fiken  
+- Skatteetaten  
+- bank APIs  
+- email systems  
+- accounting interfaces  
+- government portals  
+- technical workflows  
+
+Those are implementation details.
+
+#### Example
+
+Wrong:
+
+> “Create this invoice entry in Fiken.”
+
+Correct:
+
+> “Pay this invoice.”
+
+The Engine then determines what must follow:
+
+- validate evidence  
+- classify the transaction  
+- calculate tax consequences  
+- update accounting truth  
+- schedule or execute payment  
+- update cashflow  
+- update forecast  
+- synchronize with accounting systems  
+- synchronize with government systems when required  
+- preserve evidence  
+- complete execution  
+
+The person expresses one intent.  
+The Engine owns the execution path.
+
+#### Separation of responsibility
+
+```
+PERSON
+  Defines intent.
+    ↓
+ENGINE
+  Determines and governs execution.
+    ↓
+ADAPTERS
+  Communicate with external systems.
+```
+
+#### Interface independence
+
+Human intent must remain valid even if external systems change.
+
+Example:
+
+> “Pay this invoice”
+
+must mean the same thing whether accounting uses Fiken, Tripletex, Visma, Xero,  
+or a future system that does not exist today.
+
+The intent is stable.  
+Interfaces are replaceable.
+
+#### Product rule
+
+Never expose an external system’s workflow as the LIFE workflow.  
+LIFE should express human intent.  
+Adapters should absorb external complexity.
+
+#### Architecture test
+
+Ask:
+
+> If we replaced every external system tomorrow,  
+> would the person’s intent and the Engine’s execution model remain unchanged?
+
+If no,  
+the architecture is wrong.
+
+### How the Core Laws work together
+
+| Law | Statement |
+|---|---|
+| **1** | External systems are replaceable. The Engine is not. |
+| **2** | The Engine owns truth. External systems own synchronization. |
+| **3** | The Engine executes intent. Adapters execute interfaces. |
+
+```
+Intent
+  ↓
+Engine
+  ↓
+Execution Truth
+  ↓
+Adapters
+  ↓
+External systems
+```
+
 These laws should still be correct in twenty years,  
 regardless of which banks, governments, accounting systems,  
 AI providers, or communication platforms exist.
@@ -157,6 +265,12 @@ If no — do not build it.
 Before any integration ships, ask:
 
 > If this external system disappeared tomorrow, would the Engine still understand reality?
+
+If no — the architecture is wrong.
+
+Before any human workflow ships, ask:
+
+> If we replaced every external system tomorrow, would the person’s intent and the Engine’s execution model remain unchanged?
 
 If no — the architecture is wrong.
 
