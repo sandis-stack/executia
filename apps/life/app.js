@@ -298,6 +298,16 @@ function detailView(invoice) {
             ? 'confirmed this execution'
             : '—'
       }</span></div>
+      <div class="life-row"><span>Memory</span><span>${
+        invoice.memory?.restored?.length
+          ? `restored · ${invoice.memory.restored.map((r) => r.field).join(', ')}`
+          : invoice.memory?.enriched
+            ? `enriched · executions ${invoice.memory.executionCount ?? '—'}`
+            : '—'
+      }</span></div>
+      <div class="life-row"><span>Project</span><span>${escapeHtml(invoice.executionContext?.project || '—')}</span></div>
+      <div class="life-row"><span>Vehicle</span><span>${escapeHtml(invoice.executionContext?.vehicle || '—')}</span></div>
+      <div class="life-row"><span>Cost centre</span><span>${escapeHtml(invoice.executionContext?.costCentre || '—')}</span></div>
     </div>
     ${
       c.accounting

@@ -16,6 +16,11 @@ import {
   confirmFromDecision,
   confirmFromCompletedExecution,
 } from '../learning/index.js';
+import {
+  applyExecutionMemory,
+  rememberFromDecision,
+  rememberFromCompletedExecution,
+} from '../memory/index.js';
 
 function round2(n) {
   return Math.round(n * 100) / 100;
@@ -56,6 +61,12 @@ function computeAccountingConsequence(invoice, vat) {
     dueDate: invoice.dueDate,
     context: invoice.context,
     evidenceId: invoice.document?.id || null,
+    executionContext: {
+      vehicle: invoice.executionContext?.vehicle || null,
+      project: invoice.executionContext?.project || null,
+      costCentre: invoice.executionContext?.costCentre || null,
+      paymentMethod: invoice.executionContext?.paymentMethod || null,
+    },
     // Accounting-ready payload — vendor translation happens in adapter only
     lines: [
       {
@@ -63,6 +74,9 @@ function computeAccountingConsequence(invoice, vat) {
         amount: vat.net,
         vatAmount: vat.vatAmount,
         category: invoice.expenseCategory || null,
+        costCentre: invoice.executionContext?.costCentre || null,
+        project: invoice.executionContext?.project || null,
+        vehicle: invoice.executionContext?.vehicle || null,
         description: `Invoice ${invoice.supplier || ''}`.trim(),
       },
     ],
@@ -131,7 +145,8 @@ export async function advanceInvoice(invoice, adapters = {}) {
     });
   }
 
-  // Apply confirmed learning before asking — silence when confidence allows
+  // Memory restores execution context; Learning silences repeated decisions
+  current = applyExecutionMemory(current);
   current = applyLearnedTruth(current);
 
   const decision = nextRequiredDecision(current);
@@ -197,6 +212,20 @@ export async function advanceInvoice(invoice, adapters = {}) {
     });
   }
 
+  // Every completed execution enriches Execution Memory
+  const remembered = rememberFromCompletedExecution(current);
+  if (remembered.supplierMemory) {
+    current = touch(current, {
+      memory: {
+        ...(current.memory || {}),
+        enriched: true,
+        supplierMemoryId: remembered.supplierMemory.id,
+        executionCount: remembered.supplierMemory.executionCount,
+        confidence: remembered.supplierMemory.confidence,
+      },
+    });
+  }
+
   return current;
 }
 
@@ -229,6 +258,9 @@ export async function decideAndAdvance(invoice, decisionType, optionId, adapters
     }
   }
 
+  // Attach confirmed execution context carried with the decision
+  current = attachConfirmedExtras(current, learningExtras);
+
   // Store confirmed truth only when it will reduce future administration
   const learned = confirmFromDecision(current, decisionType, optionId, learningExtras);
   if (learned.learned?.length) {
@@ -240,7 +272,33 @@ export async function decideAndAdvance(invoice, decisionType, optionId, adapters
     });
   }
 
+  // Enrich Execution Memory from confirmed decision context
+  rememberFromDecision(current, decisionType, optionId, learningExtras);
+
   return advanceInvoice(current, adapters);
+}
+
+function attachConfirmedExtras(invoice, extras = {}) {
+  if (!extras || !Object.keys(extras).length) return invoice;
+  const executionContext = {
+    ...(invoice.executionContext || {}),
+    ...(extras.executionContext || {}),
+  };
+  if (extras.vehicle) executionContext.vehicle = extras.vehicle;
+  if (extras.project) executionContext.project = extras.project;
+  if (extras.property) executionContext.property = extras.property;
+  if (extras.costCentre) executionContext.costCentre = extras.costCentre;
+  if (extras.paymentMethod) executionContext.paymentMethod = extras.paymentMethod;
+  if (extras.deadlineBehaviour) executionContext.deadlineBehaviour = extras.deadlineBehaviour;
+  if (extras.subscription) executionContext.subscription = extras.subscription;
+  if (extras.customer) executionContext.customer = extras.customer;
+  if (extras.employee) executionContext.employee = extras.employee;
+
+  return touch(invoice, {
+    executionContext,
+    expenseCategory: extras.expenseCategory || invoice.expenseCategory,
+    recurring: extras.recurring != null ? extras.recurring : invoice.recurring,
+  });
 }
 
 export function startInvoiceFromUpload(meta, evidenceRef) {

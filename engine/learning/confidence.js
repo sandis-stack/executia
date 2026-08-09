@@ -48,7 +48,10 @@ export function strengthen(rule, at = new Date().toISOString()) {
   const confidence =
     count === 1
       ? FIRST_CONFIRM_CONFIDENCE
-      : Math.min(MAX_CONFIDENCE, (Number(rule.confidence) || FIRST_CONFIRM_CONFIDENCE) + CONFIRM_STEP);
+      : Math.min(
+          MAX_CONFIDENCE,
+          Math.round(((Number(rule.confidence) || FIRST_CONFIRM_CONFIDENCE) + CONFIRM_STEP) * 100) / 100,
+        );
   return {
     ...rule,
     confidence,

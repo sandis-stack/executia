@@ -1,9 +1,9 @@
 /**
- * Engine · Learning rules store
- * Engine-owned confirmed truth. No adapter coupling.
+ * Engine · Execution Memory store
+ * Engine-owned. Adapters never own Memory.
  */
 
-const STORAGE_KEY = 'executia.engine.learning.rules.v1';
+const STORAGE_KEY = 'executia.engine.memory.v1';
 
 /** @type {{ getAll(): object, setAll(map: object): void } | null} */
 let activeStore = null;
@@ -20,7 +20,7 @@ export function createMemoryStore(seed = {}) {
   };
 }
 
-export function createLocalStorageStore(key = STORAGE_KEY) {
+export function createLocalStorageMemoryStore(key = STORAGE_KEY) {
   return {
     getAll() {
       try {
@@ -35,7 +35,7 @@ export function createLocalStorageStore(key = STORAGE_KEY) {
   };
 }
 
-export function setActiveStore(store) {
+export function setActiveMemoryStore(store) {
   activeStore = store;
 }
 
@@ -48,43 +48,37 @@ function canUseLocalStorage() {
   );
 }
 
-export function getActiveStore() {
+export function getActiveMemoryStore() {
   if (activeStore) return activeStore;
   if (canUseLocalStorage()) {
-    activeStore = createLocalStorageStore();
+    activeStore = createLocalStorageMemoryStore();
     return activeStore;
   }
   activeStore = createMemoryStore();
   return activeStore;
 }
 
-export function resetActiveStore(store) {
+export function resetActiveMemoryStore(store) {
   activeStore = store || createMemoryStore();
   return activeStore;
 }
 
-function ruleId(kind, key) {
-  return `${kind}::${key}`;
+export function getMemoryRecord(id) {
+  return getActiveMemoryStore().getAll()[id] || null;
 }
 
-export function getRule(kind, key) {
-  const map = getActiveStore().getAll();
-  return map[ruleId(kind, key)] || null;
+export function putMemoryRecord(record) {
+  const map = getActiveMemoryStore().getAll();
+  map[record.id] = record;
+  getActiveMemoryStore().setAll(map);
+  return record;
 }
 
-export function putRule(rule) {
-  const map = getActiveStore().getAll();
-  map[ruleId(rule.kind, rule.key)] = rule;
-  getActiveStore().setAll(map);
-  return rule;
+export function listMemoryRecords(type = null) {
+  const all = Object.values(getActiveMemoryStore().getAll());
+  return type ? all.filter((r) => r.type === type) : all;
 }
 
-export function listRules(kind = null) {
-  const map = getActiveStore().getAll();
-  const all = Object.values(map);
-  return kind ? all.filter((r) => r.kind === kind) : all;
-}
-
-export function clearRules() {
-  getActiveStore().setAll({});
+export function clearMemory() {
+  getActiveMemoryStore().setAll({});
 }

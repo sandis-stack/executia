@@ -16,6 +16,11 @@ import {
   resetActiveStore,
   bandForConfidence,
 } from './index.js';
+import {
+  clearMemory,
+  createExecutionMemoryStore,
+  resetActiveMemoryStore,
+} from '../memory/index.js';
 import * as fiken from '../../adapters/accounting/fiken/adapter.js';
 import * as government from '../../adapters/government/stub.js';
 
@@ -50,6 +55,8 @@ async function runInvoice(label, meta, { decide } = {}) {
 async function main() {
   resetActiveStore(createMemoryStore());
   clearRules();
+  resetActiveMemoryStore(createExecutionMemoryStore());
+  clearMemory();
 
   line('=== Engine Learning v0.1 demonstration ===\n');
 

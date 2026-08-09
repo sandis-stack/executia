@@ -10,6 +10,7 @@ import {
   shouldApplySilently,
   strengthen,
 } from './confidence.js';
+import { alignSupplierMemoryContext } from '../memory/align-context.js';
 
 export const RULE_KINDS = {
   CONTEXT: 'context', // business | personal
@@ -44,12 +45,18 @@ export function confirmSupplierContext(supplier, context, at = new Date().toISOS
   const existing = getRule(RULE_KINDS.CONTEXT, key);
 
   if (!existing) {
-    return putRule(createRule({ kind: RULE_KINDS.CONTEXT, key, value: context, at }));
+    const created = putRule(createRule({ kind: RULE_KINDS.CONTEXT, key, value: context, at }));
+    alignSupplierMemoryContext(supplier, context, { contradicted: false, at });
+    return created;
   }
   if (existing.value === context) {
-    return putRule(strengthen(existing, at));
+    const strengthened = putRule(strengthen(existing, at));
+    alignSupplierMemoryContext(supplier, context, { contradicted: false, at });
+    return strengthened;
   }
-  return putRule(replaceWithContradiction(existing, context, at));
+  const replaced = putRule(replaceWithContradiction(existing, context, at));
+  alignSupplierMemoryContext(supplier, context, { contradicted: true, at });
+  return replaced;
 }
 
 export function confirmKnownCounterparty(supplier, at = new Date().toISOString()) {

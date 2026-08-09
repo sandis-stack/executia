@@ -18,6 +18,7 @@ It never depends on an external system.
 | `synchronization/` | Sync policy toward adapters (truth stays here) |
 | `objects/` | Execution-object behaviour at Engine layer |
 | `learning/` | Confirmed-truth learning (silence over time) |
+| `memory/` | Execution Memory — rich confirmed administrative context |
 
 ---
 
