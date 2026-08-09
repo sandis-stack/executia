@@ -19,6 +19,7 @@ It never depends on an external system.
 | `objects/` | Execution-object behaviour at Engine layer |
 | `learning/` | Confirmed-truth learning (silence over time) |
 | `memory/` | Execution Memory — rich confirmed administrative context |
+| `intake/` | Normalized source events → execution objects (ports for I/O) |
 
 ---
 

@@ -31,7 +31,13 @@ export function nextRequiredDecision(invoice) {
     };
   }
 
-  if (invoice.amount != null && invoice.dueDate && !invoice.decisions.some((d) => d.type === 'approve_payment')) {
+  // Each payable is a new obligation — but already-settled receipts skip consent
+  if (
+    !invoice.paymentSettled &&
+    invoice.amount != null &&
+    invoice.dueDate &&
+    !invoice.decisions.some((d) => d.type === 'approve_payment')
+  ) {
     return {
       type: 'approve_payment',
       prompt: 'Approve payment for the due date?',

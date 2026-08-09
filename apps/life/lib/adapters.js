@@ -5,7 +5,7 @@
 
 import * as fiken from '/adapters/accounting/fiken/adapter.js';
 import * as government from '/adapters/government/stub.js';
-import * as email from '/adapters/email/stub.js';
+import * as email from '/adapters/email/index.js';
 import * as banking from '/adapters/banking/stub.js';
 import * as calendar from '/adapters/calendar/stub.js';
 

@@ -9,8 +9,10 @@ import {
   decideAndAdvance,
   startInvoiceFromUpload,
 } from '/engine/execution/invoice-flow.js';
+import { getIntakeMetrics } from '/engine/intake/index.js';
 import { getRuntimeAdapters } from './lib/adapters.js';
 import { listInvoices, saveInvoice, getInvoice, inboxBuckets } from './lib/store.js';
+import { pollEmailIntake } from './lib/email-intake.js';
 
 const adapters = getRuntimeAdapters();
 const root = document.getElementById('app');
@@ -27,6 +29,8 @@ function isDeveloperMode() {
 const state = {
   view: 'today', // today | needs | executing | complete | upload | camera | detail
   selectedId: null,
+  intakeStatus: null,
+  intakeBusy: false,
 };
 
 function money(amount, currency) {
@@ -49,8 +53,27 @@ function labelForState(s) {
     needs_decision: 'Needs decision',
     executing: 'Executing',
     complete: 'Execution Complete',
+    exception: 'Needs attention',
   };
   return map[s] || s;
+}
+
+async function runEmailIntake() {
+  if (state.intakeBusy) return;
+  state.intakeBusy = true;
+  render();
+  try {
+    const result = await pollEmailIntake({ provider: 'local-mailbox' });
+    state.intakeStatus = result;
+    const created = (result.results || []).filter((r) => r.status === 'created');
+    const needs = created.find((r) => r.invoice?.state === 'needs_decision');
+    state.intakeBusy = false;
+    if (needs?.invoiceId) navigate('detail', needs.invoiceId);
+    else render();
+  } catch {
+    state.intakeBusy = false;
+    render();
+  }
 }
 
 function navigate(view, selectedId = null) {
@@ -100,7 +123,7 @@ function activeNavId() {
   if (state.view === 'upload' || state.view === 'camera') return 'today';
   const inv = getInvoice(state.selectedId);
   if (!inv) return 'today';
-  if (inv.state === 'needs_decision') return 'needs';
+  if (inv.state === 'needs_decision' || inv.state === 'exception') return 'needs';
   if (inv.state === 'complete') return 'complete';
   return 'executing';
 }
@@ -153,15 +176,21 @@ function card(invoice) {
 
 function todayView(buckets) {
   const attention = [...buckets.needsDecision, ...buckets.executing];
+  const intakeNote = state.intakeStatus
+    ? `<p class="life-stub">Arrivals checked · ${(state.intakeStatus.results || []).filter((r) => r.status === 'created').length} new · ${(state.intakeStatus.results || []).filter((r) => r.status === 'duplicate').length} duplicate · ${(state.intakeStatus.results || []).filter((r) => r.status === 'ignored').length} ignored</p>`
+    : '';
+
   if (!attention.length) {
     return `
       <p class="life-kicker">Today</p>
       <h1 class="life-title">Nothing needs your attention</h1>
-      <p class="life-lead">Execution is quiet. Capture an invoice when something arrives.</p>
+      <p class="life-lead">Execution is quiet. Invoices that arrive are taken in automatically.</p>
       <div class="life-actions">
-        <button type="button" class="life-btn" data-action="upload">Upload invoice</button>
+        <button type="button" class="life-btn" data-action="intake" ${state.intakeBusy ? 'disabled' : ''}>Check arrivals</button>
+        <button type="button" class="life-btn secondary" data-action="upload">Upload invoice</button>
         <button type="button" class="life-btn secondary" data-action="camera">Capture image</button>
       </div>
+      ${intakeNote}
       <p class="life-silence">Silence is the product working.</p>
     `;
   }
@@ -171,9 +200,11 @@ function todayView(buckets) {
     <h1 class="life-title">What needs my attention?</h1>
     <p class="life-lead">${buckets.needsDecision.length} decision${buckets.needsDecision.length === 1 ? '' : 's'} · ${buckets.executing.length} executing</p>
     <div class="life-actions">
-      <button type="button" class="life-btn" data-action="upload">Upload invoice</button>
+      <button type="button" class="life-btn" data-action="intake" ${state.intakeBusy ? 'disabled' : ''}>Check arrivals</button>
+      <button type="button" class="life-btn secondary" data-action="upload">Upload invoice</button>
       <button type="button" class="life-btn secondary" data-action="camera">Capture image</button>
     </div>
+    ${intakeNote}
     <div style="margin-top:1.5rem">
       ${attention.map(card).join('')}
     </div>
@@ -238,7 +269,7 @@ function uploadView(cameraPreferred) {
           <label for="source">Source</label>
           <select id="source" name="source">
             <option value="${cameraPreferred ? 'camera' : 'upload'}">${cameraPreferred ? 'Camera' : 'Upload'}</option>
-            <option value="email" disabled>Email (adapter stub)</option>
+            <option value="email" disabled>Email (automatic intake)</option>
           </select>
         </div>
       </div>
@@ -246,7 +277,7 @@ function uploadView(cameraPreferred) {
         <button type="submit" class="life-btn">Start execution</button>
         <button type="button" class="life-btn secondary" data-action="today">Cancel</button>
       </div>
-      <p class="life-stub">Email ingestion is behind an adapter boundary (stub). LIFE is not coupled to Gmail. Accounting sync uses the Fiken stub adapter.</p>
+      <p class="life-stub">Email arrives through the email adapter (local mailbox fixtures; Gmail blocked without credentials). LIFE is not an email client.</p>
     </form>
   `;
 }
@@ -286,6 +317,13 @@ function detailView(invoice) {
   }
 
   const m = invoice.metrics || {};
+  const intake = getIntakeMetrics();
+  const sourceLabel =
+    invoice.source === 'email'
+      ? 'Arrived by email'
+      : invoice.source === 'camera'
+        ? 'Captured'
+        : 'Uploaded';
   const devHtml = isDeveloperMode()
     ? `
     <div class="life-dev" aria-label="Developer metrics">
@@ -300,11 +338,15 @@ function detailView(invoice) {
         <div class="life-row"><span>Execution time</span><span>${m.executionTimeMs != null ? `${m.executionTimeMs} ms` : '—'}</span></div>
         <div class="life-row"><span>Complete</span><span>${m.executionComplete ? 'yes' : 'no'}</span></div>
         <div class="life-row"><span>Asked types</span><span>${escapeHtml((m.askedTypes || []).join(', ') || '—')}</span></div>
+        <div class="life-row"><span>Emails inspected</span><span>${intake.emailsInspected}</span></div>
+        <div class="life-row"><span>Candidates detected</span><span>${intake.candidateDocumentsDetected}</span></div>
+        <div class="life-row"><span>Objects created</span><span>${intake.executionObjectsCreated}</span></div>
+        <div class="life-row"><span>Duplicates prevented</span><span>${intake.duplicatesPrevented}</span></div>
+        <div class="life-row"><span>Requiring decision</span><span>${intake.objectsRequiringDecision}</span></div>
+        <div class="life-row"><span>Completed silently</span><span>${intake.objectsCompletedSilently}</span></div>
+        <div class="life-row"><span>Adapter errors</span><span>${intake.adapterErrors}</span></div>
+        <div class="life-row"><span>Source identity</span><span>${escapeHtml(invoice.sourceIdentity?.key || '—')}</span></div>
         <div class="life-row"><span>Memory restored</span><span>${escapeHtml((invoice.memory?.restored || []).map((r) => r.field).join(', ') || '—')}</span></div>
-        <div class="life-row"><span>Project</span><span>${escapeHtml(invoice.executionContext?.project || '—')}</span></div>
-        <div class="life-row"><span>Vehicle</span><span>${escapeHtml(invoice.executionContext?.vehicle || '—')}</span></div>
-        <div class="life-row"><span>Cost centre</span><span>${escapeHtml(invoice.executionContext?.costCentre || '—')}</span></div>
-        <div class="life-row"><span>Accounting intent</span><span>${escapeHtml(c.accounting?.intent || '—')}</span></div>
       </div>
     </div>`
     : '';
@@ -312,7 +354,7 @@ function detailView(invoice) {
   return `
     <p class="life-kicker">Execution object</p>
     <h1 class="life-title">${escapeHtml(invoice.supplier || 'Invoice')}</h1>
-    <p class="life-lead">${labelForState(invoice.state)}</p>
+    <p class="life-lead">${labelForState(invoice.state)} · ${escapeHtml(sourceLabel)}</p>
     ${decisionHtml}
     ${completeHtml}
     <div class="life-detail">
@@ -364,6 +406,9 @@ function render() {
   root.querySelectorAll('[data-action="camera"]').forEach((btn) => {
     btn.addEventListener('click', () => navigate('camera'));
   });
+  root.querySelectorAll('[data-action="intake"]').forEach((btn) => {
+    btn.addEventListener('click', () => runEmailIntake());
+  });
   root.querySelectorAll('[data-action="today"]').forEach((btn) => {
     btn.addEventListener('click', () => navigate('today'));
   });
@@ -380,3 +425,5 @@ function render() {
 }
 
 render();
+// Automatic intake on open — invoices arrive without download/upload
+runEmailIntake();

@@ -27,7 +27,7 @@ export function getInvoice(id) {
 }
 
 export function inboxBuckets(invoices) {
-  const needsDecision = invoices.filter((i) => i.state === 'needs_decision');
+  const needsDecision = invoices.filter((i) => i.state === 'needs_decision' || i.state === 'exception');
   const executing = invoices.filter((i) =>
     ['received', 'evidence_captured', 'classifying', 'executing'].includes(i.state),
   );

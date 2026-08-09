@@ -44,8 +44,15 @@ Core Laws:
 | `adapters/` | Email / accounting / banking / calendar / government / documents |
 | External `executia-life` | Separate Next.js product — not this surface |
 
+## Email intake
+
+- Default provider: `adapters/email/local-mailbox` (fixtures)
+- Gmail boundary: `adapters/email/gmail` — **blocked** without OAuth/API credentials
+- LIFE is not an email client — only execution objects surface
+- Check arrivals on Today (also runs automatically on open)
+
 ## Stubbed / blocked
 
 - Fiken: stub translator only — no API credentials
-- Email ingestion: stub adapter (no Gmail coupling)
+- Gmail live sync: adapter boundary ready, credentials not configured
 - Banking / calendar / government: stubs

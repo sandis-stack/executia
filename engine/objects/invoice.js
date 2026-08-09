@@ -10,6 +10,7 @@ export const INVOICE_STATES = {
   NEEDS_DECISION: 'needs_decision',
   EXECUTING: 'executing',
   COMPLETE: 'complete',
+  EXCEPTION: 'exception',
 };
 
 export const EVIDENCE_STATUS = {
@@ -36,6 +37,7 @@ export function createInvoice(input = {}) {
     id: input.id || `inv_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`,
     type: 'invoice',
     source: input.source || 'upload',
+    sourceIdentity: input.sourceIdentity || null,
     document: input.document || null,
     supplier: input.supplier || '',
     amount: input.amount != null ? Number(input.amount) : null,
@@ -45,9 +47,12 @@ export function createInvoice(input = {}) {
       rate: input.vatRate != null ? Number(input.vatRate) : null,
     },
     dueDate: input.dueDate || null,
+    /** When true, payment obligation is already settled — never ask approve_payment */
+    paymentSettled: Boolean(input.paymentSettled),
     context: input.context || null, // 'business' | 'personal' | null
     expenseCategory: input.expenseCategory || null,
     recurring: input.recurring != null ? input.recurring : null,
+    intakeError: input.intakeError || null,
     executionContext: input.executionContext || {
       vehicle: null,
       project: null,

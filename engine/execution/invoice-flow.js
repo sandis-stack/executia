@@ -90,6 +90,15 @@ function computeAccountingConsequence(invoice, vat) {
 }
 
 function computePaymentConsequence(invoice, decisions) {
+  if (invoice.paymentSettled) {
+    return {
+      dueDate: invoice.dueDate,
+      amount: invoice.amount,
+      currency: invoice.currency,
+      status: 'settled',
+      surfaceLater: false,
+    };
+  }
   const approved = decisions.some((d) => d.type === 'approve_payment' && d.optionId === 'approve');
   const held = decisions.some((d) => d.type === 'approve_payment' && d.optionId === 'hold');
   return {
