@@ -26,7 +26,7 @@ from reportlab.platypus import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "public" / "docs" / "EXECUTIA-EIM-1.0-Reference-Specification.pdf"
+OUT = ROOT / "docs" / "specs" / "EXECUTIA-EIM-1.0-Reference-Specification.pdf"
 
 INK = HexColor("#0F172A")
 MUTED = HexColor("#475569")
