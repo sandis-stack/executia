@@ -80,8 +80,12 @@
     }
   }
 
-  if (document.querySelector('[data-platform-header]')) {
+  // Initialize shell navigation on every page. Some pages (including ENTRY)
+  // render the header statically and therefore do not have [data-platform-header].
+  if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initShellNavigation);
+  } else {
+    initShellNavigation();
   }
 
   const demo = document.getElementById('execution-demo-form');
