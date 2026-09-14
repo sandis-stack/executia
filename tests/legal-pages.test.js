@@ -72,6 +72,11 @@ test('privacy policy covers LIFE AIS controller requirements', () => {
   assert.match(privacy, /Data-protection contact/);
   assertNotClaimingExecutiaAisp(privacy, 'privacy');
   assertNoPisClaim(privacy, 'privacy');
+  assert.match(
+    privacy,
+    /EXECUTIA LIFE is a software service for business and financial execution, including processing information relating to customers, invoices, money, documents and actions/,
+  );
+  assert.doesNotMatch(privacy, /verified company materials|verified public inventory|numeric retention schedule|No separate data protection officer/i);
 });
 
 test('terms of service cover LIFE AIS service requirements', () => {
@@ -94,6 +99,12 @@ test('terms of service cover LIFE AIS service requirements', () => {
   assert.match(terms, /laws of Norway/);
   assertNotClaimingExecutiaAisp(terms, 'terms');
   assertNoPisClaim(terms, 'terms');
+  assert.match(terms, /EXECUTIA AS is not a licensed Account Information Service Provider \(AISP\)/);
+  assert.doesNotMatch(terms, /does not itself claim to be a licensed AISP/);
+  assert.match(
+    terms,
+    /EXECUTIA LIFE is a software service for business and financial execution, including processing information relating to customers, invoices, money, documents and actions/,
+  );
 });
 
 test('legal pages stay on the existing design and remain mobile-width readable', () => {
