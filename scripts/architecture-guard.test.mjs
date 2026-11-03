@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import test from "node:test";
 import { evaluateArchitectureGuard, validateRegistry } from "./architecture-guard.mjs";
+import { syncExecutionIntelligenceCore } from "./sync-execution-intelligence-core.mjs";
 
 const registry = {
   registryVersion: 1,
@@ -130,4 +132,53 @@ test("a vendor edit with a source commit and matching hashes passes", () => {
     (path) => (path.endsWith("VENDOR_SYNC.json") ? Buffer.from(manifest) : body),
   );
   assert.equal(result.ok, true, result.errors.join("\n"));
+});
+
+test("an unlisted vendor file is rejected", () => {
+  const body = Buffer.from("canonical-bytes");
+  const hash = createHash("sha256").update(body).digest("hex");
+  const manifest = JSON.stringify({
+    sourceCommit: "4d8a52ac6a3eacada5443561fcaa199b4adcd0a8",
+    files: { "decision-engine.js": hash },
+  });
+  const result = evaluateArchitectureGuard({
+    repo: "executia",
+    registry,
+    changedFiles: [
+      "assets/vendor/execution-intelligence-core/decision-engine.js",
+      "assets/vendor/execution-intelligence-core/extra.js",
+      "assets/vendor/execution-intelligence-core/VENDOR_SYNC.json",
+    ],
+    readFile(path) {
+      return path.endsWith("VENDOR_SYNC.json") ? Buffer.from(manifest) : body;
+    },
+    listVendorFiles() {
+      return ["VENDOR_SYNC.json", "decision-engine.js", "extra.js"];
+    },
+  });
+  assert.equal(result.ok, false);
+  assert.match(result.errors.join("\n"), /extra\.js is not listed/);
+});
+
+test("postinstall sync keeps the vendor manifest", () => {
+  const root = mkdtempSync(join(tmpdir(), "executia-vendor-sync-"));
+  const packageRoot = join(root, "package");
+  const dest = join(root, "vendor");
+  mkdirSync(packageRoot);
+  writeFileSync(join(packageRoot, "decision-engine.js"), "from-package");
+  mkdirSync(dest);
+  writeFileSync(join(dest, "old.js"), "remove-me");
+  const manifest = Buffer.from('{"sourceCommit":"4d8a52ac6a3eacada5443561fcaa199b4adcd0a8","files":{}}\n');
+  writeFileSync(join(dest, "VENDOR_SYNC.json"), manifest);
+  const result = syncExecutionIntelligenceCore({
+    packageRoot,
+    dest,
+    log() {},
+    error() {},
+  });
+  assert.equal(result.status, "synced");
+  assert.equal(result.preservedManifest, true);
+  assert.equal(readFileSync(join(dest, "VENDOR_SYNC.json")).equals(manifest), true);
+  assert.equal(readFileSync(join(dest, "decision-engine.js"), "utf8"), "from-package");
+  assert.throws(() => readFileSync(join(dest, "old.js")));
 });

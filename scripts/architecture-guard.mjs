@@ -4,7 +4,7 @@
  * Checks a proposed file list. It does not execute product code.
  */
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -93,7 +93,7 @@ function isCommitId(value) {
   return typeof value === "string" && /^[0-9a-f]{40}$/.test(value);
 }
 
-export function evaluateArchitectureGuard({ repo, registry, changedFiles, readFile }) {
+export function evaluateArchitectureGuard({ repo, registry, changedFiles, readFile, listVendorFiles }) {
   const errors = [];
   errors.push(...validateRegistry(registry));
   if (!REPOSITORIES.includes(repo)) {
@@ -136,8 +136,14 @@ export function evaluateArchitectureGuard({ repo, registry, changedFiles, readFi
       if (manifest && !isCommitId(manifest.sourceCommit)) {
         errors.push("vendor manifest is missing a 40-character source commit");
       }
-      if (manifest?.files && typeof readFile === "function") {
-        for (const [name, expected] of Object.entries(manifest.files)) {
+      const listedFiles = manifest?.files;
+      const filesMapIsValid =
+        listedFiles && typeof listedFiles === "object" && !Array.isArray(listedFiles);
+      if (contentChanges.length > 0 && (!filesMapIsValid || Object.keys(listedFiles).length === 0)) {
+        errors.push("vendor manifest must list every vendor file");
+      }
+      if (filesMapIsValid && typeof readFile === "function") {
+        for (const [name, expected] of Object.entries(listedFiles)) {
           const path = `${VENDOR_DIR}/${name}`;
           let bytes;
           try {
@@ -152,6 +158,15 @@ export function evaluateArchitectureGuard({ repo, registry, changedFiles, readFi
           const actual = sha256(bytes);
           if (actual !== expected) {
             errors.push(`vendor hash mismatch for ${name}`);
+          }
+        }
+      }
+      if (filesMapIsValid && typeof listVendorFiles === "function") {
+        const listed = new Set(Object.keys(listedFiles));
+        for (const name of listVendorFiles()) {
+          if (name === "VENDOR_SYNC.json") continue;
+          if (!listed.has(name)) {
+            errors.push(`vendor file ${name} is not listed in VENDOR_SYNC.json`);
           }
         }
       }
@@ -183,6 +198,11 @@ function main() {
     changedFiles,
     readFile(relativePath) {
       return readFileSync(resolve(root, relativePath));
+    },
+    listVendorFiles() {
+      return readdirSync(resolve(root, VENDOR_DIR), { withFileTypes: true })
+        .filter((entry) => entry.isFile())
+        .map((entry) => entry.name);
     },
   });
   if (!result.ok) {
