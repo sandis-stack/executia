@@ -1,0 +1,20 @@
+{
+  "package": "@executia/execution-intelligence-core",
+  "sourceRepository": "sandis-stack/executia-layer",
+  "sourcePath": "packages/execution-intelligence-core",
+  "sourceCommit": "4d8a52ac6a3eacada5443561fcaa199b4adcd0a8",
+  "sourceCommitPublishedOnGitHubMain": false,
+  "files": {
+    "constants.js": "09ec6ecd89a2558e29f2b2fed2da18250fbf4cac24f3f843814d7841f6a8449b",
+    "decision-engine.js": "426b60d22809291109401a48cbede1c9b0d77d54bc501a088313d5ee02d20b95",
+    "domain-models.js": "47f96c98ba890cf21479edc32e5c4e9193129a5742503ba0a979bbf754663f98",
+    "evidence-catalog.js": "0c5d7ef67d25dd257f6b24891b1c6e2720dbcc46e5c67a11fdf7ea8f53098f6c",
+    "evidence-engine.js": "7acd53295f0555442949de142250f77e6a901f80c955136b78b63d4a8458feff",
+    "execution-outlook-engine.js": "7877da8b56962ee553e2033deb014e30aa780a9bb9ac0a686805291db1582622",
+    "index.js": "feb93b2665869e22c3a42da7c917fcf6d5da1a39183fa591266ca70116b648a6",
+    "intent-extractor.js": "c6ee8dde63750e908a13529256994088e22077780dd87543950a6129d67f16b1",
+    "reasoning-engine.js": "f518bb1fb8adcbb3e0f7a2785694dab9db34ae48c1c1723df73dc00f3981000d",
+    "validation-engine.js": "38f025b982c4abe042c5dd22ca3f752afd8330a1ebb866f776061ec587b0464b",
+    "validation-rules.js": "f2005ee215b5ebcdf72d534d493779d589846d90800d378dacb06d028be7442e"
+  }
+}

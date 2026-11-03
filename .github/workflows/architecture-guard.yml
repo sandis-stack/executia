@@ -1,0 +1,26 @@
+name: Architecture guard
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  architecture-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: List changed files
+        run: git diff --name-only origin/${{ github.base_ref }}...HEAD > /tmp/architecture-changed-files.txt
+
+      - name: Check registry, ownership, and vendor snapshot
+        run: node scripts/architecture-guard.mjs --repo executia --registry governance/ARCHITECTURE_REGISTRY.json --files /tmp/architecture-changed-files.txt --root .
+
+      - name: Run architecture guard tests
+        run: node --test scripts/architecture-guard.test.mjs
