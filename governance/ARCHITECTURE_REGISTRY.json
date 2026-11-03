@@ -1,0 +1,135 @@
+{
+  "registryVersion": 1,
+  "decidedOn": "2026-11-02",
+  "structure": "six-repositories",
+  "repositories": [
+    {
+      "name": "executia",
+      "github": "sandis-stack/executia",
+      "visibility": "public",
+      "role": "Public website, ENTRY, and public API",
+      "capabilities": ["ENTRY", "public-website", "public-api", "vendored-intelligence-snapshot"],
+      "source": {
+        "branch": "main",
+        "commit": "f061a52bc0f9922befdb8b27f19eb302bf5a941a",
+        "status": "VERIFIED"
+      },
+      "production": {
+        "host": "https://executia.io",
+        "project": "executia-new",
+        "deploymentId": "dpl_8FFtjwcRVG4f4edBDajbkSW1DwJp",
+        "deploymentCommit": "f061a52bc0f9922befdb8b27f19eb302bf5a941a",
+        "deploymentCommitStatus": "VERIFIED",
+        "rollbackDeploymentId": "dpl_8FFtjwcRVG4f4edBDajbkSW1DwJp"
+      }
+    },
+    {
+      "name": "executia-layer",
+      "github": "sandis-stack/executia-layer",
+      "visibility": "public",
+      "role": "Sole institutional execution authority: ledger, atomic commit, proof chain, and dashboard",
+      "capabilities": ["institutional-execution", "ledger", "atomic-commit", "proof", "dashboard"],
+      "source": {
+        "githubMainCommit": "f5dc761418842cb2d6c62cfbfb5d95eb69ba9a16",
+        "localTipCommit": "05e57dccfd2db67884bc76f1454982abddc2d643",
+        "localTipStatus": "UNPUBLISHED"
+      },
+      "production": {
+        "host": "https://execution.executia.io",
+        "hostStatus": "DETACHED",
+        "aliasHost": "https://executia-layer.vercel.app",
+        "project": "executia-layer",
+        "githubRecordedProductionCommit": "f5dc761418842cb2d6c62cfbfb5d95eb69ba9a16",
+        "latestReadyDeploymentId": "dpl_DckthV2Ah2pyRYbJN6kTXdfQzAY4",
+        "latestReadyDeploymentCommit": "UNKNOWN",
+        "rollbackDeploymentId": "UNKNOWN"
+      }
+    },
+    {
+      "name": "executia-core",
+      "github": "sandis-stack/executia-core",
+      "visibility": "private",
+      "role": "Python model-output gating",
+      "capabilities": ["model-output-gate"],
+      "source": {
+        "branch": "core-v2",
+        "commit": "655f7b7f4f708e76ef0a31bcf061f56e181cc096",
+        "status": "VERIFIED"
+      },
+      "production": {
+        "deploymentId": "UNKNOWN",
+        "rollbackDeploymentId": "UNKNOWN"
+      }
+    },
+    {
+      "name": "executia-life",
+      "github": "sandis-stack/executia-life",
+      "visibility": "private",
+      "role": "LIFE product",
+      "capabilities": ["LIFE"],
+      "source": {
+        "githubMainCommit": "2de41fd68adfa197bb0e323ca66747b4324c93e2",
+        "localTipCommit": "f6cb65c5bb65d3de08d9f4606bf7e1b7a50d9b9d",
+        "localTipStatus": "UNPUBLISHED"
+      },
+      "production": {
+        "host": "https://life.executia.io",
+        "project": "executia-life",
+        "deploymentId": "dpl_136sFBj4ad3onvdoCbkyKrYfhamF",
+        "deploymentCommit": "2de41fd68adfa197bb0e323ca66747b4324c93e2",
+        "deploymentCommitStatus": "VERIFIED",
+        "rollbackDeploymentId": "dpl_136sFBj4ad3onvdoCbkyKrYfhamF"
+      }
+    },
+    {
+      "name": "executia-one",
+      "github": "sandis-stack/executia-one",
+      "visibility": "private",
+      "role": "ONE product",
+      "capabilities": ["ONE"],
+      "source": {
+        "githubMainCommit": "ded76c827ab1de1ef0eb9713cf034732fdd0ec5e",
+        "localTipCommit": "e36bd5773441a35f4ded4f94fd7f477d4f6683b2",
+        "localTipStatus": "UNPUBLISHED"
+      },
+      "production": {
+        "host": "https://one.executia.io",
+        "hostStatus": "DETACHED",
+        "aliasHost": "https://executia-one.vercel.app",
+        "project": "executia-one",
+        "githubRecordedProductionCommit": "ded76c827ab1de1ef0eb9713cf034732fdd0ec5e",
+        "latestReadyDeploymentId": "dpl_E99n12a7ZSSjgPHPhnkvirEm69PD",
+        "deploymentCommitEquality": "UNKNOWN",
+        "rollbackDeploymentId": "UNKNOWN"
+      }
+    },
+    {
+      "name": "executia-source-archive",
+      "github": "sandis-stack/executia-source-archive",
+      "visibility": "private",
+      "role": "Preservation",
+      "capabilities": ["preservation"],
+      "source": {
+        "branch": "main",
+        "commit": "ba7891c8c5b50d55bf6d1ba6c1c9b6e9ec2f39f6",
+        "contents": "README only",
+        "status": "VERIFIED"
+      },
+      "production": {
+        "deploymentId": "UNKNOWN",
+        "rollbackDeploymentId": "UNKNOWN"
+      }
+    }
+  ],
+  "sharedPackage": {
+    "name": "@executia/execution-intelligence-core",
+    "canonicalRepository": "executia-layer",
+    "canonicalPath": "packages/execution-intelligence-core",
+    "introducedCommit": "148f330fdf64a9dff28d171f8323f9e8ce0d6fd4",
+    "bytesMatchCommit": "4d8a52ac6a3eacada5443561fcaa199b4adcd0a8",
+    "publishedOnGitHubMain": false,
+    "vendorRepository": "executia",
+    "vendorPath": "assets/vendor/execution-intelligence-core",
+    "vendorContainedInCommit": "f061a52bc0f9922befdb8b27f19eb302bf5a941a"
+  }
+}

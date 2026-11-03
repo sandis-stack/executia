@@ -1,0 +1,22 @@
+---
+description: EXECUTIA architecture boundary for the public website repository
+alwaysApply: true
+---
+
+# Architecture boundary — executia
+
+This repository is the public website, ENTRY, and public API. The visual baseline is commit `f061a52bc0f9922befdb8b27f19eb302bf5a941a`.
+
+Before editing, answer:
+
+1. What is changing?
+2. Which repository in `governance/ARCHITECTURE_REGISTRY.json` owns it?
+3. Which consumers and contracts are affected?
+4. Which existing test or smoke check proves it?
+5. Which recorded deployment id is the rollback?
+
+Do not add `sql/009_atomic_execution_rpc.sql`, `services/execution-commit-flow.js`, or `services/execution-proof.js`. Those belong only in `executia-layer`.
+
+Do not edit `assets/vendor/execution-intelligence-core` by hand. The canonical package is `executia-layer` `packages/execution-intelligence-core`. A refresh updates `VENDOR_SYNC.json` with the source commit and matching file hashes.
+
+Website invoice, intake, memory, and learning files under `engine/` are this repository's modules. They are not the institutional ledger.
