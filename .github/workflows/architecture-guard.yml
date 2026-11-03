@@ -21,3 +21,6 @@ jobs:
 
       - name: Check registry, ownership, and vendor snapshot
         run: node scripts/architecture-guard.mjs --repo executia --registry governance/ARCHITECTURE_REGISTRY.json --files /tmp/architecture-changed-files.txt --root .
+
+      - name: Run architecture guard tests
+        run: node --test scripts/architecture-guard.test.mjs
