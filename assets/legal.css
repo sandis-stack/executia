@@ -32,8 +32,8 @@ body[data-page="legal"] {
 
 .legal-header .brand-main {
   font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #0f2d4a;
 }

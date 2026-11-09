@@ -57,7 +57,7 @@
       var brand =
         window.EXECUTIA_BRAND && window.EXECUTIA_BRAND.renderBrandIdentity
           ? window.EXECUTIA_BRAND.renderBrandIdentity()
-          : '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><span class="brand-main">EXECUTIA\u2122</span></a>';
+          : '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><svg class="brand-mark" viewBox="3 4 56 56" aria-hidden="true" focusable="false"><circle cx="10" cy="32" r="4" fill="#008C9C"/><path fill="currentColor" d="M24 8h32v8H32v12h20v8H32v12h24v8H24V36h-6v-8h6z"/></svg><span class="brand-main">EXECUTIA<span class="brand-tm">\u2122</span></span></a>';
       return (
         '<header class="site-header">' +
         '<div class="wrap header-inner">' +

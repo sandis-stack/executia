@@ -21,7 +21,7 @@
   function renderBrandIdentity() {
     return (
       '<a class="brand shell-brand" href="/" aria-label="EXECUTIA home">' +
-      '<span class="brand-main">EXECUTIA\u2122</span></a>'
+      '<svg class="brand-mark" viewBox="3 4 56 56" aria-hidden="true" focusable="false"><circle cx="10" cy="32" r="4" fill="#008C9C"/><path fill="currentColor" d="M24 8h32v8H32v12h20v8H32v12h24v8H24V36h-6v-8h6z"/></svg><span class="brand-main">EXECUTIA<span class="brand-tm">\u2122</span></span></a>'
     );
   }
 
@@ -30,7 +30,8 @@
     return (
       '<footer class="site-footer entry-footer" role="contentinfo">' +
       '<div class="entry-footer-inner">' +
-      '<p class="entry-footer-brand">EXECUTIA\u2122</p>' +
+      '<svg class="entry-footer-mark" viewBox="3 4 56 56" aria-hidden="true" focusable="false"><circle cx="10" cy="32" r="4" fill="#008C9C"/><path fill="currentColor" d="M24 8h32v8H32v12h20v8H32v12h24v8H24V36h-6v-8h6z"/></svg>' +
+      '<p class="entry-footer-brand">EXECUTIA<span class="brand-tm">\u2122</span></p>' +
       '<p class="entry-footer-standard">Execution Integrity Standard</p>' +
       '<hr class="entry-footer-rule" />' +
       '<p class="entry-footer-model">Built around the Execution Integrity Model\u2122.</p>' +
