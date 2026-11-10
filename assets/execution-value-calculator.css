@@ -256,6 +256,13 @@
   }
 }
 
+@media (max-width: 860px) {
+  .evc-field .evc-risk,
+  .evc-risk {
+    min-height: 2.75rem;
+  }
+}
+
 .evc-results {
   display: grid;
   gap: 0.75rem;

@@ -238,3 +238,16 @@ body[data-page="legal"] {
     width: 100%;
   }
 }
+
+/* Mobile and tablet: 44 px to tap; the email link keeps its place (extra padding taken back by the margins). */
+@media (max-width: 860px) {
+  .legal-actions a.legal-cta {
+    min-height: 44px;
+  }
+
+  .legal-contact-email {
+    padding-block: 12px;
+    margin-top: calc(0.35rem - 12px);
+    margin-bottom: -12px;
+  }
+}

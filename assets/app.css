@@ -422,3 +422,15 @@ body[data-page="contact"] .contact-linkedin:hover{
   body[data-page="contact"] .contact-cta-primary,
   body[data-page="contact"] .contact-cta-secondary{width:100%;max-width:20rem}
 }
+
+/* Mobile and tablet: shared header, footer and buttons are at least 44 px to tap. */
+@media (max-width:860px){
+  .shell-brand{min-height:44px}
+  .menu-toggle{width:44px;height:44px}
+  .pill-btn,
+  .header-cta .pill-btn{min-height:44px}
+  .entry-footer-nav{gap:0}
+  .entry-footer-nav a,
+  .legal-footer-nav a,
+  .legal-back{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px}
+}
