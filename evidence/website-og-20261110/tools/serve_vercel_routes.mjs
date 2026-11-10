@@ -13,9 +13,14 @@ const types = {
   '.webmanifest': 'application/manifest+json', '.txt': 'text/plain', '.xml': 'application/xml', '.pdf': 'application/pdf',
 };
 
-function resolve(pathname) {
+// Only `has` conditions of type "host" are used in this site; any other type never matches here.
+function conditionsMet(r, host) {
+  return (r.has || []).every((c) => c.type === 'host' && c.value === host);
+}
+
+function resolve(pathname, host) {
   for (const r of routes) {
-    if (!new RegExp(r.src).test(pathname)) continue;
+    if (!new RegExp(r.src).test(pathname) || !conditionsMet(r, host)) continue;
     if (r.status && r.headers?.Location) return { redirect: r.headers.Location, status: r.status };
     if (r.dest) return { file: r.dest };
   }
@@ -24,7 +29,7 @@ function resolve(pathname) {
 
 createServer((req, res) => {
   const { pathname } = new URL(req.url, 'http://localhost');
-  const hit = resolve(pathname);
+  const hit = resolve(pathname, (req.headers.host || '').split(':')[0]);
   if (hit.redirect) {
     res.writeHead(hit.status, { Location: hit.redirect }).end();
     return;

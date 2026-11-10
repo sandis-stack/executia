@@ -1,9 +1,9 @@
 """TASK-20 mechanical edits: new OG image URL + alt, EXECUTIA(TM) -> EXECUTIA(R).
 
 Every replacement asserts its exact count so an unexpected match stops the run.
-Intentional exceptions (left with TM):
-  - "Execution Integrity Model\\u2122" in assets/platform-brand.js (a different, separate mark)
-  - scripts/generate-eim-spec-pdf.py (source of the spec PDF, whose contents must not change)
+Left with TM by this script:
+  - "Execution Integrity Model\\u2122" in assets/platform-brand.js (a separate mark; set to R by hand after the PO decision 14:40)
+  - scripts/generate-eim-spec-pdf.py (source of the spec PDF; R only with the next spec version)
 Run from the repo root: python3 evidence/website-og-20261110/tools/apply_mechanical.py
 """
 import glob

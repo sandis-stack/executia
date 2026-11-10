@@ -1,0 +1,18 @@
+# local vercel.json route test, 2026-11-10 14:43 CET (serve_vercel_routes.mjs, Host header)
+execution.executia.io  GET  /                          308 https://executia.io/engine
+execution.executia.io  GET  /dashboard                 308 https://executia.io/engine
+execution.executia.io  GET  /execution-test/           308 https://executia.io/engine
+execution.executia.io  GET  /request-pilot/            308 https://executia.io/engine
+execution.executia.io  GET  /api/v1/control-request    308 https://executia.io/engine
+execution.executia.io  GET  /api/v1/health             308 https://executia.io/engine
+execution.executia.io  GET  /engine                    308 https://executia.io/engine
+execution.executia.io  GET  /test                      308 https://executia.io/engine
+executia.io            GET  /                          200 
+executia.io            GET  /dashboard                 302 https://executia.io/engine
+executia.io            GET  /execution-test/           404 
+executia.io            GET  /request-pilot/            404 
+executia.io            GET  /api/v1/control-request    404 
+executia.io            GET  /api/v1/health             404 
+executia.io            GET  /engine                    200 
+executia.io            GET  /test                      302 https://executia.io/engine
+execution.executia.io  POST /api/v1/control-request    308 https://executia.io/engine
