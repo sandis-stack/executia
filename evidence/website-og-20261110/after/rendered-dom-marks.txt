@@ -1,0 +1,14 @@
+/               TM=1 (of which Execution Integrity Model TM=1)  R=7
+/engine         TM=1 (of which Execution Integrity Model TM=1)  R=4
+/request        TM=1 (of which Execution Integrity Model TM=1)  R=4
+/pilot          TM=1 (of which Execution Integrity Model TM=1)  R=5
+/one            TM=1 (of which Execution Integrity Model TM=1)  R=5
+/standard       TM=1 (of which Execution Integrity Model TM=1)  R=5
+/contact        TM=0 (of which Execution Integrity Model TM=0)  R=3
+/definition     TM=1 (of which Execution Integrity Model TM=1)  R=5
+/global         TM=1 (of which Execution Integrity Model TM=1)  R=5
+/institutional  TM=1 (of which Execution Integrity Model TM=1)  R=5
+/docs           TM=1 (of which Execution Integrity Model TM=1)  R=5
+/support        TM=1 (of which Execution Integrity Model TM=1)  R=5
+/proof          TM=1 (of which Execution Integrity Model TM=1)  R=5
+/privacy        TM=0 (of which Execution Integrity Model TM=0)  R=2

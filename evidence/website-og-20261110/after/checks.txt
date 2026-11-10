@@ -1,0 +1,193 @@
+ok   /: all 10 social tags present
+ok   /: og:type=website
+ok   /: twitter:card=summary_large_image
+ok   /: og:image 1200x630 declared
+ok   /: image executia-og-1200x630-v2.png
+ok   /: no TM in title/og:title
+ok   /: og:url == canonical (https://executia.io/)
+ok   /entry/legacy: all 10 social tags present
+ok   /entry/legacy: og:type=website
+ok   /entry/legacy: twitter:card=summary_large_image
+ok   /entry/legacy: og:image 1200x630 declared
+ok   /entry/legacy: image executia-og-1200x630-v2.png
+ok   /entry/legacy: no TM in title/og:title
+ok   /entry/legacy: og:url == canonical (https://executia.io/)
+ok   /engine: all 10 social tags present
+ok   /engine: og:type=website
+ok   /engine: twitter:card=summary_large_image
+ok   /engine: og:image 1200x630 declared
+ok   /engine: image executia-og-engine-1200x630.png
+ok   /engine: no TM in title/og:title
+ok   /engine: og:url == canonical (https://executia.io/engine)
+ok   /docs: all 10 social tags present
+ok   /docs: og:type=website
+ok   /docs: twitter:card=summary_large_image
+ok   /docs: og:image 1200x630 declared
+ok   /docs: image executia-og-1200x630-v2.png
+ok   /docs: no TM in title/og:title
+ok   /docs: og:url == canonical (https://executia.io/docs)
+ok   /pilot: all 10 social tags present
+ok   /pilot: og:type=website
+ok   /pilot: twitter:card=summary_large_image
+ok   /pilot: og:image 1200x630 declared
+ok   /pilot: image executia-og-1200x630-v2.png
+ok   /pilot: no TM in title/og:title
+ok   /pilot: og:url == canonical (https://executia.io/pilot)
+ok   /pilot/approved: all 10 social tags present
+ok   /pilot/approved: og:type=website
+ok   /pilot/approved: twitter:card=summary_large_image
+ok   /pilot/approved: og:image 1200x630 declared
+ok   /pilot/approved: image executia-og-1200x630-v2.png
+ok   /pilot/approved: no TM in title/og:title
+ok   /pilot/approved: og:url == canonical (https://executia.io/pilot/approved)
+ok   /one: all 10 social tags present
+ok   /one: og:type=website
+ok   /one: twitter:card=summary_large_image
+ok   /one: og:image 1200x630 declared
+ok   /one: image executia-og-1200x630-v2.png
+ok   /one: no TM in title/og:title
+ok   /one: og:url == canonical (https://executia.io/one)
+ok   /proof: all 10 social tags present
+ok   /proof: og:type=website
+ok   /proof: twitter:card=summary_large_image
+ok   /proof: og:image 1200x630 declared
+ok   /proof: image executia-og-1200x630-v2.png
+ok   /proof: no TM in title/og:title
+ok   /proof: og:url == canonical (https://executia.io/proof)
+ok   /support: all 10 social tags present
+ok   /support: og:type=website
+ok   /support: twitter:card=summary_large_image
+ok   /support: og:image 1200x630 declared
+ok   /support: image executia-og-1200x630-v2.png
+ok   /support: no TM in title/og:title
+ok   /support: og:url == canonical (https://executia.io/support)
+ok   /request: all 10 social tags present
+ok   /request: og:type=website
+ok   /request: twitter:card=summary_large_image
+ok   /request: og:image 1200x630 declared
+ok   /request: image executia-og-1200x630-v2.png
+ok   /request: no TM in title/og:title
+ok   /request: og:url == canonical (https://executia.io/request)
+ok   /contact: all 10 social tags present
+ok   /contact: og:type=website
+ok   /contact: twitter:card=summary_large_image
+ok   /contact: og:image 1200x630 declared
+ok   /contact: image executia-og-1200x630-v2.png
+ok   /contact: no TM in title/og:title
+ok   /contact: og:url == canonical (https://executia.io/contact)
+ok   /privacy: all 10 social tags present
+ok   /privacy: og:type=website
+ok   /privacy: twitter:card=summary_large_image
+ok   /privacy: og:image 1200x630 declared
+ok   /privacy: image executia-og-1200x630-v2.png
+ok   /privacy: no TM in title/og:title
+ok   /privacy: og:url == canonical (https://executia.io/privacy)
+ok   /terms: all 10 social tags present
+ok   /terms: og:type=website
+ok   /terms: twitter:card=summary_large_image
+ok   /terms: og:image 1200x630 declared
+ok   /terms: image executia-og-1200x630-v2.png
+ok   /terms: no TM in title/og:title
+ok   /terms: og:url == canonical (https://executia.io/terms)
+ok   /cookies: all 10 social tags present
+ok   /cookies: og:type=website
+ok   /cookies: twitter:card=summary_large_image
+ok   /cookies: og:image 1200x630 declared
+ok   /cookies: image executia-og-1200x630-v2.png
+ok   /cookies: no TM in title/og:title
+ok   /cookies: og:url == canonical (https://executia.io/cookies)
+ok   /gdpr: all 10 social tags present
+ok   /gdpr: og:type=website
+ok   /gdpr: twitter:card=summary_large_image
+ok   /gdpr: og:image 1200x630 declared
+ok   /gdpr: image executia-og-1200x630-v2.png
+ok   /gdpr: no TM in title/og:title
+ok   /gdpr: og:url == canonical (https://executia.io/gdpr)
+ok   /life: all 10 social tags present
+ok   /life: og:type=website
+ok   /life: twitter:card=summary_large_image
+ok   /life: og:image 1200x630 declared
+ok   /life: image executia-og-1200x630-v2.png
+ok   /life: no TM in title/og:title
+ok   /life-proof: all 10 social tags present
+ok   /life-proof: og:type=website
+ok   /life-proof: twitter:card=summary_large_image
+ok   /life-proof: og:image 1200x630 declared
+ok   /life-proof: image executia-og-1200x630-v2.png
+ok   /life-proof: no TM in title/og:title
+ok   /life-proof: og:url == canonical (https://executia.io/life-proof)
+ok   /invoice-proof: all 10 social tags present
+ok   /invoice-proof: og:type=website
+ok   /invoice-proof: twitter:card=summary_large_image
+ok   /invoice-proof: og:image 1200x630 declared
+ok   /invoice-proof: image executia-og-1200x630-v2.png
+ok   /invoice-proof: no TM in title/og:title
+ok   /invoice-proof: og:url == canonical (https://executia.io/invoice-proof)
+ok   /standard: all 10 social tags present
+ok   /standard: og:type=website
+ok   /standard: twitter:card=summary_large_image
+ok   /standard: og:image 1200x630 declared
+ok   /standard: image executia-og-1200x630-v2.png
+ok   /standard: no TM in title/og:title
+ok   /standard: og:url == canonical (https://executia.io/standard)
+ok   /definition: all 10 social tags present
+ok   /definition: og:type=website
+ok   /definition: twitter:card=summary_large_image
+ok   /definition: og:image 1200x630 declared
+ok   /definition: image executia-og-1200x630-v2.png
+ok   /definition: no TM in title/og:title
+ok   /definition: og:url == canonical (https://executia.io/definition)
+ok   /global: all 10 social tags present
+ok   /global: og:type=website
+ok   /global: twitter:card=summary_large_image
+ok   /global: og:image 1200x630 declared
+ok   /global: image executia-og-1200x630-v2.png
+ok   /global: no TM in title/og:title
+ok   /global: og:url == canonical (https://executia.io/global)
+ok   /institutional: all 10 social tags present
+ok   /institutional: og:type=website
+ok   /institutional: twitter:card=summary_large_image
+ok   /institutional: og:image 1200x630 declared
+ok   /institutional: image executia-og-1200x630-v2.png
+ok   /institutional: no TM in title/og:title
+ok   /institutional: og:url == canonical (https://executia.io/institutional)
+ok   /analysis.html: all 10 social tags present
+ok   /analysis.html: og:type=website
+ok   /analysis.html: twitter:card=summary_large_image
+ok   /analysis.html: og:image 1200x630 declared
+ok   /analysis.html: image executia-og-1200x630-v2.png
+ok   /analysis.html: no TM in title/og:title
+ok   /analysis.html: og:url == canonical (https://executia.io/)
+ok   /execution.html: all 10 social tags present
+ok   /execution.html: og:type=website
+ok   /execution.html: twitter:card=summary_large_image
+ok   /execution.html: og:image 1200x630 declared
+ok   /execution.html: image executia-og-1200x630-v2.png
+ok   /execution.html: no TM in title/og:title
+ok   /execution.html: og:url == canonical (https://executia.io/)
+ok   /pilot-mode.html: all 10 social tags present
+ok   /pilot-mode.html: og:type=website
+ok   /pilot-mode.html: twitter:card=summary_large_image
+ok   /pilot-mode.html: og:image 1200x630 declared
+ok   /pilot-mode.html: image executia-og-1200x630-v2.png
+ok   /pilot-mode.html: no TM in title/og:title
+ok   /pilot-mode.html: og:url == canonical (https://executia.io/)
+ok   /proposal.html: all 10 social tags present
+ok   /proposal.html: og:type=website
+ok   /proposal.html: twitter:card=summary_large_image
+ok   /proposal.html: og:image 1200x630 declared
+ok   /proposal.html: image executia-og-1200x630-v2.png
+ok   /proposal.html: no TM in title/og:title
+ok   /proposal.html: og:url == canonical (https://executia.io/)
+ok   /: og:title exact
+ok   /: og:description exact
+ok   /engine: og:title exact
+ok   /engine: og:description exact
+ok   /request: og:title exact
+ok   /request: og:description exact
+ok   /pilot: og:title "<Page> — EXECUTIA®"
+ok   /one: og:title "<Page> — EXECUTIA®"
+ok   /standard: og:title "<Page> — EXECUTIA®"
+ok   /contact: og:title "<Page> — EXECUTIA®"
+
+0 failure(s)

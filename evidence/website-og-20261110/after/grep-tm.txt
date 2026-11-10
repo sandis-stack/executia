@@ -1,0 +1,12 @@
+# rg -n '™|&trade;|&#8482;|&#x2122;|\\u2122' (repo root, excluding .git and this evidence folder, whose 'before' snapshots quote the old titles)
+# 2026-11-10 14:21 CET, branch fix/website-og-20261110
+scripts/generate-eim-spec-pdf.py:172:    canvas.drawString(margin, h - 11.5 * mm, "EXECUTIA™")
+scripts/generate-eim-spec-pdf.py:189:        "EXECUTIA™  ·  Execution Integrity Model  ·  Reference Specification",
+scripts/generate-eim-spec-pdf.py:352:    story.append(Paragraph("EXECUTIA™", styles["cover_brand"]))
+scripts/generate-eim-spec-pdf.py:403:                "EXECUTIA™ establishes a New Standard for Organizational Execution. The Execution Integrity Model (EIM-1.0) "
+scripts/generate-eim-spec-pdf.py:642:            Paragraph("EXECUTIA™", styles["h2"]),
+assets/platform-brand.js:37:      '<p class="entry-footer-model">Built around the Execution Integrity Model\u2122.</p>' +
+# total: 6 occurrences, all intentional exceptions (see README.md)
+
+# PDF untouched:
+(empty line above = no change)

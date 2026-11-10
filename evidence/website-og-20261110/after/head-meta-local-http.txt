@@ -1,0 +1,312 @@
+/                  index.html                     og=10/10 robots=-
+    title            EXECUTIA® — A New Standard for Organizational Execution
+    og:title         EXECUTIA® — making sure decisions are actually carried out
+    og:description   Connects commitments, checks prerequisites before work proceeds, shows who is responsible and records evidence of the result.
+    og:url           https://executia.io/
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/entry/legacy      index.legacy.html              og=10/10 robots=-
+    title            EXECUTIA® — Execution Standard
+    og:title         EXECUTIA® — Execution Standard
+    og:description   EXECUTIA Entry — understand the execution platform. One connected platform: Entry, Engine, Pilot, ONE.
+    og:url           https://executia.io/
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/engine            engine.html                    og=10/10 robots=-
+    title            EXECUTIA® ENGINE — Execution Validation
+    og:title         Live demo: a decision validated before execution
+    og:description   See how EXECUTIA checks prerequisites and stops an action before it becomes irreversible.
+    og:url           https://executia.io/engine
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-engine-1200x630.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® live demo — See a decision validated before it becomes irreversible.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-engine-1200x630.png
+/docs              docs.html                      og=10/10 robots=-
+    title            EXECUTIA® — Documentation
+    og:title         EXECUTIA® — Documentation
+    og:description   EXECUTIA platform documentation, standards, and architecture references.
+    og:url           https://executia.io/docs
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/pilot             pilot.html                     og=10/10 robots=-
+    title            EXECUTIA® PILOT — Institutional Adoption
+    og:title         Institutional Pilot — EXECUTIA®
+    og:description   Move from understanding to governed adoption with a structured institutional pilot.
+    og:url           https://executia.io/pilot
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/pilot/approved    pilot-approved.html            og=10/10 robots=-
+    title            Pilot Approved — EXECUTIA
+    og:title         Pilot Approved — EXECUTIA®
+    og:description   Your EXECUTIA pilot is approved. Launch EXECUTIA ONE.
+    og:url           https://executia.io/pilot/approved
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/one               one.html                       og=10/10 robots=-
+    title            EXECUTIA® ONE — Executive Workspace
+    og:title         ONE Executive Workspace — EXECUTIA®
+    og:description   Operational view of the validated execution — mission through outcome.
+    og:url           https://executia.io/one
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/proof             proof.html                     og=10/10 robots=-
+    title            EXECUTIA® — Public Execution Proof
+    og:title         EXECUTIA® — Public Execution Proof
+    og:description   Public execution proof — mission, decision, evidence, outcome, and verification status for governed execution.
+    og:url           https://executia.io/proof
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/support           support.html                   og=10/10 robots=-
+    title            EXECUTIA® — Support
+    og:title         EXECUTIA® — Support
+    og:description   EXECUTIA platform support — pilot requests, institutional deployment, and navigation help.
+    og:url           https://executia.io/support
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/request           request.html                   og=10/10 robots=-
+    title            Request Controlled Execution — EXECUTIA®
+    og:title         Request a pilot: one decision, validated before execution
+    og:description   Start narrow: one execution point with a measurable result. Submit a case and get a structured pilot response within 24–48 hours.
+    og:url           https://executia.io/request
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/contact           contact.html                   og=10/10 robots=index,follow
+    title            Contact | EXECUTIA
+    og:title         Contact — EXECUTIA®
+    og:description   For general enquiries, institutional collaboration, pilot requests or privacy matters, contact EXECUTIA.
+    og:url           https://executia.io/contact
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/privacy           privacy.html                   og=10/10 robots=index,follow
+    title            Privacy Policy | EXECUTIA
+    og:title         Privacy Policy | EXECUTIA
+    og:description   Privacy Policy for EXECUTIA AS, EXECUTIA LIFE, and Open Banking / Account Information Services.
+    og:url           https://executia.io/privacy
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/terms             terms.html                     og=10/10 robots=index,follow
+    title            Terms of Service | EXECUTIA
+    og:title         Terms of Service | EXECUTIA
+    og:description   Terms of Service for EXECUTIA AS, EXECUTIA LIFE, and Open Banking Account Information Services.
+    og:url           https://executia.io/terms
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/cookies           cookies.html                   og=10/10 robots=index,follow
+    title            Cookie Policy | EXECUTIA
+    og:title         Cookie Policy | EXECUTIA
+    og:description   Cookie and similar technology information for EXECUTIA AS.
+    og:url           https://executia.io/cookies
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/gdpr              gdpr.html                      og=10/10 robots=index,follow
+    title            Data Protection | EXECUTIA
+    og:title         Data Protection | EXECUTIA
+    og:description   Data protection principles and GDPR information for EXECUTIA AS.
+    og:url           https://executia.io/gdpr
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/life              apps/life/index.html           og=10/10 robots=-
+    title            LIFE — EXECUTIA
+    og:title         LIFE — EXECUTIA®
+    og:description   EXECUTIA LIFE — personal execution. What needs my attention?
+    og:url           https://executia.io/life
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/life-proof        proofs/life-proof/index.html   og=10/10 robots=noindex
+    title            LIFE Proof v0.1 — EXECUTIA®
+    og:title         LIFE Proof v0.1 — EXECUTIA®
+    og:description   LIFE Proof v0.1 — one ordinary purchase. One decision. Everything else completed.
+    og:url           https://executia.io/life-proof
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/invoice-proof     proofs/invoice-proof/index.html og=10/10 robots=noindex
+    title            Invoice Execution Proof v0.1 — EXECUTIA®
+    og:title         Invoice Execution Proof v0.1 — EXECUTIA®
+    og:description   Invoice Execution Proof v0.1 — invoice received to execution complete with almost no administrative work.
+    og:url           https://executia.io/invoice-proof
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/standard          standard.html                  og=10/10 robots=-
+    title            Standard — EXECUTIA®
+    og:title         Standard — EXECUTIA®
+    og:description   The standard applies one flow to all controlled execution: request, validation, decision, registry, ledger and audit.
+    og:url           https://executia.io/standard
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/definition        definition.html                og=10/10 robots=-
+    title            Definition — EXECUTIA®
+    og:title         Definition — EXECUTIA®
+    og:description   EXECUTIA definition: execution control standard that validates, decides and records execution before incorrect actions become reality.
+    og:url           https://executia.io/definition
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/global            global.html                    og=10/10 robots=-
+    title            Global Execution Standard — EXECUTIA®
+    og:title         Global Execution Standard — EXECUTIA®
+    og:description   EXECUTIA as a global execution control standard for governments, enterprises, AI systems and regulated cross-border execution.
+    og:url           https://executia.io/global
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/institutional     institutional.html             og=10/10 robots=-
+    title            Institutional Execution Control — EXECUTIA®
+    og:title         Institutional Execution Control — EXECUTIA®
+    og:description   EXECUTIA provides institutional execution control for governments, regulators, financial institutions and enterprises.
+    og:url           https://executia.io/institutional
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/analysis.html     analysis.html                  og=10/10 robots=-
+    title            Execution Integrity Score — EXECUTIA® — Execution Control Standard
+    og:title         EXECUTIA® — Execution Control Standard
+    og:description   EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.
+    og:url           https://executia.io/
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/execution.html    execution.html                 og=10/10 robots=-
+    title            Execution Analysis — EXECUTIA® — Execution Control Standard
+    og:title         EXECUTIA® — Execution Control Standard
+    og:description   EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.
+    og:url           https://executia.io/
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/pilot-mode.html   pilot-mode.html                og=10/10 robots=-
+    title            Execution Analysis — EXECUTIA® — Execution Control Standard
+    og:title         EXECUTIA® — Execution Control Standard
+    og:description   EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.
+    og:url           https://executia.io/
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
+/proposal.html     proposal.html                  og=10/10 robots=-
+    title            Execution Integrity Score — EXECUTIA® — Execution Control Standard
+    og:title         EXECUTIA® — Execution Control Standard
+    og:description   EXECUTIA is an execution control standard for execution-time truth. Validate action before execution, block invalid execution and record proof in the registry.
+    og:url           https://executia.io/
+    og:type          website
+    og:image         https://executia.io/assets/brand/executia-og-1200x630-v2.png
+    og:image:width   1200
+    og:image:height  630
+    og:image:alt     EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.
+    twitter:card     summary_large_image
+    twitter:image    https://executia.io/assets/brand/executia-og-1200x630-v2.png
