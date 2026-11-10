@@ -1075,3 +1075,43 @@ body[data-page="entry"] .evc-cta-primary.pill-btn.primary {
     transform: none !important;
   }
 }
+
+/* Mobile and tablet: the How and Engine chapters keep the shared page gutter (--hp-wrap = header gutter), the flow fills the
+   content width so its connectors and the continue line share one centre, and the comparison fits without a side scroll. */
+@media (max-width: 860px) {
+  body[data-page="entry"] .hp-how .wrap-home,
+  body[data-page="entry"] .ea-section.ea-section--emerge .wrap-home {
+    width: var(--hp-wrap);
+  }
+  .hp-how-flow {
+    max-width: none;
+  }
+  .hp-compare-table {
+    min-width: 0;
+  }
+  .hp-compare-table th,
+  .hp-compare-table td {
+    padding: 0.75rem 0.625rem;
+  }
+  /* Text links: 44 px to tap, laid out as before (the padding is taken back by an equal negative margin). */
+  .hp-journey-label,
+  .hp-engine-next a,
+  .hp-apps-next a {
+    padding-block: 15px;
+    margin-block: -15px;
+  }
+  .cm-cta {
+    padding-block: calc(0.2rem + 12px);
+    margin-block: -12px;
+  }
+  .eof-watch {
+    min-height: 44px;
+  }
+  .cm-icon-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .spec-pdf-btn {
+    min-height: 44px;
+  }
+}
