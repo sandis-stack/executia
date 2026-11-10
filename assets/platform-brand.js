@@ -34,7 +34,7 @@
       '<p class="entry-footer-brand">EXECUTIA<span class="brand-tm">\u00ae</span></p>' +
       '<p class="entry-footer-standard">Execution Integrity Standard</p>' +
       '<hr class="entry-footer-rule" />' +
-      '<p class="entry-footer-model">Built around the Execution Integrity Model\u2122.</p>' +
+      '<p class="entry-footer-model">Built around the Execution Integrity Model\u00ae.</p>' +
       '<p class="entry-footer-ip">Patent pending.</p>' +
       '<hr class="entry-footer-rule" />' +
       '<nav class="entry-footer-nav entry-footer-nav--legal" aria-label="Legal and contact">' +

@@ -102,7 +102,7 @@ export default async function handler(req, res) {
 
     const userHtml = mailTemplate(
       "Execution request registered.",
-      [["EXECUTION ID",requestId],["STATUS","UNDER REVIEW"],["RESPONSE WINDOW","24–48H"],["ENGINE","https://execution.executia.io/dashboard"]],
+      [["EXECUTION ID",requestId],["STATUS","UNDER REVIEW"],["RESPONSE WINDOW","24–48H"],["ENGINE","https://executia.io/engine"]],
       "Your EXECUTIA pilot request has been registered. The next step is to define one execution point and measurable control result."
     );
     const operatorHtml = mailTemplate(

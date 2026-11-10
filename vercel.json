@@ -4,6 +4,7 @@
     "api/**/*.js": { "maxDuration": 15 }
   },
   "routes": [
+    { "src": "^/.*$", "has": [{ "type": "host", "value": "execution.executia.io" }], "status": 308, "headers": { "Location": "https://executia.io/engine" } },
     { "src": "^/$", "dest": "/index.html" },
     { "src": "^/llms.txt$", "dest": "/llms.txt" },
     { "src": "^/robots.txt$", "dest": "/robots.txt" },
@@ -31,9 +32,9 @@
     { "src": "^/definition$", "dest": "/definition.html" },
     { "src": "^/global$", "dest": "/global.html" },
     { "src": "^/institutional$", "dest": "/institutional.html" },
-    { "src": "^/test$", "status": 302, "headers": { "Location": "https://execution.executia.io/dashboard" } },
+    { "src": "^/test$", "status": 302, "headers": { "Location": "https://executia.io/engine" } },
     { "src": "^/execution$", "status": 302, "headers": { "Location": "https://executia.io/engine" } },
-    { "src": "^/dashboard$", "status": 302, "headers": { "Location": "https://execution.executia.io/dashboard" } },
+    { "src": "^/dashboard$", "status": 302, "headers": { "Location": "https://executia.io/engine" } },
     { "src": "^/api/request$", "dest": "/api/request.js" }
   ]
 }

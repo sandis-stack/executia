@@ -802,7 +802,7 @@
         var nextText = platformTitleOn
           ? 'EXECUTIA Platform'
           : modelTitleOn
-            ? 'Execution Integrity Model'
+            ? 'Execution Integrity Model®'
             : '';
         var prevMode = label.getAttribute('data-label-mode') || '';
         var labelAmt = 0;
@@ -1094,7 +1094,7 @@
         if (label) {
           label.setAttribute('data-label-mode', '');
           label.classList.remove('is-on', 'is-platform');
-          label.textContent = 'Execution Integrity Model';
+          label.textContent = 'Execution Integrity Model®';
         }
       }
       score.resume();
