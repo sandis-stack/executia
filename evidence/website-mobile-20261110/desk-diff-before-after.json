@@ -1,0 +1,147 @@
+{
+ "analysis_html.png": {
+  "size": "1440x13695",
+  "differing": 9938,
+  "box": {
+   "x0": 0,
+   "y0": 39,
+   "x1": 1439,
+   "y1": 5802
+  }
+ },
+ "apps_life.png": {
+  "size": "1440x900",
+  "differing": 0,
+  "box": null
+ },
+ "contact.png": {
+  "size": "1440x900",
+  "differing": 0,
+  "box": null
+ },
+ "cookies.png": {
+  "size": "1440x2176",
+  "differing": 0,
+  "box": null
+ },
+ "definition.png": {
+  "size": "1440x1799",
+  "differing": 0,
+  "box": null
+ },
+ "docs.png": {
+  "size": "1440x1400",
+  "differing": 0,
+  "box": null
+ },
+ "engine.png": {
+  "size": "1440x1874",
+  "differing": 0,
+  "box": null
+ },
+ "entry_legacy.png": {
+  "size": "1440x3753",
+  "differing": 107,
+  "box": {
+   "x0": 643,
+   "y0": 991,
+   "x1": 664,
+   "y1": 1000
+  }
+ },
+ "execution_html.png": {
+  "size": "1440x1650",
+  "differing": 0,
+  "box": null
+ },
+ "gdpr.png": {
+  "size": "1440x1995",
+  "differing": 0,
+  "box": null
+ },
+ "global.png": {
+  "size": "1440x2655",
+  "differing": 0,
+  "box": null
+ },
+ "home.png": {
+  "size": "1440x6862",
+  "differing": 63890,
+  "box": {
+   "x0": 80,
+   "y0": 27,
+   "x1": 1306,
+   "y1": 6814
+  }
+ },
+ "institutional.png": {
+  "size": "1440x2705",
+  "differing": 0,
+  "box": null
+ },
+ "one.png": {
+  "size": "1440x1250",
+  "differing": 0,
+  "box": null
+ },
+ "pilot-mode_html.png": {
+  "size": "1440x1330",
+  "differing": 0,
+  "box": null
+ },
+ "pilot.png": {
+  "size": "1440x1358",
+  "differing": 0,
+  "box": null
+ },
+ "pilot_approved.png": {
+  "size": "1440x1049",
+  "differing": 0,
+  "box": null
+ },
+ "privacy.png": {
+  "size": "1440x7095",
+  "differing": 0,
+  "box": null
+ },
+ "proof.png": {
+  "size": "1440x1221",
+  "differing": 0,
+  "box": null
+ },
+ "proofs_invoice-proof.png": {
+  "size": "1440x901",
+  "differing": 0,
+  "box": null
+ },
+ "proofs_life-proof.png": {
+  "size": "1440x901",
+  "differing": 0,
+  "box": null
+ },
+ "proposal_html.png": {
+  "size": "1440x2409",
+  "differing": 0,
+  "box": null
+ },
+ "request.png": {
+  "size": "1440x1869",
+  "differing": 0,
+  "box": null
+ },
+ "standard.png": {
+  "size": "1440x1671",
+  "differing": 0,
+  "box": null
+ },
+ "support.png": {
+  "size": "1440x964",
+  "differing": 0,
+  "box": null
+ },
+ "terms.png": {
+  "size": "1440x5180",
+  "differing": 0,
+  "box": null
+ }
+}

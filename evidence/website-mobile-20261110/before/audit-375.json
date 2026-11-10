@@ -1,0 +1,473 @@
+{
+ "/": {
+  "file": "index.html",
+  "innerWidth": 375,
+  "how": {
+   "top": 2467,
+   "height": 657
+  },
+  "scrollWidth": 375,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 0,
+   "right": 5
+  },
+  "edgeText": [
+   {
+    "el": "span.kicker",
+    "x": 0,
+    "right": 375,
+    "y": 2511,
+    "w": 375,
+    "h": 11,
+    "text": "HOW IT WORKS",
+    "textLeft": 0,
+    "textRight": 103
+   },
+   {
+    "el": "h2",
+    "x": 0,
+    "right": 375,
+    "y": 2542,
+    "w": 375,
+    "h": 53,
+    "text": "Execution becomes verifiable before it h",
+    "textLeft": 0,
+    "textRight": 370
+   },
+   {
+    "el": "p.hp-how-lead",
+    "x": 0,
+    "right": 375,
+    "y": 2607,
+    "w": 375,
+    "h": 45,
+    "text": "EXECUTIA introduces an execution integri",
+    "textLeft": 0,
+    "textRight": 354
+   },
+   {
+    "el": "p.hp-how-note",
+    "x": 0,
+    "right": 375,
+    "y": 3010,
+    "w": 375,
+    "h": 42,
+    "text": "Traditional systems record execution aft",
+    "textLeft": 0,
+    "textRight": 359
+   },
+   {
+    "el": "p.hp-engine-bridge",
+    "x": 0,
+    "right": 375,
+    "y": 3132,
+    "w": 375,
+    "h": 49,
+    "text": "Business defines intent. Integrity gover",
+    "textLeft": 0,
+    "textRight": 327
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5670,
+    "w": 302,
+    "h": 48,
+    "text": "Validate before execution",
+    "textLeft": 273,
+    "textRight": 456
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5718,
+    "w": 302,
+    "h": 48,
+    "text": "Prevent failure",
+    "textLeft": 273,
+    "textRight": 377
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5814,
+    "w": 302,
+    "h": 48,
+    "text": "Execution governance",
+    "textLeft": 273,
+    "textRight": 433
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5862,
+    "w": 302,
+    "h": 48,
+    "text": "Recorded decisions",
+    "textLeft": 273,
+    "textRight": 415
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5910,
+    "w": 302,
+    "h": 67,
+    "text": "Assigned ownership at execution time",
+    "textLeft": 273,
+    "textRight": 511
+   }
+  ],
+  "edgeTextCount": 10,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 27,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA®"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 311,
+    "right": 351,
+    "y": 17,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 179,
+    "y": 672,
+    "w": 114,
+    "h": 28,
+    "text": "EXECUTION PROFILE"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 157,
+    "y": 798,
+    "w": 92,
+    "h": 14,
+    "text": "UNDERSTAND"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 132,
+    "y": 909,
+    "w": 67,
+    "h": 14,
+    "text": "VALIDATE"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 168,
+    "y": 999,
+    "w": 103,
+    "h": 14,
+    "text": "REVIEW PROOF"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 171,
+    "y": 1110,
+    "w": 106,
+    "h": 14,
+    "text": "REQUEST PILOT"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 113,
+    "y": 1366,
+    "w": 99,
+    "h": 34,
+    "text": "Watch Film"
+   },
+   {
+    "el": "a.cm-cta",
+    "x": 145,
+    "right": 230,
+    "y": 1660,
+    "w": 85,
+    "h": 20,
+    "text": "CONTINUE"
+   },
+   {
+    "el": "button.cm-icon-btn",
+    "x": 27,
+    "right": 57,
+    "y": 1808,
+    "w": 30,
+    "h": 30,
+    "text": "Unmute"
+   },
+   {
+    "el": "button.cm-icon-btn",
+    "x": 63,
+    "right": 93,
+    "y": 1808,
+    "w": 30,
+    "h": 30,
+    "text": "Replay"
+   },
+   {
+    "el": "a",
+    "x": 61,
+    "right": 314,
+    "y": 4627,
+    "w": 254,
+    "h": 16,
+    "text": "WHERE DOES THIS BECOME REAL?"
+   },
+   {
+    "el": "a",
+    "x": 14,
+    "right": 214,
+    "y": 5364,
+    "w": 200,
+    "h": 16,
+    "text": "CONTINUE TO VALIDATION"
+   },
+   {
+    "el": "a",
+    "x": 164,
+    "right": 211,
+    "y": 8692,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 207,
+    "y": 8716,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 162,
+    "right": 213,
+    "y": 8740,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 138,
+    "right": 237,
+    "y": 8764,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 162,
+    "right": 213,
+    "y": 8788,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 161,
+    "right": 214,
+    "y": 8812,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 19,
+  "outside": [
+   {
+    "el": "div.hp-monitor-glow",
+    "x": -14,
+    "right": 389,
+    "y": 449,
+    "w": 403,
+    "h": 779,
+    "text": ""
+   },
+   {
+    "el": "table.hp-compare-table",
+    "x": 39,
+    "right": 559,
+    "y": 5628,
+    "w": 520,
+    "h": 350,
+    "text": "TRADITIONAL EXECUTION EXECUTIA Audit aft"
+   },
+   {
+    "el": "thead",
+    "x": 39,
+    "right": 559,
+    "y": 5628,
+    "w": 520,
+    "h": 43,
+    "text": "TRADITIONAL EXECUTION EXECUTIA"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5628,
+    "w": 520,
+    "h": 43,
+    "text": "TRADITIONAL EXECUTION EXECUTIA"
+   },
+   {
+    "el": "th",
+    "x": 257,
+    "right": 559,
+    "y": 5628,
+    "w": 302,
+    "h": 43,
+    "text": "EXECUTIA"
+   },
+   {
+    "el": "tbody",
+    "x": 39,
+    "right": 559,
+    "y": 5670,
+    "w": 520,
+    "h": 307,
+    "text": "Audit after execution Validate before ex"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5670,
+    "w": 520,
+    "h": 48,
+    "text": "Audit after execution Validate before ex"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5670,
+    "w": 302,
+    "h": 48,
+    "text": "Validate before execution"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5718,
+    "w": 520,
+    "h": 48,
+    "text": "Detect failure Prevent failure"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5718,
+    "w": 302,
+    "h": 48,
+    "text": "Prevent failure"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5766,
+    "w": 520,
+    "h": 48,
+    "text": "Reports Evidence"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5766,
+    "w": 302,
+    "h": 48,
+    "text": "Evidence"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5814,
+    "w": 520,
+    "h": 48,
+    "text": "Manual governance Execution governance"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5814,
+    "w": 302,
+    "h": 48,
+    "text": "Execution governance"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5862,
+    "w": 520,
+    "h": 48,
+    "text": "Email coordination Recorded decisions"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5862,
+    "w": 302,
+    "h": 48,
+    "text": "Recorded decisions"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5910,
+    "w": 520,
+    "h": 67,
+    "text": "Reconstructed accountability Assigned ow"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5910,
+    "w": 302,
+    "h": 67,
+    "text": "Assigned ownership at execution time"
+   }
+  ],
+  "outsideCount": 18
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "/": {
+  "file": "index.html",
+  "innerWidth": 375,
+  "how": {
+   "top": 2477,
+   "height": 701
+  },
+  "scrollWidth": 375,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 34
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [
+   {
+    "el": "div.hp-monitor-glow",
+    "x": -14,
+    "right": 389,
+    "y": 449,
+    "w": 403,
+    "h": 779,
+    "text": ""
+   }
+  ],
+  "outsideCount": 1
+ }
+}

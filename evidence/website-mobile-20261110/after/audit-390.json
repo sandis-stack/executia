@@ -1,0 +1,645 @@
+{
+ "/": {
+  "file": "index.html",
+  "innerWidth": 390,
+  "how": {
+   "top": 2475,
+   "height": 657
+  },
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 17
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [
+   {
+    "el": "div.hp-monitor-glow",
+    "x": -14,
+    "right": 404,
+    "y": 449,
+    "w": 418,
+    "h": 759,
+    "text": ""
+   }
+  ],
+  "outsideCount": 1
+ },
+ "/entry/legacy": {
+  "file": "index.legacy.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 11
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/engine": {
+  "file": "engine.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 23
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/docs": {
+  "file": "docs.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 30
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/pilot": {
+  "file": "pilot.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 20
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/pilot/approved": {
+  "file": "pilot-approved.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 19,
+   "right": 19
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/one": {
+  "file": "one.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 29
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proof": {
+  "file": "proof.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 32
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/support": {
+  "file": "support.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 23
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/request": {
+  "file": "request.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 36
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/contact": {
+  "file": "contact.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 59
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/privacy": {
+  "file": "privacy.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/terms": {
+  "file": "terms.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/cookies": {
+  "file": "cookies.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/gdpr": {
+  "file": "gdpr.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/standard": {
+  "file": "standard.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 31
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/definition": {
+  "file": "definition.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 19
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/global": {
+  "file": "global.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 19
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/institutional": {
+  "file": "institutional.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 21
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/analysis.html": {
+  "file": "analysis.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/execution.html": {
+  "file": "execution.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 31
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/pilot-mode.html": {
+  "file": "pilot-mode.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 33
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proposal.html": {
+  "file": "proposal.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 37
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/apps/life/index.html": {
+  "file": "apps/life/index.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": null,
+  "headGutter": {
+   "left": 110,
+   "right": 16
+  },
+  "textGutter": {
+   "left": 16,
+   "right": 16
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "button",
+    "x": 110,
+    "right": 161,
+    "y": -2,
+    "w": 50,
+    "h": 27,
+    "text": "TODAY"
+   },
+   {
+    "el": "button.is-active",
+    "x": 163,
+    "right": 283,
+    "y": -2,
+    "w": 120,
+    "h": 27,
+    "text": "NEEDS DECISION3"
+   },
+   {
+    "el": "button",
+    "x": 285,
+    "right": 374,
+    "y": -2,
+    "w": 89,
+    "h": 27,
+    "text": "EXECUTING2"
+   },
+   {
+    "el": "button",
+    "x": 290,
+    "right": 374,
+    "y": 27,
+    "w": 84,
+    "h": 27,
+    "text": "COMPLETE0"
+   },
+   {
+    "el": "button.life-btn",
+    "x": 37,
+    "right": 136,
+    "y": 267,
+    "w": 99,
+    "h": 42,
+    "text": "Business"
+   },
+   {
+    "el": "button.life-btn",
+    "x": 147,
+    "right": 244,
+    "y": 267,
+    "w": 97,
+    "h": 42,
+    "text": "Personal"
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "x": 16,
+    "right": 89,
+    "y": 601,
+    "w": 73,
+    "h": 42,
+    "text": "Back"
+   }
+  ],
+  "smallTargetCount": 7,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proofs/life-proof/index.html": {
+  "file": "proofs/life-proof/index.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": null,
+  "headGutter": null,
+  "textGutter": {
+   "left": 20,
+   "right": 20
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proofs/invoice-proof/index.html": {
+  "file": "proofs/invoice-proof/index.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": null,
+  "headGutter": null,
+  "textGutter": {
+   "left": 20,
+   "right": 25
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ }
+}

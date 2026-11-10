@@ -1,0 +1,27 @@
+{
+ "analysis_html.png": {
+  "size": "1440x13695",
+  "differing": 16481,
+  "box": {
+   "x0": 0,
+   "y0": 24,
+   "x1": 1439,
+   "y1": 5802
+  }
+ },
+ "entry_legacy.png": {
+  "size": "1440x3753",
+  "differing": 666,
+  "box": {
+   "x0": 589,
+   "y0": 991,
+   "x1": 684,
+   "y1": 1000
+  }
+ },
+ "home.png": {
+  "size": "1440x6862",
+  "differing": 0,
+  "box": null
+ }
+}

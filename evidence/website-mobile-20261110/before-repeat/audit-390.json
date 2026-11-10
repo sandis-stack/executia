@@ -1,0 +1,255 @@
+{
+ "/entry/legacy": {
+  "file": "index.legacy.html",
+  "innerWidth": 390,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 23,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA®"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 13,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 4567,
+    "w": 362,
+    "h": 42,
+    "text": "Open Execution Layer ↗"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 4621,
+    "w": 362,
+    "h": 42,
+    "text": "Request Controlled Execution"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 4999,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 5023,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 5047,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 5071,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 5095,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 5119,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 10,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/analysis.html": {
+  "file": "analysis.html",
+  "innerWidth": 390,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 408,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA®"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 398,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 1997,
+    "w": 362,
+    "h": 42,
+    "text": "Activate Suggested Pilot"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 2051,
+    "w": 362,
+    "h": 42,
+    "text": "Run new analysis"
+   },
+   {
+    "el": "button.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 2105,
+    "w": 362,
+    "h": 42,
+    "text": "Export Execution Report"
+   },
+   {
+    "el": "button.pill-btn.primary",
+    "x": 33,
+    "right": 357,
+    "y": 3921,
+    "w": 324,
+    "h": 42,
+    "text": "Open Latest Session"
+   },
+   {
+    "el": "button.pill-btn.primary",
+    "x": 33,
+    "right": 357,
+    "y": 4994,
+    "w": 324,
+    "h": 42,
+    "text": "Replay Latest Session"
+   },
+   {
+    "el": "button.pill-btn",
+    "x": 33,
+    "right": 357,
+    "y": 5048,
+    "w": 324,
+    "h": 42,
+    "text": "Clear Registry"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 22344,
+    "w": 362,
+    "h": 42,
+    "text": "Activate Suggested Pilot"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 22722,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 22746,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 22770,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 22794,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 22818,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 22842,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 15,
+  "outside": [],
+  "outsideCount": 0
+ }
+}

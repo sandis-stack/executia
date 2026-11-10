@@ -1,0 +1,2991 @@
+{
+ "/": {
+  "file": "index.html",
+  "innerWidth": 390,
+  "how": {
+   "top": 2465,
+   "height": 657
+  },
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 0,
+   "right": 9
+  },
+  "edgeText": [
+   {
+    "el": "span.kicker",
+    "x": 0,
+    "right": 390,
+    "y": 2509,
+    "w": 390,
+    "h": 11,
+    "text": "HOW IT WORKS",
+    "textLeft": 0,
+    "textRight": 103
+   },
+   {
+    "el": "h2",
+    "x": 0,
+    "right": 390,
+    "y": 2540,
+    "w": 390,
+    "h": 53,
+    "text": "Execution becomes verifiable before it h",
+    "textLeft": 0,
+    "textRight": 370
+   },
+   {
+    "el": "p.hp-how-lead",
+    "x": 0,
+    "right": 390,
+    "y": 2605,
+    "w": 390,
+    "h": 45,
+    "text": "EXECUTIA introduces an execution integri",
+    "textLeft": 0,
+    "textRight": 381
+   },
+   {
+    "el": "p.hp-how-note",
+    "x": 0,
+    "right": 390,
+    "y": 3008,
+    "w": 390,
+    "h": 42,
+    "text": "Traditional systems record execution aft",
+    "textLeft": 0,
+    "textRight": 359
+   },
+   {
+    "el": "p.hp-engine-bridge",
+    "x": 0,
+    "right": 390,
+    "y": 3130,
+    "w": 390,
+    "h": 49,
+    "text": "Business defines intent. Integrity gover",
+    "textLeft": 0,
+    "textRight": 327
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5645,
+    "w": 302,
+    "h": 48,
+    "text": "Validate before execution",
+    "textLeft": 273,
+    "textRight": 456
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5789,
+    "w": 302,
+    "h": 48,
+    "text": "Execution governance",
+    "textLeft": 273,
+    "textRight": 433
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5837,
+    "w": 302,
+    "h": 48,
+    "text": "Recorded decisions",
+    "textLeft": 273,
+    "textRight": 415
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5885,
+    "w": 302,
+    "h": 67,
+    "text": "Assigned ownership at execution time",
+    "textLeft": 273,
+    "textRight": 511
+   }
+  ],
+  "edgeTextCount": 9,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 27,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 17,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 194,
+    "y": 672,
+    "w": 129,
+    "h": 28,
+    "text": "EXECUTION PROFILE"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 157,
+    "y": 798,
+    "w": 92,
+    "h": 14,
+    "text": "UNDERSTAND"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 132,
+    "y": 909,
+    "w": 67,
+    "h": 14,
+    "text": "VALIDATE"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 168,
+    "y": 999,
+    "w": 103,
+    "h": 14,
+    "text": "REVIEW PROOF"
+   },
+   {
+    "el": "a.hp-journey-label",
+    "x": 65,
+    "right": 171,
+    "y": 1089,
+    "w": 106,
+    "h": 14,
+    "text": "REQUEST PILOT"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 113,
+    "y": 1345,
+    "w": 99,
+    "h": 34,
+    "text": "Watch Film"
+   },
+   {
+    "el": "a.cm-cta",
+    "x": 152,
+    "right": 238,
+    "y": 1649,
+    "w": 85,
+    "h": 20,
+    "text": "CONTINUE"
+   },
+   {
+    "el": "button.cm-icon-btn",
+    "x": 27,
+    "right": 57,
+    "y": 1806,
+    "w": 30,
+    "h": 30,
+    "text": "Unmute"
+   },
+   {
+    "el": "button.cm-icon-btn",
+    "x": 63,
+    "right": 93,
+    "y": 1806,
+    "w": 30,
+    "h": 30,
+    "text": "Replay"
+   },
+   {
+    "el": "a.spec-pdf-btn",
+    "x": 32,
+    "right": 358,
+    "y": 4516,
+    "w": 326,
+    "h": 38,
+    "text": "DOWNLOAD SPECIFICATION PDF (EIM-1.0)"
+   },
+   {
+    "el": "a",
+    "x": 68,
+    "right": 322,
+    "y": 4602,
+    "w": 254,
+    "h": 16,
+    "text": "WHERE DOES THIS BECOME REAL?"
+   },
+   {
+    "el": "a",
+    "x": 14,
+    "right": 214,
+    "y": 5338,
+    "w": 200,
+    "h": 16,
+    "text": "CONTINUE TO VALIDATION"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 8653,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 8677,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 8701,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 8725,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 8749,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 8773,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 20,
+  "outside": [
+   {
+    "el": "div.hp-monitor-glow",
+    "x": -14,
+    "right": 404,
+    "y": 449,
+    "w": 418,
+    "h": 759,
+    "text": ""
+   },
+   {
+    "el": "table.hp-compare-table",
+    "x": 39,
+    "right": 559,
+    "y": 5603,
+    "w": 520,
+    "h": 350,
+    "text": "TRADITIONAL EXECUTION EXECUTIA Audit aft"
+   },
+   {
+    "el": "thead",
+    "x": 39,
+    "right": 559,
+    "y": 5603,
+    "w": 520,
+    "h": 43,
+    "text": "TRADITIONAL EXECUTION EXECUTIA"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5603,
+    "w": 520,
+    "h": 43,
+    "text": "TRADITIONAL EXECUTION EXECUTIA"
+   },
+   {
+    "el": "th",
+    "x": 257,
+    "right": 559,
+    "y": 5603,
+    "w": 302,
+    "h": 43,
+    "text": "EXECUTIA"
+   },
+   {
+    "el": "tbody",
+    "x": 39,
+    "right": 559,
+    "y": 5645,
+    "w": 520,
+    "h": 307,
+    "text": "Audit after execution Validate before ex"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5645,
+    "w": 520,
+    "h": 48,
+    "text": "Audit after execution Validate before ex"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5645,
+    "w": 302,
+    "h": 48,
+    "text": "Validate before execution"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5693,
+    "w": 520,
+    "h": 48,
+    "text": "Detect failure Prevent failure"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5693,
+    "w": 302,
+    "h": 48,
+    "text": "Prevent failure"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5741,
+    "w": 520,
+    "h": 48,
+    "text": "Reports Evidence"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5741,
+    "w": 302,
+    "h": 48,
+    "text": "Evidence"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5789,
+    "w": 520,
+    "h": 48,
+    "text": "Manual governance Execution governance"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5789,
+    "w": 302,
+    "h": 48,
+    "text": "Execution governance"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5837,
+    "w": 520,
+    "h": 48,
+    "text": "Email coordination Recorded decisions"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5837,
+    "w": 302,
+    "h": 48,
+    "text": "Recorded decisions"
+   },
+   {
+    "el": "tr",
+    "x": 39,
+    "right": 559,
+    "y": 5885,
+    "w": 520,
+    "h": 67,
+    "text": "Reconstructed accountability Assigned ow"
+   },
+   {
+    "el": "td",
+    "x": 257,
+    "right": 559,
+    "y": 5885,
+    "w": 302,
+    "h": 67,
+    "text": "Assigned ownership at execution time"
+   }
+  ],
+  "outsideCount": 18
+ },
+ "/entry/legacy": {
+  "file": "index.legacy.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 11
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 4567,
+    "w": 362,
+    "h": 42,
+    "text": "Open Execution Layer \u2197"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 4621,
+    "w": 362,
+    "h": 42,
+    "text": "Request Controlled Execution"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 4999,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 5023,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 5047,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 5071,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 5095,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 5119,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 10,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/engine": {
+  "file": "engine.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 23
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 1723,
+    "w": 362,
+    "h": 42,
+    "text": "View executive workspace"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 2077,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 2101,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 2125,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 2149,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 2173,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 2197,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 9,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/docs": {
+  "file": "docs.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 30
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 1125,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 1149,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 1173,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 1197,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 1221,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 1245,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 8,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/pilot": {
+  "file": "pilot.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 20
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 762,
+    "w": 362,
+    "h": 42,
+    "text": "Request Pilot"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 1116,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 1140,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 1164,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 1188,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 1212,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 1236,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 9,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/pilot/approved": {
+  "file": "pilot-approved.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 19,
+   "right": 19
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 347,
+    "w": 362,
+    "h": 42,
+    "text": "Launch EXECUTIA ONE \u2197"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 685,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 709,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 733,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 757,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 781,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 805,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 9,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/one": {
+  "file": "one.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 29
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 761,
+    "w": 362,
+    "h": 42,
+    "text": "View public proof"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 1116,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 1140,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 1164,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 1188,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 1212,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 1236,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 9,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proof": {
+  "file": "proof.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 32
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 733,
+    "w": 362,
+    "h": 42,
+    "text": "Request Institutional Pilot"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 1088,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 1112,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 1136,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 1160,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 1184,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 1208,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 9,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/support": {
+  "file": "support.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 23
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 302,
+    "w": 362,
+    "h": 42,
+    "text": "Contact"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 356,
+    "w": 362,
+    "h": 42,
+    "text": "Request Pilot"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 694,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 718,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 742,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 766,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 790,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 814,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 10,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/request": {
+  "file": "request.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 36
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "button.pill-btn.primary",
+    "x": 39,
+    "right": 227,
+    "y": 1010,
+    "w": 188,
+    "h": 42,
+    "text": "Submit Execution Case"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 2056,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 2080,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 2104,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 2128,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 2152,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 2176,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 9,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/contact": {
+  "file": "contact.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 59
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 127,
+    "y": 20,
+    "w": 113,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "a.legal-back",
+    "x": 258,
+    "right": 376,
+    "y": 22,
+    "w": 118,
+    "h": 16,
+    "text": "Back to EXECUTIA"
+   },
+   {
+    "el": "a.legal-cta.legal-cta-primary",
+    "x": 14,
+    "right": 376,
+    "y": 478,
+    "w": 362,
+    "h": 42,
+    "text": "Request Pilot Assessment"
+   },
+   {
+    "el": "a.legal-cta.legal-cta-secondary",
+    "x": 14,
+    "right": 376,
+    "y": 532,
+    "w": 362,
+    "h": 42,
+    "text": "Email EXECUTIA"
+   },
+   {
+    "el": "a.legal-contact-email",
+    "x": 14,
+    "right": 181,
+    "y": 635,
+    "w": 167,
+    "h": 20,
+    "text": "contact@executia.io"
+   },
+   {
+    "el": "a",
+    "x": 38,
+    "right": 78,
+    "y": 816,
+    "w": 40,
+    "h": 14,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 96,
+    "right": 129,
+    "y": 816,
+    "w": 34,
+    "h": 14,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 147,
+    "right": 191,
+    "y": 816,
+    "w": 44,
+    "h": 14,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 208,
+    "right": 292,
+    "y": 816,
+    "w": 83,
+    "h": 14,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 310,
+    "right": 352,
+    "y": 816,
+    "w": 42,
+    "h": 14,
+    "text": "Contact"
+   }
+  ],
+  "smallTargetCount": 10,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/privacy": {
+  "file": "privacy.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 127,
+    "y": 20,
+    "w": 113,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "a.legal-back",
+    "x": 258,
+    "right": 376,
+    "y": 22,
+    "w": 118,
+    "h": 16,
+    "text": "Back to EXECUTIA"
+   },
+   {
+    "el": "a",
+    "x": 38,
+    "right": 78,
+    "y": 9950,
+    "w": 40,
+    "h": 14,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 96,
+    "right": 129,
+    "y": 9950,
+    "w": 34,
+    "h": 14,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 147,
+    "right": 191,
+    "y": 9950,
+    "w": 44,
+    "h": 14,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 208,
+    "right": 292,
+    "y": 9950,
+    "w": 83,
+    "h": 14,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 310,
+    "right": 352,
+    "y": 9950,
+    "w": 42,
+    "h": 14,
+    "text": "Contact"
+   }
+  ],
+  "smallTargetCount": 7,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/terms": {
+  "file": "terms.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 127,
+    "y": 20,
+    "w": 113,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "a.legal-back",
+    "x": 258,
+    "right": 376,
+    "y": 22,
+    "w": 118,
+    "h": 16,
+    "text": "Back to EXECUTIA"
+   },
+   {
+    "el": "a",
+    "x": 38,
+    "right": 78,
+    "y": 7431,
+    "w": 40,
+    "h": 14,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 96,
+    "right": 129,
+    "y": 7431,
+    "w": 34,
+    "h": 14,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 147,
+    "right": 191,
+    "y": 7431,
+    "w": 44,
+    "h": 14,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 208,
+    "right": 292,
+    "y": 7431,
+    "w": 83,
+    "h": 14,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 310,
+    "right": 352,
+    "y": 7431,
+    "w": 42,
+    "h": 14,
+    "text": "Contact"
+   }
+  ],
+  "smallTargetCount": 7,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/cookies": {
+  "file": "cookies.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 127,
+    "y": 20,
+    "w": 113,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "a.legal-back",
+    "x": 258,
+    "right": 376,
+    "y": 22,
+    "w": 118,
+    "h": 16,
+    "text": "Back to EXECUTIA"
+   },
+   {
+    "el": "a",
+    "x": 38,
+    "right": 78,
+    "y": 2920,
+    "w": 40,
+    "h": 14,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 96,
+    "right": 129,
+    "y": 2920,
+    "w": 34,
+    "h": 14,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 147,
+    "right": 191,
+    "y": 2920,
+    "w": 44,
+    "h": 14,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 208,
+    "right": 292,
+    "y": 2920,
+    "w": 83,
+    "h": 14,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 310,
+    "right": 352,
+    "y": 2920,
+    "w": 42,
+    "h": 14,
+    "text": "Contact"
+   }
+  ],
+  "smallTargetCount": 7,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/gdpr": {
+  "file": "gdpr.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 127,
+    "y": 20,
+    "w": 113,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "a.legal-back",
+    "x": 258,
+    "right": 376,
+    "y": 22,
+    "w": 118,
+    "h": 16,
+    "text": "Back to EXECUTIA"
+   },
+   {
+    "el": "a",
+    "x": 38,
+    "right": 78,
+    "y": 2580,
+    "w": 40,
+    "h": 14,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 96,
+    "right": 129,
+    "y": 2580,
+    "w": 34,
+    "h": 14,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 147,
+    "right": 191,
+    "y": 2580,
+    "w": 44,
+    "h": 14,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 208,
+    "right": 292,
+    "y": 2580,
+    "w": 83,
+    "h": 14,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 310,
+    "right": 352,
+    "y": 2580,
+    "w": 42,
+    "h": 14,
+    "text": "Contact"
+   }
+  ],
+  "smallTargetCount": 7,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/standard": {
+  "file": "standard.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 31
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 23,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 13,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 1831,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 1855,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 1879,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 1903,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 1927,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 1951,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 8,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/definition": {
+  "file": "definition.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 19
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 1533,
+    "w": 362,
+    "h": 42,
+    "text": "Open Execution Layer \u2197"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 1587,
+    "w": 362,
+    "h": 42,
+    "text": "Request Controlled Execution"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 1957,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 1981,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 2005,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 2029,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 2053,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 2077,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 10,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/global": {
+  "file": "global.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 19
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 464,
+    "w": 362,
+    "h": 42,
+    "text": "Open Execution Layer \u2197"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 518,
+    "w": 362,
+    "h": 42,
+    "text": "Request Controlled Execution"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 2617,
+    "w": 362,
+    "h": 42,
+    "text": "Open Execution Layer \u2197"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 2671,
+    "w": 362,
+    "h": 42,
+    "text": "Request Controlled Execution"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 3050,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 3074,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 3098,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 3122,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 3146,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 3170,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 12,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/institutional": {
+  "file": "institutional.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 21
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 464,
+    "w": 362,
+    "h": 42,
+    "text": "Open Execution Layer \u2197"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 518,
+    "w": 362,
+    "h": 42,
+    "text": "Request Controlled Execution"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 2613,
+    "w": 362,
+    "h": 42,
+    "text": "Open Execution Layer \u2197"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 2667,
+    "w": 362,
+    "h": 42,
+    "text": "Request Controlled Execution"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 3045,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 3069,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 3093,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 3117,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 3141,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 3165,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 12,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/analysis.html": {
+  "file": "analysis.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 468,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 458,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 1997,
+    "w": 362,
+    "h": 42,
+    "text": "Activate Suggested Pilot"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 2051,
+    "w": 362,
+    "h": 42,
+    "text": "Run new analysis"
+   },
+   {
+    "el": "button.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 2105,
+    "w": 362,
+    "h": 42,
+    "text": "Export Execution Report"
+   },
+   {
+    "el": "button.pill-btn.primary",
+    "x": 33,
+    "right": 357,
+    "y": 3921,
+    "w": 324,
+    "h": 42,
+    "text": "Open Latest Session"
+   },
+   {
+    "el": "button.pill-btn.primary",
+    "x": 33,
+    "right": 357,
+    "y": 4994,
+    "w": 324,
+    "h": 42,
+    "text": "Replay Latest Session"
+   },
+   {
+    "el": "button.pill-btn",
+    "x": 33,
+    "right": 357,
+    "y": 5048,
+    "w": 324,
+    "h": 42,
+    "text": "Clear Registry"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 22344,
+    "w": 362,
+    "h": 42,
+    "text": "Activate Suggested Pilot"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 22722,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 22746,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 22770,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 22794,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 22818,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 22842,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 15,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/execution.html": {
+  "file": "execution.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 31
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "button.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 884,
+    "w": 362,
+    "h": 42,
+    "text": "PROCUREMENT DEMO"
+   },
+   {
+    "el": "button.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 936,
+    "w": 362,
+    "h": 42,
+    "text": "FINANCIAL DEMO"
+   },
+   {
+    "el": "button.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 988,
+    "w": 362,
+    "h": 42,
+    "text": "COMPLIANCE DEMO"
+   },
+   {
+    "el": "button.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 1712,
+    "w": 362,
+    "h": 42,
+    "text": "Analyze execution"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 2150,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 2174,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 2198,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 2222,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 2246,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 2270,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 12,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/pilot-mode.html": {
+  "file": "pilot-mode.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 33
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "button.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 1068,
+    "w": 362,
+    "h": 42,
+    "text": "Generate Pilot Structure"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 1122,
+    "w": 362,
+    "h": 42,
+    "text": "Generate proposal"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 1472,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 1496,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 1520,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 1544,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 1568,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 1592,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 10,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proposal.html": {
+  "file": "proposal.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 37
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "a.brand.shell-brand",
+    "x": 14,
+    "right": 121,
+    "y": 22,
+    "w": 107,
+    "h": 21,
+    "text": "EXECUTIA\u00ae"
+   },
+   {
+    "el": "button.menu-toggle",
+    "x": 326,
+    "right": 366,
+    "y": 12,
+    "w": 40,
+    "h": 40,
+    "text": "Open navigation"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 419,
+    "w": 362,
+    "h": 42,
+    "text": "Export proposal PDF"
+   },
+   {
+    "el": "a.pill-btn",
+    "x": 14,
+    "right": 376,
+    "y": 473,
+    "w": 362,
+    "h": 42,
+    "text": "Activate proposal"
+   },
+   {
+    "el": "a.pill-btn.primary",
+    "x": 14,
+    "right": 376,
+    "y": 2517,
+    "w": 362,
+    "h": 42,
+    "text": "Activate EXECUTIA Proposal"
+   },
+   {
+    "el": "a",
+    "x": 171,
+    "right": 219,
+    "y": 2896,
+    "w": 47,
+    "h": 16,
+    "text": "Privacy"
+   },
+   {
+    "el": "a",
+    "x": 175,
+    "right": 215,
+    "y": 2920,
+    "w": 40,
+    "h": 16,
+    "text": "Terms"
+   },
+   {
+    "el": "a",
+    "x": 169,
+    "right": 221,
+    "y": 2944,
+    "w": 52,
+    "h": 16,
+    "text": "Cookies"
+   },
+   {
+    "el": "a",
+    "x": 146,
+    "right": 244,
+    "y": 2968,
+    "w": 99,
+    "h": 16,
+    "text": "Data Protection"
+   },
+   {
+    "el": "a",
+    "x": 170,
+    "right": 220,
+    "y": 2992,
+    "w": 50,
+    "h": 16,
+    "text": "Contact"
+   },
+   {
+    "el": "a",
+    "x": 168,
+    "right": 222,
+    "y": 3016,
+    "w": 54,
+    "h": 16,
+    "text": "LinkedIn"
+   }
+  ],
+  "smallTargetCount": 11,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/apps/life/index.html": {
+  "file": "apps/life/index.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": null,
+  "headGutter": {
+   "left": 110,
+   "right": 16
+  },
+  "textGutter": {
+   "left": 16,
+   "right": 16
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [
+   {
+    "el": "button",
+    "x": 110,
+    "right": 161,
+    "y": -2,
+    "w": 50,
+    "h": 27,
+    "text": "TODAY"
+   },
+   {
+    "el": "button.is-active",
+    "x": 163,
+    "right": 283,
+    "y": -2,
+    "w": 120,
+    "h": 27,
+    "text": "NEEDS DECISION3"
+   },
+   {
+    "el": "button",
+    "x": 285,
+    "right": 374,
+    "y": -2,
+    "w": 89,
+    "h": 27,
+    "text": "EXECUTING2"
+   },
+   {
+    "el": "button",
+    "x": 290,
+    "right": 374,
+    "y": 27,
+    "w": 84,
+    "h": 27,
+    "text": "COMPLETE0"
+   },
+   {
+    "el": "button.life-btn",
+    "x": 37,
+    "right": 136,
+    "y": 267,
+    "w": 99,
+    "h": 42,
+    "text": "Business"
+   },
+   {
+    "el": "button.life-btn",
+    "x": 147,
+    "right": 244,
+    "y": 267,
+    "w": 97,
+    "h": 42,
+    "text": "Personal"
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "x": 16,
+    "right": 89,
+    "y": 601,
+    "w": 73,
+    "h": 42,
+    "text": "Back"
+   }
+  ],
+  "smallTargetCount": 7,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proofs/life-proof/index.html": {
+  "file": "proofs/life-proof/index.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": null,
+  "headGutter": null,
+  "textGutter": {
+   "left": 20,
+   "right": 20
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proofs/invoice-proof/index.html": {
+  "file": "proofs/invoice-proof/index.html",
+  "innerWidth": 390,
+  "how": null,
+  "scrollWidth": 390,
+  "overflowX": false,
+  "gutter": null,
+  "headGutter": null,
+  "textGutter": {
+   "left": 20,
+   "right": 25
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ }
+}
