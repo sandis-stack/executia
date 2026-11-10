@@ -912,7 +912,7 @@
       if (brandEl) {
         if (brandAmt < 0.02) {
           if (!brandEl.getAttribute('data-label-cache')) {
-            brandEl.setAttribute('data-label-cache', brandEl.textContent || 'EXECUTIA™');
+            brandEl.setAttribute('data-label-cache', brandEl.textContent || 'EXECUTIA®');
           }
           brandEl.textContent = '';
           brandEl.style.opacity = '0';

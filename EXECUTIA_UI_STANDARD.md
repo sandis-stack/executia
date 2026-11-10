@@ -8,10 +8,10 @@ This file defines the visual and structural rules for executia.io.
 EXECUTIA is a system interface, not a marketing website.
 
 ## Header — locked
-- Left: `EXECUTIA™` + `EXECUTION STANDARD`
+- Left: `EXECUTIA®` + `EXECUTION STANDARD`
 - Center: `ENTRY / GLOBAL / INSTITUTIONAL / REQUEST`
 - Right: `Enter engine ↗`
-- `EXECUTIA™` always links to `/`.
+- `EXECUTIA®` always links to `/`.
 - Do not remove GLOBAL or INSTITUTIONAL.
 - Do not replace the navigation with `ENTRY / ENGINE / REQUEST`.
 - Navigation is intentionally quiet: low opacity, uppercase, small, institutional.
@@ -66,9 +66,9 @@ No fake execution statuses.
 
 
 ## HEADER BRAND LOCK — 2026-05-04
-- EXECUTIA™ is the brand layer.
+- EXECUTIA® is the brand layer.
 - EXECUTION STANDARD is the second layer, lighter and secondary.
-- Clicking EXECUTIA™ always returns to Entry (`/` on public site, `https://executia.io` from engine).
+- Clicking EXECUTIA® always returns to Entry (`/` on public site, `https://executia.io` from engine).
 - Header background is slightly transparent white, never black.
 - Primary navigation is quiet by default; active `ENTRY` may be slightly stronger to preserve the flow.
 - Header CTA `Enter engine ↗` is visible but not dominant.
