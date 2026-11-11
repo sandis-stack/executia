@@ -163,6 +163,23 @@ html, body {
   cursor: not-allowed;
 }
 
+/* Tap area at least 44 px tall without changing how the control looks. */
+.life-btn,
+.life-nav button {
+  position: relative;
+}
+
+.life-btn::after,
+.life-nav button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: max(100%, 2.75rem);
+  transform: translateY(-50%);
+}
+
 .life-card {
   margin-top: 1rem;
   padding: 1.1rem 1.15rem;
@@ -243,6 +260,8 @@ html, body {
 @media (max-width: 560px) {
   .life-grid-2 { grid-template-columns: 1fr; }
   .life-nav button { font-size: 0.625rem; padding: 0.4rem 0.35rem; }
+  /* The tabs wrap to two rows in the 3.25rem bar here: a taller tap area would cover the neighbouring row. */
+  .life-nav button::after { content: none; }
 }
 
 .life-detail {
