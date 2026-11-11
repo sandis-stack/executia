@@ -1,0 +1,6476 @@
+{
+ "320 /life": {
+  "width": 320,
+  "url": "/life",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 320,
+  "height": 844,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 90,
+     "h": 28
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 601
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 90,
+     "h": 28
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   }
+  ],
+  "smallTargetCount": 4,
+  "smallByBox": 7
+ },
+ "320 /life/": {
+  "width": 320,
+  "url": "/life/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 320,
+  "height": 844,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 90,
+     "h": 28
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 601
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 90,
+     "h": 28
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   }
+  ],
+  "smallTargetCount": 4,
+  "smallByBox": 7
+ },
+ "320 /apps/life/index.html": {
+  "width": 320,
+  "url": "/apps/life/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 320,
+  "height": 844,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 90,
+     "h": 28
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 601
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 90,
+     "h": 28
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   }
+  ],
+  "smallTargetCount": 4,
+  "smallByBox": 7
+ },
+ "320 /life-proof": {
+  "width": 320,
+  "url": "/life-proof",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 320,
+  "height": 845,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 280,
+     "h": 44,
+     "top": 407
+    },
+    "hit": {
+     "w": 280,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "320 /life-proof/": {
+  "width": 320,
+  "url": "/life-proof/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 320,
+  "height": 845,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 280,
+     "h": 44,
+     "top": 407
+    },
+    "hit": {
+     "w": 280,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "320 /proofs/life-proof/index.html": {
+  "width": 320,
+  "url": "/proofs/life-proof/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 320,
+  "height": 845,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 280,
+     "h": 44,
+     "top": 407
+    },
+    "hit": {
+     "w": 280,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "320 /invoice-proof": {
+  "width": 320,
+  "url": "/invoice-proof",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 320,
+  "height": 845,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 280,
+     "h": 44,
+     "top": 593
+    },
+    "hit": {
+     "w": 280,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "320 /invoice-proof/": {
+  "width": 320,
+  "url": "/invoice-proof/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 320,
+  "height": 845,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 280,
+     "h": 44,
+     "top": 593
+    },
+    "hit": {
+     "w": 280,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "320 /proofs/invoice-proof/index.html": {
+  "width": 320,
+  "url": "/proofs/invoice-proof/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 320,
+  "height": 845,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 280,
+     "h": 44,
+     "top": 593
+    },
+    "hit": {
+     "w": 280,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "390 /life": {
+  "width": 390,
+  "url": "/life",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 390,
+  "height": 844,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 90,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 601
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 90,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   }
+  ],
+  "smallTargetCount": 4,
+  "smallByBox": 7
+ },
+ "390 /life/": {
+  "width": 390,
+  "url": "/life/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 390,
+  "height": 844,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 90,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 601
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 90,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   }
+  ],
+  "smallTargetCount": 4,
+  "smallByBox": 7
+ },
+ "390 /apps/life/index.html": {
+  "width": 390,
+  "url": "/apps/life/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 390,
+  "height": 844,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 90,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 601
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 50,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 52,
+     "h": 25
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 120,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 122,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 89,
+     "h": 27,
+     "top": -2
+    },
+    "hit": {
+     "w": 90,
+     "h": 25
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 84,
+     "h": 27,
+     "top": 27
+    },
+    "hit": {
+     "w": 86,
+     "h": 28
+    }
+   }
+  ],
+  "smallTargetCount": 4,
+  "smallByBox": 7
+ },
+ "390 /life-proof": {
+  "width": 390,
+  "url": "/life-proof",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 390,
+  "height": 845,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 350,
+     "h": 44,
+     "top": 407
+    },
+    "hit": {
+     "w": 350,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "390 /life-proof/": {
+  "width": 390,
+  "url": "/life-proof/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 390,
+  "height": 845,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 350,
+     "h": 44,
+     "top": 407
+    },
+    "hit": {
+     "w": 350,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "390 /proofs/life-proof/index.html": {
+  "width": 390,
+  "url": "/proofs/life-proof/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 390,
+  "height": 845,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 350,
+     "h": 44,
+     "top": 407
+    },
+    "hit": {
+     "w": 350,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "390 /invoice-proof": {
+  "width": 390,
+  "url": "/invoice-proof",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 390,
+  "height": 845,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 350,
+     "h": 44,
+     "top": 540
+    },
+    "hit": {
+     "w": 350,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "390 /invoice-proof/": {
+  "width": 390,
+  "url": "/invoice-proof/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 390,
+  "height": 845,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 350,
+     "h": 44,
+     "top": 540
+    },
+    "hit": {
+     "w": 350,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "390 /proofs/invoice-proof/index.html": {
+  "width": 390,
+  "url": "/proofs/invoice-proof/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 390,
+  "height": 845,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 350,
+     "h": 44,
+     "top": 540
+    },
+    "hit": {
+     "w": 350,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "768 /life": {
+  "width": 768,
+  "url": "/life",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 768,
+  "height": 844,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 60,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 62,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 136,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 136,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 102,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 102,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 97,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 601
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 7
+ },
+ "768 /life/": {
+  "width": 768,
+  "url": "/life/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 768,
+  "height": 844,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 60,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 62,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 136,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 136,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 102,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 102,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 97,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 601
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 7
+ },
+ "768 /apps/life/index.html": {
+  "width": 768,
+  "url": "/apps/life/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 768,
+  "height": 844,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 60,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 62,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 136,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 136,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 102,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 102,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 97,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 267
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 601
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 7
+ },
+ "768 /life-proof": {
+  "width": 768,
+  "url": "/life-proof",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 768,
+  "height": 845,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 402
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "768 /life-proof/": {
+  "width": 768,
+  "url": "/life-proof/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 768,
+  "height": 845,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 402
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "768 /proofs/life-proof/index.html": {
+  "width": 768,
+  "url": "/proofs/life-proof/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 768,
+  "height": 845,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 402
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "768 /invoice-proof": {
+  "width": 768,
+  "url": "/invoice-proof",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 768,
+  "height": 845,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 560
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "768 /invoice-proof/": {
+  "width": 768,
+  "url": "/invoice-proof/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 768,
+  "height": 845,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 560
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "768 /proofs/invoice-proof/index.html": {
+  "width": 768,
+  "url": "/proofs/invoice-proof/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 768,
+  "height": 845,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 560
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "1440 /life": {
+  "width": 1440,
+  "url": "/life",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 1440,
+  "height": 900,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 60,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 62,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 136,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 136,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 102,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 102,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 97,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 275
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 275
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 608
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 7
+ },
+ "1440 /life/": {
+  "width": 1440,
+  "url": "/life/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 1440,
+  "height": 900,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 60,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 62,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 136,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 136,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 102,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 102,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 97,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 275
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 275
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 608
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 7
+ },
+ "1440 /apps/life/index.html": {
+  "width": 1440,
+  "url": "/apps/life/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/apps/life/styles.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/app.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/documents/local.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/adapters.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/bank-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/invoice-flow.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/apps/life/lib/email-intake.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/from-source-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/detect-candidate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/intake/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/truth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/matching.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/government/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/payment/from-bank-event.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/decision/invoice-decisions.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/calendar/stub.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/objects/invoice.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/evidence/capture.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/metrics.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/execution/completion.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/index.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/gmail/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/auth.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/idempotency.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/translate.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/evidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/open-banking/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/contract.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/accounting/fiken/client.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/adapter.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-objects.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/memory-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/align-context.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/restore.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/memory/enrich.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/intent.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/accounting/sync-status.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/supplier-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/classification-learning.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/confidence.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/engine/learning/rules-store.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/email/local-mailbox/fixtures.js",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/adapters/banking/local-bank/fixtures.js",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE — EXECUTIA",
+  "stylesheets": [
+   {
+    "href": "http://127.0.0.1:4332/apps/life/styles.css",
+    "rules": 42
+   }
+  ],
+  "scrollWidth": 1440,
+  "height": 900,
+  "bodyText": 298,
+  "controls": [
+   {
+    "el": "button",
+    "text": "TODAY",
+    "box": {
+     "w": 60,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 62,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.is-active",
+    "text": "NEEDS DECISION3",
+    "box": {
+     "w": 136,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 136,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "EXECUTING2",
+    "box": {
+     "w": 102,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 102,
+     "h": 44
+    }
+   },
+   {
+    "el": "button",
+    "text": "COMPLETE0",
+    "box": {
+     "w": 97,
+     "h": 29,
+     "top": 11
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Business",
+    "box": {
+     "w": 99,
+     "h": 42,
+     "top": 275
+    },
+    "hit": {
+     "w": 100,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn",
+    "text": "Personal",
+    "box": {
+     "w": 97,
+     "h": 42,
+     "top": 275
+    },
+    "hit": {
+     "w": 98,
+     "h": 44
+    }
+   },
+   {
+    "el": "button.life-btn.secondary",
+    "text": "Back",
+    "box": {
+     "w": 73,
+     "h": 42,
+     "top": 608
+    },
+    "hit": {
+     "w": 74,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 7
+ },
+ "1440 /life-proof": {
+  "width": 1440,
+  "url": "/life-proof",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 1440,
+  "height": 901,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 412
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "1440 /life-proof/": {
+  "width": 1440,
+  "url": "/life-proof/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 1440,
+  "height": 901,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 412
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "1440 /proofs/life-proof/index.html": {
+  "width": 1440,
+  "url": "/proofs/life-proof/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/life-proof/life-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "LIFE Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   }
+  ],
+  "scrollWidth": 1440,
+  "height": 901,
+  "bodyText": 168,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 412
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "1440 /invoice-proof": {
+  "width": 1440,
+  "url": "/invoice-proof",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 1440,
+  "height": 901,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 569
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "1440 /invoice-proof/": {
+  "width": 1440,
+  "url": "/invoice-proof/",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 1440,
+  "height": 901,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 569
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ },
+ "1440 /proofs/invoice-proof/index.html": {
+  "width": 1440,
+  "url": "/proofs/invoice-proof/index.html",
+  "loaded": [
+   {
+    "type": "stylesheet",
+    "url": "/proofs/life-proof/life-proof.css",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/proofs/invoice-proof/invoice-proof.css",
+    "status": 200
+   },
+   {
+    "type": "script",
+    "url": "/proofs/invoice-proof/invoice-proof.js",
+    "status": 200
+   },
+   {
+    "type": "stylesheet",
+    "url": "/css2",
+    "status": 200
+   }
+  ],
+  "failed": [],
+  "errors": [],
+  "title": "Invoice Execution Proof v0.1 — EXECUTIA®",
+  "stylesheets": [
+   {
+    "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+    "rules": null
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/life-proof/life-proof.css",
+    "rules": 50
+   },
+   {
+    "href": "http://127.0.0.1:4332/proofs/invoice-proof/invoice-proof.css",
+    "rules": 6
+   }
+  ],
+  "scrollWidth": 1440,
+  "height": 901,
+  "bodyText": 279,
+  "controls": [
+   {
+    "el": "button.lp-btn",
+    "text": "Continue",
+    "box": {
+     "w": 105,
+     "h": 44,
+     "top": 569
+    },
+    "hit": {
+     "w": 106,
+     "h": 44
+    }
+   }
+  ],
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "smallByBox": 0
+ }
+}

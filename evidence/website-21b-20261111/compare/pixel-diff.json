@@ -1,0 +1,206 @@
+{
+ "320 life": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "320×844",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "320×844",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "320×844",
+   "differentPixels": 0
+  }
+ },
+ "320 life-proof": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "320×845",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "320×845",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "320×845",
+   "differentPixels": 0
+  }
+ },
+ "320 invoice-proof": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "320×845",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "320×845",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "320×845",
+   "differentPixels": 0
+  }
+ },
+ "390 life": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "390×844",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "390×844",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "390×844",
+   "differentPixels": 0
+  }
+ },
+ "390 life-proof": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "390×845",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "390×845",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "390×845",
+   "differentPixels": 0
+  }
+ },
+ "390 invoice-proof": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "390×845",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "390×845",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "390×845",
+   "differentPixels": 0
+  }
+ },
+ "768 life": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "768×844",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "768×844",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "768×844",
+   "differentPixels": 0
+  }
+ },
+ "768 life-proof": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "768×845",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "768×845",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "768×845",
+   "differentPixels": 0
+  }
+ },
+ "768 invoice-proof": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "768×845",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "768×845",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "768×845",
+   "differentPixels": 0
+  }
+ },
+ "1440 life": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "1440×900",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "1440×900",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "1440×900",
+   "differentPixels": 0
+  }
+ },
+ "1440 life-proof": {
+  "routedAfterVsFileBefore": {
+   "same": false,
+   "size": "1440×901",
+   "differentPixels": 3770
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "1440×901",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "1440×901",
+   "differentPixels": 0
+  }
+ },
+ "1440 invoice-proof": {
+  "routedAfterVsFileBefore": {
+   "same": true,
+   "size": "1440×901",
+   "differentPixels": 0
+  },
+  "routedSlashAfterVsFileBefore": {
+   "same": true,
+   "size": "1440×901",
+   "differentPixels": 0
+  },
+  "fileAfterVsFileBefore": {
+   "same": true,
+   "size": "1440×901",
+   "differentPixels": 0
+  }
+ }
+}
