@@ -1,0 +1,12 @@
+# local route server (evidence/website-og-20261110/tools/serve_vercel_routes.mjs) on 127.0.0.1:4333, branch fix/website-life-308-20261111 — 2026-11-11 08:33
+/                        200 
+/life                    308 https://life.executia.io/
+/life/                   308 https://life.executia.io/
+/apps/life               308 https://life.executia.io/
+/apps/life/              308 https://life.executia.io/
+/apps/life/index.html    308 https://life.executia.io/
+/apps/life/styles.css    200 
+/life-proof              200 
+/life-proof/             200 
+/invoice-proof           200 
+/engine                  200 
