@@ -1115,3 +1115,20 @@ body[data-page="entry"] .evc-cta-primary.pill-btn.primary {
     min-height: 44px;
   }
 }
+/* The Engine card's PDF label stays on one line: it fits as designed from 414 px. */
+@media (max-width: 413px) {
+  .spec-pdf-btn {
+    white-space: nowrap;
+    gap: 0.4rem;
+    padding-inline: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+}
+@media (max-width: 367px) {
+  .spec-pdf-btn {
+    gap: 0.375rem;
+    padding-inline: 0.625rem;
+    font-size: 0.5625rem;
+    letter-spacing: 0.01em;
+  }
+}

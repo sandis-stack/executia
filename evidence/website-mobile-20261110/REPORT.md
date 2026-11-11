@@ -4,6 +4,27 @@ Branch `fix/website-mobile-20261110` from `fix/website-og-20261110` @ `9bf8da3`.
 Commits: `f8a75a4` (How / Engine gutter, flow, comparison table — also carries the home-page tap-target rules, same media block),
 `5601ace` (shared tap targets: header, footer, legal, calculator), evidence commit on top.
 
+## N1 (CTO 2026-11-11 06:30): Engine card PDF button on one line
+
+The label "DOWNLOAD SPECIFICATION PDF (EIM-1.0)" needs 326 px. The card leaves it 242 px at 320, 312 at 390 and 336 at 414, so it
+wrapped at 413 px and below. The fix is CSS only, with no copy change, in `assets/institutional-readiness.css`:
+- **≤ 413 px:** `white-space: nowrap`, tracking 0.08 → 0.02 em, side padding 17.6 → 12 px, icon gap 8 → 6.4 px.
+- **≤ 367 px:** the same, plus 9 px text (was 10.9) and 10 px side padding.
+- **414 px and wider:** unchanged.
+
+| Width | Space | Button | Text lines | Height | scrollWidth |
+|---|---|---|---|---|---|
+| 320 | 242 | 240 | 1 (was 2) | 44 (was 50) | 320 |
+| 360 | 282 | 240 | 1 (was 2) | 44 (was 50) | 360 |
+| 375 | 297 | 290 | 1 (was 2) | 44 (was 50) | 375 |
+| 390 | 312 | 290 | 1 (was 2) | 44 (was 50) | 390 |
+| 414 | 336 | 326 | 1 | 44 | 414 |
+| 430 | 352 | 326 | 1 | 44 | 430 |
+
+Re-captured at 320 and 390. `compare/n1-engine-pdf-{320,390}.png` shows before | after for the card, and `compare/{320,390}/home.jpg`
+the whole page. The home audit at 320 and 390 is unchanged: scrollWidth = width, gutter 14 px, edge text 0, taps under 44 px 0.
+Desktop can't change, because both rules are below 414 px. `npm test` 44/44, `ARCHITECTURE_GUARD_OK`, guard tests 14/14.
+
 ## Result
 
 On phones and tablets every page now keeps the header's side gutter, nothing scrolls sideways, no text touches the edge and every
