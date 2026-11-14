@@ -156,9 +156,11 @@
       '</div>' +
       '<div class="ej-validation">' +
       '<h2>Validation gates</h2>' +
+      '<div class="ej-validation-frame">' +
       '<table class="ej-validation-table"><thead><tr><th scope="col">Gate</th><th scope="col">Result</th><th scope="col">Basis</th></tr></thead><tbody>' +
       checks +
       '</tbody></table>' +
+      '</div>' +
       '</div>' +
       '<div class="ej-decision-panel">' +
       '<h2>Governed decision</h2>' +

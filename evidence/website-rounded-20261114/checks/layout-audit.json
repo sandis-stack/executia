@@ -1,0 +1,26 @@
+{
+  "overflow": 0,
+  "edge": 0,
+  "taps": 75,
+  "by": {
+    "320": {
+      "overflow": 0,
+      "edge": 0,
+      "taps": 25,
+      "pages": 25
+    },
+    "390": {
+      "overflow": 0,
+      "edge": 0,
+      "taps": 23,
+      "pages": 25
+    },
+    "768": {
+      "overflow": 0,
+      "edge": 0,
+      "taps": 27,
+      "pages": 25
+    }
+  },
+  "note": "overflow/edge 0. taps count includes pre-existing .cm-icon-btn and similar (min dimension <44); not introduced by radius tokens. TASK-29 audit treated many of these as non-failing."
+}

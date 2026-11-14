@@ -1,4 +1,65 @@
 /* MISSION-005 — Unified Executive Journey */
+/* TASK-35 radius tokens — home page scale */
+/* TASK-35 narrow validation — keep basis column ≥8px from viewport edge at 320 */
+@media (max-width: 420px) {
+  .ej-validation-frame {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .ej-validation-table th,
+  .ej-validation-table td,
+  .ej-validation-frame .ej-validation-table th,
+  .ej-validation-frame .ej-validation-table td {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .ej-validation-table th {
+    width: 5.25rem;
+  }
+}
+
+.ej-procurement,
+.ej-decision,
+.ej-workspace,
+.ej-proof-panel,
+.ej-validation-frame {
+  border-radius: var(--radius-card, 12px);
+}
+.ej-procurement,
+.ej-proof-panel {
+  border: 1px solid var(--line, #e3ebf3);
+  box-shadow: var(--shadow, 0 18px 50px rgba(15,45,74,.045));
+}
+.ej-decision {
+  border: 1px solid var(--line-2, #d5e0ec);
+  border-radius: var(--radius-control, 12px);
+}
+.ej-decision--active {
+  border-color: var(--ink-2, #1e3a5f);
+  background: var(--soft, #f6f9fd);
+}
+.ej-workspace {
+  border: 1px solid var(--line, #e3ebf3);
+  overflow: hidden;
+}
+.ej-validation-frame {
+  border: 1px solid var(--line, #e3ebf3);
+  overflow: hidden;
+  background: #fff;
+}
+.ej-validation-frame .ej-validation-table {
+  margin: 0;
+}
+.ej-validation-frame .ej-validation-table th,
+.ej-validation-frame .ej-validation-table td {
+  border-bottom: 1px solid var(--line, #e3ebf3);
+}
+.ej-validation-frame .ej-validation-table tr:last-child th,
+.ej-validation-frame .ej-validation-table tr:last-child td {
+  border-bottom: 0;
+}
+
+
 
 .hp-hero-copy--entry {
   max-width: 36rem;
@@ -49,7 +110,7 @@
 .ej-procurement {
   margin-top: 2rem;
   padding: 1.25rem 1.35rem;
-  border: 1.5px solid #124155;
+  border: 1px solid var(--line, #e3ebf3);
   background: #fff;
 }
 
@@ -190,7 +251,8 @@
 .ej-decision {
   min-width: 6.5rem;
   padding: 0.75rem 1rem;
-  border: 1.5px solid #cbd5e1;
+  border: 1px solid var(--line-2, #d5e0ec);
+  border-radius: var(--radius-control, 12px);
   text-align: center;
   font-size: 0.75rem;
   font-weight: 700;
@@ -215,7 +277,9 @@
   max-width: 40rem;
   display: grid;
   gap: 0;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--line, #e3ebf3);
+  border-radius: var(--radius-card, 12px);
+  overflow: hidden;
 }
 
 .ej-workspace-row {
@@ -246,7 +310,10 @@
 .ej-proof-panel {
   margin-top: 1.5rem;
   max-width: 40rem;
-  border: 1.5px solid #124155;
+  border: 1px solid var(--line, #e3ebf3);
+  border-radius: var(--radius-card, 12px);
+  overflow: hidden;
+  box-shadow: var(--shadow, 0 18px 50px rgba(15,45,74,.045));
 }
 
 .ej-proof-row {

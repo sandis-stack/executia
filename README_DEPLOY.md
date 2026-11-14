@@ -1,44 +1,25 @@
-# EXECUTIA ENTRY — FINAL READY DEPLOY
+# EXECUTIA website — deploy
 
-Deploy target: `executia.io`
+Production host: `executia.io` (Vercel project `executia-new`).
 
-## What this package includes
-- Locked EXECUTIA header and compact footer.
-- Homepage funnel: ENTRY → EXECUTION LAYER → REQUEST.
-- Full pages: Global, Institutional, Definition, Standard, Contact, Request.
-- AI files: `llms.txt`, `robots.txt`, `sitemap.xml`.
-- Hardened request API: no false success if email delivery is not confirmed.
-- Live status strip with UTC time and rotating system states.
-- No black backgrounds.
+## Release flow (TASK-35 / after TASK-29)
 
-## Required Vercel environment variables
-```bash
-RESEND_API_KEY=
-FROM_EMAIL=EXECUTIA <no-reply@mail.executia.io>
-OPERATOR_EMAIL=control@executia.io
-```
+A push or merge into `main` **is** a production deploy (Vercel Git integration). Therefore:
 
-Optional engine forward:
-```bash
-ENGINE_REQUEST_TOKEN=
-ENGINE_CONTROL_REQUEST_URL=https://execution.executia.io/api/v1/control-request
-```
+1. Open a **pull request to `main`** with the approved SHA so GitHub runs `architecture-guard`.
+2. **Preview** = the Vercel Git preview for that PR (open while signed in to Vercel). Check phone + desktop.
+3. After an explicit **PO GO**, merge the PR. That merge is production.
+4. Do **not** `git push` directly to `main` outside a PO GO (TASK-29’s direct push bypassed the required check).
 
-## Deploy
-```bash
-rm -rf *
-unzip executia_ENTRY_FINAL_READY_DEPLOY.zip -d .
-git add .
-git commit -m "EXECUTIA ENTRY FINAL READY DEPLOY"
-git push
-```
+Emergency CLI archive deploy (optional): `evidence/website-rounded-20261114/WEBSITE-DEPLOY.sh` — preview, then `--prod` with typed confirmation. The script never pushes git. It ignores a trailing `Aliased https://executia.io` line from Vercel CLI and keeps the `*.vercel.app` URL.
 
-## Post-deploy tests
-- https://executia.io/
-- https://executia.io/llms.txt
-- https://executia.io/robots.txt
-- https://executia.io/sitemap.xml
-- https://executia.io/global
-- https://executia.io/institutional
-- https://executia.io/request
-- Submit request form and confirm both applicant + operator emails.
+## What ships
+
+`.vercelignore` excludes `evidence/`, `tools/`, and `*.md` so Git builds do not publish local paths. Site HTML does not link those files.
+
+## Post-deploy checks
+
+- https://executia.io/ and https://executia.io/engine return 200
+- Wordmark shows EXECUTIA® (no ™)
+- `/evidence/...` returns 404
+- `/life` → 308 to https://life.executia.io

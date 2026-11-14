@@ -1,0 +1,17 @@
+{
+  "measured_at": "2026-11-14T20:12:00+01:00",
+  "base": "6502947",
+  "viewport": [390, 1440],
+  "source": "computed styles on home (/) before CSS token rename",
+  "tokens": {
+    "--radius-card": "12px",
+    "--radius-control": "12px",
+    "--radius-pill": "999px"
+  },
+  "samples": {
+    ".menu-toggle": "12px",
+    ".pill-btn": "999px",
+    ".input": "12px",
+    "DESIGN_SYSTEM.md Radius": "12px"
+  }
+}

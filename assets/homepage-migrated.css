@@ -809,8 +809,17 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  border-radius: inherit;
   background: #061820;
   color: #e5e7eb;
+}
+/* TASK-35 film plane — follow the rounded monitor stage */
+.cm-vignette,
+.cm-controls {
+  border-radius: inherit;
+}
+.cm-progress-fill {
+  border-radius: inherit;
 }
 .cm-canvas {
   position: absolute;
