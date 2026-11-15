@@ -199,10 +199,12 @@
       '<div class="wrap">' +
       '<span class="kicker">ONE — OPERATION</span>' +
       '<h1 id="ej-one-heading">Executive workspace</h1>' +
-      '<p class="lead">Operational view of the validated execution — mission through outcome.</p>' +
+      '<p class="lead">Operational view of the validated execution — mission through outcome. EXECUTIA ONE keeps the same governed record that Engine produced: what was asked, what was checked, what was decided, and what evidence supports the decision.</p>' +
+      '<p class="lead">This demonstration uses a €250,000 critical infrastructure procurement for the National Infrastructure Authority (mission MSN-INFRA-2026-0047, execution EXE-PROC-250K-20260715). Status: execution in progress, evidence available, decision governed.</p>' +
       '<div class="ej-workspace ej-workspace--flow">' +
       rows +
       '</div>' +
+      '<p>Authority, budget, approvals, policy and evidence were confirmed before commitment. The workspace does not invent a new report after the fact — it presents the same validation that allowed execution to proceed.</p>' +
       '</div></section>'
     );
   }
@@ -240,7 +242,8 @@
       '<div class="wrap">' +
       '<span class="kicker">PILOT — ADOPTION</span>' +
       '<h1 id="ej-pilot-heading">Request an institutional pilot</h1>' +
-      '<p class="lead">Move from understanding to governed adoption with a structured institutional pilot.</p>' +
+      '<p class="lead">Move from understanding to governed adoption with a structured institutional pilot. EXECUTIA pilots are for mission-critical organizations that need execution validated before it happens — not reconstructed afterwards.</p>' +
+      '<p class="lead">A pilot starts from a real executive scenario (such as a large procurement), runs it through Engine validation gates, reviews the evidence record with leadership, and then plans deployment into EXECUTIA ONE under a clear agreement.</p>' +
       '<div class="ej-pilot-value">' +
       '<h2>Pilot process</h2>' +
       '<ol class="ej-pilot-list ej-pilot-process">' +
@@ -258,6 +261,7 @@
       '<li>Improvement roadmap for mission-critical execution</li>' +
       '<li>Path to operational deployment in EXECUTIA ONE</li>' +
       '</ul>' +
+      '<p>The goal is governed adoption: authority, budget, approvals, policy and evidence checked before irreversible commitment. Request a pilot when your organization is ready to move from a public demonstration to a scoped institutional engagement.</p>' +
       '</div>' +
       '</div></section>'
     );

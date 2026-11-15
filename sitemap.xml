@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://executia.io/</loc><priority>1.0</priority></url>
+  <url><loc>https://executia.io/</loc><priority>1</priority></url>
   <url><loc>https://executia.io/definition</loc><priority>0.95</priority></url>
+  <url><loc>https://executia.io/engine</loc><priority>0.95</priority></url>
+  <url><loc>https://executia.io/one</loc><priority>0.9</priority></url>
+  <url><loc>https://executia.io/pilot</loc><priority>0.9</priority></url>
   <url><loc>https://executia.io/standard</loc><priority>0.85</priority></url>
   <url><loc>https://executia.io/request</loc><priority>0.9</priority></url>
+  <url><loc>https://executia.io/about</loc><priority>0.8</priority></url>
   <url><loc>https://executia.io/global</loc><priority>0.75</priority></url>
   <url><loc>https://executia.io/institutional</loc><priority>0.75</priority></url>
   <url><loc>https://executia.io/contact</loc><priority>0.6</priority></url>
   <url><loc>https://executia.io/privacy</loc><priority>0.7</priority></url>
   <url><loc>https://executia.io/terms</loc><priority>0.7</priority></url>
+  <url><loc>https://executia.io/cookies</loc><priority>0.6</priority></url>
+  <url><loc>https://executia.io/gdpr</loc><priority>0.6</priority></url>
 </urlset>

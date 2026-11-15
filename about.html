@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+  <title>About | EXECUTIA</title>
+  <meta name="description" content="About EXECUTIA AS — a Norwegian company building an execution control layer that validates actions before they are carried out.">
+  <link rel="canonical" href="https://executia.io/about">
+  <meta property="og:title" content="About — EXECUTIA®">
+  <meta property="og:description" content="EXECUTIA AS builds an execution control layer: validate before execution, not audit after.">
+  <meta property="og:url" content="https://executia.io/about">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://executia.io/assets/brand/executia-og-1200x630-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://executia.io/assets/brand/executia-og-1200x630-v2.png">
+  <meta name="robots" content="index,follow">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/app.css">
+  <link rel="stylesheet" href="/assets/legal.css">
+</head>
+<body data-page="legal">
+<div class="legal-shell">
+  <header class="legal-header">
+    <div class="legal-header-inner">
+      <a class="brand shell-brand" href="/" aria-label="EXECUTIA home"><svg class="brand-mark" viewBox="3 4 56 56" aria-hidden="true" focusable="false"><circle cx="10" cy="32" r="4" fill="#008C9C"/><path fill="currentColor" d="M24 8h32v8H32v12h20v8H32v12h24v8H24V36h-6v-8h6z"/></svg><span class="brand-main">EXECUTIA<span class="brand-tm">®</span></span></a>
+      <a class="legal-back" href="/">Back to EXECUTIA</a>
+    </div>
+  </header>
+
+  <main class="legal-main">
+    <span class="legal-kicker">About</span>
+    <h1>About EXECUTIA</h1>
+    <p class="legal-lead">EXECUTIA AS is a Norwegian company (Org. no. 838 230 962, Sandnes) building an execution control layer: a system that validates actions before they are carried out, instead of auditing them afterwards.</p>
+
+    <section class="legal-section" aria-labelledby="founder">
+      <h2 id="founder">Founder</h2>
+      <p>EXECUTIA was founded by Sandis Boiko. <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+    </section>
+
+    <!-- B-case gated: only mounted when ?founder_case=1 (preview). Off in production default. -->
+    <div id="about-founder-case" hidden></div>
+    <template id="about-founder-case-template">
+      <section class="legal-section" aria-labelledby="founder-case">
+        <h2 id="founder-case">Tested on a real business first</h2>
+        <p>Before offering EXECUTIA to anyone else, we run it on a real business: the founder's own Norwegian sole proprietorship. Not a demo dataset — real bank transactions, real receipts, real bookkeeping in Fiken, real deadlines from the Norwegian Tax Administration.</p>
+        <p>Through EXECUTIA LIFE, this business's VAT return (mva-melding) was validated before submission and submitted via Fiken, based on its actual transactions and receipts.</p>
+        <p>This is where we start: one business, real obligations, real consequences. Organisations are next — through a structured pilot. <a href="/request">Request Pilot →</a></p>
+      </section>
+    </template>
+
+    <section class="legal-section" aria-labelledby="live-today">
+      <h2 id="live-today">What is live today</h2>
+      <ul>
+        <li>EXECUTIA LIFE — available now at <a href="https://life.executia.io">life.executia.io</a></li>
+        <li>EXECUTIA ONE — enterprise execution, in development</li>
+        <li>EXECUTIA Engine and the Execution Integrity Model® reference specification (EIM-1.0)</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer legal-footer" role="contentinfo" data-footer-ssr="true"><div class="legal-footer-inner"><p class="legal-footer-copy">© 2026 EXECUTIA AS · Org. no. 838 230 962</p><p class="legal-footer-copy">Lerkeveien 6B, 4314 Sandnes, Norway</p><p class="legal-footer-copy"><a href="mailto:contact@executia.io">contact@executia.io</a></p><nav class="legal-footer-nav" aria-label="Legal"><a href="/privacy">Privacy</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/terms">Terms</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/cookies">Cookies</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/gdpr">Data Protection</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/contact">Contact</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/about">About</a></nav></div></footer>
+</div>
+<script>
+  // TASK-37 Part B gate: founder case stays off unless explicitly previewed.
+  (function () {
+    var on = new URLSearchParams(window.location.search).get('founder_case') === '1';
+    if (!on) return;
+    var host = document.getElementById('about-founder-case');
+    var tpl = document.getElementById('about-founder-case-template');
+    if (!host || !tpl) return;
+    host.appendChild(tpl.content.cloneNode(true));
+    host.hidden = false;
+  })();
+</script>
+<script src="/assets/platform-brand.js"></script>
+</body>
+</html>

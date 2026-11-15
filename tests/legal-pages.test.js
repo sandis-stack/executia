@@ -115,7 +115,8 @@ test('legal pages stay on the existing design and remain mobile-width readable',
     assert.match(html, /name="viewport" content="width=device-width, initial-scale=1"/);
     assert.match(html, /assets\/legal.css/, `${label} uses legal.css`);
     assert.match(html, /assets\/app.css/, `${label} uses app.css`);
-    assert.match(html, /data-platform-footer="legal"/);
+    // TASK-37: legal footer is server-rendered (or still a mount for inject).
+    assert.match(html, /data-platform-footer="legal"|legal-footer.*data-footer-ssr="true"/s);
   }
 });
 
