@@ -5,3 +5,6 @@ tools/
 *.md
 .env
 .env.*
+
+# TASK-37 — founder-case draft and other non-public HTML must never ship.
+drafts/
