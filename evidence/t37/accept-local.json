@@ -1,0 +1,28 @@
+{
+  "org_count": 1,
+  "privacy_href": 1,
+  "ldjson": 1,
+  "sitemap_slash_1_0": 0,
+  "words": {
+    "engine": 182,
+    "pilot": 207,
+    "one": 183
+  },
+  "sitemap_status": {
+    "https://executia.io/": 200,
+    "https://executia.io/definition": 200,
+    "https://executia.io/engine": 200,
+    "https://executia.io/one": 200,
+    "https://executia.io/pilot": 200,
+    "https://executia.io/standard": 200,
+    "https://executia.io/request": 200,
+    "https://executia.io/about": 200,
+    "https://executia.io/global": 200,
+    "https://executia.io/institutional": 200,
+    "https://executia.io/contact": 200,
+    "https://executia.io/privacy": 200,
+    "https://executia.io/terms": 200,
+    "https://executia.io/cookies": 200,
+    "https://executia.io/gdpr": 200
+  }
+}

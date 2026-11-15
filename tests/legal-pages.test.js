@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -115,7 +115,8 @@ test('legal pages stay on the existing design and remain mobile-width readable',
     assert.match(html, /name="viewport" content="width=device-width, initial-scale=1"/);
     assert.match(html, /assets\/legal.css/, `${label} uses legal.css`);
     assert.match(html, /assets\/app.css/, `${label} uses app.css`);
-    assert.match(html, /data-platform-footer="legal"/);
+    // TASK-37: legal footer is server-rendered (or still a mount for inject).
+    assert.match(html, /data-platform-footer="legal"|legal-footer.*data-footer-ssr="true"/s);
   }
 });
 
@@ -129,4 +130,24 @@ test('site footer already links Privacy and Terms; vercel routes exist', () => {
 test('sitemap lists privacy and terms production URLs', () => {
   assert.match(sitemap, /https:\/\/executia.io\/privacy/);
   assert.match(sitemap, /https:\/\/executia.io\/terms/);
+});
+
+test('about.html has no Part B founder-case text and states private beta', () => {
+  const about = readFileSync(join(root, 'about.html'), 'utf8');
+  assert.doesNotMatch(about, /mva-melding/);
+  assert.doesNotMatch(about, /Fiken/);
+  assert.doesNotMatch(about, /sole proprietorship/);
+  assert.doesNotMatch(about, /founder_case|about-founder-case/);
+  assert.match(
+    about,
+    /EXECUTIA LIFE — live at <a href="https:\/\/life\.executia\.io">life\.executia\.io<\/a> \(private beta\)/,
+  );
+  assert.doesNotMatch(about, /available now at/);
+  const vercelIgnore = readFileSync(join(root, '.vercelignore'), 'utf8');
+  assert.match(vercelIgnore, /^drafts\/$/m);
+  assert.equal(
+    existsSync(join(root, 'drafts/about-founder-case.html')),
+    false,
+    'the founder case draft is kept outside this public repository',
+  );
 });
