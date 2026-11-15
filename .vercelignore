@@ -1,0 +1,7 @@
+# TASK-35 — never publish evidence, local tools, or markdown notes via Vercel Git builds.
+# Site HTML does not link to these paths; serving them exposed local machine paths (no secrets).
+evidence/
+tools/
+*.md
+.env
+.env.*

@@ -1,0 +1,745 @@
+{
+ "/": {
+  "file": "index.html",
+  "innerWidth": 320,
+  "how": {
+   "top": 2542,
+   "height": 701
+  },
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [
+   {
+    "el": "div.hp-monitor-glow",
+    "x": -14,
+    "right": 334,
+    "y": 486,
+    "w": 348,
+    "h": 807,
+    "text": ""
+   }
+  ],
+  "outsideCount": 1
+ },
+ "/entry/legacy": {
+  "file": "index.legacy.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 19
+  },
+  "edgeText": [
+   {
+    "el": "span",
+    "x": 206,
+    "right": 379,
+    "y": 1009,
+    "w": 174,
+    "h": 12,
+    "text": "VALIDATION LAYER ACTIVE",
+    "textLeft": 206,
+    "textRight": 379
+   }
+  ],
+  "edgeTextCount": 1,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [
+   {
+    "el": "span",
+    "x": 206,
+    "right": 379,
+    "y": 1009,
+    "w": 174,
+    "h": 12,
+    "text": "VALIDATION LAYER ACTIVE"
+   }
+  ],
+  "outsideCount": 1
+ },
+ "/engine": {
+  "file": "engine.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 5
+  },
+  "edgeText": [
+   {
+    "el": "td",
+    "x": 212,
+    "right": 328,
+    "y": 1358,
+    "w": 117,
+    "h": 127,
+    "text": "Public procurement policy §12.4 satisfie",
+    "textLeft": 225,
+    "textRight": 315
+   }
+  ],
+  "edgeTextCount": 1,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [
+   {
+    "el": "table.ej-validation-table",
+    "x": 14,
+    "right": 328,
+    "y": 936,
+    "w": 314,
+    "h": 677,
+    "text": "Gate Result Basis Authority CONFIRMED Pr"
+   },
+   {
+    "el": "thead",
+    "x": 14,
+    "right": 328,
+    "y": 936,
+    "w": 314,
+    "h": 42,
+    "text": "Gate Result Basis"
+   },
+   {
+    "el": "tr",
+    "x": 14,
+    "right": 328,
+    "y": 936,
+    "w": 314,
+    "h": 42,
+    "text": "Gate Result Basis"
+   },
+   {
+    "el": "th",
+    "x": 212,
+    "right": 328,
+    "y": 936,
+    "w": 117,
+    "h": 42,
+    "text": "Basis"
+   },
+   {
+    "el": "tbody",
+    "x": 14,
+    "right": 328,
+    "y": 977,
+    "w": 314,
+    "h": 635,
+    "text": "Authority CONFIRMED Procurement officer "
+   },
+   {
+    "el": "tr",
+    "x": 14,
+    "right": 328,
+    "y": 977,
+    "w": 314,
+    "h": 127,
+    "text": "Authority CONFIRMED Procurement officer "
+   },
+   {
+    "el": "td",
+    "x": 212,
+    "right": 328,
+    "y": 977,
+    "w": 117,
+    "h": 127,
+    "text": "Procurement officer holds delegated auth"
+   },
+   {
+    "el": "tr",
+    "x": 14,
+    "right": 328,
+    "y": 1104,
+    "w": 314,
+    "h": 144,
+    "text": "Budget CONFIRMED €250,000 allocated unde"
+   },
+   {
+    "el": "td",
+    "x": 212,
+    "right": 328,
+    "y": 1104,
+    "w": 117,
+    "h": 144,
+    "text": "€250,000 allocated under FY2026 resilien"
+   },
+   {
+    "el": "tr",
+    "x": 14,
+    "right": 328,
+    "y": 1248,
+    "w": 314,
+    "h": 110,
+    "text": "Approvals CONFIRMED Technical review and"
+   },
+   {
+    "el": "td",
+    "x": 212,
+    "right": 328,
+    "y": 1248,
+    "w": 117,
+    "h": 110,
+    "text": "Technical review and financial control s"
+   },
+   {
+    "el": "tr",
+    "x": 14,
+    "right": 328,
+    "y": 1358,
+    "w": 314,
+    "h": 127,
+    "text": "Policy CONFIRMED Public procurement poli"
+   },
+   {
+    "el": "td",
+    "x": 212,
+    "right": 328,
+    "y": 1358,
+    "w": 117,
+    "h": 127,
+    "text": "Public procurement policy §12.4 satisfie"
+   },
+   {
+    "el": "tr",
+    "x": 14,
+    "right": 328,
+    "y": 1485,
+    "w": 314,
+    "h": 127,
+    "text": "Evidence CONFIRMED Required proof artifa"
+   },
+   {
+    "el": "td",
+    "x": 212,
+    "right": 328,
+    "y": 1485,
+    "w": 117,
+    "h": 127,
+    "text": "Required proof artifacts attached before"
+   }
+  ],
+  "outsideCount": 15
+ },
+ "/docs": {
+  "file": "docs.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 45
+  },
+  "edgeText": [
+   {
+    "el": "h1",
+    "x": 14,
+    "right": 306,
+    "y": 148,
+    "w": 292,
+    "h": 180,
+    "text": "Platform documentation and standards.",
+    "textLeft": 14,
+    "textRight": 324
+   }
+  ],
+  "edgeTextCount": 1,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/pilot": {
+  "file": "pilot.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/pilot/approved": {
+  "file": "pilot-approved.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 27,
+   "right": 27
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/one": {
+  "file": "one.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 37
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proof": {
+  "file": "proof.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 19
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/support": {
+  "file": "support.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 83
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/request": {
+  "file": "request.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 37
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/contact": {
+  "file": "contact.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 22
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/privacy": {
+  "file": "privacy.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/terms": {
+  "file": "terms.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/cookies": {
+  "file": "cookies.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/gdpr": {
+  "file": "gdpr.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/life-proof": {
+  "file": "proofs/life-proof/index.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": null,
+  "headGutter": null,
+  "textGutter": {
+   "left": 20,
+   "right": 20
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/invoice-proof": {
+  "file": "proofs/invoice-proof/index.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": null,
+  "headGutter": null,
+  "textGutter": {
+   "left": 20,
+   "right": 25
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/standard": {
+  "file": "standard.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 28
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/definition": {
+  "file": "definition.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/global": {
+  "file": "global.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/institutional": {
+  "file": "institutional.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 14
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/analysis.html": {
+  "file": "analysis.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 15
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/apps/life/index.html": {
+  "file": "apps/life/index.html",
+  "redirect": "308 https://life.executia.io"
+ },
+ "/execution.html": {
+  "file": "execution.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 17
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/pilot-mode.html": {
+  "file": "pilot-mode.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 18
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ },
+ "/proposal.html": {
+  "file": "proposal.html",
+  "innerWidth": 320,
+  "how": null,
+  "scrollWidth": 320,
+  "overflowX": false,
+  "gutter": 14,
+  "headGutter": {
+   "left": 14,
+   "right": 24
+  },
+  "textGutter": {
+   "left": 14,
+   "right": 23
+  },
+  "edgeText": [],
+  "edgeTextCount": 0,
+  "smallTargets": [],
+  "smallTargetCount": 0,
+  "outside": [],
+  "outsideCount": 0
+ }
+}

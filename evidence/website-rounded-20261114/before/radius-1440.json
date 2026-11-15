@@ -1,0 +1,3398 @@
+{
+  "home": {
+    "path": "/",
+    "file": "index.html",
+    "boxes": 118,
+    "square": 16,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a.active",
+        "x": 519,
+        "y": 0,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 0,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 0,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 0,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 0,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 0,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      },
+      {
+        "el": "div.cm-root",
+        "x": 81,
+        "y": 1056,
+        "w": 1278,
+        "h": 719,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": ""
+      },
+      {
+        "el": "div.cm-vignette",
+        "x": 81,
+        "y": 1056,
+        "w": 1278,
+        "h": 719,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": ""
+      },
+      {
+        "el": "div.cm-controls",
+        "x": 81,
+        "y": 1713,
+        "w": 1278,
+        "h": 61,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": ""
+      },
+      {
+        "el": "span.ea-flow-label",
+        "x": 661,
+        "y": 2644,
+        "w": 118,
+        "h": 13,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTION FLOW ↓"
+      },
+      {
+        "el": "span.ea-boundary-text",
+        "x": 608,
+        "y": 2920,
+        "w": 225,
+        "h": 12,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "── EXECUTIA GOVERNANCE BOUNDARY ──"
+      },
+      {
+        "el": "span.ea-boundary-text",
+        "x": 608,
+        "y": 3264,
+        "w": 225,
+        "h": 12,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "── EXECUTIA GOVERNANCE BOUNDARY ──"
+      },
+      {
+        "el": "div.evc-metric",
+        "x": 774,
+        "y": 4940,
+        "w": 312,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "Execution Loss —"
+      },
+      {
+        "el": "div.evc-metric",
+        "x": 774,
+        "y": 5019,
+        "w": 312,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "Recoverable Value —"
+      },
+      {
+        "el": "div.evc-chart",
+        "x": 774,
+        "y": 5287,
+        "w": 312,
+        "h": 86,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "Execution Loss — Recovered Value — Enterprise Va"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 52,
+      "4": 6,
+      "8": 10,
+      "10": 10,
+      "12": 13,
+      "16": 7,
+      "28": 1,
+      "32": 1,
+      "50": 2,
+      "999": 9,
+      "5.6": 7
+    }
+  },
+  "entry_legacy": {
+    "path": "/entry/legacy",
+    "file": "index.legacy.html",
+    "boxes": 57,
+    "square": 12,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 154,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a.active",
+        "x": 519,
+        "y": 154,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 154,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 154,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 154,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 154,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 154,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      },
+      {
+        "el": "div.live-strip",
+        "x": 0,
+        "y": 973,
+        "w": 1440,
+        "h": 46,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIVE EXECUTION STATUS VALIDATION LAYER ACTIVE 19"
+      },
+      {
+        "el": "div.comparison-row",
+        "x": 185,
+        "y": 2153,
+        "w": 501,
+        "h": 71,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "CONTROL Responsibility is interpreted after fail"
+      },
+      {
+        "el": "div.comparison-row",
+        "x": 185,
+        "y": 2224,
+        "w": 501,
+        "h": 59,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "TRUTH Truth is reconstructed from reports LATE"
+      },
+      {
+        "el": "div.comparison-row",
+        "x": 754,
+        "y": 2153,
+        "w": 501,
+        "h": 71,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "CONTROL Responsibility is visible before movemen"
+      },
+      {
+        "el": "div.comparison-row",
+        "x": 754,
+        "y": 2224,
+        "w": 501,
+        "h": 71,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "TRUTH Decision state is recorded at execution ti"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 21,
+      "12": 17,
+      "99": 1,
+      "999": 18
+    }
+  },
+  "engine": {
+    "path": "/engine",
+    "file": "engine.html",
+    "boxes": 39,
+    "square": 12,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 44,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 44,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a.active",
+        "x": 599,
+        "y": 44,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 44,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 44,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 44,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 44,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      },
+      {
+        "el": "article.ej-procurement.ej-procurement--problem",
+        "x": 160,
+        "y": 353,
+        "w": 1120,
+        "h": 206,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIVE SCENARIO Critical infrastructure procu"
+      },
+      {
+        "el": "div.ej-question",
+        "x": 160,
+        "y": 583,
+        "w": 512,
+        "h": 105,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIVE QUESTION Is it actually executable? Ap"
+      },
+      {
+        "el": "div.ej-decision.ej-decision--active",
+        "x": 160,
+        "y": 1139,
+        "w": 104,
+        "h": 41,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PROCEED"
+      },
+      {
+        "el": "div.ej-decision.ej-decision--inactive",
+        "x": 274,
+        "y": 1139,
+        "w": 104,
+        "h": 41,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "HOLD"
+      },
+      {
+        "el": "div.ej-decision.ej-decision--inactive",
+        "x": 389,
+        "y": 1139,
+        "w": 104,
+        "h": 41,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "REJECT"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 37,
+      "999": 2
+    }
+  },
+  "docs": {
+    "path": "/docs",
+    "file": "docs.html",
+    "boxes": 18,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 144,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 144,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 144,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 144,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 144,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 144,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 144,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 14,
+      "12": 3,
+      "999": 1
+    }
+  },
+  "pilot": {
+    "path": "/pilot",
+    "file": "pilot.html",
+    "boxes": 16,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 22,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 22,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 22,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a.active",
+        "x": 685,
+        "y": 22,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 22,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 22,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 22,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 14,
+      "999": 2
+    }
+  },
+  "pilot_approved": {
+    "path": "/pilot/approved",
+    "file": "pilot-approved.html",
+    "boxes": 16,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 0,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 0,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a.active",
+        "x": 685,
+        "y": 0,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 0,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 0,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 0,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 14,
+      "999": 2
+    }
+  },
+  "one": {
+    "path": "/one",
+    "file": "one.html",
+    "boxes": 21,
+    "square": 12,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 36,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 36,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 36,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 36,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 36,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a.active",
+        "x": 824,
+        "y": 36,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 36,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      },
+      {
+        "el": "div.ej-workspace.ej-workspace--flow",
+        "x": 160,
+        "y": 250,
+        "w": 640,
+        "h": 334,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "MISSION Secure Phase 2 network resilience equipm"
+      },
+      {
+        "el": "div.ej-workspace-row",
+        "x": 161,
+        "y": 251,
+        "w": 638,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "MISSION Secure Phase 2 network resilience equipm"
+      },
+      {
+        "el": "div.ej-workspace-row",
+        "x": 161,
+        "y": 318,
+        "w": 638,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "DECISION PROCEED — all validation gates satisfie"
+      },
+      {
+        "el": "div.ej-workspace-row",
+        "x": 161,
+        "y": 385,
+        "w": 638,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTION Purchase order release authorized unde"
+      },
+      {
+        "el": "div.ej-workspace-row",
+        "x": 161,
+        "y": 452,
+        "w": 638,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EVIDENCE Budget certificate, authority confirmat"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 19,
+      "999": 2
+    }
+  },
+  "proof": {
+    "path": "/proof",
+    "file": "proof.html",
+    "boxes": 21,
+    "square": 12,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 19,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a.active",
+        "x": 519,
+        "y": 19,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 19,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 19,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 19,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 19,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 19,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      },
+      {
+        "el": "div.ej-proof-panel",
+        "x": 160,
+        "y": 277,
+        "w": 640,
+        "h": 251,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "MISSION ID MSN-INFRA-2026-0047 DECISION PROCEED "
+      },
+      {
+        "el": "div.ej-proof-row",
+        "x": 161,
+        "y": 278,
+        "w": 638,
+        "h": 50,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "MISSION ID MSN-INFRA-2026-0047"
+      },
+      {
+        "el": "div.ej-proof-row",
+        "x": 161,
+        "y": 328,
+        "w": 638,
+        "h": 50,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "DECISION PROCEED"
+      },
+      {
+        "el": "div.ej-proof-row",
+        "x": 161,
+        "y": 378,
+        "w": 638,
+        "h": 50,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EVIDENCE Budget certificate · Authority confirma"
+      },
+      {
+        "el": "div.ej-proof-row",
+        "x": 161,
+        "y": 428,
+        "w": 638,
+        "h": 50,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "TIMESTAMP 15 Jul 2026, 06:42 UTC"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 19,
+      "999": 2
+    }
+  },
+  "support": {
+    "path": "/support",
+    "file": "support.html",
+    "boxes": 17,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 0,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 0,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 0,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 0,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 0,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 0,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 14,
+      "999": 3
+    }
+  },
+  "request": {
+    "path": "/request",
+    "file": "request.html",
+    "boxes": 30,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 174,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 174,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 174,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a.active",
+        "x": 685,
+        "y": 174,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 174,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 174,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 174,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 15,
+      "12": 10,
+      "999": 5
+    }
+  },
+  "contact": {
+    "path": "/contact",
+    "file": "contact.html",
+    "boxes": 6,
+    "square": 2,
+    "squares": [
+      {
+        "el": "header.legal-header",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 61,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® Back to EXECUTIA"
+      },
+      {
+        "el": "footer.site-footer.legal-footer",
+        "x": 0,
+        "y": 838,
+        "w": 1440,
+        "h": 62,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "© 2026 EXECUTIA AS · Org. no. 838 230 962 Privac"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 4,
+      "999": 2
+    }
+  },
+  "privacy": {
+    "path": "/privacy",
+    "file": "privacy.html",
+    "boxes": 5,
+    "square": 3,
+    "squares": [
+      {
+        "el": "header.legal-header",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 61,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® Back to EXECUTIA"
+      },
+      {
+        "el": "div.legal-company",
+        "x": 384,
+        "y": 6771,
+        "w": 672,
+        "h": 186,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA AS Org. no. 838 230 962 Lerkeveien 6B 4"
+      },
+      {
+        "el": "footer.site-footer.legal-footer",
+        "x": 0,
+        "y": 7033,
+        "w": 1440,
+        "h": 62,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "© 2026 EXECUTIA AS · Org. no. 838 230 962 Privac"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 5
+    }
+  },
+  "terms": {
+    "path": "/terms",
+    "file": "terms.html",
+    "boxes": 5,
+    "square": 3,
+    "squares": [
+      {
+        "el": "header.legal-header",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 61,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® Back to EXECUTIA"
+      },
+      {
+        "el": "div.legal-company",
+        "x": 384,
+        "y": 4939,
+        "w": 672,
+        "h": 103,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA AS Org. no. 838 230 962 Lerkeveien 6B ·"
+      },
+      {
+        "el": "footer.site-footer.legal-footer",
+        "x": 0,
+        "y": 5118,
+        "w": 1440,
+        "h": 62,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "© 2026 EXECUTIA AS · Org. no. 838 230 962 Privac"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 5
+    }
+  },
+  "cookies": {
+    "path": "/cookies",
+    "file": "cookies.html",
+    "boxes": 4,
+    "square": 2,
+    "squares": [
+      {
+        "el": "header.legal-header",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 61,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® Back to EXECUTIA"
+      },
+      {
+        "el": "footer.site-footer.legal-footer",
+        "x": 0,
+        "y": 2114,
+        "w": 1440,
+        "h": 62,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "© 2026 EXECUTIA AS · Org. no. 838 230 962 Privac"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 4
+    }
+  },
+  "gdpr": {
+    "path": "/gdpr",
+    "file": "gdpr.html",
+    "boxes": 4,
+    "square": 2,
+    "squares": [
+      {
+        "el": "header.legal-header",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 61,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® Back to EXECUTIA"
+      },
+      {
+        "el": "footer.site-footer.legal-footer",
+        "x": 0,
+        "y": 1933,
+        "w": 1440,
+        "h": 62,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "© 2026 EXECUTIA AS · Org. no. 838 230 962 Privac"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 4
+    }
+  },
+  "life-proof": {
+    "path": "/life-proof",
+    "file": "proofs/life-proof/index.html",
+    "boxes": 5,
+    "square": 2,
+    "squares": [
+      {
+        "el": "header.lp-top",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 57,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE Proof v0.1"
+      },
+      {
+        "el": "div.lp-meta",
+        "x": 432,
+        "y": 271,
+        "w": 576,
+        "h": 101,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "Merchant City Fuel Station Amount €68.40 When Ju"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 4,
+      "8": 1
+    }
+  },
+  "invoice-proof": {
+    "path": "/invoice-proof",
+    "file": "proofs/invoice-proof/index.html",
+    "boxes": 6,
+    "square": 2,
+    "squares": [
+      {
+        "el": "header.lp-top",
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 57,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE Invoice Proof v0.1"
+      },
+      {
+        "el": "div.lp-meta",
+        "x": 453,
+        "y": 410,
+        "w": 534,
+        "h": 97,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "Issued 8 Aug 2026 Due 22 Aug 2026 VAT €413.33 in"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 4,
+      "8": 1,
+      "12": 1
+    }
+  },
+  "standard": {
+    "path": "/standard",
+    "file": "standard.html",
+    "boxes": 28,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 280,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 280,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 280,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 280,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 280,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 280,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a.active",
+        "x": 886,
+        "y": 280,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 15,
+      "12": 9,
+      "999": 4
+    }
+  },
+  "definition": {
+    "path": "/definition",
+    "file": "definition.html",
+    "boxes": 17,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 109,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 109,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 109,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 109,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 109,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 109,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 109,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 13,
+      "12": 1,
+      "999": 3
+    }
+  },
+  "global": {
+    "path": "/global",
+    "file": "global.html",
+    "boxes": 32,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 113,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 113,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 113,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 113,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 113,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 113,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 113,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 17,
+      "12": 7,
+      "999": 8
+    }
+  },
+  "institutional": {
+    "path": "/institutional",
+    "file": "institutional.html",
+    "boxes": 32,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 117,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 117,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 117,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 117,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 117,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 117,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 117,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 17,
+      "12": 7,
+      "999": 8
+    }
+  },
+  "analysis_html": {
+    "path": "/analysis.html",
+    "file": "analysis.html",
+    "boxes": 220,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 1307,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 1307,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 1307,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 1307,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 1307,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 1307,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 1307,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 28,
+      "12": 131,
+      "999": 61
+    }
+  },
+  "execution_html": {
+    "path": "/execution.html",
+    "file": "execution.html",
+    "boxes": 34,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 414,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 414,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 414,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 414,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 414,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 414,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 414,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 15,
+      "12": 14,
+      "999": 5
+    }
+  },
+  "pilot-mode_html": {
+    "path": "/pilot-mode.html",
+    "file": "pilot-mode.html",
+    "boxes": 26,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 53,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 53,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 53,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a.active",
+        "x": 685,
+        "y": 53,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 53,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 53,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 53,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 15,
+      "12": 8,
+      "999": 3
+    }
+  },
+  "proposal_html": {
+    "path": "/proposal.html",
+    "file": "proposal.html",
+    "boxes": 38,
+    "square": 7,
+    "squares": [
+      {
+        "el": "header.site-header",
+        "x": 0,
+        "y": 862,
+        "w": 1440,
+        "h": 67,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "EXECUTIA® ENTRY ENGINE PILOT LIFE ONE GOV Reques"
+      },
+      {
+        "el": "a",
+        "x": 519,
+        "y": 862,
+        "w": 47,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENTRY"
+      },
+      {
+        "el": "a",
+        "x": 599,
+        "y": 862,
+        "w": 52,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ENGINE"
+      },
+      {
+        "el": "a",
+        "x": 685,
+        "y": 862,
+        "w": 41,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "PILOT"
+      },
+      {
+        "el": "a",
+        "x": 760,
+        "y": 862,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "LIFE"
+      },
+      {
+        "el": "a",
+        "x": 824,
+        "y": 862,
+        "w": 29,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "ONE"
+      },
+      {
+        "el": "a",
+        "x": 886,
+        "y": 862,
+        "w": 30,
+        "h": 66,
+        "radiusMin": 0,
+        "radiusMax": 0,
+        "radii": {
+          "tl": 0,
+          "tr": 0,
+          "br": 0,
+          "bl": 0
+        },
+        "exception": false,
+        "square": true,
+        "text": "GOV"
+      }
+    ],
+    "radiusHistogram": {
+      "0": 17,
+      "12": 11,
+      "999": 10
+    }
+  }
+}

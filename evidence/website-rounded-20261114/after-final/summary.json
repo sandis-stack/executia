@@ -1,0 +1,82 @@
+{
+  "label": "after-final",
+  "base": "http://127.0.0.1:4350",
+  "widths": [
+    390,
+    1440
+  ],
+  "pages": 25,
+  "byWidth": {
+    "390": {
+      "square": 0,
+      "pages": 25
+    },
+    "1440": {
+      "square": 0,
+      "pages": 25
+    }
+  },
+  "squareTotal": 0,
+  "homeTokens": {
+    "390": {
+      "cssVars": {
+        "radius": "12px",
+        "radiusCard": "12px",
+        "radiusControl": "12px",
+        "radiusPill": "999px"
+      },
+      "samples": [
+        {
+          "sel": ".menu-toggle",
+          "radius": "12px",
+          "border": "1px solid rgb(213, 224, 236)"
+        },
+        {
+          "sel": ".pill-btn",
+          "radius": "999px",
+          "border": "1px solid rgba(213, 224, 236, 0.86)"
+        },
+        {
+          "sel": ".input",
+          "radius": "12px",
+          "border": "1px solid rgb(213, 224, 236)"
+        },
+        {
+          "sel": "header .brand",
+          "radius": "0px",
+          "border": "0px none rgb(15, 45, 74)"
+        }
+      ]
+    },
+    "1440": {
+      "cssVars": {
+        "radius": "12px",
+        "radiusCard": "12px",
+        "radiusControl": "12px",
+        "radiusPill": "999px"
+      },
+      "samples": [
+        {
+          "sel": ".menu-toggle",
+          "radius": "12px",
+          "border": "1px solid rgb(213, 224, 236)"
+        },
+        {
+          "sel": ".pill-btn",
+          "radius": "999px",
+          "border": "1px solid rgba(213, 224, 236, 0.86)"
+        },
+        {
+          "sel": ".input",
+          "radius": "12px",
+          "border": "1px solid rgb(213, 224, 236)"
+        },
+        {
+          "sel": "header .brand",
+          "radius": "0px",
+          "border": "0px none rgb(15, 45, 74)"
+        }
+      ]
+    }
+  }
+}
