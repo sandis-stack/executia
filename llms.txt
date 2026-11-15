@@ -1,5 +1,16 @@
 # EXECUTIA®
 
+## Company
+
+EXECUTIA AS
+Org. no. 838 230 962
+Lerkeveien 6B, 4314 Sandnes, Norway
+contact@executia.io
+Founder: Sandis Boiko
+About: https://executia.io/about
+
+EXECUTIA validates execution before it happens.
+
 EXECUTIA is an execution control standard for execution-time truth.
 
 It validates intended actions before execution, blocks invalid execution, and records decisions in an execution registry, ledger and audit trail.
