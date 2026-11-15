@@ -46,21 +46,10 @@
       <p>EXECUTIA was founded by Sandis Boiko. <a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
     </section>
 
-    <!-- B-case gated: only mounted when ?founder_case=1 (preview). Off in production default. -->
-    <div id="about-founder-case" hidden></div>
-    <template id="about-founder-case-template">
-      <section class="legal-section" aria-labelledby="founder-case">
-        <h2 id="founder-case">Tested on a real business first</h2>
-        <p>Before offering EXECUTIA to anyone else, we run it on a real business: the founder's own Norwegian sole proprietorship. Not a demo dataset — real bank transactions, real receipts, real bookkeeping in Fiken, real deadlines from the Norwegian Tax Administration.</p>
-        <p>Through EXECUTIA LIFE, this business's VAT return (mva-melding) was validated before submission and submitted via Fiken, based on its actual transactions and receipts.</p>
-        <p>This is where we start: one business, real obligations, real consequences. Organisations are next — through a structured pilot. <a href="/request">Request Pilot →</a></p>
-      </section>
-    </template>
-
     <section class="legal-section" aria-labelledby="live-today">
       <h2 id="live-today">What is live today</h2>
       <ul>
-        <li>EXECUTIA LIFE — available now at <a href="https://life.executia.io">life.executia.io</a></li>
+        <li>EXECUTIA LIFE — live at <a href="https://life.executia.io">life.executia.io</a> (private beta)</li>
         <li>EXECUTIA ONE — enterprise execution, in development</li>
         <li>EXECUTIA Engine and the Execution Integrity Model® reference specification (EIM-1.0)</li>
       </ul>
@@ -69,18 +58,6 @@
 
   <footer class="site-footer legal-footer" role="contentinfo" data-footer-ssr="true"><div class="legal-footer-inner"><p class="legal-footer-copy">© 2026 EXECUTIA AS · Org. no. 838 230 962</p><p class="legal-footer-copy">Lerkeveien 6B, 4314 Sandnes, Norway</p><p class="legal-footer-copy"><a href="mailto:contact@executia.io">contact@executia.io</a></p><nav class="legal-footer-nav" aria-label="Legal"><a href="/privacy">Privacy</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/terms">Terms</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/cookies">Cookies</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/gdpr">Data Protection</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/contact">Contact</a><span class="legal-footer-sep" aria-hidden="true">·</span><a href="/about">About</a></nav></div></footer>
 </div>
-<script>
-  // TASK-37 Part B gate: founder case stays off unless explicitly previewed.
-  (function () {
-    var on = new URLSearchParams(window.location.search).get('founder_case') === '1';
-    if (!on) return;
-    var host = document.getElementById('about-founder-case');
-    var tpl = document.getElementById('about-founder-case-template');
-    if (!host || !tpl) return;
-    host.appendChild(tpl.content.cloneNode(true));
-    host.hidden = false;
-  })();
-</script>
 <script src="/assets/platform-brand.js"></script>
 </body>
 </html>

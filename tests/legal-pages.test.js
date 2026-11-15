@@ -131,3 +131,22 @@ test('sitemap lists privacy and terms production URLs', () => {
   assert.match(sitemap, /https:\/\/executia.io\/privacy/);
   assert.match(sitemap, /https:\/\/executia.io\/terms/);
 });
+
+test('about.html has no Part B founder-case text and states private beta', () => {
+  const about = readFileSync(join(root, 'about.html'), 'utf8');
+  assert.doesNotMatch(about, /mva-melding/);
+  assert.doesNotMatch(about, /Fiken/);
+  assert.doesNotMatch(about, /sole proprietorship/);
+  assert.doesNotMatch(about, /founder_case|about-founder-case/);
+  assert.match(
+    about,
+    /EXECUTIA LIFE — live at <a href="https:\/\/life\.executia\.io">life\.executia\.io<\/a> \(private beta\)/,
+  );
+  assert.doesNotMatch(about, /available now at/);
+  const vercelIgnore = readFileSync(join(root, '.vercelignore'), 'utf8');
+  assert.match(vercelIgnore, /^drafts\/$/m);
+  assert.ok(
+    readFileSync(join(root, 'drafts/about-founder-case.html'), 'utf8').includes('mva-melding'),
+    'draft keeps founder case for later',
+  );
+});
