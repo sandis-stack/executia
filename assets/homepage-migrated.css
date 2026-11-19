@@ -314,6 +314,15 @@
   background: radial-gradient(circle at 50% 38%, rgba(186, 230, 253, 0.2) 0%, transparent 68%);
   pointer-events: none;
 }
+/* BACKLOG-366 — keep decorative glow inside the phone viewport (no horizontal bleed). */
+@media (max-width: 639px) {
+  .hp-monitor-wrap {
+    overflow: hidden;
+  }
+  .hp-monitor-glow {
+    inset: 0;
+  }
+}
 .hp-monitor-panel {
   position: relative;
   width: 100%;
