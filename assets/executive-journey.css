@@ -107,7 +107,9 @@
   color: #475569;
 }
 
-.ej-scenario-disclaimer {
+/* Bugbot/#366 — beat .ej-question-note margin when both classes are on the same node. */
+.ej-scenario-disclaimer,
+.ej-question-note.ej-scenario-disclaimer {
   margin: 1.75rem 0 0;
 }
 
