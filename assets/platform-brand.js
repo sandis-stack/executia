@@ -44,10 +44,9 @@
       '<div class="entry-footer-inner">' +
       '<svg class="entry-footer-mark" viewBox="3 4 56 56" aria-hidden="true" focusable="false"><circle cx="10" cy="32" r="4" fill="#008C9C"/><path fill="currentColor" d="M24 8h32v8H32v12h20v8H32v12h24v8H24V36h-6v-8h6z"/></svg>' +
       '<p class="entry-footer-brand">EXECUTIA<span class="brand-tm">\u00ae</span></p>' +
-      '<p class="entry-footer-standard">Execution Integrity Standard</p>' +
+      '<p class="entry-footer-standard">EXECUTIA validates execution before it happens.</p>' +
       '<hr class="entry-footer-rule" />' +
       '<p class="entry-footer-model">Built around the Execution Integrity Model\u00ae.</p>' +
-      '<p class="entry-footer-ip">Patent pending.</p>' +
       '<hr class="entry-footer-rule" />' +
       '<nav class="entry-footer-nav entry-footer-nav--legal" aria-label="Legal and contact">' +
       '<a href="/privacy">Privacy</a>' +
@@ -56,7 +55,7 @@
       '<a href="/gdpr">Data Protection</a>' +
       '<a href="/contact">Contact</a>' +
       '<a href="/about">About</a>' +
-      '<a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener noreferrer">LinkedIn</a>' +
+      '<a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener noreferrer">Sandis Boiko \u00b7 LinkedIn</a>' +
       '</nav>' +
       '<hr class="entry-footer-rule" />' +
       COMPANY_LINES +

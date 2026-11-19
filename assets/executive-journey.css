@@ -107,6 +107,14 @@
   color: #475569;
 }
 
+.ej-scenario-disclaimer {
+  margin: 1.75rem 0 0;
+}
+
+.ej-scenario-disclaimer + .ej-procurement {
+  margin-top: 0.75rem;
+}
+
 .ej-procurement {
   margin-top: 2rem;
   padding: 1.25rem 1.35rem;
