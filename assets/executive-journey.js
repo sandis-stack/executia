@@ -73,6 +73,7 @@
 
   function renderProcurementCard(extraClass) {
     return (
+      '<p class="ej-question-note ej-scenario-disclaimer">Illustrative example. Not a customer case.</p>' +
       '<article class="ej-procurement' +
       (extraClass ? ' ' + extraClass : '') +
       '">' +

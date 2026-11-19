@@ -24,6 +24,7 @@ const ENGINE_CONTENT = `
     <span class="kicker">ENGINE — VALIDATION</span>
     <h1 id="ej-engine-heading">A procurement appears compliant.</h1>
     <p class="lead">A €250,000 critical infrastructure procurement reaches the executive desk with complete documentation. The question is not whether it looks correct — it is whether it can actually be executed.</p>
+    <p class="ej-question-note ej-scenario-disclaimer">Illustrative example. Not a customer case.</p>
     <article class="ej-procurement ej-procurement--problem">
       <p class="ej-procurement-kicker">Executive scenario</p>
       <h2 class="ej-procurement-title">Critical infrastructure procurement</h2>
