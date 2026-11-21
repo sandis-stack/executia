@@ -125,3 +125,20 @@
   color: #60758b;
   font-size: 0.95rem;
 }
+
+.pf-film-frame {
+  padding: 0;
+  overflow: hidden;
+}
+
+.pf-film-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #0b1520;
+}
+
+.pf-film[hidden] {
+  display: none !important;
+}
