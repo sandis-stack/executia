@@ -215,7 +215,8 @@ function initCalculator(root) {
         delayAmt.textContent = `${moneyDisplay(result.display.delays, currency)} · ${result.breakdown.delaysPct}%`;
       } else {
         delayAmt.classList.add('is-unknown');
-        delayAmt.textContent = 'Not known — enter both to include delays';
+        // BACKLOG-564 V5
+        delayAmt.textContent = 'Not known yet — enter both delay fields to include delays';
       }
     }
     if (formulas) {

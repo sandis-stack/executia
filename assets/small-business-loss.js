@@ -131,7 +131,7 @@ export function calculateSmallBusinessLoss(input) {
       duplicateWork: `${people} × ${hoursPerWeek} h/week × ${hourlyCost} × ${SMALL_BUSINESS_WEEKS} weeks = ${duplicateWork}`,
       delays: delaysKnown
         ? `${stuckPerMonth} stuck/month × 12 × ${delayWeekCost} = ${delays}`
-        : 'Not known — enter both to include delays',
+        : 'Not known yet — enter both delay fields to include delays',
       shares: delaysKnown
         ? `Share of total (exact): duplicate ${duplicateWorkPctExact.toFixed(1)}% / delays ${delaysPctExact.toFixed(1)}% (bars show whole %)`
         : `Share of total (exact): duplicate ${duplicateWorkPctExact.toFixed(1)}% (delays not included yet)`,
