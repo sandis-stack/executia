@@ -274,10 +274,9 @@ function initCalculator(root) {
       cta.classList.remove('is-disabled');
       cta.setAttribute('aria-disabled', 'false');
     }
-    if (ctaHint) {
-      ctaHint.innerHTML =
-        '<strong>Want to see where it’s coming from?</strong> Send us one decision. We’ll map where it got stuck and what it costs. Free, in writing.';
-    }
+    // TASK-47 / #555 — CTA title+copy live above the button in HTML; hint is status only.
+    if (ctaHint) ctaHint.textContent = '';
+    updateHoursLive();
     persistExecutionValue({
       mode: 'small',
       currency,
@@ -386,14 +385,19 @@ function initCalculator(root) {
       cta.classList.remove('is-disabled');
       cta.setAttribute('aria-disabled', 'false');
     }
-    if (ctaHint) {
-      ctaHint.innerHTML =
-        '<strong>Want to see where it’s coming from?</strong> Send us one decision. We’ll map where it got stuck and what it costs. Free, in writing.';
-    }
+    if (ctaHint) ctaHint.textContent = '';
     persistExecutionValue({ mode: 'org', currency, inputs: calculated.inputs, results: calculated });
     notifyFunnelUpdate();
     applyEngineHandoff();
     applyPilotHandoff();
+  }
+
+  function updateHoursLive() {
+    const hours = smallForm?.elements?.namedItem('hoursPerWeek');
+    const live = root.querySelector('#ev-hours-value');
+    if (!hours || !live) return;
+    const n = Number(hours.value);
+    live.textContent = `${Number.isFinite(n) ? n : 0} h`;
   }
 
   // Headcount band control
@@ -419,8 +423,13 @@ function initCalculator(root) {
     }
   });
 
-  smallForm?.addEventListener('input', debounce(renderSmall, 80));
+  const renderSmallDebounced = debounce(renderSmall, 80);
+  smallForm?.addEventListener('input', (event) => {
+    if (event.target && event.target.name === 'hoursPerWeek') updateHoursLive();
+    renderSmallDebounced();
+  });
   smallForm?.addEventListener('change', renderSmall);
+  updateHoursLive();
   orgForm?.addEventListener('input', debounce(recomputeOrg, 120));
   orgForm?.addEventListener('change', recomputeOrg);
 

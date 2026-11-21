@@ -508,7 +508,10 @@
                     </div>
                     <div class="evc-field evc-field-full">
                       <label for="ev-hours">Hours per person per week spent retyping, chasing status, and double-checking</label>
-                      <input class="input" id="ev-hours" name="hoursPerWeek" type="range" min="0" max="15" step="1" value="4">
+                      <div class="evc-hours-row">
+                        <input class="input" id="ev-hours" name="hoursPerWeek" type="range" min="0" max="15" step="1" value="4">
+                        <span class="evc-hours-live" id="ev-hours-value" aria-live="polite">4 h</span>
+                      </div>
                       <p class="evc-field-hint">0–15 hours. Default 4.</p>
                     </div>
                     <div class="evc-field">
@@ -567,19 +570,19 @@
 
             <div class="evc-panel">
               <div id="ev-small-results" class="evc-small-results" aria-live="polite">
-                <p class="evc-small-kicker">Estimated loss per year</p>
+                <p class="evc-small-kicker">Estimated Loss Per Year</p>
                 <p class="evc-small-big" data-small="annualLoss">—</p>
                 <p class="evc-small-hours" data-small="hoursLine"></p>
                 <div class="evc-breakdown">
                   <div class="evc-breakdown-row">
-                    <span>Duplicate work and checking</span>
+                    <span class="evc-breakdown-label">Duplicate work and checking</span>
                     <div class="evc-chart-bar"><div class="evc-chart-fill loss" data-bar="duplicate" style="width:0"></div></div>
-                    <span data-small="duplicateAmt">—</span>
+                    <span class="evc-breakdown-amt" data-small="duplicateAmt">—</span>
                   </div>
                   <div class="evc-breakdown-row">
-                    <span>Delays</span>
+                    <span class="evc-breakdown-label">Delays</span>
                     <div class="evc-chart-bar"><div class="evc-chart-fill recovered" data-bar="delays" style="width:0"></div></div>
-                    <span data-small="delaysAmt">—</span>
+                    <span class="evc-breakdown-amt" data-small="delaysAmt">—</span>
                   </div>
                 </div>
                 <details class="evc-how">
@@ -632,10 +635,14 @@
                 </div>
               </div>
 
-              <div class="evc-actions">
-                <a class="pill-btn primary evc-cta-primary" id="ev-cta-assessment" href="/request" aria-disabled="false">Send one decision</a>
+              <div class="evc-cta-block">
+                <p class="evc-cta-title">Want to see where it’s coming from?</p>
+                <p class="evc-cta-copy">Send us one decision. We’ll map where it got stuck and what it costs. Free, in writing.</p>
+                <div class="evc-actions">
+                  <a class="pill-btn primary evc-cta-primary" id="ev-cta-assessment" href="/request" aria-disabled="false">Send one decision</a>
+                </div>
+                <p id="ev-cta-assessment-hint" class="evc-cta-hint" role="status"></p>
               </div>
-              <p id="ev-cta-assessment-hint" class="evc-cta-hint" role="status"></p>
               <p id="ev-calculator-live" class="evc-live" hidden></p>
             </div>
           </div>
