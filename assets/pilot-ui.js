@@ -130,24 +130,39 @@ function renderJourney(root, ctx) {
   const rail = root.querySelector('#pi-journey');
   if (!rail) return;
 
-  rail.innerHTML = JOURNEY_STEPS.map((step, index) => {
-    const detail = journeyDetail(ctx, step.id);
-    const kind = journeyKind(ctx, step.id);
-    const active = journeyActive(ctx, step.id);
-    const arrow = index < JOURNEY_STEPS.length - 1
-      ? '<div class="pi-flow-arrow" aria-hidden="true">↓</div>'
-      : '';
+  // Security (#586): session/form strings (organization, domain, plan text) via textContent only.
+  while (rail.firstChild) rail.removeChild(rail.firstChild);
 
-    return `
-      <div class="pi-flow-step${active ? ' pi-flow-step--active' : ''}">
-        <div class="pi-flow-step-head">
-          <span class="pi-flow-step-label">${step.label}</span>
-        </div>
-        <p class="pi-flow-step-value">${detail}</p>
-      </div>
-      ${arrow}
-    `;
-  }).join('');
+  JOURNEY_STEPS.forEach((step, index) => {
+    const detail = journeyDetail(ctx, step.id);
+    const active = journeyActive(ctx, step.id);
+
+    const stepEl = document.createElement('div');
+    stepEl.className = active ? 'pi-flow-step pi-flow-step--active' : 'pi-flow-step';
+
+    const head = document.createElement('div');
+    head.className = 'pi-flow-step-head';
+    const label = document.createElement('span');
+    label.className = 'pi-flow-step-label';
+    label.textContent = step.label;
+    head.appendChild(label);
+
+    const value = document.createElement('p');
+    value.className = 'pi-flow-step-value';
+    value.textContent = detail;
+
+    stepEl.appendChild(head);
+    stepEl.appendChild(value);
+    rail.appendChild(stepEl);
+
+    if (index < JOURNEY_STEPS.length - 1) {
+      const arrow = document.createElement('div');
+      arrow.className = 'pi-flow-arrow';
+      arrow.setAttribute('aria-hidden', 'true');
+      arrow.textContent = '↓';
+      rail.appendChild(arrow);
+    }
+  });
 }
 
 function buildDeliverables(ctx) {
@@ -205,14 +220,26 @@ function renderDeliverables(root, ctx) {
   const list = root.querySelector('#pi-deliverable-list');
   if (!list) return;
 
-  list.innerHTML = buildDeliverables(ctx).map((item) => `
-    <li class="pi-deliverable">
-      <div class="pi-deliverable-head">
-        <h4>${item.title}</h4>
-      </div>
-      <p>${item.body}</p>
-    </li>
-  `).join('');
+  // Security (#586): deliverable body may include organization / gap free-text → textContent.
+  while (list.firstChild) list.removeChild(list.firstChild);
+
+  buildDeliverables(ctx).forEach((item) => {
+    const li = document.createElement('li');
+    li.className = 'pi-deliverable';
+
+    const head = document.createElement('div');
+    head.className = 'pi-deliverable-head';
+    const title = document.createElement('h4');
+    title.textContent = item.title;
+    head.appendChild(title);
+
+    const body = document.createElement('p');
+    body.textContent = item.body;
+
+    li.appendChild(head);
+    li.appendChild(body);
+    list.appendChild(li);
+  });
 }
 
 function updateCta(root, ctx) {
@@ -244,5 +271,15 @@ function refreshPilotSection() {
   applyPilotHandoff(ctx);
 }
 
-refreshPilotSection();
-document.addEventListener('executia:funnel-update', refreshPilotSection);
+if (typeof document !== 'undefined') {
+  refreshPilotSection();
+  document.addEventListener('executia:funnel-update', refreshPilotSection);
+}
+
+export {
+  renderJourney,
+  renderDeliverables,
+  buildDeliverables,
+  journeyDetail,
+  refreshPilotSection,
+};
