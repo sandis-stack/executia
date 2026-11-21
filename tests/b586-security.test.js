@@ -158,13 +158,8 @@ test('pilot-ui.js: no template innerHTML assignment left for journey/deliverable
 });
 
 test('audit file lists every named sink as fixed or static-only', () => {
-  const audit = readFileSync(
-    join(
-      '/Users/sandis/EXECUTIA/00_COMMAND/BRIDGE/scratch/b586-evidence',
-      'innerhtml-audit.md',
-    ),
-    'utf8',
-  );
+  // #591: audit must live in-repo; never read absolute BRIDGE paths.
+  const audit = read('docs/security/innerhtml-audit.md');
   for (const name of [
     'pilot-ui.js',
     'organization-assessment.js',
