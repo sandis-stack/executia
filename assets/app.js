@@ -127,15 +127,16 @@
     req.addEventListener('submit',async e=>{
       e.preventDefault();
       const msg=document.getElementById('form-message');
-      msg.textContent='Submitting execution request...'; msg.className='form-msg';
+      msg.textContent='Sending…'; msg.className='form-msg';
       const payload=Object.fromEntries(new FormData(req));
       try{
         const res=await fetch('/api/request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
         const json=await res.json().catch(()=>({}));
         if(!res.ok||json.ok===false) throw new Error(json.error||'REQUEST_FAILED');
-        msg.textContent='Request registered. Confirmation email sent. EXECUTIA operator copy sent.'; msg.className='form-msg success'; req.reset();
+        // BACKLOG-570 — success only when API ok (email sent).
+        msg.textContent='Request received. We will reply in writing within 48 hours.'; msg.className='form-msg success'; req.reset();
       }catch(err){
-        msg.textContent='Request not confirmed. Use contact@executia.io or check Vercel email environment variables.'; msg.className='form-msg error';
+        msg.textContent='Could not send the request. Email contact@executia.io and we will help.'; msg.className='form-msg error';
       }
     });
   }
