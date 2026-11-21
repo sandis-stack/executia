@@ -265,9 +265,86 @@ export function loadExecutionValue() {
 }
 
 export function formatCurrency(value, currency = 'USD') {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
-    maximumFractionDigits: 0,
-  }).format(value);
+  const locales = {
+    NOK: 'nb-NO',
+    SEK: 'sv-SE',
+    DKK: 'da-DK',
+    EUR: 'de-DE',
+    GBP: 'en-GB',
+    USD: 'en-US',
+    AED: 'en-AE',
+  };
+  const locale = locales[currency] || 'en-US';
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 0,
+    }).format(value);
+  } catch {
+    return `${currency} ${Math.round(Number(value) || 0).toLocaleString('en-US')}`;
+  }
+}
+
+/** Soft bounds for organization mode — never silent. */
+export const ORG_FIELD_GUIDANCE = {
+  annualRevenue: {
+    min: 1_000_000,
+    message: 'This model starts at about 1 million in annual revenue. Try the Small business version for smaller numbers.',
+  },
+  employees: {
+    min: 10,
+    message: 'This model is built for 10+ people. Try the Small business version for smaller teams.',
+  },
+  averageProjectValue: {
+    min: 10_000,
+    message: 'Average project value is below this model’s range. Switch to Small business, or raise the value.',
+  },
+};
+
+/**
+ * Validate organization inputs without clamping. Returns field messages for UI.
+ * @returns {{ ok: boolean, messages: Record<string, string>, suggestSmall: boolean }}
+ */
+export function validateOrganizationInputs(raw = {}) {
+  const messages = {};
+  let suggestSmall = false;
+
+  if (!raw.industry) messages.industry = 'Choose an industry.';
+
+  const revenue = Number(raw.annualRevenue);
+  if (raw.annualRevenue === '' || !Number.isFinite(revenue) || revenue <= 0) {
+    messages.annualRevenue = 'Enter annual revenue.';
+  } else if (revenue < ORG_FIELD_GUIDANCE.annualRevenue.min) {
+    messages.annualRevenue = ORG_FIELD_GUIDANCE.annualRevenue.message;
+    suggestSmall = true;
+  }
+
+  const employees = Number(raw.employees);
+  if (raw.employees === '' || !Number.isFinite(employees) || employees <= 0) {
+    messages.employees = 'Enter how many people work there.';
+  } else if (employees < ORG_FIELD_GUIDANCE.employees.min) {
+    messages.employees = ORG_FIELD_GUIDANCE.employees.message;
+    suggestSmall = true;
+  }
+
+  const countries = Number(raw.countries);
+  if (raw.countries === '' || !Number.isFinite(countries) || countries < 1 || countries > 120) {
+    messages.countries = 'Enter a country count between 1 and 120.';
+  }
+
+  const projects = Number(raw.activeProjects);
+  if (raw.activeProjects === '' || !Number.isFinite(projects) || projects < 1) {
+    messages.activeProjects = 'Enter how many projects are active.';
+  }
+
+  const projectValue = Number(raw.averageProjectValue);
+  if (raw.averageProjectValue === '' || !Number.isFinite(projectValue) || projectValue <= 0) {
+    messages.averageProjectValue = 'Enter average project value.';
+  } else if (projectValue < ORG_FIELD_GUIDANCE.averageProjectValue.min) {
+    messages.averageProjectValue = ORG_FIELD_GUIDANCE.averageProjectValue.message;
+    suggestSmall = true;
+  }
+
+  return { ok: Object.keys(messages).length === 0, messages, suggestSmall };
 }

@@ -117,6 +117,39 @@
       }
     }
     if (context && (ctx.assessment || ctx.calculator)) context.value = buildSummary(ctx);
+
+    // TASK-47 — calculator query params → editable summary
+    try {
+      var params = new URLSearchParams(window.location.search || '');
+      var source = params.get('source');
+      if (source === 'calculator' || source === 'execution-value-calculator') {
+        var mode = params.get('mode') || '';
+        var people = params.get('people');
+        var currency = params.get('currency') || 'USD';
+        var annualLoss = params.get('annualLoss');
+        var hours = params.get('hours');
+        var summary = form.querySelector('#calculator-summary');
+        var meta = form.querySelector('#calculator-meta');
+        var parts = [];
+        if (mode === 'small') {
+          parts.push(people ? people + ' people' : 'small business');
+          if (annualLoss) parts.push('about ' + currency + ' ' + Number(annualLoss).toLocaleString('en-US') + ' a year');
+          if (hours) parts.push(hours + ' hours/year');
+        } else if (mode === 'org') {
+          parts.push('organization estimate');
+          if (annualLoss) parts.push('about ' + currency + ' ' + Number(annualLoss).toLocaleString('en-US') + ' loss/year');
+        }
+        var line = parts.length
+          ? 'From the calculator: ' + parts.join(', ')
+          : 'From the calculator.';
+        if (summary) {
+          summary.hidden = false;
+          summary.innerHTML = '<strong>' + line + '</strong> You can edit the form below.';
+        }
+        if (meta) meta.value = line;
+        if (context && !context.value) context.value = line;
+      }
+    } catch (_e) {}
   }
 
   function wirePilotLinks() {

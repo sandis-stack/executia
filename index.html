@@ -477,89 +477,163 @@
 
           <div id="execution-value-calculator" class="evc-shell">
             <div class="evc-panel">
-              <form id="ev-calculator-form" novalidate>
-                <div class="evc-form-grid">
-                  <div class="evc-field">
-                    <label for="ev-industry">Industry</label>
-                    <select class="input" id="ev-industry" name="industry" required></select>
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-revenue">Annual Revenue (USD)</label>
-                    <input class="input" id="ev-revenue" name="annualRevenue" type="number" min="1000000" step="100000" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-employees">Employees</label>
-                    <input class="input" id="ev-employees" name="employees" type="number" min="10" step="1" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-countries">Countries</label>
-                    <input class="input" id="ev-countries" name="countries" type="number" min="1" max="120" step="1" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-projects">Active Projects</label>
-                    <input class="input" id="ev-projects" name="activeProjects" type="number" min="1" step="1" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-project-value">Average Project Value (USD)</label>
-                    <input class="input" id="ev-project-value" name="averageProjectValue" type="number" min="10000" step="10000" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-ebit">EBIT Margin (%) <span class="optional">Optional</span></label>
-                    <input class="input" id="ev-ebit" name="ebitMargin" type="number" min="-50" max="80" step="0.1" inputmode="decimal" placeholder="e.g. 12">
-                  </div>
-                  <fieldset class="evc-field evc-field-full evc-risks-block">
-                    <legend class="evc-field-legend">Optional Major Risks</legend>
-                    <p class="evc-field-hint">Select all that apply.</p>
-                    <div id="ev-risks" class="evc-risks"></div>
-                  </fieldset>
+              <div class="evc-mode">
+                <p class="evc-mode-label">How many people work in your company?</p>
+                <div id="ev-headcount-band" class="evc-segment" role="group" aria-label="Company size">
+                  <button type="button" class="evc-segment-btn is-active" data-band="1-9" aria-pressed="true">1–9</button>
+                  <button type="button" class="evc-segment-btn" data-band="10-49" aria-pressed="false">10–49</button>
+                  <button type="button" class="evc-segment-btn" data-band="50-249" aria-pressed="false">50–249</button>
+                  <button type="button" class="evc-segment-btn" data-band="250+" aria-pressed="false">250+</button>
                 </div>
-              </form>
-            </div>
-
-            <div class="evc-panel">
-              <div id="ev-calculator-results" class="evc-results" aria-live="polite" aria-relevant="additions text">
-                <div class="evc-metric" data-metric="estimatedExecutionLoss">
-                  <span class="evc-metric-name">Execution Loss</span>
-                  <span class="evc-metric-kind"></span>
-                  <span class="evc-metric-value loss">—</span>
-                </div>
-                <div class="evc-metric" data-metric="recoverableValue">
-                  <span class="evc-metric-name">Recoverable Value</span>
-                  <span class="evc-metric-kind"></span>
-                  <span class="evc-metric-value gain">—</span>
-                </div>
-                <div class="evc-metric" data-metric="enterpriseValueCreated">
-                  <span class="evc-metric-name">Enterprise Value Created</span>
-                  <span class="evc-metric-kind"></span>
-                  <span class="evc-metric-value gain">—</span>
-                </div>
-                <div class="evc-metric" data-metric="executionScore">
-                  <span class="evc-metric-name">Execution Score</span>
-                  <span class="evc-metric-kind"></span>
-                  <span class="evc-metric-value">—</span>
+                <p id="ev-mode-hint" class="evc-mode-hint">Under 50 people, we use a simpler calculation based on time.</p>
+                <div class="evc-currency-row">
+                  <label for="ev-currency">Currency</label>
+                  <select class="input" id="ev-currency" name="currency"></select>
+                  <p id="ev-fx-note" class="evc-field-hint"></p>
                 </div>
               </div>
 
-              <div id="ev-calculator-chart" class="evc-chart" aria-hidden="false">
-                <div class="evc-chart-row">
-                  <span>Execution Loss</span>
-                  <div class="evc-chart-bar"><div class="evc-chart-fill loss" data-bar="loss" style="width:0"></div></div>
-                  <span data-pct="loss">—</span>
+              <div data-mode-panel="small">
+                <form id="ev-small-form" novalidate>
+                  <div class="evc-form-grid">
+                    <div class="evc-field">
+                      <label for="ev-people">People</label>
+                      <input class="input" id="ev-people" name="people" type="number" min="1" step="1" required inputmode="numeric">
+                      <p class="evc-field-hint">Estimate. Change it to your own.</p>
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-hourly">Average cost per hour per person</label>
+                      <input class="input" id="ev-hourly" name="hourlyCost" type="number" min="0" step="1" required inputmode="numeric">
+                      <p class="evc-field-hint">Estimate. Change it to your own.</p>
+                    </div>
+                    <div class="evc-field evc-field-full">
+                      <label for="ev-hours">Hours per person per week spent retyping, chasing status, and double-checking</label>
+                      <input class="input" id="ev-hours" name="hoursPerWeek" type="range" min="0" max="15" step="1" value="4">
+                      <p class="evc-field-hint">0–15 hours. Default 4.</p>
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-stuck">Decisions or orders per month that get stuck or delayed</label>
+                      <input class="input" id="ev-stuck" name="stuckPerMonth" type="number" min="0" step="1" required inputmode="numeric">
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-delay-cost">What one week of delay usually costs you</label>
+                      <input class="input" id="ev-delay-cost" name="delayWeekCost" type="number" min="0" step="1" required inputmode="numeric">
+                      <p class="evc-field-hint">Estimate. Change it to your own.</p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div data-mode-panel="org" hidden>
+                <form id="ev-calculator-form" novalidate>
+                  <div class="evc-form-grid">
+                    <div class="evc-field">
+                      <label for="ev-industry">Industry</label>
+                      <select class="input" id="ev-industry" name="industry" required></select>
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-revenue">Annual revenue</label>
+                      <input class="input" id="ev-revenue" name="annualRevenue" type="number" min="0" step="100000" required inputmode="numeric">
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-employees">People</label>
+                      <input class="input" id="ev-employees" name="employees" type="number" min="0" step="1" required inputmode="numeric">
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-countries">Countries</label>
+                      <input class="input" id="ev-countries" name="countries" type="number" min="1" max="120" step="1" required inputmode="numeric">
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-projects">Active projects</label>
+                      <input class="input" id="ev-projects" name="activeProjects" type="number" min="1" step="1" required inputmode="numeric">
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-project-value">Average project value</label>
+                      <input class="input" id="ev-project-value" name="averageProjectValue" type="number" min="0" step="10000" required inputmode="numeric">
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-ebit">EBIT margin (%) <span class="optional">Optional</span></label>
+                      <input class="input" id="ev-ebit" name="ebitMargin" type="number" min="-50" max="80" step="0.1" inputmode="decimal" placeholder="e.g. 12">
+                    </div>
+                    <fieldset class="evc-field evc-field-full evc-risks-block">
+                      <legend class="evc-field-legend">Optional major risks</legend>
+                      <p class="evc-field-hint">Select all that apply.</p>
+                      <div id="ev-risks" class="evc-risks"></div>
+                    </fieldset>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="evc-panel">
+              <div id="ev-small-results" class="evc-small-results" aria-live="polite">
+                <p class="evc-small-kicker">Estimated loss per year</p>
+                <p class="evc-small-big" data-small="annualLoss">—</p>
+                <p class="evc-small-hours" data-small="hoursLine"></p>
+                <div class="evc-breakdown">
+                  <div class="evc-breakdown-row">
+                    <span>Duplicate work and checking</span>
+                    <div class="evc-chart-bar"><div class="evc-chart-fill loss" data-bar="duplicate" style="width:0"></div></div>
+                    <span data-small="duplicateAmt">—</span>
+                  </div>
+                  <div class="evc-breakdown-row">
+                    <span>Delays</span>
+                    <div class="evc-chart-bar"><div class="evc-chart-fill recovered" data-bar="delays" style="width:0"></div></div>
+                    <span data-small="delaysAmt">—</span>
+                  </div>
                 </div>
-                <div class="evc-chart-row">
-                  <span>Recovered Value</span>
-                  <div class="evc-chart-bar"><div class="evc-chart-fill recovered" data-bar="recovered" style="width:0"></div></div>
-                  <span data-pct="recovered">—</span>
+                <details class="evc-how">
+                  <summary>How we calculated this</summary>
+                  <div data-small="formulas"></div>
+                </details>
+                <p class="evc-honest">This is an estimate built from your own numbers.</p>
+              </div>
+
+              <div id="ev-org-results-wrap" hidden>
+                <div id="ev-calculator-results" class="evc-results" aria-live="polite" aria-relevant="additions text">
+                  <div class="evc-metric" data-metric="estimatedExecutionLoss">
+                    <span class="evc-metric-name">Execution Loss</span>
+                    <span class="evc-metric-kind"></span>
+                    <span class="evc-metric-value loss">—</span>
+                  </div>
+                  <div class="evc-metric" data-metric="recoverableValue">
+                    <span class="evc-metric-name">Recoverable Value</span>
+                    <span class="evc-metric-kind"></span>
+                    <span class="evc-metric-value gain">—</span>
+                  </div>
+                  <div class="evc-metric" data-metric="enterpriseValueCreated">
+                    <span class="evc-metric-name">Enterprise Value Created</span>
+                    <span class="evc-metric-kind"></span>
+                    <span class="evc-metric-value gain">—</span>
+                  </div>
+                  <div class="evc-metric" data-metric="executionScore">
+                    <span class="evc-metric-name">Execution Score</span>
+                    <span class="evc-metric-kind"></span>
+                    <span class="evc-metric-value">—</span>
+                  </div>
                 </div>
-                <div class="evc-chart-row">
-                  <span>Enterprise Value</span>
-                  <div class="evc-chart-bar"><div class="evc-chart-fill enterprise" data-bar="enterprise" style="width:0"></div></div>
-                  <span data-pct="enterprise">—</span>
+                <p id="ev-score-explain" class="evc-score-explain"></p>
+                <div id="ev-calculator-chart" class="evc-chart" aria-hidden="false">
+                  <div class="evc-chart-row">
+                    <span>Execution Loss</span>
+                    <div class="evc-chart-bar"><div class="evc-chart-fill loss" data-bar="loss" style="width:0"></div></div>
+                    <span data-pct="loss">—</span>
+                  </div>
+                  <div class="evc-chart-row">
+                    <span>Recovered Value</span>
+                    <div class="evc-chart-bar"><div class="evc-chart-fill recovered" data-bar="recovered" style="width:0"></div></div>
+                    <span data-pct="recovered">—</span>
+                  </div>
+                  <div class="evc-chart-row">
+                    <span>Enterprise Value</span>
+                    <div class="evc-chart-bar"><div class="evc-chart-fill enterprise" data-bar="enterprise" style="width:0"></div></div>
+                    <span data-pct="enterprise">—</span>
+                  </div>
                 </div>
               </div>
 
               <div class="evc-actions">
-                <a class="pill-btn primary evc-cta-primary" id="ev-cta-assessment" href="#pilot" aria-disabled="true">See what happens next</a>
+                <a class="pill-btn primary evc-cta-primary" id="ev-cta-assessment" href="/request" aria-disabled="false">Send one decision</a>
               </div>
               <p id="ev-cta-assessment-hint" class="evc-cta-hint" role="status"></p>
               <p id="ev-calculator-live" class="evc-live" hidden></p>

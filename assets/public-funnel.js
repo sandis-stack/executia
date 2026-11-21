@@ -313,7 +313,12 @@ export function prefillRequestForm(form) {
   const ctx = loadPublicFunnelContext();
   const params = new URLSearchParams(location.search);
   const source = params.get('source');
-  if (source !== 'public-funnel' && source !== 'organization-assessment' && source !== 'execution-value-calculator') {
+  if (
+    source !== 'public-funnel' &&
+    source !== 'organization-assessment' &&
+    source !== 'execution-value-calculator' &&
+    source !== 'calculator'
+  ) {
     if (!ctx.assessment?.results?.ok && !ctx.calculator?.results) return;
   }
 
@@ -338,6 +343,32 @@ export function prefillRequestForm(form) {
   }
 
   if (context) context.value = buildFunnelSummary(ctx);
+
+  // TASK-47 calculator query → summary banner
+  if (source === 'calculator' || source === 'execution-value-calculator') {
+    const mode = params.get('mode') || '';
+    const people = params.get('people');
+    const currency = params.get('currency') || 'USD';
+    const annualLoss = params.get('annualLoss');
+    const hours = params.get('hours');
+    const summary = form.querySelector('#calculator-summary');
+    const meta = form.querySelector('#calculator-meta');
+    const parts = [];
+    if (mode === 'small') {
+      if (people) parts.push(`${people} people`);
+      if (annualLoss) parts.push(`about ${currency} ${Number(annualLoss).toLocaleString('en-US')} a year`);
+      if (hours) parts.push(`${hours} hours/year`);
+    } else if (mode === 'org' && annualLoss) {
+      parts.push(`about ${currency} ${Number(annualLoss).toLocaleString('en-US')} loss/year`);
+    }
+    const line = parts.length ? `From the calculator: ${parts.join(', ')}` : 'From the calculator.';
+    if (summary) {
+      summary.hidden = false;
+      summary.innerHTML = `<strong>${line}</strong> You can edit the form below.`;
+    }
+    if (meta) meta.value = line;
+    if (context && !String(context.value || '').trim()) context.value = line;
+  }
 }
 
 export function initPublicFunnelIntegration() {

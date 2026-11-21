@@ -24,6 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
+  <link rel="stylesheet" href="/assets/execution-value-calculator.css">
 </head>
 <body data-page="pilot">
 <div data-platform-header></div>
@@ -38,6 +39,8 @@
   <section class="section soft">
     <div class="wrap form-grid">
       <form id="request-form" class="form-card">
+        <div id="calculator-summary" class="evc-calc-summary" hidden></div>
+        <input type="hidden" id="calculator-meta" name="calculatorMeta" value="">
         <div class="field"><label for="organization">Organization</label><input class="input" id="organization" name="organization" required placeholder="Company, institution or project"></div>
         <div class="field"><label for="operator">Operator</label><input class="input" id="operator" name="operator" required placeholder="Your name"></div>
         <div class="field"><label for="email">Email</label><input class="input" id="email" name="email" type="email" required placeholder="name@organization.com"></div>

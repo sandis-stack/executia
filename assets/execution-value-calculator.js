@@ -5,65 +5,37 @@ import {
   calculateExecutionValue,
   persistExecutionValue,
   formatCurrency,
+  validateOrganizationInputs,
 } from './execution-value-engine.js';
 import { applyEngineHandoff, applyPilotHandoff, notifyFunnelUpdate } from './public-funnel.js';
+import {
+  CURRENCIES,
+  CURRENCY_CODES,
+  FX_AS_OF,
+  formatMoney,
+  loadSessionCurrency,
+  resolveCurrency,
+  saveSessionCurrency,
+} from './calculator-currency.js';
+import {
+  HEADCOUNT_BANDS,
+  bandForId,
+  calculateSmallBusinessLoss,
+} from './small-business-loss.js';
 
-const DEFAULTS = {
-  industry: '',
-  annualRevenue: '',
-  employees: '',
-  countries: '',
-  activeProjects: '',
-  averageProjectValue: '',
-  ebitMargin: '',
-  majorRisks: [],
-};
+const SCORE_EXPLAIN =
+  'Execution Score estimates how much friction sits between decisions and results (higher is healthier). Missing optional fields do not raise the score.';
 
-const REQUIRED_FIELDS = [
-  { key: 'industry', label: 'Industry', test: (raw) => Boolean(raw.industry) },
-  {
-    key: 'annualRevenue',
-    label: 'Annual Revenue',
-    test: (raw) => {
-      const n = Number(raw.annualRevenue);
-      return raw.annualRevenue !== '' && Number.isFinite(n) && n >= 1_000_000;
-    },
-  },
-  {
-    key: 'employees',
-    label: 'Employees',
-    test: (raw) => {
-      const n = Number(raw.employees);
-      return raw.employees !== '' && Number.isFinite(n) && n >= 10;
-    },
-  },
-  {
-    key: 'countries',
-    label: 'Countries',
-    test: (raw) => {
-      const n = Number(raw.countries);
-      return raw.countries !== '' && Number.isFinite(n) && n >= 1 && n <= 120;
-    },
-  },
-  {
-    key: 'activeProjects',
-    label: 'Active Projects',
-    test: (raw) => {
-      const n = Number(raw.activeProjects);
-      return raw.activeProjects !== '' && Number.isFinite(n) && n >= 1;
-    },
-  },
-  {
-    key: 'averageProjectValue',
-    label: 'Average Project Value',
-    test: (raw) => {
-      const n = Number(raw.averageProjectValue);
-      return raw.averageProjectValue !== '' && Number.isFinite(n) && n >= 10_000;
-    },
-  },
-];
+function debounce(fn, ms) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), ms);
+  };
+}
 
 function buildRiskOptions(container) {
+  container.innerHTML = '';
   MAJOR_RISK_OPTIONS.forEach((risk) => {
     const label = document.createElement('label');
     label.className = 'evc-risk';
@@ -74,21 +46,23 @@ function buildRiskOptions(container) {
   });
 }
 
-const METRIC_KEYS = [
-  'estimatedExecutionLoss',
-  'recoverableValue',
-  'executionScore',
-];
-
-function debounce(fn, ms) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => fn(...args), ms);
-  };
+function buildIndustryOptions(select) {
+  select.innerHTML = '';
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = 'Select industry';
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  select.appendChild(placeholder);
+  INDUSTRIES.forEach((industry) => {
+    const option = document.createElement('option');
+    option.value = industry.id;
+    option.textContent = industry.label;
+    select.appendChild(option);
+  });
 }
 
-function readForm(form) {
+function readOrgForm(form) {
   const data = new FormData(form);
   const majorRisks = MAJOR_RISK_OPTIONS.filter((risk) =>
     form.querySelector(`[name="risk-${risk.id}"]`)?.checked,
@@ -106,194 +80,389 @@ function readForm(form) {
   };
 }
 
-function validateInputs(raw) {
-  const missing = REQUIRED_FIELDS.filter((field) => !field.test(raw)).map((field) => field.label);
-  return { ok: missing.length === 0, missing };
+function readSmallForm(form) {
+  const data = new FormData(form);
+  return {
+    people: Number(data.get('people')),
+    hourlyCost: Number(data.get('hourlyCost')),
+    hoursPerWeek: Number(data.get('hoursPerWeek')),
+    stuckPerMonth: Number(data.get('stuckPerMonth')),
+    delayWeekCost: Number(data.get('delayWeekCost')),
+  };
 }
 
-function applyKindClass(kindEl) {
-  if (!kindEl) return;
-  kindEl.className = 'evc-metric-kind';
-  kindEl.textContent = '';
-}
-
-function renderMetric(container, key, metric, className = '') {
-  const node = container.querySelector(`[data-metric="${key}"]`);
-  if (!node) return;
-  const valueEl = node.querySelector('.evc-metric-value');
-  const kindEl = node.querySelector('.evc-metric-kind');
-  applyKindClass(kindEl);
-
-  if (Array.isArray(metric.value)) {
-    valueEl.innerHTML = '';
-    const list = document.createElement('ul');
-    list.className = 'evc-priority-list';
-    metric.value.forEach((item) => {
-      const li = document.createElement('li');
-      li.textContent = item;
-      list.appendChild(li);
-    });
-    valueEl.appendChild(list);
-    return;
+function setFieldMessage(form, key, message) {
+  const control = form.elements.namedItem(key);
+  const wrap = control?.closest('.evc-field');
+  if (!wrap) return;
+  wrap.classList.toggle('is-invalid', Boolean(message));
+  if (control) control.setAttribute('aria-invalid', message ? 'true' : 'false');
+  let hint = wrap.querySelector('.evc-inline-msg');
+  if (!hint) {
+    hint = document.createElement('p');
+    hint.className = 'evc-inline-msg';
+    wrap.appendChild(hint);
   }
-
-  let display = String(metric.value);
-  if (display === '—') {
-    valueEl.textContent = display;
-    valueEl.className = `evc-metric-value ${className}`.trim();
-    return;
-  }
-  if (key.includes('Loss') || key.includes('recoverable') || key.includes('enterprise')) {
-    display = formatCurrency(metric.value);
-  } else if (metric.unit === '%') {
-    display = `${metric.value}%`;
-  } else if (metric.unit === 'months') {
-    display = `${metric.value} months`;
-  } else if (metric.unit === '/100') {
-    display = `${metric.value}${metric.unit}`;
-  }
-
-  valueEl.textContent = display;
-  valueEl.className = `evc-metric-value ${className}`.trim();
+  hint.textContent = message || '';
+  hint.hidden = !message;
 }
 
-function renderChart(results, chartRoot) {
-  const max = Math.max(results.visualization.executionLoss, 1);
-  const rows = [
-    { key: 'loss', label: 'Execution Loss', value: results.visualization.executionLoss, className: 'loss' },
-    { key: 'recovered', label: 'Recovered Value', value: results.visualization.recoverableValue, className: 'recovered' },
-    { key: 'enterprise', label: 'Enterprise Value', value: results.visualization.enterpriseValueCreated, className: 'enterprise' },
-  ];
-
-  rows.forEach((row) => {
-    const bar = chartRoot.querySelector(`[data-bar="${row.key}"]`);
-    const pct = chartRoot.querySelector(`[data-pct="${row.key}"]`);
-    if (!bar || !pct) return;
-    const width = Math.max(4, Math.round((row.value / max) * 100));
-    bar.style.width = `${width}%`;
-    pct.textContent = `${Math.round((row.value / results.inputs.annualRevenue) * 1000) / 10}% rev`;
+function clearFieldMessages(form) {
+  form.querySelectorAll('.evc-inline-msg').forEach((el) => {
+    el.textContent = '';
+    el.hidden = true;
   });
+  form.querySelectorAll('.evc-field.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
 }
 
-function renderPlaceholderResults(ui) {
-  METRIC_KEYS.forEach((key) => {
-    renderMetric(ui.results, key, { kind: 'Demo', value: '—' });
+function money(value, currency) {
+  return formatMoney(value, currency);
+}
+
+function buildSmallRequestUrl(state) {
+  const params = new URLSearchParams({
+    source: 'calculator',
+    mode: 'small',
+    people: String(state.people),
+    currency: state.currency,
+    annualLoss: String(state.annualLoss),
+    hours: String(state.hoursPerYear),
   });
+  return `/request?${params.toString()}`;
+}
 
-  ['loss', 'recovered', 'enterprise'].forEach((key) => {
-    const bar = ui.chart.querySelector(`[data-bar="${key}"]`);
-    const pct = ui.chart.querySelector(`[data-pct="${key}"]`);
-    if (bar) bar.style.width = '0';
-    if (pct) pct.textContent = '—';
+function buildOrgRequestUrl(results, currency) {
+  const params = new URLSearchParams({
+    source: 'calculator',
+    mode: 'org',
+    currency,
+    annualLoss: String(results.estimatedExecutionLoss.value),
+    recoverable: String(results.recoverableValue.value),
+    executionScore: String(results.executionScore.value),
   });
-
-  ui.live.textContent = '';
-}
-
-function markInvalidFields(form, raw) {
-  REQUIRED_FIELDS.forEach((field) => {
-    const control = form.elements.namedItem(field.key);
-    const wrap = control?.closest('.evc-field');
-    if (!wrap) return;
-    const invalid = !field.test(raw);
-    wrap.classList.toggle('is-invalid', invalid);
-    if (control) control.setAttribute('aria-invalid', invalid ? 'true' : 'false');
-  });
-}
-
-function updateAssessmentCta(ui, validation, hasResults) {
-  const { cta, ctaHint } = ui;
-  if (!cta || !ctaHint) return;
-
-  const ready = validation.ok && hasResults;
-  cta.classList.toggle('is-disabled', !ready);
-  cta.setAttribute('aria-disabled', ready ? 'false' : 'true');
-
-  if (!validation.ok) {
-    ctaHint.textContent = 'Complete required fields.';
-    return;
-  }
-
-  if (!hasResults) {
-    ctaHint.textContent = 'Enter your organization profile.';
-    return;
-  }
-
-  ctaHint.textContent = 'Continue to the Living Engine.';
-}
-
-function renderResults(results, ui) {
-  renderMetric(ui.results, 'estimatedExecutionLoss', results.estimatedExecutionLoss, 'loss');
-  renderMetric(ui.results, 'recoverableValue', results.recoverableValue, 'gain');
-  renderMetric(ui.results, 'executionScore', results.executionScore);
-  renderChart(results, ui.chart);
-
-  ui.live.textContent = '';
-
-  persistExecutionValue({ inputs: results.inputs, results });
-  notifyFunnelUpdate();
-  applyEngineHandoff();
-  applyPilotHandoff();
-}
-
-function buildIndustryOptions(select) {
-  const placeholder = document.createElement('option');
-  placeholder.value = '';
-  placeholder.textContent = 'Select industry';
-  placeholder.disabled = true;
-  placeholder.selected = true;
-  select.appendChild(placeholder);
-  INDUSTRIES.forEach((industry) => {
-    const option = document.createElement('option');
-    option.value = industry.id;
-    option.textContent = industry.label;
-    select.appendChild(option);
-  });
+  return `/request?${params.toString()}`;
 }
 
 function initCalculator(root) {
-  const form = root.querySelector('#ev-calculator-form');
-  const results = root.querySelector('#ev-calculator-results');
+  const modeHint = root.querySelector('#ev-mode-hint');
+  const bandGroup = root.querySelector('#ev-headcount-band');
+  const smallPanel = root.querySelector('[data-mode-panel="small"]');
+  const orgPanel = root.querySelector('[data-mode-panel="org"]');
+  const smallForm = root.querySelector('#ev-small-form');
+  const orgForm = root.querySelector('#ev-calculator-form');
+  const resultsRoot = root.querySelector('#ev-calculator-results');
   const chart = root.querySelector('#ev-calculator-chart');
-  const live = root.querySelector('#ev-calculator-live');
+  const smallResults = root.querySelector('#ev-small-results');
+  const orgResultsWrap = root.querySelector('#ev-org-results-wrap');
+  const currencySelect = root.querySelector('#ev-currency');
   const cta = root.querySelector('#ev-cta-assessment');
   const ctaHint = root.querySelector('#ev-cta-assessment-hint');
+  const scoreExplain = root.querySelector('#ev-score-explain');
+  const fxNote = root.querySelector('#ev-fx-note');
 
-  const ui = { results, chart, live, cta, ctaHint };
+  const geoCountry =
+    document.querySelector('meta[name="executia-geo-country"]')?.content ||
+    root.dataset.geoCountry ||
+    '';
 
-  const disclosure = root.querySelector('.evc-disclosure');
-  if (disclosure) disclosure.textContent = DEMO_DISCLOSURE;
+  let currency = resolveCurrency({
+    country: geoCountry || null,
+    stored: loadSessionCurrency(),
+  });
+  let bandId = '1-9';
+  let mode = 'small';
+  let lastSmall = null;
+  let lastOrg = null;
 
-  buildIndustryOptions(form.querySelector('#ev-industry'));
-  buildRiskOptions(form.querySelector('#ev-risks'));
+  function fillCurrencySelect() {
+    if (!currencySelect) return;
+    currencySelect.innerHTML = '';
+    CURRENCY_CODES.forEach((code) => {
+      const opt = document.createElement('option');
+      opt.value = code;
+      opt.textContent = CURRENCIES[code].label;
+      if (code === currency) opt.selected = true;
+      currencySelect.appendChild(opt);
+    });
+  }
 
-  renderPlaceholderResults(ui);
-  updateAssessmentCta(ui, validateInputs(readForm(form)), false);
+  function applySmallDefaults(preserveTyped) {
+    const band = bandForId(bandId);
+    const c = CURRENCIES[currency] || CURRENCIES.USD;
+    const people = smallForm.elements.namedItem('people');
+    const hourly = smallForm.elements.namedItem('hourlyCost');
+    const hours = smallForm.elements.namedItem('hoursPerWeek');
+    const stuck = smallForm.elements.namedItem('stuckPerMonth');
+    const delay = smallForm.elements.namedItem('delayWeekCost');
+    if (!preserveTyped || !people.value) people.value = String(band.peopleDefault);
+    if (!preserveTyped || !hourly.value) hourly.value = String(c.hourlyDefault);
+    if (!preserveTyped || !hours.value) hours.value = '4';
+    if (!preserveTyped || !stuck.value) stuck.value = '3';
+    if (!preserveTyped || !delay.value) delay.value = String(c.delayWeekDefault);
+    // Always refresh currency-linked defaults when currency changes
+    if (preserveTyped === 'currency') {
+      hourly.value = String(c.hourlyDefault);
+      delay.value = String(c.delayWeekDefault);
+    }
+  }
 
-  const recompute = debounce(() => {
-    const payload = readForm(form);
-    const validation = validateInputs(payload);
-    markInvalidFields(form, payload);
+  function setMode(nextMode, nextBandId) {
+    if (nextBandId) bandId = nextBandId;
+    mode = nextMode;
+    const band = bandForId(bandId);
+    if (modeHint) {
+      modeHint.textContent =
+        band.mode === 'small'
+          ? 'Under 50 people, we use a simpler calculation based on time.'
+          : 'For larger organizations, we use the full portfolio model.';
+    }
+    if (smallPanel) smallPanel.hidden = mode !== 'small';
+    if (orgPanel) orgPanel.hidden = mode !== 'org';
+    if (smallResults) smallResults.hidden = mode !== 'small';
+    if (orgResultsWrap) orgResultsWrap.hidden = mode !== 'org';
+    if (chart) chart.hidden = mode !== 'org';
+    if (scoreExplain) scoreExplain.hidden = mode !== 'org';
+    bandGroup?.querySelectorAll('[data-band]').forEach((btn) => {
+      const active = btn.getAttribute('data-band') === bandId;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    if (mode === 'small') {
+      applySmallDefaults(true);
+      renderSmall();
+    } else {
+      recomputeOrg();
+    }
+  }
+
+  function renderSmall() {
+    const payload = readSmallForm(smallForm);
+    const result = calculateSmallBusinessLoss(payload);
+    lastSmall = { ...result, currency };
+    const big = smallResults.querySelector('[data-small="annualLoss"]');
+    const hoursLine = smallResults.querySelector('[data-small="hoursLine"]');
+    const dupBar = smallResults.querySelector('[data-bar="duplicate"]');
+    const delayBar = smallResults.querySelector('[data-bar="delays"]');
+    const dupAmt = smallResults.querySelector('[data-small="duplicateAmt"]');
+    const delayAmt = smallResults.querySelector('[data-small="delaysAmt"]');
+    const formulas = smallResults.querySelector('[data-small="formulas"]');
+    if (big) big.textContent = money(result.annualLoss, currency);
+    if (hoursLine) {
+      hoursLine.textContent = `${result.hoursPerYear.toLocaleString('en-US')} hours per year ≈ ${result.workingDays} working days`;
+    }
+    if (dupBar) dupBar.style.width = `${Math.max(4, result.breakdown.duplicateWorkPct)}%`;
+    if (delayBar) delayBar.style.width = `${Math.max(4, result.breakdown.delaysPct)}%`;
+    if (dupAmt) {
+      dupAmt.textContent = `${money(result.duplicateWork, currency)} · ${result.breakdown.duplicateWorkPct}%`;
+    }
+    if (delayAmt) {
+      delayAmt.textContent = `${money(result.delays, currency)} · ${result.breakdown.delaysPct}%`;
+    }
+    if (formulas) {
+      formulas.innerHTML =
+        `<p>Duplicate work and checking = ${result.formulas.duplicateWork}</p>` +
+        `<p>Delays = ${result.formulas.delays}</p>`;
+    }
+    if (cta) {
+      cta.href = buildSmallRequestUrl({
+        people: result.inputs.people,
+        currency,
+        annualLoss: result.annualLoss,
+        hoursPerYear: result.hoursPerYear,
+      });
+      cta.textContent = 'Send one decision';
+      cta.classList.remove('is-disabled');
+      cta.setAttribute('aria-disabled', 'false');
+    }
+    if (ctaHint) {
+      ctaHint.innerHTML =
+        '<strong>Want to see where it’s coming from?</strong> Send us one decision. We’ll map where it got stuck and what it costs. Free, in writing.';
+    }
+    persistExecutionValue({
+      mode: 'small',
+      currency,
+      inputs: result.inputs,
+      results: result,
+    });
+    notifyFunnelUpdate();
+  }
+
+  function renderOrgMetric(key, metric, className = '') {
+    const node = resultsRoot.querySelector(`[data-metric="${key}"]`);
+    if (!node) return;
+    const valueEl = node.querySelector('.evc-metric-value');
+    const kindEl = node.querySelector('.evc-metric-kind');
+    if (kindEl) {
+      kindEl.className = 'evc-metric-kind';
+      kindEl.textContent = '';
+    }
+    if (!metric || metric.value === '—' || metric.value == null) {
+      valueEl.textContent = '—';
+      valueEl.className = `evc-metric-value ${className}`.trim();
+      return;
+    }
+    let display = String(metric.value);
+    if (key.includes('Loss') || key.includes('recoverable') || key.includes('enterprise')) {
+      // Org model stores USD internally; convert for display.
+      const usd = Number(metric.value);
+      display = money(usd, currency); // approximate: treat stored number as currency units once visitor currency applied via inputs
+      // Inputs are entered in visitor currency; engine treats numbers as-is (no FX on org path).
+      display = formatCurrency(usd, currency);
+    } else if (metric.unit === '%') {
+      display = `${metric.value}%`;
+    } else if (metric.unit === 'months') {
+      display = `${metric.value} months`;
+    } else if (metric.unit === '/100') {
+      display = `${metric.value}${metric.unit}`;
+    }
+    valueEl.textContent = display;
+    valueEl.className = `evc-metric-value ${className}`.trim();
+  }
+
+  function renderOrgChart(results) {
+    const max = Math.max(results.visualization.executionLoss, 1);
+    const rows = [
+      { key: 'loss', value: results.visualization.executionLoss },
+      { key: 'recovered', value: results.visualization.recoverableValue },
+      { key: 'enterprise', value: results.visualization.enterpriseValueCreated },
+    ];
+    rows.forEach((row) => {
+      const bar = chart.querySelector(`[data-bar="${row.key}"]`);
+      const pct = chart.querySelector(`[data-pct="${row.key}"]`);
+      if (!bar || !pct) return;
+      const width = Math.max(4, Math.round((row.value / max) * 100));
+      bar.style.width = `${width}%`;
+      pct.textContent = `${Math.round((row.value / results.inputs.annualRevenue) * 1000) / 10}% rev`;
+    });
+  }
+
+  function renderOrgPlaceholder() {
+    ['estimatedExecutionLoss', 'recoverableValue', 'enterpriseValueCreated', 'executionScore'].forEach(
+      (key) => renderOrgMetric(key, { value: '—' }),
+    );
+    ['loss', 'recovered', 'enterprise'].forEach((key) => {
+      const bar = chart?.querySelector(`[data-bar="${key}"]`);
+      const pct = chart?.querySelector(`[data-pct="${key}"]`);
+      if (bar) bar.style.width = '0';
+      if (pct) pct.textContent = '—';
+    });
+    if (cta) {
+      cta.classList.add('is-disabled');
+      cta.setAttribute('aria-disabled', 'true');
+      cta.textContent = 'Send one decision';
+      cta.removeAttribute('href');
+    }
+    if (ctaHint) ctaHint.textContent = 'Enter your organization profile.';
+    if (scoreExplain) scoreExplain.textContent = '';
+  }
+
+  function recomputeOrg() {
+    const payload = readOrgForm(orgForm);
+    const validation = validateOrganizationInputs(payload);
+    clearFieldMessages(orgForm);
+    Object.entries(validation.messages).forEach(([key, message]) => setFieldMessage(orgForm, key, message));
 
     if (!validation.ok) {
-      renderPlaceholderResults(ui);
-      updateAssessmentCta(ui, validation, false);
+      lastOrg = null;
+      renderOrgPlaceholder();
+      if (validation.suggestSmall && ctaHint) {
+        ctaHint.textContent =
+          'Some numbers sit outside this model. Switch to Small business above, or adjust the fields.';
+      }
       return;
     }
 
     const calculated = calculateExecutionValue(payload);
-    renderResults(calculated, ui);
-    updateAssessmentCta(ui, validation, true);
-  }, 120);
+    lastOrg = calculated;
+    renderOrgMetric('estimatedExecutionLoss', calculated.estimatedExecutionLoss, 'loss');
+    renderOrgMetric('recoverableValue', calculated.recoverableValue, 'gain');
+    renderOrgMetric('enterpriseValueCreated', calculated.enterpriseValueCreated, 'gain');
+    renderOrgMetric('executionScore', calculated.executionScore);
+    renderOrgChart(calculated);
+    if (scoreExplain) scoreExplain.textContent = SCORE_EXPLAIN;
+    if (cta) {
+      cta.href = buildOrgRequestUrl(calculated, currency);
+      cta.textContent = 'Send one decision';
+      cta.classList.remove('is-disabled');
+      cta.setAttribute('aria-disabled', 'false');
+    }
+    if (ctaHint) {
+      ctaHint.innerHTML =
+        '<strong>Want to see where it’s coming from?</strong> Send us one decision. We’ll map where it got stuck and what it costs. Free, in writing.';
+    }
+    persistExecutionValue({ mode: 'org', currency, inputs: calculated.inputs, results: calculated });
+    notifyFunnelUpdate();
+    applyEngineHandoff();
+    applyPilotHandoff();
+  }
 
-  form.addEventListener('input', recompute);
-  form.addEventListener('change', recompute);
+  // Headcount band control
+  bandGroup?.addEventListener('click', (event) => {
+    const btn = event.target.closest('[data-band]');
+    if (!btn) return;
+    const id = btn.getAttribute('data-band');
+    const band = bandForId(id);
+    setMode(band.mode, id);
+  });
+
+  currencySelect?.addEventListener('change', () => {
+    currency = currencySelect.value;
+    saveSessionCurrency(currency);
+    if (fxNote) {
+      fxNote.textContent = `Defaults use approximate FX as of ${FX_AS_OF}. Change any number to your own.`;
+    }
+    if (mode === 'small') {
+      applySmallDefaults('currency');
+      renderSmall();
+    } else {
+      recomputeOrg();
+    }
+  });
+
+  smallForm?.addEventListener('input', debounce(renderSmall, 80));
+  smallForm?.addEventListener('change', renderSmall);
+  orgForm?.addEventListener('input', debounce(recomputeOrg, 120));
+  orgForm?.addEventListener('change', recomputeOrg);
 
   if (cta) {
     cta.addEventListener('click', (event) => {
       if (cta.classList.contains('is-disabled')) event.preventDefault();
     });
   }
+
+  const disclosure = root.querySelector('.evc-disclosure');
+  if (disclosure) disclosure.textContent = DEMO_DISCLOSURE;
+
+  buildIndustryOptions(orgForm.querySelector('#ev-industry'));
+  buildRiskOptions(orgForm.querySelector('#ev-risks'));
+  fillCurrencySelect();
+  if (fxNote) {
+    fxNote.textContent = `Defaults use approximate FX as of ${FX_AS_OF}. Change any number to your own.`;
+  }
+
+  // Fetch geo when meta empty (Vercel header via /api/geo)
+  if (!geoCountry) {
+    fetch('/api/geo')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!data?.country) return;
+        if (loadSessionCurrency()) return;
+        const next = resolveCurrency({ country: data.country });
+        if (next !== currency) {
+          currency = next;
+          fillCurrencySelect();
+          if (mode === 'small') {
+            applySmallDefaults('currency');
+            renderSmall();
+          } else {
+            recomputeOrg();
+          }
+        }
+      })
+      .catch(() => {});
+  }
+
+  setMode('small', '1-9');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
