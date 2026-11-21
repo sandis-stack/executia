@@ -5,7 +5,7 @@
 
 export const FX_AS_OF = '2026-11-01';
 
-/** @type {Record<string, { code: string, label: string, locale: string, usdPerUnit: number, hourlyDefault: number, delayWeekDefault: number }>} */
+/** @type {Record<string, { code: string, label: string, locale: string, usdPerUnit: number, hourlyDefault: number, delayWeekDefault: number, orgDelayWeekDefault: number }>} */
 export const CURRENCIES = {
   NOK: {
     code: 'NOK',
@@ -14,6 +14,7 @@ export const CURRENCIES = {
     usdPerUnit: 0.091,
     hourlyDefault: 550,
     delayWeekDefault: 10_000,
+    orgDelayWeekDefault: 50_000,
   },
   SEK: {
     code: 'SEK',
@@ -22,6 +23,7 @@ export const CURRENCIES = {
     usdPerUnit: 0.095,
     hourlyDefault: 550,
     delayWeekDefault: 10_000,
+    orgDelayWeekDefault: 50_000,
   },
   DKK: {
     code: 'DKK',
@@ -30,6 +32,7 @@ export const CURRENCIES = {
     usdPerUnit: 0.145,
     hourlyDefault: 400,
     delayWeekDefault: 7_500,
+    orgDelayWeekDefault: 37_500,
   },
   EUR: {
     code: 'EUR',
@@ -38,6 +41,7 @@ export const CURRENCIES = {
     usdPerUnit: 1.08,
     hourlyDefault: 50,
     delayWeekDefault: 1_000,
+    orgDelayWeekDefault: 4_500,
   },
   GBP: {
     code: 'GBP',
@@ -46,6 +50,7 @@ export const CURRENCIES = {
     usdPerUnit: 1.27,
     hourlyDefault: 40,
     delayWeekDefault: 850,
+    orgDelayWeekDefault: 4_000,
   },
   USD: {
     code: 'USD',
@@ -54,6 +59,7 @@ export const CURRENCIES = {
     usdPerUnit: 1,
     hourlyDefault: 55,
     delayWeekDefault: 1_100,
+    orgDelayWeekDefault: 5_000,
   },
   AED: {
     code: 'AED',
@@ -62,6 +68,7 @@ export const CURRENCIES = {
     usdPerUnit: 0.272,
     hourlyDefault: 180,
     delayWeekDefault: 4_000,
+    orgDelayWeekDefault: 18_000,
   },
 };
 

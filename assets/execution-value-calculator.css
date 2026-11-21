@@ -421,9 +421,12 @@
   transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.evc-chart-fill.loss { background: #c97a7a; }
-.evc-chart-fill.recovered { background: #3d8b67; }
+.evc-chart-fill.loss { background: #64748b; }
+.evc-chart-fill.recovered { background: #94a3b8; }
 .evc-chart-fill.enterprise { background: #0f2d4a; }
+/* BACKLOG-556 — one neutral site colour, two tints (no red/green “good/bad”). */
+.evc-chart-fill.neutral { background: #475569; }
+.evc-chart-fill.neutral-soft { background: #94a3b8; }
 
 .evc-chart-row span:last-child {
   font-size: 11px;
@@ -650,32 +653,55 @@
 .evc-breakdown {
   display: grid;
   gap: 0.75rem;
+  min-width: 0;
+  width: 100%;
+  overflow: visible;
 }
 
 .evc-breakdown-row {
   display: grid;
-  grid-template-columns: minmax(11rem, 0.85fr) minmax(0, 1.35fr) auto;
-  gap: 0.45rem 0.85rem;
+  /* label | bar | amount — amount never clipped (BACKLOG-555 F1 / #556). */
+  grid-template-columns: minmax(0, 1.15fr) minmax(2.5rem, 1fr) max-content;
+  gap: 0.45rem 0.75rem;
   align-items: center;
   font-size: 13px;
   color: #415168;
+  min-width: 0;
+  width: 100%;
 }
 
 .evc-breakdown-label {
   line-height: 1.35;
   white-space: normal;
   overflow-wrap: anywhere;
+  min-width: 0;
 }
 
 .evc-breakdown-amt {
   white-space: nowrap;
   text-align: right;
   font-variant-numeric: tabular-nums;
+  min-width: max-content;
+  max-width: none;
+  overflow: visible;
+  justify-self: end;
+}
+
+.evc-breakdown .evc-chart-bar {
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.evc-small-results,
+.evc-panel {
+  overflow: visible;
+  min-width: 0;
 }
 
 @media (min-width: 1100px) {
   .evc-breakdown-row {
-    grid-template-columns: minmax(14rem, 1fr) minmax(0, 1.6fr) auto;
+    grid-template-columns: minmax(0, 1.2fr) minmax(4rem, 1.5fr) max-content;
   }
 }
 

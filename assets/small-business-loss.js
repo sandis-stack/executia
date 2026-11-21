@@ -1,16 +1,60 @@
 /**
- * TASK-47 — small-business loss estimate (time + delays).
+ * TASK-47 / BACKLOG-556 — transparent loss estimate (time + delays).
+ * Same two formulas for Small business and Organization modes.
  * Weeks/year = 46. Working day = 7.5 hours.
  */
 
 export const SMALL_BUSINESS_WEEKS = 46;
 export const HOURS_PER_WORKING_DAY = 7.5;
 
+/**
+ * Round a money figure to 2 significant figures for public display.
+ * Exact unrounded values stay in formulas / exact fields.
+ * @param {number} n
+ */
+export function roundTo2SigFigs(n) {
+  const x = Number(n);
+  if (!Number.isFinite(x) || x === 0) return 0;
+  const sign = x < 0 ? -1 : 1;
+  const abs = Math.abs(x);
+  const exp = Math.floor(Math.log10(abs));
+  const factor = 10 ** (exp - 1);
+  return sign * Math.round(abs / factor) * factor;
+}
+
 export const HEADCOUNT_BANDS = [
-  { id: '1-9', label: '1–9', mode: 'small', peopleDefault: 5 },
-  { id: '10-49', label: '10–49', mode: 'small', peopleDefault: 20 },
-  { id: '50-249', label: '50–249', mode: 'org', peopleDefault: 120 },
-  { id: '250+', label: '250+', mode: 'org', peopleDefault: 500 },
+  {
+    id: '1-9',
+    label: '1–9',
+    mode: 'small',
+    peopleDefault: 5,
+    hoursDefault: 4,
+    stuckDefault: 1,
+  },
+  {
+    id: '10-49',
+    label: '10–49',
+    mode: 'small',
+    peopleDefault: 20,
+    hoursDefault: 4,
+    stuckDefault: 3,
+  },
+  {
+    id: '50-249',
+    label: '50–249',
+    mode: 'org',
+    peopleDefault: 100,
+    hoursDefault: 3,
+    stuckDefault: 10,
+  },
+  {
+    id: '250+',
+    label: '250+',
+    mode: 'org',
+    peopleDefault: 500,
+    hoursDefault: 3,
+    stuckDefault: 30,
+  },
 ];
 
 /**
@@ -18,45 +62,71 @@ export const HEADCOUNT_BANDS = [
  *   people: number,
  *   hourlyCost: number,
  *   hoursPerWeek: number,
- *   stuckPerMonth: number,
- *   delayWeekCost: number,
+ *   stuckPerMonth?: number | null,
+ *   delayWeekCost?: number | null,
  * }} input
  */
 export function calculateSmallBusinessLoss(input) {
   const people = Math.max(0, Number(input.people) || 0);
   const hourlyCost = Math.max(0, Number(input.hourlyCost) || 0);
   const hoursPerWeek = Math.min(15, Math.max(0, Number(input.hoursPerWeek) || 0));
-  const stuckPerMonth = Math.max(0, Number(input.stuckPerMonth) || 0);
-  const delayWeekCost = Math.max(0, Number(input.delayWeekCost) || 0);
+  const stuckRaw = input.stuckPerMonth;
+  const delayRaw = input.delayWeekCost;
+  const stuckProvided =
+    stuckRaw !== null && stuckRaw !== undefined && stuckRaw !== '' && Number.isFinite(Number(stuckRaw));
+  const delayProvided =
+    delayRaw !== null && delayRaw !== undefined && delayRaw !== '' && Number.isFinite(Number(delayRaw));
+  /** PO 15:27 — delays money only when both delay inputs are present. */
+  const delaysKnown = stuckProvided && delayProvided;
+  const stuckPerMonth = delaysKnown ? Math.max(0, Number(stuckRaw) || 0) : 0;
+  const delayWeekCost = delaysKnown ? Math.max(0, Number(delayRaw) || 0) : 0;
 
-  const duplicateWork =
-    people * hoursPerWeek * hourlyCost * SMALL_BUSINESS_WEEKS;
-  const delays = stuckPerMonth * 12 * delayWeekCost;
-  const annualLoss = duplicateWork + delays;
+  const duplicateWorkExact = people * hoursPerWeek * hourlyCost * SMALL_BUSINESS_WEEKS;
+  const delaysExact = delaysKnown ? stuckPerMonth * 12 * delayWeekCost : 0;
+  const annualLossExact = duplicateWorkExact + delaysExact;
   const hoursPerYear = people * hoursPerWeek * SMALL_BUSINESS_WEEKS;
   const workingDays = hoursPerYear / HOURS_PER_WORKING_DAY;
-  const total = annualLoss || 0;
+  const total = annualLossExact || 0;
+
+  const duplicateWork = Math.round(duplicateWorkExact);
+  const delays = Math.round(delaysExact);
+  const annualLoss = Math.round(annualLossExact);
 
   return {
     inputs: {
       people,
       hourlyCost,
       hoursPerWeek,
-      stuckPerMonth,
-      delayWeekCost,
+      stuckPerMonth: delaysKnown ? stuckPerMonth : null,
+      delayWeekCost: delaysKnown ? delayWeekCost : null,
     },
-    duplicateWork: Math.round(duplicateWork),
-    delays: Math.round(delays),
-    annualLoss: Math.round(annualLoss),
+    delaysKnown,
+    /** Exact (unrounded) — for "How we calculated this" only. */
+    exact: {
+      duplicateWork: duplicateWorkExact,
+      delays: delaysExact,
+      annualLoss: annualLossExact,
+    },
+    duplicateWork,
+    delays,
+    annualLoss,
+    /** Display money (2 significant figures). */
+    display: {
+      duplicateWork: roundTo2SigFigs(duplicateWork),
+      delays: delaysKnown ? roundTo2SigFigs(delays) : null,
+      annualLoss: roundTo2SigFigs(annualLoss),
+    },
     hoursPerYear: Math.round(hoursPerYear),
     workingDays: Math.round(workingDays * 10) / 10,
     breakdown: {
-      duplicateWorkPct: total > 0 ? Math.round((duplicateWork / total) * 1000) / 10 : 0,
-      delaysPct: total > 0 ? Math.round((delays / total) * 1000) / 10 : 0,
+      duplicateWorkPct: total > 0 ? Math.round((duplicateWorkExact / total) * 1000) / 10 : 0,
+      delaysPct: delaysKnown && total > 0 ? Math.round((delaysExact / total) * 1000) / 10 : 0,
     },
     formulas: {
-      duplicateWork: `${people} × ${hoursPerWeek} h/week × ${hourlyCost} × ${SMALL_BUSINESS_WEEKS} weeks`,
-      delays: `${stuckPerMonth} stuck/month × 12 × ${delayWeekCost}`,
+      duplicateWork: `${people} × ${hoursPerWeek} h/week × ${hourlyCost} × ${SMALL_BUSINESS_WEEKS} weeks = ${duplicateWork}`,
+      delays: delaysKnown
+        ? `${stuckPerMonth} stuck/month × 12 × ${delayWeekCost} = ${delays}`
+        : 'Not known — enter both to include delays',
     },
   };
 }

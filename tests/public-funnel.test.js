@@ -44,7 +44,8 @@ test('buildFunnelSummary includes calculator and assessment lines', () => {
   };
   const summary = buildFunnelSummary(ctx);
   assert.match(summary, /Estimated execution loss/);
-  assert.match(summary, /Refined Execution Score/);
+  assert.equal(/Execution Score/i.test(summary), false);
+  assert.match(summary, /Pilot readiness/);
   assert.match(summary, /Living Engine/);
 });
 

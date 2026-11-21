@@ -1,12 +1,9 @@
-import {
-  INDUSTRIES,
-  MAJOR_RISK_OPTIONS,
-  DEMO_DISCLOSURE,
-  calculateExecutionValue,
-  persistExecutionValue,
-  formatCurrency,
-  validateOrganizationInputs,
-} from './execution-value-engine.js';
+/**
+ * BACKLOG-556 / TASK-47 — homepage calculator.
+ * Small + Organization share one transparent two-formula model.
+ * Unsourced org outputs removed from the public calculator UI.
+ */
+import { persistExecutionValue } from './execution-value-engine.js';
 import { applyEngineHandoff, applyPilotHandoff, notifyFunnelUpdate } from './public-funnel.js';
 import {
   CURRENCIES,
@@ -18,13 +15,9 @@ import {
   saveSessionCurrency,
 } from './calculator-currency.js';
 import {
-  HEADCOUNT_BANDS,
   bandForId,
   calculateSmallBusinessLoss,
 } from './small-business-loss.js';
-
-const SCORE_EXPLAIN =
-  'Execution Score estimates how much friction sits between decisions and results (higher is healthier). Missing optional fields do not raise the score.';
 
 function debounce(fn, ms) {
   let timer;
@@ -34,111 +27,36 @@ function debounce(fn, ms) {
   };
 }
 
-function buildRiskOptions(container) {
-  container.innerHTML = '';
-  MAJOR_RISK_OPTIONS.forEach((risk) => {
-    const label = document.createElement('label');
-    label.className = 'evc-risk';
-    label.innerHTML =
-      `<input type="checkbox" name="risk-${risk.id}" value="${risk.id}">` +
-      `<span class="evc-risk-copy"><span class="evc-risk-label">${risk.label}</span></span>`;
-    container.appendChild(label);
-  });
+function readOptionalNumber(form, name) {
+  const el = form.elements.namedItem(name);
+  if (!el || el.value === '' || el.value == null) return null;
+  const n = Number(el.value);
+  return Number.isFinite(n) ? n : null;
 }
 
-function buildIndustryOptions(select) {
-  select.innerHTML = '';
-  const placeholder = document.createElement('option');
-  placeholder.value = '';
-  placeholder.textContent = 'Select industry';
-  placeholder.disabled = true;
-  placeholder.selected = true;
-  select.appendChild(placeholder);
-  INDUSTRIES.forEach((industry) => {
-    const option = document.createElement('option');
-    option.value = industry.id;
-    option.textContent = industry.label;
-    select.appendChild(option);
-  });
-}
-
-function readOrgForm(form) {
-  const data = new FormData(form);
-  const majorRisks = MAJOR_RISK_OPTIONS.filter((risk) =>
-    form.querySelector(`[name="risk-${risk.id}"]`)?.checked,
-  ).map((risk) => risk.id);
-
-  return {
-    industry: data.get('industry'),
-    annualRevenue: data.get('annualRevenue'),
-    employees: data.get('employees'),
-    countries: data.get('countries'),
-    activeProjects: data.get('activeProjects'),
-    averageProjectValue: data.get('averageProjectValue'),
-    ebitMargin: data.get('ebitMargin'),
-    majorRisks,
-  };
-}
-
-function readSmallForm(form) {
+function readLossForm(form) {
   const data = new FormData(form);
   return {
     people: Number(data.get('people')),
     hourlyCost: Number(data.get('hourlyCost')),
     hoursPerWeek: Number(data.get('hoursPerWeek')),
-    stuckPerMonth: Number(data.get('stuckPerMonth')),
-    delayWeekCost: Number(data.get('delayWeekCost')),
+    stuckPerMonth: readOptionalNumber(form, 'stuckPerMonth'),
+    delayWeekCost: readOptionalNumber(form, 'delayWeekCost'),
   };
 }
 
-function setFieldMessage(form, key, message) {
-  const control = form.elements.namedItem(key);
-  const wrap = control?.closest('.evc-field');
-  if (!wrap) return;
-  wrap.classList.toggle('is-invalid', Boolean(message));
-  if (control) control.setAttribute('aria-invalid', message ? 'true' : 'false');
-  let hint = wrap.querySelector('.evc-inline-msg');
-  if (!hint) {
-    hint = document.createElement('p');
-    hint.className = 'evc-inline-msg';
-    wrap.appendChild(hint);
-  }
-  hint.textContent = message || '';
-  hint.hidden = !message;
-}
-
-function clearFieldMessages(form) {
-  form.querySelectorAll('.evc-inline-msg').forEach((el) => {
-    el.textContent = '';
-    el.hidden = true;
-  });
-  form.querySelectorAll('.evc-field.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
-}
-
-function money(value, currency) {
+function moneyDisplay(value, currency) {
   return formatMoney(value, currency);
 }
 
-function buildSmallRequestUrl(state) {
+function buildRequestUrl(state) {
   const params = new URLSearchParams({
     source: 'calculator',
-    mode: 'small',
+    mode: state.mode,
     people: String(state.people),
     currency: state.currency,
     annualLoss: String(state.annualLoss),
     hours: String(state.hoursPerYear),
-  });
-  return `/request?${params.toString()}`;
-}
-
-function buildOrgRequestUrl(results, currency) {
-  const params = new URLSearchParams({
-    source: 'calculator',
-    mode: 'org',
-    currency,
-    annualLoss: String(results.estimatedExecutionLoss.value),
-    recoverable: String(results.recoverableValue.value),
-    executionScore: String(results.executionScore.value),
   });
   return `/request?${params.toString()}`;
 }
@@ -149,16 +67,13 @@ function initCalculator(root) {
   const smallPanel = root.querySelector('[data-mode-panel="small"]');
   const orgPanel = root.querySelector('[data-mode-panel="org"]');
   const smallForm = root.querySelector('#ev-small-form');
-  const orgForm = root.querySelector('#ev-calculator-form');
-  const resultsRoot = root.querySelector('#ev-calculator-results');
-  const chart = root.querySelector('#ev-calculator-chart');
   const smallResults = root.querySelector('#ev-small-results');
-  const orgResultsWrap = root.querySelector('#ev-org-results-wrap');
   const currencySelect = root.querySelector('#ev-currency');
   const cta = root.querySelector('#ev-cta-assessment');
   const ctaHint = root.querySelector('#ev-cta-assessment-hint');
-  const scoreExplain = root.querySelector('#ev-score-explain');
   const fxNote = root.querySelector('#ev-fx-note');
+  const stuckLabel = root.querySelector('label[for="ev-stuck"]');
+  const hoursLabel = root.querySelector('label[for="ev-hours"]');
 
   const geoCountry =
     document.querySelector('meta[name="executia-geo-country"]')?.content ||
@@ -171,8 +86,7 @@ function initCalculator(root) {
   });
   let bandId = '1-9';
   let mode = 'small';
-  let lastSmall = null;
-  let lastOrg = null;
+  let lastResult = null;
 
   function fillCurrencySelect() {
     if (!currencySelect) return;
@@ -186,7 +100,7 @@ function initCalculator(root) {
     });
   }
 
-  function applySmallDefaults(preserveTyped) {
+  function applyDefaults(preserveTyped) {
     const band = bandForId(bandId);
     const c = CURRENCIES[currency] || CURRENCIES.USD;
     const people = smallForm.elements.namedItem('people');
@@ -194,51 +108,81 @@ function initCalculator(root) {
     const hours = smallForm.elements.namedItem('hoursPerWeek');
     const stuck = smallForm.elements.namedItem('stuckPerMonth');
     const delay = smallForm.elements.namedItem('delayWeekCost');
+    // People / hourly / hours may be prefilled (labelled estimates).
+    // PO 15:27 — never prefill stuck or delay week cost.
     if (!preserveTyped || !people.value) people.value = String(band.peopleDefault);
     if (!preserveTyped || !hourly.value) hourly.value = String(c.hourlyDefault);
-    if (!preserveTyped || !hours.value) hours.value = '4';
-    if (!preserveTyped || !stuck.value) stuck.value = '3';
-    if (!preserveTyped || !delay.value) delay.value = String(c.delayWeekDefault);
-    // Always refresh currency-linked defaults when currency changes
+    if (!preserveTyped || !hours.value) hours.value = String(band.hoursDefault);
+    if (!preserveTyped) {
+      stuck.value = '';
+      delay.value = '';
+    }
     if (preserveTyped === 'currency') {
       hourly.value = String(c.hourlyDefault);
-      delay.value = String(c.delayWeekDefault);
+    }
+    if (preserveTyped === 'band') {
+      people.value = String(band.peopleDefault);
+      hours.value = String(band.hoursDefault);
+      stuck.value = '';
+      delay.value = '';
     }
   }
 
-  function setMode(nextMode, nextBandId) {
-    if (nextBandId) bandId = nextBandId;
-    mode = nextMode;
+  function updateOrgCopy() {
     const band = bandForId(bandId);
     if (modeHint) {
       modeHint.textContent =
         band.mode === 'small'
           ? 'Under 50 people, we use a simpler calculation based on time.'
-          : 'For larger organizations, we use the full portfolio model.';
+          : 'Same transparent formulas for larger organizations — your numbers, visible math.';
     }
-    if (smallPanel) smallPanel.hidden = mode !== 'small';
-    if (orgPanel) orgPanel.hidden = mode !== 'org';
-    if (smallResults) smallResults.hidden = mode !== 'small';
-    if (orgResultsWrap) orgResultsWrap.hidden = mode !== 'org';
-    if (chart) chart.hidden = mode !== 'org';
-    if (scoreExplain) scoreExplain.hidden = mode !== 'org';
+    if (stuckLabel) {
+      stuckLabel.textContent =
+        band.mode === 'org'
+          ? 'Decisions, orders or project steps per month that get stuck or delayed'
+          : 'Decisions or orders per month that get stuck or delayed';
+    }
+    if (hoursLabel) {
+      hoursLabel.textContent =
+        band.mode === 'org'
+          ? 'Hours per person per week lost to re-entering data, chasing status, double-checking'
+          : 'Hours per person per week spent retyping, chasing status, and double-checking';
+    }
+  }
+
+  function setMode(nextMode, nextBandId, opts = {}) {
+    if (nextBandId) bandId = nextBandId;
+    mode = nextMode;
+    const band = bandForId(bandId);
+    // Always use the transparent form panel.
+    if (smallPanel) smallPanel.hidden = false;
+    if (orgPanel) {
+      orgPanel.hidden = true;
+      orgPanel.setAttribute('aria-hidden', 'true');
+    }
+    if (smallResults) smallResults.hidden = false;
     bandGroup?.querySelectorAll('[data-band]').forEach((btn) => {
       const active = btn.getAttribute('data-band') === bandId;
       btn.classList.toggle('is-active', active);
       btn.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
-    if (mode === 'small') {
-      applySmallDefaults(true);
-      renderSmall();
-    } else {
-      recomputeOrg();
-    }
+    updateOrgCopy();
+    applyDefaults(opts.preserveTyped === false ? false : opts.bandChange ? 'band' : true);
+    render();
   }
 
-  function renderSmall() {
-    const payload = readSmallForm(smallForm);
+  function updateHoursLive() {
+    const live = root.querySelector('#ev-hours-value');
+    const hours = smallForm?.elements.namedItem('hoursPerWeek');
+    if (!live || !hours) return;
+    const n = Number(hours.value);
+    live.textContent = `${Number.isFinite(n) ? n : 0} h`;
+  }
+
+  function render() {
+    const payload = readLossForm(smallForm);
     const result = calculateSmallBusinessLoss(payload);
-    lastSmall = { ...result, currency };
+    lastResult = { ...result, currency, mode };
     const big = smallResults.querySelector('[data-small="annualLoss"]');
     const hoursLine = smallResults.querySelector('[data-small="hoursLine"]');
     const dupBar = smallResults.querySelector('[data-bar="duplicate"]');
@@ -246,167 +190,68 @@ function initCalculator(root) {
     const dupAmt = smallResults.querySelector('[data-small="duplicateAmt"]');
     const delayAmt = smallResults.querySelector('[data-small="delaysAmt"]');
     const formulas = smallResults.querySelector('[data-small="formulas"]');
-    if (big) big.textContent = money(result.annualLoss, currency);
+
+    if (big) big.textContent = moneyDisplay(result.display.annualLoss, currency);
     if (hoursLine) {
       hoursLine.textContent = `${result.hoursPerYear.toLocaleString('en-US')} hours per year ≈ ${result.workingDays} working days`;
     }
-    if (dupBar) dupBar.style.width = `${Math.max(4, result.breakdown.duplicateWorkPct)}%`;
-    if (delayBar) delayBar.style.width = `${Math.max(4, result.breakdown.delaysPct)}%`;
+    if (dupBar) {
+      dupBar.style.width = `${Math.max(4, result.breakdown.duplicateWorkPct || (result.duplicateWork > 0 ? 100 : 0))}%`;
+    }
+    if (delayBar) {
+      delayBar.style.width = result.delaysKnown
+        ? `${Math.max(4, result.breakdown.delaysPct)}%`
+        : '0%';
+    }
     if (dupAmt) {
-      dupAmt.textContent = `${money(result.duplicateWork, currency)} · ${result.breakdown.duplicateWorkPct}%`;
+      dupAmt.textContent = `${moneyDisplay(result.display.duplicateWork, currency)} · ${result.breakdown.duplicateWorkPct}%`;
     }
     if (delayAmt) {
-      delayAmt.textContent = `${money(result.delays, currency)} · ${result.breakdown.delaysPct}%`;
+      delayAmt.textContent = result.delaysKnown
+        ? `${moneyDisplay(result.display.delays, currency)} · ${result.breakdown.delaysPct}%`
+        : 'Not known — enter both to include delays';
     }
     if (formulas) {
       formulas.innerHTML =
         `<p>Duplicate work and checking = ${result.formulas.duplicateWork}</p>` +
-        `<p>Delays = ${result.formulas.delays}</p>`;
+        `<p>Delays = ${result.formulas.delays}</p>` +
+        `<p>Display figures are rounded to 2 significant figures; formulas show exact totals.</p>`;
     }
     if (cta) {
-      cta.href = buildSmallRequestUrl({
+      cta.href = buildRequestUrl({
+        mode,
         people: result.inputs.people,
         currency,
-        annualLoss: result.annualLoss,
+        annualLoss: result.display.annualLoss,
         hoursPerYear: result.hoursPerYear,
       });
       cta.textContent = 'Send one decision';
       cta.classList.remove('is-disabled');
       cta.setAttribute('aria-disabled', 'false');
     }
-    // TASK-47 / #555 — CTA title+copy live above the button in HTML; hint is status only.
     if (ctaHint) ctaHint.textContent = '';
     updateHoursLive();
     persistExecutionValue({
-      mode: 'small',
+      mode,
       currency,
       inputs: result.inputs,
-      results: result,
+      results: {
+        annualLoss: result.display.annualLoss,
+        exactAnnualLoss: result.annualLoss,
+        hoursPerYear: result.hoursPerYear,
+        workingDays: result.workingDays,
+        breakdown: result.breakdown,
+      },
     });
     notifyFunnelUpdate();
   }
 
-  function renderOrgMetric(key, metric, className = '') {
-    const node = resultsRoot.querySelector(`[data-metric="${key}"]`);
-    if (!node) return;
-    const valueEl = node.querySelector('.evc-metric-value');
-    const kindEl = node.querySelector('.evc-metric-kind');
-    if (kindEl) {
-      kindEl.className = 'evc-metric-kind';
-      kindEl.textContent = '';
-    }
-    if (!metric || metric.value === '—' || metric.value == null) {
-      valueEl.textContent = '—';
-      valueEl.className = `evc-metric-value ${className}`.trim();
-      return;
-    }
-    let display = String(metric.value);
-    if (key.includes('Loss') || key.includes('recoverable') || key.includes('enterprise')) {
-      // Org model stores USD internally; convert for display.
-      const usd = Number(metric.value);
-      display = money(usd, currency); // approximate: treat stored number as currency units once visitor currency applied via inputs
-      // Inputs are entered in visitor currency; engine treats numbers as-is (no FX on org path).
-      display = formatCurrency(usd, currency);
-    } else if (metric.unit === '%') {
-      display = `${metric.value}%`;
-    } else if (metric.unit === 'months') {
-      display = `${metric.value} months`;
-    } else if (metric.unit === '/100') {
-      display = `${metric.value}${metric.unit}`;
-    }
-    valueEl.textContent = display;
-    valueEl.className = `evc-metric-value ${className}`.trim();
-  }
-
-  function renderOrgChart(results) {
-    const max = Math.max(results.visualization.executionLoss, 1);
-    const rows = [
-      { key: 'loss', value: results.visualization.executionLoss },
-      { key: 'recovered', value: results.visualization.recoverableValue },
-      { key: 'enterprise', value: results.visualization.enterpriseValueCreated },
-    ];
-    rows.forEach((row) => {
-      const bar = chart.querySelector(`[data-bar="${row.key}"]`);
-      const pct = chart.querySelector(`[data-pct="${row.key}"]`);
-      if (!bar || !pct) return;
-      const width = Math.max(4, Math.round((row.value / max) * 100));
-      bar.style.width = `${width}%`;
-      pct.textContent = `${Math.round((row.value / results.inputs.annualRevenue) * 1000) / 10}% rev`;
-    });
-  }
-
-  function renderOrgPlaceholder() {
-    ['estimatedExecutionLoss', 'recoverableValue', 'enterpriseValueCreated', 'executionScore'].forEach(
-      (key) => renderOrgMetric(key, { value: '—' }),
-    );
-    ['loss', 'recovered', 'enterprise'].forEach((key) => {
-      const bar = chart?.querySelector(`[data-bar="${key}"]`);
-      const pct = chart?.querySelector(`[data-pct="${key}"]`);
-      if (bar) bar.style.width = '0';
-      if (pct) pct.textContent = '—';
-    });
-    if (cta) {
-      cta.classList.add('is-disabled');
-      cta.setAttribute('aria-disabled', 'true');
-      cta.textContent = 'Send one decision';
-      cta.removeAttribute('href');
-    }
-    if (ctaHint) ctaHint.textContent = 'Enter your organization profile.';
-    if (scoreExplain) scoreExplain.textContent = '';
-  }
-
-  function recomputeOrg() {
-    const payload = readOrgForm(orgForm);
-    const validation = validateOrganizationInputs(payload);
-    clearFieldMessages(orgForm);
-    Object.entries(validation.messages).forEach(([key, message]) => setFieldMessage(orgForm, key, message));
-
-    if (!validation.ok) {
-      lastOrg = null;
-      renderOrgPlaceholder();
-      if (validation.suggestSmall && ctaHint) {
-        ctaHint.textContent =
-          'Some numbers sit outside this model. Switch to Small business above, or adjust the fields.';
-      }
-      return;
-    }
-
-    const calculated = calculateExecutionValue(payload);
-    lastOrg = calculated;
-    renderOrgMetric('estimatedExecutionLoss', calculated.estimatedExecutionLoss, 'loss');
-    renderOrgMetric('recoverableValue', calculated.recoverableValue, 'gain');
-    renderOrgMetric('enterpriseValueCreated', calculated.enterpriseValueCreated, 'gain');
-    renderOrgMetric('executionScore', calculated.executionScore);
-    renderOrgChart(calculated);
-    if (scoreExplain) scoreExplain.textContent = SCORE_EXPLAIN;
-    if (cta) {
-      cta.href = buildOrgRequestUrl(calculated, currency);
-      cta.textContent = 'Send one decision';
-      cta.classList.remove('is-disabled');
-      cta.setAttribute('aria-disabled', 'false');
-    }
-    if (ctaHint) ctaHint.textContent = '';
-    persistExecutionValue({ mode: 'org', currency, inputs: calculated.inputs, results: calculated });
-    notifyFunnelUpdate();
-    applyEngineHandoff();
-    applyPilotHandoff();
-  }
-
-  function updateHoursLive() {
-    const hours = smallForm?.elements?.namedItem('hoursPerWeek');
-    const live = root.querySelector('#ev-hours-value');
-    if (!hours || !live) return;
-    const n = Number(hours.value);
-    live.textContent = `${Number.isFinite(n) ? n : 0} h`;
-  }
-
-  // Headcount band control
   bandGroup?.addEventListener('click', (event) => {
     const btn = event.target.closest('[data-band]');
     if (!btn) return;
     const id = btn.getAttribute('data-band');
     const band = bandForId(id);
-    setMode(band.mode, id);
+    setMode(band.mode, id, { bandChange: true });
   });
 
   currencySelect?.addEventListener('change', () => {
@@ -415,23 +260,17 @@ function initCalculator(root) {
     if (fxNote) {
       fxNote.textContent = `Defaults use approximate FX as of ${FX_AS_OF}. Change any number to your own.`;
     }
-    if (mode === 'small') {
-      applySmallDefaults('currency');
-      renderSmall();
-    } else {
-      recomputeOrg();
-    }
+    applyDefaults('currency');
+    render();
   });
 
-  const renderSmallDebounced = debounce(renderSmall, 80);
+  const renderDebounced = debounce(render, 80);
   smallForm?.addEventListener('input', (event) => {
     if (event.target && event.target.name === 'hoursPerWeek') updateHoursLive();
-    renderSmallDebounced();
+    renderDebounced();
   });
-  smallForm?.addEventListener('change', renderSmall);
+  smallForm?.addEventListener('change', render);
   updateHoursLive();
-  orgForm?.addEventListener('input', debounce(recomputeOrg, 120));
-  orgForm?.addEventListener('change', recomputeOrg);
 
   if (cta) {
     cta.addEventListener('click', (event) => {
@@ -439,17 +278,11 @@ function initCalculator(root) {
     });
   }
 
-  const disclosure = root.querySelector('.evc-disclosure');
-  if (disclosure) disclosure.textContent = DEMO_DISCLOSURE;
-
-  buildIndustryOptions(orgForm.querySelector('#ev-industry'));
-  buildRiskOptions(orgForm.querySelector('#ev-risks'));
   fillCurrencySelect();
   if (fxNote) {
     fxNote.textContent = `Defaults use approximate FX as of ${FX_AS_OF}. Change any number to your own.`;
   }
 
-  // Fetch geo when meta empty (Vercel header via /api/geo)
   if (!geoCountry) {
     fetch('/api/geo')
       .then((r) => (r.ok ? r.json() : null))
@@ -460,18 +293,17 @@ function initCalculator(root) {
         if (next !== currency) {
           currency = next;
           fillCurrencySelect();
-          if (mode === 'small') {
-            applySmallDefaults('currency');
-            renderSmall();
-          } else {
-            recomputeOrg();
-          }
+          applyDefaults('currency');
+          render();
         }
       })
       .catch(() => {});
   }
 
-  setMode('small', '1-9');
+  applyEngineHandoff();
+  applyPilotHandoff();
+  setMode('small', '1-9', { preserveTyped: false });
+  void lastResult;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

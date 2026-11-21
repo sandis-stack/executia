@@ -1,19 +1,24 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import {
   calculateSmallBusinessLoss,
+  HEADCOUNT_BANDS,
+  roundTo2SigFigs,
   SMALL_BUSINESS_WEEKS,
   HOURS_PER_WORKING_DAY,
+  bandForId,
 } from '../assets/small-business-loss.js';
 import {
   currencyFromCountry,
   formatMoney,
   resolveCurrency,
+  CURRENCIES,
 } from '../assets/calculator-currency.js';
-import {
-  calculateExecutionValue,
-  validateOrganizationInputs,
-} from '../assets/execution-value-engine.js';
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 test('small business: 5 people / 4 h / 3 stuck matches manual formulas', () => {
   const result = calculateSmallBusinessLoss({
@@ -35,16 +40,90 @@ test('small business: 5 people / 4 h / 3 stuck matches manual formulas', () => {
   );
 });
 
-test('small business: 1 person defaults produce a positive result', () => {
+test('small business: people=1 exact (stuck default 1 path)', () => {
   const result = calculateSmallBusinessLoss({
     people: 1,
+    hourlyCost: 550,
+    hoursPerWeek: 4,
+    stuckPerMonth: 1,
+    delayWeekCost: 10_000,
+  });
+  const duplicate = 1 * 4 * 550 * SMALL_BUSINESS_WEEKS;
+  const delays = 1 * 12 * 10_000;
+  assert.equal(result.annualLoss, Math.round(duplicate + delays));
+  assert.equal(result.hoursPerYear, 184);
+  assert.equal(result.workingDays, 24.5);
+});
+
+test('formula exact for 1, 5, 20, 100, 2000 people', () => {
+  for (const people of [1, 5, 20, 100, 2000]) {
+    const hourly = 55;
+    const hours = people >= 50 ? 3 : 4;
+    const stuck = people >= 250 ? 30 : people >= 50 ? 10 : people >= 10 ? 3 : 1;
+    const delay = people >= 50 ? 5000 : 1100;
+    const result = calculateSmallBusinessLoss({
+      people,
+      hourlyCost: hourly,
+      hoursPerWeek: hours,
+      stuckPerMonth: stuck,
+      delayWeekCost: delay,
+    });
+    const dup = people * hours * hourly * SMALL_BUSINESS_WEEKS;
+    const del = stuck * 12 * delay;
+    assert.equal(result.exact.duplicateWork, dup, `dup people=${people}`);
+    assert.equal(result.exact.delays, del, `del people=${people}`);
+    assert.equal(result.annualLoss, Math.round(dup + del), `sum people=${people}`);
+  }
+});
+
+test('roundTo2SigFigs: 86541 → 87000', () => {
+  assert.equal(roundTo2SigFigs(86_541), 87_000);
+  assert.equal(roundTo2SigFigs(461_200), 460_000);
+});
+
+test('band defaults: stuck 1 for 1–9, 3 for 10–49; org people 100/500', () => {
+  assert.equal(bandForId('1-9').stuckDefault, 1);
+  assert.equal(bandForId('10-49').stuckDefault, 3);
+  assert.equal(bandForId('50-249').peopleDefault, 100);
+  assert.equal(bandForId('50-249').mode, 'org');
+  assert.equal(bandForId('250+').peopleDefault, 500);
+  assert.equal(bandForId('250+').stuckDefault, 30);
+  assert.ok(HEADCOUNT_BANDS.every((b) => b.hoursDefault >= 3));
+});
+
+test('PO 15:27 delays omitted until both inputs present', () => {
+  const without = calculateSmallBusinessLoss({
+    people: 5,
+    hourlyCost: 550,
+    hoursPerWeek: 4,
+    stuckPerMonth: null,
+    delayWeekCost: null,
+  });
+  assert.equal(without.delaysKnown, false);
+  assert.equal(without.delays, 0);
+  assert.equal(without.display.delays, null);
+  assert.equal(without.annualLoss, Math.round(5 * 4 * 550 * SMALL_BUSINESS_WEEKS));
+  assert.match(without.formulas.delays, /Not known/);
+
+  const partial = calculateSmallBusinessLoss({
+    people: 5,
+    hourlyCost: 550,
+    hoursPerWeek: 4,
+    stuckPerMonth: 3,
+    delayWeekCost: null,
+  });
+  assert.equal(partial.delaysKnown, false);
+  assert.equal(partial.delays, 0);
+
+  const both = calculateSmallBusinessLoss({
+    people: 5,
     hourlyCost: 550,
     hoursPerWeek: 4,
     stuckPerMonth: 3,
     delayWeekCost: 10_000,
   });
-  assert.ok(result.annualLoss > 0);
-  assert.ok(result.hoursPerYear > 0);
+  assert.equal(both.delaysKnown, true);
+  assert.equal(both.delays, 3 * 12 * 10_000);
 });
 
 test('currency maps NO→NOK and eurozone→EUR', () => {
@@ -55,33 +134,28 @@ test('currency maps NO→NOK and eurozone→EUR', () => {
   assert.match(formatMoney(412000, 'NOK'), /412/);
 });
 
-test('organization validation never silent — below mins suggest small business', () => {
-  const low = validateOrganizationInputs({
-    industry: 'technology',
-    annualRevenue: '100000',
-    employees: '1',
-    countries: '1',
-    activeProjects: '1',
-    averageProjectValue: '1000',
-  });
-  assert.equal(low.ok, false);
-  assert.equal(low.suggestSmall, true);
-  assert.ok(low.messages.employees);
-  assert.ok(low.messages.annualRevenue);
-});
-
-test('organization large case still returns enterprise value (= recoverable)', () => {
-  const result = calculateExecutionValue({
-    industry: 'technology',
-    annualRevenue: 500_000_000,
-    employees: 2000,
-    countries: 8,
-    activeProjects: 40,
-    averageProjectValue: 2_000_000,
-    ebitMargin: 12,
-    majorRisks: ['project-delivery'],
-  });
-  assert.ok(result.estimatedExecutionLoss.value > 0);
-  assert.equal(result.enterpriseValueCreated.value, result.recoverableValue.value);
-  assert.ok(result.enterpriseValueCreated.value > 0);
+test('public calculator HTML/JS: no removed org terms', () => {
+  const html = readFileSync(join(ROOT, 'index.html'), 'utf8');
+  const calc = readFileSync(join(ROOT, 'assets/execution-value-calculator.js'), 'utf8');
+  const css = readFileSync(join(ROOT, 'assets/execution-value-calculator.css'), 'utf8');
+  const banned = [
+    'Recoverable Value',
+    'Enterprise Value Created',
+    'Execution Score',
+    'Enterprise value',
+    'loss-rate',
+    'payback',
+    'ROI',
+  ];
+  for (const term of banned) {
+    assert.equal(html.includes(term), false, `index.html still has ${term}`);
+    assert.equal(calc.includes(term), false, `calculator.js still has ${term}`);
+  }
+  assert.match(css, /\.evc-chart-fill\.neutral/);
+  assert.match(calc, /roundTo2SigFigs|display\.annualLoss/);
+  assert.match(calc, /Not known — enter both to include delays/);
+  assert.match(html, /data-mode-panel="org"/);
+  assert.equal(html.includes('id="ev-calculator-form"'), false);
+  assert.equal(/\sid="ev-stuck"[^>]*\srequired/.test(html), false);
+  assert.equal(/\sid="ev-delay-cost"[^>]*\srequired/.test(html), false);
 });
