@@ -159,3 +159,45 @@ test('public calculator HTML/JS: no removed org terms', () => {
   assert.equal(/\sid="ev-stuck"[^>]*\srequired/.test(html), false);
   assert.equal(/\sid="ev-delay-cost"[^>]*\srequired/.test(html), false);
 });
+
+test('BACKLOG-560 V2: breakdown % are whole numbers; exact only in formulas.shares', () => {
+  const both = calculateSmallBusinessLoss({
+    people: 5,
+    hourlyCost: 550,
+    hoursPerWeek: 4,
+    stuckPerMonth: 1,
+    delayWeekCost: 10_000,
+  });
+  // 506000 dup + 120000 delays → ~80.8 / 19.2 → bars 81 / 19
+  assert.equal(both.breakdown.duplicateWorkPct, 81);
+  assert.equal(both.breakdown.delaysPct, 19);
+  assert.ok(Math.abs(both.breakdown.duplicateWorkPctExact - 80.8306) < 0.01);
+  assert.match(both.formulas.shares, /80\.8%/);
+  assert.match(both.formulas.shares, /19\.2%/);
+  assert.equal(Number.isInteger(both.breakdown.duplicateWorkPct), true);
+  assert.equal(Number.isInteger(both.breakdown.delaysPct), true);
+});
+
+test('BACKLOG-560 V1 CSS: label max-content + unknown amount wraps full width', () => {
+  const css = readFileSync(join(ROOT, 'assets/execution-value-calculator.css'), 'utf8');
+  assert.match(css, /BACKLOG-560/);
+  assert.match(css, /grid-template-columns:\s*max-content/);
+  assert.match(css, /\.evc-breakdown-amt\.is-unknown/);
+  assert.match(css, /grid-column:\s*1\s*\/\s*-1/);
+  const calc = readFileSync(join(ROOT, 'assets/execution-value-calculator.js'), 'utf8');
+  assert.match(calc, /classList\.add\('is-unknown'\)/);
+});
+
+test('BACKLOG-560 Q1: calculator request URL builder never sets score params', () => {
+  const calc = readFileSync(join(ROOT, 'assets/execution-value-calculator.js'), 'utf8');
+  assert.match(calc, /BACKLOG-560 Q1/);
+  assert.match(calc, /source:\s*'calculator'/);
+  // Params object must not include these keys.
+  assert.equal(/params\.set\(\s*['"]executionScore['"]/.test(calc), false);
+  assert.equal(/params\.set\(\s*['"]recoverableValue['"]/.test(calc), false);
+  assert.equal(/executionScore\s*:/.test(calc), false);
+  assert.equal(/recoverableValue\s*:/.test(calc), false);
+  // Persist payload from calculator path also omits them.
+  assert.match(calc, /annualLoss:\s*result\.display\.annualLoss/);
+  assert.equal(/results:\s*\{[^}]*executionScore/s.test(calc), false);
+});

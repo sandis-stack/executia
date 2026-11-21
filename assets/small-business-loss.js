@@ -91,6 +91,9 @@ export function calculateSmallBusinessLoss(input) {
   const duplicateWork = Math.round(duplicateWorkExact);
   const delays = Math.round(delaysExact);
   const annualLoss = Math.round(annualLossExact);
+  // BACKLOG-560 V2 — whole-number % on the bars; exact share only in formulas.
+  const duplicateWorkPctExact = total > 0 ? (duplicateWorkExact / total) * 100 : 0;
+  const delaysPctExact = delaysKnown && total > 0 ? (delaysExact / total) * 100 : 0;
 
   return {
     inputs: {
@@ -119,14 +122,19 @@ export function calculateSmallBusinessLoss(input) {
     hoursPerYear: Math.round(hoursPerYear),
     workingDays: Math.round(workingDays * 10) / 10,
     breakdown: {
-      duplicateWorkPct: total > 0 ? Math.round((duplicateWorkExact / total) * 1000) / 10 : 0,
-      delaysPct: delaysKnown && total > 0 ? Math.round((delaysExact / total) * 1000) / 10 : 0,
+      duplicateWorkPct: total > 0 ? Math.round(duplicateWorkPctExact) : 0,
+      delaysPct: delaysKnown && total > 0 ? Math.round(delaysPctExact) : 0,
+      duplicateWorkPctExact,
+      delaysPctExact,
     },
     formulas: {
       duplicateWork: `${people} × ${hoursPerWeek} h/week × ${hourlyCost} × ${SMALL_BUSINESS_WEEKS} weeks = ${duplicateWork}`,
       delays: delaysKnown
         ? `${stuckPerMonth} stuck/month × 12 × ${delayWeekCost} = ${delays}`
         : 'Not known — enter both to include delays',
+      shares: delaysKnown
+        ? `Share of total (exact): duplicate ${duplicateWorkPctExact.toFixed(1)}% / delays ${delaysPctExact.toFixed(1)}% (bars show whole %)`
+        : `Share of total (exact): duplicate ${duplicateWorkPctExact.toFixed(1)}% (delays not included yet)`,
     },
   };
 }

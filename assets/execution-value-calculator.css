@@ -660,8 +660,9 @@
 
 .evc-breakdown-row {
   display: grid;
-  /* label | bar | amount — amount never clipped (BACKLOG-555 F1 / #556). */
-  grid-template-columns: minmax(0, 1.15fr) minmax(2.5rem, 1fr) max-content;
+  /* BACKLOG-560 V1 — label column = max-content so "Delays" stays one line;
+     amount may wrap (unknown delays) instead of starving the label. */
+  grid-template-columns: max-content minmax(2.5rem, 1fr) minmax(0, 1.35fr);
   gap: 0.45rem 0.75rem;
   align-items: center;
   font-size: 13px;
@@ -672,19 +673,32 @@
 
 .evc-breakdown-label {
   line-height: 1.35;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  min-width: 0;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  min-width: max-content;
 }
 
 .evc-breakdown-amt {
   white-space: nowrap;
   text-align: right;
   font-variant-numeric: tabular-nums;
-  min-width: max-content;
-  max-width: none;
+  min-width: 0;
+  max-width: 100%;
   overflow: visible;
   justify-self: end;
+}
+
+/* Unknown delays: "Not known…" on its own full-width line under label+bar. */
+.evc-breakdown-row:has(.evc-breakdown-amt.is-unknown) {
+  grid-template-columns: max-content minmax(2.5rem, 1fr);
+}
+.evc-breakdown-row:has(.evc-breakdown-amt.is-unknown) .evc-breakdown-amt {
+  grid-column: 1 / -1;
+  justify-self: stretch;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
 }
 
 .evc-breakdown .evc-chart-bar {
@@ -701,7 +715,10 @@
 
 @media (min-width: 1100px) {
   .evc-breakdown-row {
-    grid-template-columns: minmax(0, 1.2fr) minmax(4rem, 1.5fr) max-content;
+    grid-template-columns: max-content minmax(4rem, 1.5fr) minmax(0, 1.5fr);
+  }
+  .evc-breakdown-row:has(.evc-breakdown-amt.is-unknown) {
+    grid-template-columns: max-content minmax(4rem, 1.5fr);
   }
 }
 
@@ -773,6 +790,12 @@
     grid-template-columns: 1fr;
   }
   .evc-breakdown-row {
+    grid-template-columns: 1fr;
+  }
+  .evc-breakdown-label {
+    white-space: normal;
+  }
+  .evc-breakdown-row:has(.evc-breakdown-amt.is-unknown) {
     grid-template-columns: 1fr;
   }
 }

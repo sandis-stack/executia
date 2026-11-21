@@ -49,6 +49,7 @@ function moneyDisplay(value, currency) {
   return formatMoney(value, currency);
 }
 
+/** BACKLOG-560 Q1 — calculator CTA never adds executionScore / recoverableValue. */
 function buildRequestUrl(state) {
   const params = new URLSearchParams({
     source: 'calculator',
@@ -204,17 +205,24 @@ function initCalculator(root) {
         : '0%';
     }
     if (dupAmt) {
+      dupAmt.classList.remove('is-unknown');
       dupAmt.textContent = `${moneyDisplay(result.display.duplicateWork, currency)} · ${result.breakdown.duplicateWorkPct}%`;
     }
     if (delayAmt) {
-      delayAmt.textContent = result.delaysKnown
-        ? `${moneyDisplay(result.display.delays, currency)} · ${result.breakdown.delaysPct}%`
-        : 'Not known — enter both to include delays';
+      // BACKLOG-560 V1 — unknown delays wrap on their own line; label stays one word.
+      if (result.delaysKnown) {
+        delayAmt.classList.remove('is-unknown');
+        delayAmt.textContent = `${moneyDisplay(result.display.delays, currency)} · ${result.breakdown.delaysPct}%`;
+      } else {
+        delayAmt.classList.add('is-unknown');
+        delayAmt.textContent = 'Not known — enter both to include delays';
+      }
     }
     if (formulas) {
       formulas.innerHTML =
         `<p>Duplicate work and checking = ${result.formulas.duplicateWork}</p>` +
         `<p>Delays = ${result.formulas.delays}</p>` +
+        `<p>${result.formulas.shares}</p>` +
         `<p>Display figures are rounded to 2 significant figures; formulas show exact totals.</p>`;
     }
     if (cta) {
