@@ -127,7 +127,8 @@
       if (source === 'calculator' || source === 'execution-value-calculator') {
         var mode = params.get('mode') || '';
         var people = params.get('people');
-        var currency = params.get('currency') || 'USD';
+        var currency = (params.get('currency') || 'USD').toUpperCase();
+        if (!/^[A-Z]{3}$/.test(currency)) currency = 'USD';
         var annualLoss = params.get('annualLoss');
         var hours = params.get('hours');
         var summary = form.querySelector('#calculator-summary');
@@ -146,7 +147,12 @@
           : 'From the calculator.';
         if (summary) {
           summary.hidden = false;
-          summary.innerHTML = '<strong>' + line + '</strong> You can edit the form below.';
+          // Security (Bugbot PR #9): never build HTML from URL params — text nodes only.
+          summary.textContent = '';
+          var strong = document.createElement('strong');
+          strong.textContent = line;
+          summary.appendChild(strong);
+          summary.appendChild(document.createTextNode(' You can edit the form below.'));
         }
         if (meta) meta.value = line;
         if (context && !context.value) context.value = line;
