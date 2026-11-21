@@ -178,14 +178,21 @@ test('BACKLOG-560 V2: breakdown % are whole numbers; exact only in formulas.shar
   assert.equal(Number.isInteger(both.breakdown.delaysPct), true);
 });
 
-test('BACKLOG-564 V3/V4 CSS: equal label|track|value columns; unknown wraps full width', () => {
+test('BACKLOG-567 CSS: stacked label/track/value at all widths; unknown copy wraps', () => {
   const css = readFileSync(join(ROOT, 'assets/execution-value-calculator.css'), 'utf8');
-  assert.match(css, /BACKLOG-564/);
-  assert.match(css, /grid-template-columns:\s*minmax\(0,\s*8\.5rem\)\s+minmax\(0,\s*1fr\)\s+minmax\(0,\s*6\.75rem\)/);
+  assert.match(css, /BACKLOG-567/);
+  // Stacked one-column grid (not side-by-side label|track|value).
+  assert.match(css, /\.evc-breakdown-row\s*\{[^}]*grid-template-columns:\s*1fr/s);
+  assert.equal(
+    /grid-template-columns:\s*minmax\(0,\s*8\.5rem\)\s+minmax\(0,\s*1fr\)\s+minmax\(0,\s*6\.75rem\)/.test(
+      css,
+    ),
+    false,
+  );
   assert.equal(/grid-template-columns:\s*max-content/.test(css), false);
   assert.equal(/minmax\(6\.5rem,\s*11rem\)/.test(css), false);
   assert.match(css, /\.evc-breakdown-amt\.is-unknown/);
-  assert.match(css, /grid-column:\s*1\s*\/\s*-1/);
+  assert.match(css, /\.evc-breakdown-amt\s*\{[^}]*white-space:\s*nowrap/s);
   const calc = readFileSync(join(ROOT, 'assets/execution-value-calculator.js'), 'utf8');
   assert.match(calc, /classList\.add\('is-unknown'\)/);
   assert.match(calc, /Not known yet — enter both delay fields to include delays/);
