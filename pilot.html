@@ -41,13 +41,17 @@
     </div>
   </section>
 
-  <section class="section soft pf-film" aria-label="Pilot film">
+  <!-- Film slot (BACKLOG-575 F1): render only when data-film-src is set.
+  <section class="section soft pf-film" aria-label="Pilot film" data-film-src="" hidden>
     <div class="wrap">
       <div class="pf-film-frame" data-film-aspect="responsive">
-        <p class="pf-film-placeholder">Pilot film — 60 seconds. Delivered here when ready (16:9 desktop · 4:5 mobile). Captions on. Autoplay off.</p>
+        <video controls playsinline preload="metadata">
+          <track kind="captions" srclang="en" label="English" default>
+        </video>
       </div>
     </div>
   </section>
+  -->
 
   <section class="section pf-receive" aria-labelledby="pf-receive-h">
     <div class="wrap">
@@ -180,7 +184,7 @@
       </form>
       <aside class="side-stack pf-aside">
         <div class="card"><span class="tag">Written only</span><h3>No calls needed.</h3><p>Scope, timeline and price are agreed in writing before we start.</p></div>
-        <div class="card"><span class="tag">Reply</span><h3>Within 48 hours.</h3><p>We reply in writing. Success only when the email is sent.</p></div>
+        <div class="card"><span class="tag">Reply</span><h3>Within 48 hours.</h3><p>We reply in writing.</p></div>
       </aside>
     </div>
   </section>

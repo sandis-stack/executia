@@ -60,7 +60,7 @@
     engine: { label: 'View executive workspace', href: '/one' },
     one: { label: 'View public proof', href: '/proof' },
     proof: { label: 'Request Institutional Pilot', href: '/pilot' },
-    pilot: { label: 'Request Pilot', href: '/request' },
+    pilot: { label: 'Request a pilot', href: '/request' },
   };
 
   function escapeHtml(value) {

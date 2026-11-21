@@ -101,19 +101,19 @@ export default async function handler(req, res) {
     const receivedAt = new Date().toISOString();
 
     const userHtml = mailTemplate(
-      "Execution request registered.",
-      [["EXECUTION ID",requestId],["STATUS","UNDER REVIEW"],["RESPONSE WINDOW","24–48H"],["ENGINE","https://executia.io/engine"]],
-      "Your EXECUTIA pilot request has been registered. The next step is to define one execution point and measurable control result."
+      "Thank you. We received your request to check one process.",
+      [["REQUEST ID",requestId],["REPLY","We reply in writing within 48 hours."]],
+      "We never ask for passwords or bank logins."
     );
     const operatorHtml = mailTemplate(
       "New EXECUTIA pilot request received.",
-      [["EXECUTION ID",requestId],["ORGANIZATION",organization],["OPERATOR",operator],["EMAIL",email],["SECTOR",sector],["CONTEXT",context],["EXPECTED VALUE",outcome],["RECEIVED",receivedAt]],
-      "Review the requested execution point and define the controlled pilot scope."
+      [["REQUEST ID",requestId],["ORGANIZATION",organization],["OPERATOR",operator],["EMAIL",email],["SECTOR",sector],["CONTEXT",context],["Invoices or payments per month",outcome],["RECEIVED",receivedAt]],
+      "Review the requested process and define the controlled pilot scope."
     );
 
     // ── Emails first — parallel, fully isolated, never throw ────────────────
     const [userEmail, operatorEmail] = await Promise.all([
-      sendEmail({ to:email, subject:`EXECUTIA — Request registered (${requestId})`, html:userHtml }),
+      sendEmail({ to:email, subject:`EXECUTIA — we received your pilot request (${requestId})`, html:userHtml }),
       sendEmail({ to:process.env.OPERATOR_EMAIL||"control@executia.io", subject:`EXECUTIA — New pilot request (${requestId})`, html:operatorHtml })
     ]);
 

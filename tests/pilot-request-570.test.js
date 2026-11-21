@@ -31,6 +31,11 @@ test('pilot.html copy matches film (no removed terms; hero + form)', () => {
   assert.match(html, /target capability/);
   assert.match(html, /Meridian Industrial Ltd/);
   assert.match(html, /Signal — needs one more document/);
+  // BACKLOG-575 F1/F3 — no public film placeholder; reply copy plain.
+  assert.doesNotMatch(html, /pf-film-placeholder/);
+  assert.doesNotMatch(html, /Delivered here when ready/);
+  assert.doesNotMatch(html, /Success only when the email is sent/);
+  assert.match(html, /We reply in writing\./);
   for (const re of FORBIDDEN_PILOT) {
     assert.equal(re.test(html), false, `forbidden on /pilot: ${re}`);
   }
@@ -54,6 +59,9 @@ test('request.html plain English; same field names; Supplier invoices first', ()
   assert.match(html, /Request a pilot<\/button>/);
   assert.doesNotMatch(html, /Submit Execution Case/);
   assert.doesNotMatch(html, /structured pilot response/i);
+  // BACKLOG-575 F2 — no Same-form / path-as-copy card.
+  assert.doesNotMatch(html, /Same form/);
+  assert.doesNotMatch(html, /Also on \/pilot/);
   const sectorBlock = html.slice(html.indexOf('id="sector"'), html.indexOf('</select>', html.indexOf('id="sector"')));
   assert.match(sectorBlock, /selected>Supplier invoices and payments</);
   assert.ok(
@@ -109,6 +117,17 @@ test('POST /api/request {} → 400 MISSING_REQUIRED_FIELDS; mocked Resend ok pat
     assert.equal(ok.json.email_user_sent, true);
     assert.equal(ok.json.email_operator_sent, true);
     assert.ok(calls.length >= 2, 'Resend called for user + operator');
+    // BACKLOG-575 F4 — plain-English customer confirmation.
+    const userMail = calls.find((c) => c.body && /we received your pilot request/i.test(c.body.subject || ''));
+    assert.ok(userMail, 'customer confirmation subject');
+    assert.match(userMail.body.subject, /EXECUTIA — we received your pilot request \(EXE-/);
+    assert.match(String(userMail.body.html), /We never ask for passwords or bank logins/);
+    assert.doesNotMatch(String(userMail.body.html), /UNDER REVIEW|Execution request registered|RESPONSE WINDOW|STATUS/);
+    assert.doesNotMatch(userMail.body.subject, /Request registered/);
+    const opMail = calls.find((c) => c.body && /New pilot request/i.test(c.body.subject || ''));
+    assert.ok(opMail);
+    assert.match(String(opMail.body.html), /Invoices or payments per month/);
+    assert.doesNotMatch(String(opMail.body.html), /EXPECTED VALUE/);
 
     // Fail path: Resend not ok → no false success
     globalThis.fetch = async () => ({
