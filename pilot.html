@@ -8,11 +8,11 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#ffffff">
-  <title>EXECUTIA® PILOT — Institutional Adoption</title>
-  <meta name="description" content="Request an institutional pilot — governed execution validation for mission-critical organizations.">
+  <title>Pilot — Start with one real process — EXECUTIA®</title>
+  <meta name="description" content="We check one of your real processes on your own data. You get every finding with its evidence — and the checks that would stop it before the next payment.">
   <link rel="canonical" href="https://executia.io/pilot">
-  <meta property="og:title" content="Institutional Pilot — EXECUTIA®">
-  <meta property="og:description" content="Move from understanding to governed adoption with a structured institutional pilot.">
+  <meta property="og:title" content="Start with one real process — EXECUTIA® Pilot">
+  <meta property="og:description" content="We check one of your real processes on your own data. Every finding with its evidence.">
   <meta property="og:url" content="https://executia.io/pilot">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://executia.io/assets/brand/executia-og-1200x630-v2.png">
@@ -24,50 +24,177 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
-  <link rel="stylesheet" href="/assets/executive-journey.css">
+  <link rel="stylesheet" href="/assets/execution-value-calculator.css">
+  <link rel="stylesheet" href="/assets/pilot-film-570.css">
 </head>
 <body data-page="pilot">
 <div data-platform-header></div>
-<main class="main">
-  <div data-ej-content data-ej-static="true">
-<section class="ej-page ej-page-pilot" aria-labelledby="ej-pilot-heading">
-  <div class="wrap">
-    <span class="kicker">PILOT — ADOPTION</span>
-    <h1 id="ej-pilot-heading">Request an institutional pilot</h1>
-    <p class="lead">Move from understanding to governed adoption with a structured institutional pilot. EXECUTIA pilots are for mission-critical organizations that need execution validated before it happens — not reconstructed afterwards.</p>
-    <p class="lead">A pilot starts from a real executive scenario (such as a large procurement), runs it through Engine validation gates, reviews the evidence record with leadership, and then plans deployment into EXECUTIA ONE under a clear agreement.</p>
-    <div class="ej-pilot-value">
-      <h2>Pilot process</h2>
-      <ol class="ej-pilot-list ej-pilot-process">
-        <li>Executive assessment and scope definition</li>
-        <li>Live scenario validation in ENGINE</li>
-        <li>Evidence review and board briefing</li>
-        <li>Pilot agreement and deployment planning</li>
-      </ol>
-      <h2>Expected timeline</h2>
-      <p class="ej-pilot-timeline">4–6 weeks from request to governed pilot launch.</p>
-      <h2>What you receive</h2>
-      <ul class="ej-pilot-list">
-        <li>Executive Summary and Execution Score</li>
-        <li>Validated pilot scope with evidence record</li>
-        <li>Improvement roadmap for mission-critical execution</li>
-        <li>Path to operational deployment in EXECUTIA ONE</li>
-      </ul>
-      <p>The goal is governed adoption: authority, budget, approvals, policy and evidence checked before irreversible commitment. Request a pilot when your organization is ready to move from a public demonstration to a scoped institutional engagement.</p>
+<main class="main" id="pilot">
+  <section class="hero pf-hero" aria-labelledby="pf-heading">
+    <div class="wrap">
+      <span class="kicker">PILOT</span>
+      <h1 id="pf-heading">Start with one real process.</h1>
+      <p class="lead">We check one of your real processes on your own data. You get every finding with its evidence — and the checks that would stop it before the next payment.</p>
+      <div class="actions">
+        <a class="pill-btn primary" href="#request-pilot">Request a pilot</a>
+      </div>
     </div>
-  </div>
-</section>
-</div>
-<section class="ej-next" aria-label="Next step" data-ej-static="true">
-  <div class="wrap ej-next-inner">
-    <a class="pill-btn primary ej-next-btn" href="/request">Request Pilot</a>
-  </div>
-</section>
+  </section>
+
+  <!-- Film slot (BACKLOG-576 N2): real element, hidden until data-film-src is non-empty. -->
+  <section class="section soft pf-film" aria-label="Pilot film" data-film-src="" hidden>
+    <div class="wrap">
+      <div class="pf-film-frame" data-film-aspect="responsive">
+        <video controls playsinline preload="metadata">
+          <track kind="captions" srclang="en" label="English" default>
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pf-receive" aria-labelledby="pf-receive-h">
+    <div class="wrap">
+      <h2 id="pf-receive-h">What you receive</h2>
+      <div class="pf-finding-grid">
+        <article class="pf-finding-card" aria-label="Example finding — confirmed">
+          <p class="pf-finding-tag">Example</p>
+          <p class="pf-finding-status pf-finding-status--ok">Confirmed</p>
+          <h3>Duplicate payment</h3>
+          <p>Supplier: Meridian Industrial Ltd · €40,000</p>
+          <p class="pf-finding-meta">Source: invoice INV-1043 + bank 14 Oct</p>
+          <p class="pf-finding-meta">Rule: an obligation is paid once</p>
+          <p class="pf-finding-check">Check before next payment: “already paid?”</p>
+        </article>
+        <article class="pf-finding-card" aria-label="Example finding — signal">
+          <p class="pf-finding-tag">Example</p>
+          <p class="pf-finding-status pf-finding-status--signal">Signal — needs one more document</p>
+          <h3>Approval chain incomplete</h3>
+          <p>We separate signal from confirmed. A signal waits for one more document before it becomes a finding.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" aria-labelledby="pf-how-h">
+    <div class="wrap">
+      <h2 id="pf-how-h">How it works</h2>
+      <ol class="pf-steps">
+        <li>You choose one process — for example, supplier invoice → payment.</li>
+        <li>We take your records for that process — invoices, approvals and payments for an agreed period. Your data stays in the EU/EEA under a data processing agreement.</li>
+        <li>We identify concrete risks — duplicate payments, payments without approval, amounts that do not match.</li>
+        <li>You get every finding with its evidence — the source document, the amount and the rule it breaks. Together we define the checks that run before the next payment.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="pf-proof-h">
+    <div class="wrap">
+      <h2 id="pf-proof-h">How results are proven</h2>
+      <ul class="pf-proof-list">
+        <li><strong>Recovered money</strong> — proven by the bank record.</li>
+        <li><strong>Prevented loss</strong> — proven by a wrong payment that was stopped.</li>
+        <li><strong>Time saved</strong> — measured before and after.</li>
+      </ul>
+      <p>Nothing is promised in advance. If we find nothing, you get that in writing too.</p>
+    </div>
+  </section>
+
+  <section class="section soft" aria-labelledby="pf-fit-h">
+    <div class="wrap">
+      <h2 id="pf-fit-h">Good fit if</h2>
+      <ul class="pf-fit-list">
+        <li>You pay many supplier invoices from more than one system or team.</li>
+        <li>Payments are approved by several people.</li>
+        <li>You have had a duplicate or wrong payment before or cannot rule it out.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="pf-data-h">
+    <div class="wrap">
+      <h2 id="pf-data-h">Your data</h2>
+      <ul class="pf-fit-list">
+        <li>Data processing agreement before any data.</li>
+        <li>EU/EEA only.</li>
+        <li>Only the records for the one process.</li>
+        <li>Never passwords or bank logins.</li>
+        <li>Deleted after the pilot unless you continue.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section soft" aria-labelledby="pf-today-h">
+    <div class="wrap">
+      <h2 id="pf-today-h">Today and in your pilot</h2>
+      <p>Checking every payment before it goes out is EXECUTIA’s target capability. Whether and how it runs in your environment is what the pilot confirms.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="pf-life-h">
+    <div class="wrap">
+      <h2 id="pf-life-h">We use it ourselves first</h2>
+      <p>EXECUTIA’s first product, LIFE, runs on our own company’s invoices, bank and bookkeeping.</p>
+    </div>
+  </section>
+
+  <section class="section soft" aria-labelledby="pf-faq-h">
+    <div class="wrap">
+      <h2 id="pf-faq-h">FAQ</h2>
+      <dl class="pf-faq">
+        <dt>What do we need to send?</dt>
+        <dd>The records for one process for an agreed period — for example invoices, approvals and payments. Never passwords or bank logins.</dd>
+        <dt>How long does it take?</dt>
+        <dd>Agreed in writing before we start.</dd>
+        <dt>What does it cost?</dt>
+        <dd>Agreed in writing before we start.</dd>
+        <dt>What if you find nothing?</dt>
+        <dd>You get that in writing too. Nothing is promised in advance.</dd>
+        <dt>Who sees our data?</dt>
+        <dd>Only the people named in the data processing agreement. Data stays in the EU/EEA.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="request-pilot" aria-labelledby="pf-form-h">
+    <div class="wrap form-grid">
+      <form id="request-form" class="form-card" data-pilot-form="embedded">
+        <h2 id="pf-form-h">Request a pilot</h2>
+        <p class="pf-form-lead">Tell us which process you want checked. We reply in writing within 48 hours.</p>
+        <div id="calculator-summary" class="evc-calc-summary" hidden></div>
+        <input type="hidden" id="calculator-meta" name="calculatorMeta" value="">
+        <input type="hidden" name="source" value="pilot">
+        <div class="field"><label for="organization">Company</label><input class="input" id="organization" name="organization" required placeholder="Company name" autocomplete="organization"></div>
+        <div class="field"><label for="operator">Your name</label><input class="input" id="operator" name="operator" required placeholder="Your name" autocomplete="name"></div>
+        <div class="field"><label for="email">Work email</label><input class="input" id="email" name="email" type="email" required placeholder="name@company.com" autocomplete="email"></div>
+        <div class="field">
+          <label for="sector">Process to check</label>
+          <select id="sector" name="sector">
+            <option selected>Supplier invoices and payments</option>
+            <option>Customer invoices and collections</option>
+            <option>Purchase approvals</option>
+            <option>Orders and project changes</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field"><label for="context">What went wrong, or what worries you?</label><textarea id="context" name="context" required placeholder="One process. What went wrong, or what you want checked."></textarea></div>
+        <div class="field"><label for="outcome">Invoices or payments per month <span class="pf-optional">(optional)</span></label><input class="input" id="outcome" name="outcome" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 120"></div>
+        <button class="pill-btn primary" type="submit">Request a pilot</button>
+        <div id="form-message" class="form-msg">In writing only. We never ask for passwords or bank logins.</div>
+      </form>
+      <aside class="side-stack pf-aside">
+        <div class="card"><span class="tag">Written only</span><h3>No calls needed.</h3><p>Scope, timeline and price are agreed in writing before we start.</p></div>
+        <div class="card"><span class="tag">Reply</span><h3>Within 48 hours.</h3><p>We reply in writing.</p></div>
+      </aside>
+    </div>
+  </section>
+
+  <p class="wrap pf-footer-line">In writing only. No calls needed.</p>
 </main>
 <footer class="site-footer entry-footer" role="contentinfo" data-footer-ssr="true"><div class="entry-footer-inner"><svg class="entry-footer-mark" viewBox="3 4 56 56" aria-hidden="true" focusable="false"><circle cx="10" cy="32" r="4" fill="#008C9C"/><path fill="currentColor" d="M24 8h32v8H32v12h20v8H32v12h24v8H24V36h-6v-8h6z"/></svg><p class="entry-footer-brand">EXECUTIA<span class="brand-tm">®</span></p><p class="entry-footer-standard">EXECUTIA validates execution before it happens.</p><hr class="entry-footer-rule" /><p class="entry-footer-model">Built around the Execution Integrity Model®.</p><hr class="entry-footer-rule" /><nav class="entry-footer-nav entry-footer-nav--legal" aria-label="Legal and contact"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/cookies">Cookies</a><a href="/gdpr">Data Protection</a><a href="/contact">Contact</a><a href="/about">About</a><a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener noreferrer">Sandis Boiko · LinkedIn</a></nav><hr class="entry-footer-rule" /><p class="entry-footer-copy">© 2026 EXECUTIA AS · Org. no. 838 230 962</p><p class="entry-footer-copy">Lerkeveien 6B, 4314 Sandnes, Norway</p><p class="entry-footer-copy"><a href="mailto:contact@executia.io">contact@executia.io</a></p></div></footer>
 <script src="/assets/platform-brand.js"></script>
 <script src="/assets/platform-nav.js"></script>
-<script src="/assets/executive-journey.js"></script>
+<script src="/assets/public-funnel-bootstrap.js"></script>
 <script src="/assets/app.js"></script>
+<script src="/assets/pilot-film-slot.js"></script>
 </body>
 </html>

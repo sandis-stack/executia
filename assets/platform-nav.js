@@ -66,7 +66,7 @@
         '<nav class="nav" aria-label="Primary">' +
         navLinks(activeId) +
         '</nav>' +
-        '<div class="header-cta"><a class="pill-btn" href="/request">Request Pilot</a></div>' +
+        '<div class="header-cta"><a class="pill-btn" href="/request">Request a pilot</a></div>' +
         '</div></header>'
       );
     },

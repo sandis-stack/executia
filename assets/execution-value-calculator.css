@@ -341,10 +341,10 @@
   box-shadow: inset 0 0 0 1px #e2e8f0;
 }
 .evc-metric[data-metric="enterpriseValueCreated"] .evc-metric-name {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: #64748b;
 }
 .evc-metric[data-metric="enterpriseValueCreated"] .evc-metric-value {
@@ -359,10 +359,10 @@
   padding-top: 0.35rem;
 }
 .evc-metric[data-metric="executionScore"] .evc-metric-name {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: #64748b;
 }
 .evc-metric[data-metric="executionScore"] .evc-metric-value {
@@ -421,9 +421,12 @@
   transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.evc-chart-fill.loss { background: #c97a7a; }
-.evc-chart-fill.recovered { background: #3d8b67; }
+.evc-chart-fill.loss { background: #64748b; }
+.evc-chart-fill.recovered { background: #94a3b8; }
 .evc-chart-fill.enterprise { background: #0f2d4a; }
+/* BACKLOG-556 — one neutral site colour, two tints (no red/green “good/bad”). */
+.evc-chart-fill.neutral { background: #475569; }
+.evc-chart-fill.neutral-soft { background: #94a3b8; }
 
 .evc-chart-row span:last-child {
   font-size: 11px;
@@ -493,11 +496,36 @@
   opacity: 0.72;
 }
 
+.evc-cta-block {
+  margin-top: 1.35rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.evc-cta-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.evc-cta-copy {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4f6881;
+}
+
+.evc-cta-block .evc-actions {
+  margin-top: 0.35rem;
+}
+
 .evc-cta-hint {
-  margin: 0.75rem 0 0;
+  margin: 0.35rem 0 0;
   font-size: 13px;
   line-height: 1.5;
-  color: #92400e;
+  color: #4f6881;
 }
 
 .evc-handoff {
@@ -523,4 +551,242 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* TASK-47 — mode + small business */
+.evc-mode {
+  margin-bottom: 1.25rem;
+}
+
+.evc-mode-label {
+  margin: 0 0 0.65rem;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.evc-segment {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.evc-segment-btn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.55rem 0.4rem;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.evc-segment-btn.is-active {
+  background: #0f2d4a;
+  border-color: #0f2d4a;
+  color: #fff;
+}
+
+.evc-mode-hint {
+  margin: 0.65rem 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #64748b;
+}
+
+.evc-currency-row {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 8rem) 1fr;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+}
+
+.evc-currency-row label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.evc-currency-row .evc-field-hint {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.evc-inline-msg {
+  margin: 0.35rem 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #92400e;
+}
+
+.evc-small-kicker {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: #64748b;
+}
+
+.evc-small-big {
+  margin: 0.35rem 0 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1.1;
+  min-height: 1.1em;
+}
+
+.evc-small-hours {
+  margin: 0.5rem 0 1rem;
+  font-size: 14px;
+  color: #4f6881;
+}
+
+.evc-breakdown {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+  width: 100%;
+  overflow: visible;
+}
+
+.evc-breakdown-row {
+  display: grid;
+  /*
+   * BACKLOG-567 — stacked at ALL widths (375 target):
+   * label / full-width track / value one line nowrap.
+   * Unknown: label / empty track / copy under it.
+   */
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+  align-items: stretch;
+  font-size: 13px;
+  color: #415168;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.evc-breakdown-label {
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.evc-breakdown-amt {
+  white-space: nowrap;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.35;
+  justify-self: stretch;
+}
+
+/* Unknown delays: copy under label+bar; may wrap (long sentence). */
+.evc-breakdown-row:has(.evc-breakdown-amt.is-unknown) {
+  grid-template-columns: 1fr;
+}
+.evc-breakdown-row:has(.evc-breakdown-amt.is-unknown) .evc-breakdown-amt {
+  justify-self: stretch;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-overflow: unset;
+  line-height: 1.4;
+  max-width: 100%;
+}
+
+.evc-breakdown .evc-chart-bar {
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.evc-small-results,
+.evc-panel {
+  overflow: hidden;
+  min-width: 0;
+}
+
+.evc-hours-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.evc-hours-live {
+  min-width: 3.25rem;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.evc-how {
+  margin-top: 1rem;
+  font-size: 13px;
+  color: #4f6881;
+}
+
+.evc-how summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.evc-how p {
+  margin: 0.4rem 0 0;
+}
+
+.evc-honest {
+  margin: 0.85rem 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.evc-score-explain {
+  margin: 0.35rem 0 0.85rem;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #4f6881;
+}
+
+.evc-calc-summary {
+  margin: 0 0 1.25rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft-2, #f8fafc);
+  font-size: 14px;
+  line-height: 1.5;
+  color: #415168;
+}
+
+.evc-calc-summary strong {
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .evc-segment {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .evc-currency-row {
+    grid-template-columns: 1fr;
+  }
+  /* BACKLOG-567 — stacked is default at all widths; phone keeps form chrome tweaks only. */
 }

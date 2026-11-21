@@ -8,11 +8,11 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#ffffff">
-  <title>Request Controlled Execution — EXECUTIA®</title>
-  <meta name="description" content="Request a controlled EXECUTIA pilot for one execution point where validation must happen before action.">
+  <title>Request a pilot — EXECUTIA®</title>
+  <meta name="description" content="Tell us which process you want checked. We reply in writing within 48 hours.">
   <link rel="canonical" href="https://executia.io/request">
-  <meta property="og:title" content="Request a pilot: one decision, validated before execution">
-  <meta property="og:description" content="Start narrow: one execution point with a measurable result. Submit a case and get a structured pilot response within 24–48 hours.">
+  <meta property="og:title" content="Request a pilot — EXECUTIA®">
+  <meta property="og:description" content="Tell us which process you want checked. We reply in writing within 48 hours.">
   <meta property="og:url" content="https://executia.io/request">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://executia.io/assets/brand/executia-og-1200x630-v2.png">
@@ -24,33 +24,44 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/app.css">
+  <link rel="stylesheet" href="/assets/execution-value-calculator.css">
+  <link rel="stylesheet" href="/assets/pilot-film-570.css">
 </head>
-<body data-page="pilot">
+<body data-page="request">
 <div data-platform-header></div>
 <main class="main">
   <section class="hero">
     <div class="wrap">
-      <span class="kicker">REQUEST CONTROLLED EXECUTION</span>
-      <h1>Submit one execution case.</h1>
-      <p>The system will register the request and return a structured pilot response.</p>
+      <span class="kicker">PILOT</span>
+      <h1>Request a pilot</h1>
+      <p class="lead">Tell us which process you want checked. We reply in writing within 48 hours.</p>
     </div>
   </section>
   <section class="section soft">
     <div class="wrap form-grid">
       <form id="request-form" class="form-card">
-        <div class="field"><label for="organization">Organization</label><input class="input" id="organization" name="organization" required placeholder="Company, institution or project"></div>
-        <div class="field"><label for="operator">Operator</label><input class="input" id="operator" name="operator" required placeholder="Your name"></div>
-        <div class="field"><label for="email">Email</label><input class="input" id="email" name="email" type="email" required placeholder="name@organization.com"></div>
-        <div class="field"><label for="sector">Execution domain</label><select id="sector" name="sector"><option>Public procurement</option><option>Financial control</option><option>Compliance execution</option><option>Infrastructure operation</option><option>AI agent governance</option><option>Other controlled execution</option></select></div>
-        <div class="field"><label for="context">Execution case</label><textarea id="context" name="context" required placeholder="What action should be validated before it becomes reality?"></textarea></div>
-        <div class="field"><label for="outcome">Expected control result</label><input class="input" id="outcome" name="outcome" placeholder="Blocked errors, faster approvals, auditable proof, reduced bureaucracy..."></div>
-        <button class="pill-btn primary" type="submit">Submit Execution Case</button>
-        <div id="form-message" class="form-msg">Required fields: organization, operator, email and execution case.</div>
+        <div id="calculator-summary" class="evc-calc-summary" hidden></div>
+        <input type="hidden" id="calculator-meta" name="calculatorMeta" value="">
+        <div class="field"><label for="organization">Company</label><input class="input" id="organization" name="organization" required placeholder="Company name" autocomplete="organization"></div>
+        <div class="field"><label for="operator">Your name</label><input class="input" id="operator" name="operator" required placeholder="Your name" autocomplete="name"></div>
+        <div class="field"><label for="email">Work email</label><input class="input" id="email" name="email" type="email" required placeholder="name@company.com" autocomplete="email"></div>
+        <div class="field">
+          <label for="sector">Process to check</label>
+          <select id="sector" name="sector">
+            <option selected>Supplier invoices and payments</option>
+            <option>Customer invoices and collections</option>
+            <option>Purchase approvals</option>
+            <option>Orders and project changes</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field"><label for="context">What went wrong, or what worries you?</label><textarea id="context" name="context" required placeholder="One process. What went wrong, or what you want checked."></textarea></div>
+        <div class="field"><label for="outcome">Invoices or payments per month <span class="pf-optional">(optional)</span></label><input class="input" id="outcome" name="outcome" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 120"></div>
+        <button class="pill-btn primary" type="submit">Request a pilot</button>
+        <div id="form-message" class="form-msg">In writing only. We never ask for passwords or bank logins.</div>
       </form>
       <aside class="side-stack">
-        <div class="card"><span class="tag">Pilot rule</span><h3>Start narrow.</h3><p>A pilot should control one execution point with a measurable result. Not the entire organization.</p></div>
-        <div class="card"><span class="tag">Response</span><h3>24–48H review.</h3><p>The request is sent to the applicant and EXECUTIA operator. No false success is shown if email delivery is not confirmed.</p></div>
-        <div class="card highlight"><span class="tag">System path</span><h3>ENTRY → ENGINE → REQUEST</h3><p>Run the engine first. If the execution logic is clear, request controlled execution for a real process.</p></div>
+        <div class="card"><span class="tag">Written only</span><h3>No calls needed.</h3><p>Scope, timeline and price are agreed in writing before we start.</p></div>
       </aside>
     </div>
   </section>

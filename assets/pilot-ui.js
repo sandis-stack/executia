@@ -221,7 +221,7 @@ function updateCta(root, ctx) {
 
   if (cta) {
     cta.href = buildRequestUrl();
-    cta.textContent = 'Request Pilot Assessment';
+    cta.textContent = 'Request a pilot';
   }
 
   if (hint) {

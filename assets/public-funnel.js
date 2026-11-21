@@ -206,12 +206,18 @@ export function buildFunnelSummary(ctx = loadPublicFunnelContext()) {
   const engine = ctx.engine;
 
   if (calc) {
-    lines.push(`Estimated execution loss: ${formatCurrency(calc.estimatedExecutionLoss.value)}`);
-    lines.push(`Recoverable value (estimated): ${formatCurrency(calc.recoverableValue.value)}`);
-    lines.push(`Calculator Execution Score: ${calc.executionScore.value}/100`);
+    // BACKLOG-556 — transparent calculator persists annualLoss (no Score / Recoverable).
+    if (calc.annualLoss != null) {
+      lines.push(`Estimated annual loss: ${formatCurrency(calc.annualLoss)}`);
+    } else if (calc.estimatedExecutionLoss?.value != null) {
+      lines.push(`Estimated execution loss: ${formatCurrency(calc.estimatedExecutionLoss.value)}`);
+    }
+    if (calc.hoursPerYear != null) {
+      lines.push(`Hours per year: ${calc.hoursPerYear}`);
+    }
   }
   if (assessment?.ok) {
-    lines.push(`Refined Execution Score: ${assessment.executionScore.value}/100`);
+    // BACKLOG-556 / PO A — do not surface unsourced Execution Score on public funnel copy.
     lines.push(`Pilot readiness: ${assessment.pilotRecommendation.readiness}`);
     lines.push(`Pilot recommendation: ${assessment.pilotRecommendation.value}`);
     lines.push(`Gap analysis areas: ${assessment.gapAnalysis.value.length}`);
@@ -221,7 +227,6 @@ export function buildFunnelSummary(ctx = loadPublicFunnelContext()) {
     const summary = engineScenarioSummary(ctx);
     lines.push(`Living Engine: ${engine.decision ?? 'EXECUTION_READY'} — demonstration scenario`);
     lines.push(`Engine mission: ${summary?.mission ?? engine.missionText}`);
-    if (summary?.score != null) lines.push(`Engine Execution Score: ${summary.score}/100`);
     if (summary?.timelineMonths != null) lines.push(`Estimated timeline: ${summary.timelineMonths} months`);
     if (summary?.budget != null) lines.push(`Estimated budget: ${formatCurrency(summary.budget)}`);
     if (summary?.risks != null) lines.push(`Execution risks identified: ${summary.risks}`);
@@ -296,14 +301,21 @@ export function applyOneHandoff() {
     return;
   }
 
-  const score = refinedExecutionScore(ctx);
   if (signIn) signIn.href = buildOneUrl();
 
   if (banner) {
+    const calc = ctx.calculator?.results;
+    const loss =
+      calc?.annualLoss != null
+        ? `Estimated annual loss ${formatCurrency(calc.annualLoss)}`
+        : calc?.estimatedExecutionLoss?.value != null
+          ? `Estimated execution loss ${formatCurrency(calc.estimatedExecutionLoss.value)}`
+          : null;
     banner.hidden = false;
     banner.className = 'evc-handoff';
     banner.innerHTML =
-      `<strong>Funnel context preserved:</strong> Execution Score ${score}/100 · ` +
+      `<strong>Funnel context preserved:</strong> ` +
+      (loss ? `${loss} · ` : '') +
       `Mission: ${missionContext(ctx).slice(0, 80)}… · Sign in without re-entering assessment data.`;
   }
 }
@@ -313,7 +325,12 @@ export function prefillRequestForm(form) {
   const ctx = loadPublicFunnelContext();
   const params = new URLSearchParams(location.search);
   const source = params.get('source');
-  if (source !== 'public-funnel' && source !== 'organization-assessment' && source !== 'execution-value-calculator') {
+  if (
+    source !== 'public-funnel' &&
+    source !== 'organization-assessment' &&
+    source !== 'execution-value-calculator' &&
+    source !== 'calculator'
+  ) {
     if (!ctx.assessment?.results?.ok && !ctx.calculator?.results) return;
   }
 
@@ -338,6 +355,32 @@ export function prefillRequestForm(form) {
   }
 
   if (context) context.value = buildFunnelSummary(ctx);
+
+  // TASK-47 calculator query → summary banner
+  if (source === 'calculator' || source === 'execution-value-calculator') {
+    const mode = params.get('mode') || '';
+    const people = params.get('people');
+    const currency = params.get('currency') || 'USD';
+    const annualLoss = params.get('annualLoss');
+    const hours = params.get('hours');
+    const summary = form.querySelector('#calculator-summary');
+    const meta = form.querySelector('#calculator-meta');
+    const parts = [];
+    if (mode === 'small') {
+      if (people) parts.push(`${people} people`);
+      if (annualLoss) parts.push(`about ${currency} ${Number(annualLoss).toLocaleString('en-US')} a year`);
+      if (hours) parts.push(`${hours} hours/year`);
+    } else if (mode === 'org' && annualLoss) {
+      parts.push(`about ${currency} ${Number(annualLoss).toLocaleString('en-US')} loss/year`);
+    }
+    const line = parts.length ? `From the calculator: ${parts.join(', ')}` : 'From the calculator.';
+    if (summary) {
+      summary.hidden = false;
+      summary.innerHTML = `<strong>${line}</strong> You can edit the form below.`;
+    }
+    if (meta) meta.value = line;
+    if (context && !String(context.value || '').trim()) context.value = line;
+  }
 }
 
 export function initPublicFunnelIntegration() {

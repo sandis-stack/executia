@@ -72,7 +72,7 @@ function buildHeroJourney(ctx = loadPublicFunnelContext()) {
     },
     {
       id: 'pilot',
-      label: 'Request Pilot',
+      label: 'Request a pilot',
       href: '#pilot',
       complete: hasAssessment,
       detail: hasAssessment

@@ -36,12 +36,17 @@
     var assessment = ctx.assessment && ctx.assessment.results;
     var engine = ctx.engine;
     if (calc) {
-      lines.push('Estimated execution loss: ' + fmtMoney(calc.estimatedExecutionLoss.value));
-      lines.push('Recoverable value (estimated): ' + fmtMoney(calc.recoverableValue.value));
-      lines.push('Calculator Execution Score: ' + calc.executionScore.value + '/100');
+      // BACKLOG-556 / PO A — transparent annualLoss; no Score / Recoverable on public summary.
+      if (calc.annualLoss != null) {
+        lines.push('Estimated annual loss: ' + fmtMoney(calc.annualLoss));
+      } else if (calc.estimatedExecutionLoss && calc.estimatedExecutionLoss.value != null) {
+        lines.push('Estimated execution loss: ' + fmtMoney(calc.estimatedExecutionLoss.value));
+      }
+      if (calc.hoursPerYear != null) {
+        lines.push('Hours per year: ' + calc.hoursPerYear);
+      }
     }
     if (assessment && assessment.ok) {
-      lines.push('Refined Execution Score: ' + assessment.executionScore.value + '/100');
       lines.push('Pilot readiness: ' + assessment.pilotRecommendation.readiness);
       lines.push('Pilot recommendation: ' + assessment.pilotRecommendation.value);
       if (assessment.gapAnalysis && assessment.gapAnalysis.value) {
@@ -51,9 +56,6 @@
     if (engine && engine.completed) {
       lines.push('Living Engine: ' + (engine.decision || 'EXECUTION_READY'));
       lines.push('Engine mission: ' + engine.missionText);
-      if (engine.outputs && engine.outputs.executionScore) {
-        lines.push('Engine Execution Score: ' + engine.outputs.executionScore.value + '/100');
-      }
       if (engine.outputs && engine.outputs.estimatedTimeline) {
         lines.push('Estimated timeline: ' + engine.outputs.estimatedTimeline.months + ' months');
       }
@@ -117,6 +119,39 @@
       }
     }
     if (context && (ctx.assessment || ctx.calculator)) context.value = buildSummary(ctx);
+
+    // TASK-47 — calculator query params → editable summary
+    try {
+      var params = new URLSearchParams(window.location.search || '');
+      var source = params.get('source');
+      if (source === 'calculator' || source === 'execution-value-calculator') {
+        var mode = params.get('mode') || '';
+        var people = params.get('people');
+        var currency = params.get('currency') || 'USD';
+        var annualLoss = params.get('annualLoss');
+        var hours = params.get('hours');
+        var summary = form.querySelector('#calculator-summary');
+        var meta = form.querySelector('#calculator-meta');
+        var parts = [];
+        if (mode === 'small') {
+          parts.push(people ? people + ' people' : 'small business');
+          if (annualLoss) parts.push('about ' + currency + ' ' + Number(annualLoss).toLocaleString('en-US') + ' a year');
+          if (hours) parts.push(hours + ' hours/year');
+        } else if (mode === 'org') {
+          parts.push('organization estimate');
+          if (annualLoss) parts.push('about ' + currency + ' ' + Number(annualLoss).toLocaleString('en-US') + ' loss/year');
+        }
+        var line = parts.length
+          ? 'From the calculator: ' + parts.join(', ')
+          : 'From the calculator.';
+        if (summary) {
+          summary.hidden = false;
+          summary.innerHTML = '<strong>' + line + '</strong> You can edit the form below.';
+        }
+        if (meta) meta.value = line;
+        if (context && !context.value) context.value = line;
+      }
+    } catch (_e) {}
   }
 
   function wirePilotLinks() {
@@ -173,11 +208,19 @@
     var banner = document.getElementById('ev-one-handoff');
     if (!banner || !ctxHasAssessment()) return;
     var ctx = loadCtx();
-    var score = ctx.assessment.results.executionScore.value;
+    var calc = ctx.calculator && ctx.calculator.results;
+    var loss = null;
+    if (calc && calc.annualLoss != null) loss = 'Estimated annual loss ' + fmtMoney(calc.annualLoss);
+    else if (calc && calc.estimatedExecutionLoss && calc.estimatedExecutionLoss.value != null) {
+      loss = 'Estimated execution loss ' + fmtMoney(calc.estimatedExecutionLoss.value);
+    }
     var mission = (ctx.engine && ctx.engine.missionText) || 'Assessment mission context preserved';
     banner.hidden = false;
     banner.className = 'evc-handoff';
-    banner.innerHTML = '<strong>Funnel context preserved:</strong> Execution Score ' + score + '/100 · Mission: ' + mission.slice(0, 80) + '… · Sign in without re-entering assessment data.';
+    banner.innerHTML =
+      '<strong>Funnel context preserved:</strong> ' +
+      (loss ? loss + ' · ' : '') +
+      'Mission: ' + mission.slice(0, 80) + '… · Sign in without re-entering assessment data.';
   }
 
   document.addEventListener('DOMContentLoaded', function () {

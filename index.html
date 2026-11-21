@@ -21,14 +21,23 @@
   <meta property="og:image:alt" content="EXECUTIA® — Human defines the outcome. EXECUTIA governs the execution.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://executia.io/assets/brand/executia-og-1200x630-v2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <!-- BACKLOG-556 — Inter critical; Source Serif below-fold deferred; extra CSS deferred. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="/assets/app.css">
   <link rel="stylesheet" href="/assets/homepage-migrated.css">
-  <link rel="stylesheet" href="/assets/execution-value-calculator.css">
-  <link rel="stylesheet" href="/assets/pilot.css">
-  <link rel="stylesheet" href="/assets/executive-architecture.css">
-  <link rel="stylesheet" href="/assets/institutional-readiness.css?v=mobile-20261110">
+  <link rel="stylesheet" href="/assets/execution-value-calculator.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/pilot.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/executive-architecture.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/assets/institutional-readiness.css?v=mobile-20261110" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="/assets/execution-value-calculator.css">
+    <link rel="stylesheet" href="/assets/pilot.css">
+    <link rel="stylesheet" href="/assets/executive-architecture.css">
+    <link rel="stylesheet" href="/assets/institutional-readiness.css?v=mobile-20261110">
+  </noscript>
 
 <script type="application/ld+json">
 {
@@ -89,7 +98,7 @@
       <a data-nav="one" href="/one">ONE</a>
       <a data-nav="gov" href="/standard">GOV</a>
     </nav>
-    <div class="header-cta"><a class="pill-btn" href="/request">Request Pilot</a></div>
+    <div class="header-cta"><a class="pill-btn" href="/request">Request a pilot</a></div>
   </div>
 </header>
 <main class="main">
@@ -477,91 +486,93 @@
 
           <div id="execution-value-calculator" class="evc-shell">
             <div class="evc-panel">
-              <form id="ev-calculator-form" novalidate>
-                <div class="evc-form-grid">
-                  <div class="evc-field">
-                    <label for="ev-industry">Industry</label>
-                    <select class="input" id="ev-industry" name="industry" required></select>
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-revenue">Annual Revenue (USD)</label>
-                    <input class="input" id="ev-revenue" name="annualRevenue" type="number" min="1000000" step="100000" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-employees">Employees</label>
-                    <input class="input" id="ev-employees" name="employees" type="number" min="10" step="1" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-countries">Countries</label>
-                    <input class="input" id="ev-countries" name="countries" type="number" min="1" max="120" step="1" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-projects">Active Projects</label>
-                    <input class="input" id="ev-projects" name="activeProjects" type="number" min="1" step="1" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-project-value">Average Project Value (USD)</label>
-                    <input class="input" id="ev-project-value" name="averageProjectValue" type="number" min="10000" step="10000" required inputmode="numeric">
-                  </div>
-                  <div class="evc-field">
-                    <label for="ev-ebit">EBIT Margin (%) <span class="optional">Optional</span></label>
-                    <input class="input" id="ev-ebit" name="ebitMargin" type="number" min="-50" max="80" step="0.1" inputmode="decimal" placeholder="e.g. 12">
-                  </div>
-                  <fieldset class="evc-field evc-field-full evc-risks-block">
-                    <legend class="evc-field-legend">Optional Major Risks</legend>
-                    <p class="evc-field-hint">Select all that apply.</p>
-                    <div id="ev-risks" class="evc-risks"></div>
-                  </fieldset>
+              <div class="evc-mode">
+                <p class="evc-mode-label">How many people work in your company?</p>
+                <div id="ev-headcount-band" class="evc-segment" role="group" aria-label="Company size">
+                  <button type="button" class="evc-segment-btn is-active" data-band="1-9" aria-pressed="true">1–9</button>
+                  <button type="button" class="evc-segment-btn" data-band="10-49" aria-pressed="false">10–49</button>
+                  <button type="button" class="evc-segment-btn" data-band="50-249" aria-pressed="false">50–249</button>
+                  <button type="button" class="evc-segment-btn" data-band="250+" aria-pressed="false">250+</button>
                 </div>
-              </form>
+                <p id="ev-mode-hint" class="evc-mode-hint">Under 50 people, we use a simpler calculation based on time.</p>
+                <div class="evc-currency-row">
+                  <label for="ev-currency">Currency</label>
+                  <select class="input" id="ev-currency" name="currency"></select>
+                  <p id="ev-fx-note" class="evc-field-hint"></p>
+                </div>
+              </div>
+
+              <div data-mode-panel="small">
+                <form id="ev-small-form" novalidate>
+                  <div class="evc-form-grid">
+                    <div class="evc-field">
+                      <label for="ev-people">People</label>
+                      <input class="input" id="ev-people" name="people" type="number" min="1" step="1" required inputmode="numeric">
+                      <p class="evc-field-hint">Estimate. Change it to your own.</p>
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-hourly">Average cost per hour per person</label>
+                      <input class="input" id="ev-hourly" name="hourlyCost" type="number" min="0" step="1" required inputmode="numeric">
+                      <p class="evc-field-hint">Estimate. Change it to your own.</p>
+                    </div>
+                    <div class="evc-field evc-field-full">
+                      <label for="ev-hours">Hours per person per week spent retyping, chasing status, and double-checking</label>
+                      <div class="evc-hours-row">
+                        <input class="input" id="ev-hours" name="hoursPerWeek" type="range" min="0" max="15" step="1" value="4">
+                        <span class="evc-hours-live" id="ev-hours-value" aria-live="polite">4 h</span>
+                      </div>
+                      <p class="evc-field-hint">0–15 hours. Default 4.</p>
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-stuck">Decisions or orders per month that get stuck or delayed</label>
+                      <input class="input" id="ev-stuck" name="stuckPerMonth" type="number" min="0" step="1" inputmode="numeric" placeholder="">
+                      <p class="evc-field-hint">Leave blank until you know.</p>
+                    </div>
+                    <div class="evc-field">
+                      <label for="ev-delay-cost">What one week of delay usually costs you</label>
+                      <input class="input" id="ev-delay-cost" name="delayWeekCost" type="number" min="0" step="1" inputmode="numeric" placeholder="">
+                      <p class="evc-field-hint">Enter both delay fields to include delays in the total.</p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <!-- BACKLOG-556 — Organization uses the same transparent form (panel toggled via JS labels/defaults). -->
+              <div data-mode-panel="org" hidden aria-hidden="true"></div>
             </div>
 
             <div class="evc-panel">
-              <div id="ev-calculator-results" class="evc-results" aria-live="polite" aria-relevant="additions text">
-                <div class="evc-metric" data-metric="estimatedExecutionLoss">
-                  <span class="evc-metric-name">Execution Loss</span>
-                  <span class="evc-metric-kind"></span>
-                  <span class="evc-metric-value loss">—</span>
+              <div id="ev-small-results" class="evc-small-results" aria-live="polite">
+                <p class="evc-small-kicker">Estimated Loss Per Year</p>
+                <p class="evc-small-big" data-small="annualLoss">—</p>
+                <p class="evc-small-hours" data-small="hoursLine"></p>
+                <div class="evc-breakdown">
+                  <div class="evc-breakdown-row">
+                    <span class="evc-breakdown-label">Duplicate work and checking</span>
+                    <div class="evc-chart-bar"><div class="evc-chart-fill neutral" data-bar="duplicate" style="width:0"></div></div>
+                    <span class="evc-breakdown-amt" data-small="duplicateAmt">—</span>
+                  </div>
+                  <div class="evc-breakdown-row">
+                    <span class="evc-breakdown-label">Delays</span>
+                    <div class="evc-chart-bar"><div class="evc-chart-fill neutral-soft" data-bar="delays" style="width:0"></div></div>
+                    <span class="evc-breakdown-amt" data-small="delaysAmt">—</span>
+                  </div>
                 </div>
-                <div class="evc-metric" data-metric="recoverableValue">
-                  <span class="evc-metric-name">Recoverable Value</span>
-                  <span class="evc-metric-kind"></span>
-                  <span class="evc-metric-value gain">—</span>
-                </div>
-                <div class="evc-metric" data-metric="enterpriseValueCreated">
-                  <span class="evc-metric-name">Enterprise Value Created</span>
-                  <span class="evc-metric-kind"></span>
-                  <span class="evc-metric-value gain">—</span>
-                </div>
-                <div class="evc-metric" data-metric="executionScore">
-                  <span class="evc-metric-name">Execution Score</span>
-                  <span class="evc-metric-kind"></span>
-                  <span class="evc-metric-value">—</span>
-                </div>
+                <details class="evc-how">
+                  <summary>How we calculated this</summary>
+                  <div data-small="formulas"></div>
+                </details>
+                <p class="evc-honest">This is an estimate built from your own numbers.</p>
               </div>
 
-              <div id="ev-calculator-chart" class="evc-chart" aria-hidden="false">
-                <div class="evc-chart-row">
-                  <span>Execution Loss</span>
-                  <div class="evc-chart-bar"><div class="evc-chart-fill loss" data-bar="loss" style="width:0"></div></div>
-                  <span data-pct="loss">—</span>
+              <div class="evc-cta-block">
+                <p class="evc-cta-title">Want to see where it’s coming from?</p>
+                <p class="evc-cta-copy">Send us one decision. We’ll map where it got stuck and what it costs. Free, in writing.</p>
+                <div class="evc-actions">
+                  <a class="pill-btn primary evc-cta-primary" id="ev-cta-assessment" href="/request" aria-disabled="false">Send one decision</a>
                 </div>
-                <div class="evc-chart-row">
-                  <span>Recovered Value</span>
-                  <div class="evc-chart-bar"><div class="evc-chart-fill recovered" data-bar="recovered" style="width:0"></div></div>
-                  <span data-pct="recovered">—</span>
-                </div>
-                <div class="evc-chart-row">
-                  <span>Enterprise Value</span>
-                  <div class="evc-chart-bar"><div class="evc-chart-fill enterprise" data-bar="enterprise" style="width:0"></div></div>
-                  <span data-pct="enterprise">—</span>
-                </div>
+                <p id="ev-cta-assessment-hint" class="evc-cta-hint" role="status"></p>
               </div>
-
-              <div class="evc-actions">
-                <a class="pill-btn primary evc-cta-primary" id="ev-cta-assessment" href="#pilot" aria-disabled="true">See what happens next</a>
-              </div>
-              <p id="ev-cta-assessment-hint" class="evc-cta-hint" role="status"></p>
               <p id="ev-calculator-live" class="evc-live" hidden></p>
             </div>
           </div>
@@ -606,7 +617,7 @@
       </ol>
 
       <div class="hp-pilot-actions" id="pilot-product">
-        <a class="hp-pilot-cta-link" id="ev-cta-pilot-request" href="/request" data-funnel-request>Request Pilot Assessment</a>
+        <a class="hp-pilot-cta-link" id="ev-cta-pilot-request" href="/request" data-funnel-request>Request a pilot</a>
         <p id="pi-cta-hint" class="hp-pilot-hint" role="status"></p>
         <div id="ev-pilot-handoff" class="pi-handoff" hidden></div>
       </div>
@@ -616,14 +627,14 @@
 </main>
 <div class="hp-entry-close" aria-hidden="true"></div>
 <footer class="site-footer entry-footer" role="contentinfo" data-footer-ssr="true"><div class="entry-footer-inner"><svg class="entry-footer-mark" viewBox="3 4 56 56" aria-hidden="true" focusable="false"><circle cx="10" cy="32" r="4" fill="#008C9C"/><path fill="currentColor" d="M24 8h32v8H32v12h20v8H32v12h24v8H24V36h-6v-8h6z"/></svg><p class="entry-footer-brand">EXECUTIA<span class="brand-tm">®</span></p><p class="entry-footer-standard">EXECUTIA validates execution before it happens.</p><hr class="entry-footer-rule" /><p class="entry-footer-model">Built around the Execution Integrity Model®.</p><hr class="entry-footer-rule" /><nav class="entry-footer-nav entry-footer-nav--legal" aria-label="Legal and contact"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/cookies">Cookies</a><a href="/gdpr">Data Protection</a><a href="/contact">Contact</a><a href="/about">About</a><a href="https://www.linkedin.com/in/sandis-boiko-189405281" target="_blank" rel="noopener noreferrer">Sandis Boiko · LinkedIn</a></nav><hr class="entry-footer-rule" /><p class="entry-footer-copy">© 2026 EXECUTIA AS · Org. no. 838 230 962</p><p class="entry-footer-copy">Lerkeveien 6B, 4314 Sandnes, Norway</p><p class="entry-footer-copy"><a href="mailto:contact@executia.io">contact@executia.io</a></p></div></footer>
-<script src="/assets/platform-brand.js"></script>
-<script src="/assets/platform-nav.js"></script>
+<script src="/assets/platform-brand.js" defer></script>
+<script src="/assets/platform-nav.js" defer></script>
 <script type="module" src="/assets/homepage-hero.js"></script>
 <script src="/assets/homepage-story-film.js" defer></script>
 <script src="/assets/homepage-how-it-works.js?v=engine-emerge-1" defer></script>
 <script type="module" src="/assets/execution-value-calculator.js"></script>
 <script type="module" src="/assets/pilot-ui.js"></script>
-<script src="/assets/public-funnel-bootstrap.js"></script>
+<script src="/assets/public-funnel-bootstrap.js" defer></script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>
