@@ -26,8 +26,37 @@
     };
   }
 
-  function fmtMoney(n) {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+  function sanitizeCurrency(code) {
+    var u = String(code || 'USD').toUpperCase();
+    return /^[A-Z]{3}$/.test(u) ? u : 'USD';
+  }
+
+  function calculatorCurrency(ctx) {
+    var calc = ctx && ctx.calculator;
+    return sanitizeCurrency(
+      (calc && calc.currency) ||
+        (calc && calc.results && calc.results.currency) ||
+        (calc && calc.inputs && calc.inputs.currency) ||
+        'USD',
+    );
+  }
+
+  function fmtMoney(n, currency) {
+    var code = sanitizeCurrency(currency || 'USD');
+    try {
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: code, maximumFractionDigits: 0 }).format(n);
+    } catch (_e) {
+      return code + ' ' + Math.round(Number(n) || 0).toLocaleString('en-US');
+    }
+  }
+
+  function setStrongLine(el, line) {
+    // Security (#585): never assign HTML built from URL/session/form strings.
+    el.textContent = '';
+    var strong = document.createElement('strong');
+    strong.textContent = line;
+    el.appendChild(strong);
+    el.appendChild(document.createTextNode(' You can edit the form below.'));
   }
 
   function buildSummary(ctx) {
@@ -38,9 +67,9 @@
     if (calc) {
       // BACKLOG-556 / PO A — transparent annualLoss; no Score / Recoverable on public summary.
       if (calc.annualLoss != null) {
-        lines.push('Estimated annual loss: ' + fmtMoney(calc.annualLoss));
+        lines.push('Estimated annual loss: ' + fmtMoney(calc.annualLoss, calculatorCurrency(ctx)));
       } else if (calc.estimatedExecutionLoss && calc.estimatedExecutionLoss.value != null) {
-        lines.push('Estimated execution loss: ' + fmtMoney(calc.estimatedExecutionLoss.value));
+        lines.push('Estimated execution loss: ' + fmtMoney(calc.estimatedExecutionLoss.value, calculatorCurrency(ctx)));
       }
       if (calc.hoursPerYear != null) {
         lines.push('Hours per year: ' + calc.hoursPerYear);
@@ -127,13 +156,13 @@
       if (source === 'calculator' || source === 'execution-value-calculator') {
         var mode = params.get('mode') || '';
         var people = params.get('people');
-        var currency = (params.get('currency') || 'USD').toUpperCase();
-        if (!/^[A-Z]{3}$/.test(currency)) currency = 'USD';
+        var currency = sanitizeCurrency(params.get('currency') || 'USD');
         var annualLoss = params.get('annualLoss');
         var hours = params.get('hours');
         var summary = form.querySelector('#calculator-summary');
         var meta = form.querySelector('#calculator-meta');
         var parts = [];
+        // people/hours/annualLoss are treated as plain text in parts (never HTML).
         if (mode === 'small') {
           parts.push(people ? people + ' people' : 'small business');
           if (annualLoss) parts.push('about ' + currency + ' ' + Number(annualLoss).toLocaleString('en-US') + ' a year');
@@ -147,12 +176,7 @@
           : 'From the calculator.';
         if (summary) {
           summary.hidden = false;
-          // Security (Bugbot PR #9): never build HTML from URL params — text nodes only.
-          summary.textContent = '';
-          var strong = document.createElement('strong');
-          strong.textContent = line;
-          summary.appendChild(strong);
-          summary.appendChild(document.createTextNode(' You can edit the form below.'));
+          setStrongLine(summary, line);
         }
         if (meta) meta.value = line;
         if (context && !context.value) context.value = line;
@@ -216,17 +240,23 @@
     var ctx = loadCtx();
     var calc = ctx.calculator && ctx.calculator.results;
     var loss = null;
-    if (calc && calc.annualLoss != null) loss = 'Estimated annual loss ' + fmtMoney(calc.annualLoss);
+    var cur = calculatorCurrency(ctx);
+    if (calc && calc.annualLoss != null) loss = 'Estimated annual loss ' + fmtMoney(calc.annualLoss, cur);
     else if (calc && calc.estimatedExecutionLoss && calc.estimatedExecutionLoss.value != null) {
-      loss = 'Estimated execution loss ' + fmtMoney(calc.estimatedExecutionLoss.value);
+      loss = 'Estimated execution loss ' + fmtMoney(calc.estimatedExecutionLoss.value, cur);
     }
     var mission = (ctx.engine && ctx.engine.missionText) || 'Assessment mission context preserved';
     banner.hidden = false;
     banner.className = 'evc-handoff';
-    banner.innerHTML =
-      '<strong>Funnel context preserved:</strong> ' +
-      (loss ? loss + ' · ' : '') +
-      'Mission: ' + mission.slice(0, 80) + '… · Sign in without re-entering assessment data.';
+    banner.textContent = '';
+    var strong = document.createElement('strong');
+    strong.textContent = 'Funnel context preserved:';
+    banner.appendChild(strong);
+    banner.appendChild(
+      document.createTextNode(
+        ' ' + (loss ? loss + ' · ' : '') + 'Mission: ' + String(mission).slice(0, 80) + '… · Sign in without re-entering assessment data.',
+      ),
+    );
   }
 
   document.addEventListener('DOMContentLoaded', function () {

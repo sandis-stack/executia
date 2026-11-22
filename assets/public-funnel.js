@@ -8,6 +8,12 @@ import { loadOrganizationAssessment, ASSESSMENT_STORAGE_KEY } from './organizati
 
 export const ENGINE_RUN_KEY = 'executia.publicFunnel.engine.v1';
 
+/** BACKLOG-585 — ISO 4217 whitelist for URL/session currency. */
+export function sanitizeCurrency(code) {
+  const u = String(code || 'USD').toUpperCase();
+  return /^[A-Z]{3}$/.test(u) ? u : 'USD';
+}
+
 export function loadEngineRun() {
   if (typeof sessionStorage === 'undefined') return null;
   try {
@@ -206,11 +212,14 @@ export function buildFunnelSummary(ctx = loadPublicFunnelContext()) {
   const engine = ctx.engine;
 
   if (calc) {
-    // BACKLOG-556 — transparent calculator persists annualLoss (no Score / Recoverable).
+    // BACKLOG-556 / #585 — transparent annualLoss; currency from calculator; no Score / Recoverable.
+    const currency = sanitizeCurrency(
+      ctx.calculator?.currency || calc.currency || ctx.calculator?.inputs?.currency || 'USD',
+    );
     if (calc.annualLoss != null) {
-      lines.push(`Estimated annual loss: ${formatCurrency(calc.annualLoss)}`);
+      lines.push(`Estimated annual loss: ${formatCurrency(calc.annualLoss, currency)}`);
     } else if (calc.estimatedExecutionLoss?.value != null) {
-      lines.push(`Estimated execution loss: ${formatCurrency(calc.estimatedExecutionLoss.value)}`);
+      lines.push(`Estimated execution loss: ${formatCurrency(calc.estimatedExecutionLoss.value, currency)}`);
     }
     if (calc.hoursPerYear != null) {
       lines.push(`Hours per year: ${calc.hoursPerYear}`);
@@ -305,18 +314,27 @@ export function applyOneHandoff() {
 
   if (banner) {
     const calc = ctx.calculator?.results;
+    const currency = sanitizeCurrency(
+      ctx.calculator?.currency || calc?.currency || ctx.calculator?.inputs?.currency || 'USD',
+    );
     const loss =
       calc?.annualLoss != null
-        ? `Estimated annual loss ${formatCurrency(calc.annualLoss)}`
+        ? `Estimated annual loss ${formatCurrency(calc.annualLoss, currency)}`
         : calc?.estimatedExecutionLoss?.value != null
-          ? `Estimated execution loss ${formatCurrency(calc.estimatedExecutionLoss.value)}`
+          ? `Estimated execution loss ${formatCurrency(calc.estimatedExecutionLoss.value, currency)}`
           : null;
     banner.hidden = false;
     banner.className = 'evc-handoff';
-    banner.innerHTML =
-      `<strong>Funnel context preserved:</strong> ` +
-      (loss ? `${loss} · ` : '') +
-      `Mission: ${missionContext(ctx).slice(0, 80)}… · Sign in without re-entering assessment data.`;
+    // Security (#585): session/mission text as text nodes only (never innerHTML).
+    banner.textContent = '';
+    const strong = document.createElement('strong');
+    strong.textContent = 'Funnel context preserved:';
+    banner.appendChild(strong);
+    banner.appendChild(
+      document.createTextNode(
+        ` ${loss ? `${loss} · ` : ''}Mission: ${missionContext(ctx).slice(0, 80)}… · Sign in without re-entering assessment data.`,
+      ),
+    );
   }
 }
 
@@ -356,11 +374,11 @@ export function prefillRequestForm(form) {
 
   if (context) context.value = buildFunnelSummary(ctx);
 
-  // TASK-47 calculator query → summary banner
+  // TASK-47 / #585 calculator query → summary banner (text nodes only).
   if (source === 'calculator' || source === 'execution-value-calculator') {
     const mode = params.get('mode') || '';
     const people = params.get('people');
-    const currency = params.get('currency') || 'USD';
+    const currency = sanitizeCurrency(params.get('currency') || 'USD');
     const annualLoss = params.get('annualLoss');
     const hours = params.get('hours');
     const summary = form.querySelector('#calculator-summary');
@@ -376,7 +394,11 @@ export function prefillRequestForm(form) {
     const line = parts.length ? `From the calculator: ${parts.join(', ')}` : 'From the calculator.';
     if (summary) {
       summary.hidden = false;
-      summary.innerHTML = `<strong>${line}</strong> You can edit the form below.`;
+      summary.textContent = '';
+      const strong = document.createElement('strong');
+      strong.textContent = line;
+      summary.appendChild(strong);
+      summary.appendChild(document.createTextNode(' You can edit the form below.'));
     }
     if (meta) meta.value = line;
     if (context && !String(context.value || '').trim()) context.value = line;
